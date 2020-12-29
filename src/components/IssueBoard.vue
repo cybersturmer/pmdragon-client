@@ -35,10 +35,10 @@
       <div
         class="xs-hide md-hide sm-hide col-auto">
         <q-chip
-          v-show="estimation"
+          v-show="estimationTitle"
           dark
           size="md"
-          :label="estimation"
+          :label="estimationTitle"
           color="secondary"
           text-color="amber"
           style="border-radius: 15px"/>
@@ -57,10 +57,10 @@ export default {
     }
   },
   computed: {
-    assignee: function () {
+    assignee () {
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
     },
-    estimation: function () {
+    estimationTitle () {
       const estimation = this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
       try {
         return estimation.title
@@ -68,17 +68,17 @@ export default {
         return ''
       }
     },
-    isAvatar: function () {
+    isAvatar () {
       try {
         return this.assignee.avatar
       } catch (e) {
         return false
       }
     },
-    assigneeUsername: function () {
+    assigneeUsername () {
       return this.assignee ? this.assignee.username : false
     },
-    isDone: function () {
+    isDone () {
       return this.$store.getters['issues/IS_ISSUE_STATE_DONE'](this.issue.state_category)
     },
     isIssueTypeIcon () {
