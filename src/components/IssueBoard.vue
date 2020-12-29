@@ -5,33 +5,45 @@
     bordered
     class="my-card q-ma-sm overflow-hidden text-center issue-backlog">
     <q-card-section>
-      <span :class="`text-muted ${ this.isDone ? 'text-strike': '' }`">
+      <span :class="`text-muted ${ isDone ? 'text-strike': '' }`">
         #{{ issue.id }}
         <q-icon
           v-if="isIssueTypeIcon"
           :name="getIssueTypeIcon.prefix"
           :color="getIssueTypeIcon.color"
           size="xs"
-          :title="getIssueTypeTitle"
-        />
+          :title="getIssueTypeTitle"/>
         {{ issue.title }}
       </span>
     </q-card-section>
-    <q-card-actions horizontal align="right">
-      <q-chip
-              v-if="assigneeUsername"
-              dark
-              size="md"
-              color="secondary"
-              text-color="amber"
-              style="border-radius: 15px"
-      >
-        <q-avatar v-if="isAvatar">
-          <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
-        </q-avatar>
-        @{{ assigneeUsername }}
-      </q-chip>
-    </q-card-actions>
+    <q-card-section class="q-pa-xs justify-around items-center" horizontal>
+      <div class="col-auto">
+        <q-chip
+            v-if="assigneeUsername"
+            dark
+            class="text-left"
+            size="md"
+            color="secondary"
+            text-color="amber"
+            style="border-radius: 15px">
+          <q-avatar v-if="isAvatar">
+            <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
+          </q-avatar>
+          <span>@{{ assigneeUsername }}</span>
+        </q-chip>
+      </div>
+      <div
+        class="xs-hide md-hide sm-hide col-auto">
+        <q-chip
+          v-show="estimation"
+          dark
+          size="md"
+          :label="estimation"
+          color="secondary"
+          text-color="amber"
+          style="border-radius: 15px"/>
+      </div>
+    </q-card-section>
   </q-card>
 </template>
 
@@ -47,6 +59,14 @@ export default {
   computed: {
     assignee: function () {
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
+    },
+    estimation: function () {
+      const estimation = this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
+      try {
+        return estimation.title
+      } catch (e) {
+        return ''
+      }
     },
     isAvatar: function () {
       try {

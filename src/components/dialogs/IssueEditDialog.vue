@@ -211,6 +211,18 @@
               :option-label="(item) => `${item.first_name} ${item.last_name}`"
               option-value="id"
             />
+            <!-- Selection for story points -->
+            <q-select
+              dark
+              flat
+              square
+              dense
+              :value="estimation"
+              @input="updateIssueEstimation($event)"
+              :options="estimations"
+              :option-label="(item) => item ? `${item.title}`: 'None'"
+              option-value="id"
+            />
           </q-card-section>
           <q-card-section>
             <!-- Readonly props such as created at and updated at -->
@@ -402,6 +414,17 @@ export default {
 
       this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_assignee', payload)
+    },
+    updateIssueEstimation (estimation) {
+      this.formData.issue.estimation_category = estimation.id
+
+      const payload = {
+        id: this.formData.issue.id,
+        estimation_category: estimation.id
+      }
+
+      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$emit('update_estimation', payload)
     },
     updateIssueTitle (title) {
       /** update Issue Title
@@ -618,6 +641,19 @@ export default {
     }
   },
   computed: {
+    estimations () {
+      return this.$store.getters['issues/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
+    },
+    estimation () {
+      return this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category)
+    },
+    estimationTitle () {
+      try {
+        return this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category).title
+      } catch (e) {
+        return 'None'
+      }
+    },
     createdAt () {
       return date.formatDate(this.formData.issue.created_at, DATETIME_MASK)
     },

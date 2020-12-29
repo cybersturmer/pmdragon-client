@@ -129,6 +129,24 @@ export function IS_ISSUE_TYPE_HAVE_ICON (state) {
   }
 }
 
+export function ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
+  return state.issue_estimations
+    .filter((issueEstimation) => issueEstimation.project === rootGetters['current/PROJECT'])
+}
+
+export function ISSUE_ESTIMATION_BY_ID (state) {
+  return issueEstimationId => {
+    if (issueEstimationId === null) return false
+
+    try {
+      return state.issue_estimations
+        .find(issueEstimation => issueEstimation.id === issueEstimationId)
+    } catch (e) {
+      return null
+    }
+  }
+}
+
 export function WORKSPACE_SPRINT_DURATION (state, getters, rootState, rootGetters) {
   return state.sprint_durations
     .filter((sprintDuration) => sprintDuration.workspace === rootGetters['current/WORKSPACE_ID'])
