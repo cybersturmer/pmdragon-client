@@ -1,6 +1,5 @@
 import axios from 'axios'
 import $store from 'src/store'
-import { DEBUG, PROD_ENV, DEBUG_ENV } from 'src/.env'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
 
 export class Api {
@@ -16,7 +15,7 @@ export class Api {
     /** These options are completely for axios
      * https://github.com/axios/axios#config-defaults **/
     this.axiosOptions = {
-      baseURL: DEBUG ? DEBUG_ENV.url : PROD_ENV.url,
+      baseURL: $store.getters['connection/HOST'],
       withCredentials: false,
       timeout: 1000,
       validateStatus: (data) => this._expectStatus(data)

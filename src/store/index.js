@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import auth from './auth'
 import current from './current'
 import issues from './issues'
+import connection from './connection'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    connection,
     auth,
     current,
     issues
