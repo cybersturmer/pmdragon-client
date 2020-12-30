@@ -129,21 +129,18 @@ export function ADD_PROJECT (state, payload) {
   LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
-export function LOGOUT (state) {
-  state.user_id = null
-  state.workspaces = []
-  state.persons = []
-  state.tokens = {
-    access: {
-      data: null,
-      expired_at: null
-    },
-    refresh: {
-      data: null,
-      expired_at: null
-    }
+export function RESET () {
+  const localStorageResetList = [
+    'user_id',
+    'workspaces',
+    'persons',
+    'invited',
+    'tokens.access'
+  ]
+
+  for (const element of localStorageResetList) {
+    LocalStorage.remove(`auth.${element}`)
   }
 
-  LocalStorage.clear()
-  SessionStorage.clear()
+  SessionStorage.remove('auth.tokens.refresh')
 }

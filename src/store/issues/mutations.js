@@ -239,11 +239,18 @@ export function UNBIND_ISSUE_FROM_SPRINT (state, payload) {
     .filter((sprint) => payload.id in sprint.issues)
 }
 
-export function RESET (state) {
-  state.backlogs = []
-  state.sprints = []
-  state.issues = []
-  state.issue_states = []
-  state.issue_types = []
-  state.sprint_durations = []
+export function RESET () {
+  const localStorageResetList = [
+    'backlogs',
+    'sprints',
+    'issues',
+    'issue_types',
+    'issue_states',
+    'issue_estimations',
+    'sprint_durations'
+  ]
+
+  for (const element of localStorageResetList) {
+    LocalStorage.remove(`issues.${element}`)
+  }
 }

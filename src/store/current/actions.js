@@ -10,7 +10,7 @@ export function SELECT_INTERFACE_THEME ({ commit }, payload) {
   commit('SELECT_INTERFACE_THEME', payload)
 }
 
-export function RESET_STATE ({ commit }) {
+export function RESET ({ commit }) {
   commit('RESET')
 }
 

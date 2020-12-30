@@ -1,7 +1,8 @@
 <template>
   <q-page class="flex flex-center">
+    <ChangeConnectionElement/>
         <q-card dark flat bordered class="my-card" style="width: 320px">
-          <q-card-section style="padding: 16px 16px 0 16px">
+          <q-card-section class="q-pa-md">
             <div class="column">
               <div class="col">
                 <UsernameField
@@ -47,10 +48,11 @@ import { ErrorHandler } from 'src/services/util'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PasswordField from 'components/fields/PasswordField'
 import UsernameField from 'components/fields/UsernameField'
+import ChangeConnectionElement from 'components/elements/ChangeConnectionElement'
 
 export default {
   name: 'Login',
-  components: { UsernameField, PasswordField },
+  components: { UsernameField, PasswordField, ChangeConnectionElement },
   mixins: [Dialogs, fieldValidationMixin],
   data () {
     return {
@@ -67,8 +69,8 @@ export default {
   methods: {
     async login () {
       try {
-        await this.$store.dispatch('current/RESET_STATE')
-        await this.$store.dispatch('auth/LOGOUT')
+        await this.$store.dispatch('current/RESET')
+        await this.$store.dispatch('auth/RESET')
         await this.$store.dispatch('issues/RESET')
 
         await this.$store.dispatch('auth/LOGIN', this.formData)

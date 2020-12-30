@@ -28,8 +28,14 @@ export function SELECT_INTERFACE_THEME (state, payload) {
   LocalStorage.set('current.interface_theme', payload)
 }
 
-export function RESET (state) {
-  state.workspace = null
-  state.project = null
-  state.interface_theme = null
+export function RESET () {
+  const localStorageResetList = [
+    'workspace',
+    'project',
+    'interface_theme'
+  ]
+
+  for (const element of localStorageResetList) {
+    LocalStorage.remove(`current.${element}`)
+  }
 }

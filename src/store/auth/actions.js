@@ -36,10 +36,6 @@ export async function REFRESH ({ commit, getters }) {
   return Promise.resolve(response.data)
 }
 
-export async function LOGOUT ({ commit }) {
-  commit('LOGOUT')
-}
-
 export async function INIT_WORKSPACES ({ commit }) {
   try {
     const response = await new Api({
@@ -239,4 +235,8 @@ export async function DELETE_MY_AVATAR ({ commit }) {
   } catch (e) {
     throw new ErrorHandler(e)
   }
+}
+
+export function RESET ({ commit }) {
+  commit('RESET')
 }
