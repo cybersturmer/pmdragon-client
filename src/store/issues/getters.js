@@ -56,6 +56,42 @@ export function SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES (state, getters) {
   }
 }
 
+export function STORY_POINT_TOTAL_FOR_STARTED_SPRINT (state, getters) {
+  try {
+    const issues = getters.SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES
+    let totalStoryPoints = 0
+    for (const issue of issues) {
+      const isEstimation = Number.isInteger(issue.estimation_category)
+      if (!isEstimation) continue
+      totalStoryPoints += getters.ISSUE_ESTIMATION_BY_ID(issue.estimation_category).value
+    }
+    return totalStoryPoints
+  } catch (e) {
+    return 0
+  }
+}
+
+export function STORY_POINT_DONE_FOR_STARTED_SPRINT (state, getters) {
+  try {
+    const doneIssueState = state.issue_states
+      .find(issueState => issueState.is_done === true)
+
+    const issues = getters.SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES
+      .filter((issue) => issue.state_category === doneIssueState.id)
+
+    let doneStoryPoints = 0
+    for (const issue of issues) {
+      const isEstimation = Number.isInteger(issue.estimation_category)
+      if (!isEstimation) continue
+      doneStoryPoints += getters.ISSUE_ESTIMATION_BY_ID(issue.estimation_category).value
+    }
+
+    return doneStoryPoints
+  } catch (e) {
+    return 0
+  }
+}
+
 export function PROJECT_SPRINTS (state, getters, rootState, rootGetters) {
   try {
     return state.sprints
