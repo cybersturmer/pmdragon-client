@@ -11,17 +11,15 @@
         :pagination="workspacesTable.pagination"
       >
         <template #top-left>
-          <q-btn-group outline>
+          <q-btn-group size="md" outline>
             <q-btn
               outline
-              size="sm"
               color="amber"
               label="Create Workspace"
               @click="createWorkspaceDialog"
             />
             <q-btn
               outline
-              size="sm"
               color="amber"
               label="Create Project"
               @click="createProjectDialog"

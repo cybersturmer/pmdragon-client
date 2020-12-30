@@ -21,16 +21,18 @@
             <q-icon name="access_time"></q-icon>
             <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
           </span>
-          <StartCompleteSprintButton size="sm" :sprint="sprint"/>
-          <q-btn
-            dark
-            outline
-            size="sm"
-            color="amber"
-            icon-right="edit"
-            class="xs-hide sm-hide float-right q-ml-md"
-            @click="editSprintDialog(sprint)"
-          />
+          <q-btn-group outline>
+            <StartCompleteSprintButton size="sm" :sprint="sprint"/>
+            <q-btn
+              dark
+              outline
+              size="sm"
+              color="amber"
+              label="Edit sprint"
+              class="xs-hide sm-hide"
+              @click="editSprintDialog(sprint)"
+            />
+          </q-btn-group>
         </div>
         <!-- Sprint complete button -->
         <!-- Edit sprint button -->

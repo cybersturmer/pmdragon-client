@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+    <ChangeConnectionElement/>
     <q-card dark bordered flat class="my-card" style="width: 320px">
       <q-card-section style="padding: 16px 16px 0 16px">
         <div class="column">
@@ -42,10 +43,11 @@ import { ErrorHandler } from 'src/services/util'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PrefixUrlField from 'components/fields/PrefixUrlField.vue'
 import EmailField from 'components/fields/EmailField.vue'
+import ChangeConnectionElement from 'components/elements/ChangeConnectionElement.vue'
 
 export default {
   name: 'Register',
-  components: { EmailField, PrefixUrlField },
+  components: { EmailField, PrefixUrlField, ChangeConnectionElement },
   mixins: [Dialogs, fieldValidationMixin],
   data () {
     return {

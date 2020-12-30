@@ -4,7 +4,6 @@
     outline
     size="sm"
     color="amber"
-    style="margin-left: 10px;"
     icon="more_horiz">
     <q-menu content-class="bg-secondary text-white" fit anchor="top left" self="top right" auto-close>
       <q-list dense style="min-width: 150px">

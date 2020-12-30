@@ -9,7 +9,7 @@
           <q-btn
             dark
             outline
-            size="sm"
+            size="md"
             color="amber"
             label="Create Sprint"
             class="float-right"
@@ -32,15 +32,15 @@
                   </div>
                 </div>
                 <div class="col-4 text-right">
-                  <StartCompleteSprintButton
-                    v-if="index === 0"
-                    :sprint="sprint"
-                  />
-                  <SprintMorePopupMenu
-                    :sprintId="sprint.id"
-                    v-on:edit="editSprintDialog(sprint)"
-                    v-on:remove="removeSprintDialog(sprint)"
-                  />
+                  <q-btn-group outline>
+                    <StartCompleteSprintButton
+                      v-if="index === 0"
+                      :sprint="sprint"/>
+                    <SprintMorePopupMenu
+                      :sprintId="sprint.id"
+                      v-on:edit="editSprintDialog(sprint)"
+                      v-on:remove="removeSprintDialog(sprint)"/>
+                  </q-btn-group>
                 </div>
               </div>
               <div class="q-card--bordered q-pa-sm"
