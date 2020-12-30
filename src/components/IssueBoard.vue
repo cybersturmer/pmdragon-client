@@ -16,7 +16,7 @@
         {{ issue.title }}
       </span>
     </q-card-section>
-    <q-card-section class="q-pa-xs justify-around items-center" horizontal>
+    <q-card-section class="q-pa-xs row items-center justify-between" horizontal>
       <div class="col-auto">
         <q-chip
             v-if="assigneeUsername"

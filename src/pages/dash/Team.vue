@@ -13,7 +13,7 @@
           <q-btn
             outline
             size="sm"
-            label="Invite member"
+            label="Invite a teammate"
             color="amber"
             @click="inviteMembersDialog"
           />
