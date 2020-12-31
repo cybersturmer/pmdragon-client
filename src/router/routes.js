@@ -118,6 +118,14 @@ const routes = [
           title: 'Team' + PMDRAGON_STRING
         },
         component: () => import('pages/dash/Team.vue')
+      },
+      {
+        name: 'overview',
+        path: 'overview',
+        meta: {
+          title: 'Overview' + PMDRAGON_STRING
+        },
+        component: () => import('pages/dash/Overview.vue')
       }
     ],
     meta: {
