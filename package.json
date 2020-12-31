@@ -27,8 +27,10 @@
     "@quasar/extras": "^1.9.12",
     "axios": "^0.19.2",
     "axios-auth-refresh": "^3.0.0",
+    "chart.js": "^2.9.4",
     "core-js": "^3.8.1",
     "quasar": "^1.14.7",
+    "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.22.2",
     "vue-moment": "^4.1.0",
     "vuedraggable": "^2.24.3"
