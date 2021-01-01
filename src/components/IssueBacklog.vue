@@ -3,8 +3,8 @@
     dense
     dark
     bordered
-    class="my-card issue-backlog">
-    <q-card-section class="row items-center justify-between">
+    class="q-mb-sm q-pa-xs issue-backlog">
+    <q-card-section class="row items-center justify-between q-pa-sm">
       <div class="col-auto">
         # {{ issue.id }}
         <q-icon
