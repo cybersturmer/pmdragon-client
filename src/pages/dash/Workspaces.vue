@@ -11,15 +11,17 @@
         :pagination="workspacesTable.pagination"
       >
         <template #top-left>
-          <q-btn-group size="md" outline>
+          <q-btn-group outline>
             <q-btn
               outline
+              size="sm"
               color="amber"
               label="Create Workspace"
               @click="createWorkspaceDialog"
             />
             <q-btn
               outline
+              size="sm"
               color="amber"
               label="Create Project"
               @click="createProjectDialog"
@@ -34,7 +36,7 @@
           </q-input>
         </template>
         <template #item="props">
-          <div class="q-pa-xs col-xs-12 col-sm-6 col-md-6">
+          <div class="q-pa-xs col-xs-12 col-sm-12 col-md-6">
             <q-card dark bordered style="min-width: 350px">
               <q-card-section class="text-center">
                 <div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>

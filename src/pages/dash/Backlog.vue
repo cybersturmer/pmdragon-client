@@ -9,7 +9,7 @@
           <q-btn
             dark
             outline
-            size="md"
+            size="sm"
             color="amber"
             label="Create Sprint"
             class="float-right"
