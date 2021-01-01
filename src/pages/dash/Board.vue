@@ -21,8 +21,8 @@
             <q-icon name="access_time"></q-icon>
             <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
           </span>
-          <q-btn-group outline>
-            <StartCompleteSprintButton size="sm" :sprint="sprint"/>
+          <q-btn-group :outline="this.$q.screen.gt.sm">
+            <StartCompleteSprintButton :sprint="sprint"/>
             <q-btn
               dark
               outline
