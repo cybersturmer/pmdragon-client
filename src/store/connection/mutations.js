@@ -1,7 +1,7 @@
 import { LocalStorage } from 'quasar'
 
 export function SET_HOST (state, payload) {
-  state.url = payload
+  state.host = payload
   LocalStorage.set('connection.host', payload)
 }
 
