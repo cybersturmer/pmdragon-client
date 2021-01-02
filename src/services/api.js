@@ -14,8 +14,9 @@ export class Api {
 
     /** These options are completely for axios
      * https://github.com/axios/axios#config-defaults **/
+    const host = $store.getters['connection/HOST']
     this.axiosOptions = {
-      baseURL: $store.getters['connection/HOST'],
+      baseURL: `${host}/api`,
       withCredentials: false,
       timeout: 1000,
       validateStatus: (data) => this._expectStatus(data)
