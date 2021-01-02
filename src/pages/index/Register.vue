@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <ChangeConnectionElement/>
     <q-card dark bordered flat class="my-card" style="width: 320px">
-      <q-card-section style="padding: 16px 16px 0 16px">
+      <q-card-section class="q-pa-md">
         <div class="column">
           <div class="col">
             <PrefixUrlField
@@ -21,13 +21,17 @@
         </q-card-section>
         <q-separator dark inset/>
         <q-card-section>
-            <q-btn outline label="Sign Up" @click="register"/>
+            <q-btn
+              @click="register"
+              color="amber"
+              outline
+              label="Sign Up"/>
             <router-link :to="{ path: '/login' }" class="float-right"  style="text-decoration: none">
               <template>
                 <q-btn
                   flat
                   size="md"
-                  text-color="white"
+                  color="amber"
                   label="Already a member?"/>
               </template>
             </router-link>

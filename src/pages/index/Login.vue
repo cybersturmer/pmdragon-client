@@ -23,7 +23,7 @@
           <q-card-section>
             <q-btn
               outline
-              text-color="white"
+              color="amber"
               label="Sign In"
               @click="login"
             />
@@ -32,7 +32,7 @@
               <q-btn
                 flat
                 size='md'
-                text-color="white"
+                color="amber"
                 label="Want to register?"
                 style="margin-left: 30px"/>
               </template>
