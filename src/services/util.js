@@ -33,7 +33,9 @@ function _getResponseErrorMessage (error) {
   }
 
   if (error.response && error.response.statusText) return error.response.statusText
-  return error.message === 'Network Error' ? 'Oops ! Network error. Try again later' : error.message
+  return error.message === 'Network Error'
+    ? 'Network error. Check your HOST connection or try again later'
+    : error.message
 }
 
 export class ErrorHandler extends Error {
