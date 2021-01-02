@@ -2,7 +2,6 @@
 import { Line } from 'vue-chartjs'
 
 export default {
-  name: 'BurnDownChart',
   extends: Line,
   props: {
     chartdata: {
@@ -19,7 +18,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
