@@ -31,7 +31,7 @@ export default {
       legend: {
         display: true,
         labels: {
-          fontColor: '#FFFFFF',
+          fontColor: 'rgba(255,255,255,0.85)',
           fontSize: 16,
           padding: 16
         }
@@ -69,7 +69,7 @@ export default {
           scaleLabel: {
             display: true,
             labelString: 'Efforts',
-            fontColor: '#FFFFFF',
+            fontColor: 'rgba(255,255,255,0.85)',
             fontSize: 14
           },
           ticks: {
@@ -132,7 +132,7 @@ export default {
           label: 'Estimated Effort',
           fill: false,
           pointRadius: 3,
-          borderColor: '#FFFFFF',
+          borderColor: 'rgba(255,255,255,0.85)',
           borderWidth: 3,
           data: expectedTimeValues
         },
@@ -154,7 +154,7 @@ export default {
 
 <style>
   .small_chart {
-    max-width: 750px;
+    max-width: 850px;
     margin: 0 auto;
   }
 </style>
