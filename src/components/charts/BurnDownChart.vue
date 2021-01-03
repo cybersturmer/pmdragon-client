@@ -2,11 +2,13 @@
   <q-card
     dark>
     <q-card-section>
+      <div class="small_chart">
       <LineChart
         v-if="isLoaded"
         :chartdata="chartdata"
         :options="options"
       />
+      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -14,6 +16,7 @@
 <script>
 import LineChart from 'components/charts/LineChart.vue'
 import { date } from 'quasar'
+import { Api } from 'src/services/api'
 
 export default {
   name: 'BurnDownChart',
@@ -25,14 +28,26 @@ export default {
     chartdata: null,
     options: {
       responsive: true,
+      legend: {
+        display: true,
+        labels: {
+          fontColor: '#FFFFFF',
+          fontSize: 16,
+          padding: 16
+        }
+      },
       tooltips: {
         mode: 'index',
         intersect: false
       },
       scales: {
         xAxes: [{
+          gridLines: {
+            color: '#424242'
+          },
           type: 'time',
           distribution: 'series',
+          offset: true,
           bounds: 'data',
           time: {
             parser: 'MM DD YYYY',
@@ -42,14 +57,23 @@ export default {
           },
           ticks: {
             source: 'data',
+            fontColor: 'white',
             autoSkip: true
           }
         }],
         yAxes: [{
           display: true,
+          gridLines: {
+            color: '#424242'
+          },
           scaleLabel: {
             display: true,
-            labelString: 'Story Points'
+            labelString: 'Efforts',
+            fontColor: '#FFFFFF',
+            fontSize: 14
+          },
+          ticks: {
+            fontColor: 'white'
           }
         }]
       }
@@ -58,6 +82,7 @@ export default {
   async mounted () {
     this.isLoaded = false
     const sprint = this.$store.getters['issues/CURRENT_SPRINT']
+
     const sprintStartedAt = new Date(sprint.started_at)
     const sprintFinishedAt = new Date(sprint.finished_at)
     const diffDays = date
@@ -66,23 +91,58 @@ export default {
     const totalValue = this.$store.getters['issues/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
     const perDayDecrement = totalValue / diffDays
 
+    const estimations = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .get(
+        `/core/sprint-estimations/?sprint=${sprint.id}`
+      )
+
+    console.log(estimations)
+
     const daysLabels = []
-    const expectedValues = []
+    const expectedTimeValues = []
+    const realTimeValues = [{
+      x: sprintStartedAt,
+      y: totalValue
+    }]
+
+    for (const datum of estimations.data) {
+      realTimeValues.push({
+        x: new Date(datum.updated_at),
+        y: datum.total_value - datum.done_value
+      })
+    }
+
     for (let i = diffDays; i >= 0; i--) {
       const dayNumber = diffDays - i
-      daysLabels.push(date.addToDate(sprintStartedAt, { days: dayNumber }))
-      expectedValues.push(Math.round(totalValue - perDayDecrement * dayNumber))
+      const _date = date.addToDate(sprintStartedAt, { days: dayNumber })
+      const _value = Math.round(totalValue - perDayDecrement * dayNumber)
+      expectedTimeValues.push({
+        x: _date,
+        y: _value
+      })
     }
-    expectedValues.push(0)
 
     this.chartdata = {
       labels: daysLabels,
       datasets: [
         {
-          label: 'Expectation',
+          label: 'Estimated Effort',
           fill: false,
-          borderColor: '#616161',
-          data: expectedValues
+          pointRadius: 3,
+          borderColor: '#FFFFFF',
+          borderWidth: 3,
+          data: expectedTimeValues
+        },
+        {
+          label: 'Actual Effort',
+          fill: false,
+          pointRadius: 3,
+          borderColor: '#4c8ef1',
+          borderWidth: 3,
+          data: realTimeValues
         }
       ]
     }
@@ -91,3 +151,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  .small_chart {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+</style>
