@@ -22,7 +22,7 @@
             <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
           </span>
           <q-btn-group :outline="this.$q.screen.gt.sm">
-            <StartCompleteSprintButton :sprint="sprint"/>
+            <StartCompleteSprintButton :sprint="sprint" class="xs-hide sm-hide"/>
             <q-btn
               dark
               outline
@@ -43,12 +43,13 @@
         <div
           v-for="issue_state in issueStates"
           :key="issue_state.id"
-          class="col bg-primary q-ma-sm">
+          class="col bg-primary q-ma-xs">
           <!-- Column for head of column and state column -->
 
-          <div class="q-pa-sm text-center text-uppercase" style="border: 1px solid #343434">
+          <div class="q-pa-xs text-center text-uppercase" style="border: 1px solid #343434">
             <!-- Printable HEAD of column -->
-            {{ issue_state.title }}&nbsp;&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}
+            {{ issue_state.title }}
+            <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}</span>
             <q-icon v-if="issue_state.is_done"
                     name="done"
                     color="positive"
@@ -70,9 +71,9 @@
 
                 <transition-group
                   type="transition"
-                  :name="'flip-list'"
+                  name="flip-list"
                   tag="div"
-                  class="fit full-height q-pa-sm overflow-hidden-y"
+                  class="fit full-height q-pa-xs overflow-hidden-y"
                   style="min-height: calc(100vh - 190px);
                        border: 1px dashed var(--q-color-accent)">
 
