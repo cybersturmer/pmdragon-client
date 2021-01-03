@@ -28,6 +28,7 @@ export default {
     chartdata: null,
     options: {
       responsive: true,
+      aspectRatio: 2,
       legend: {
         display: true,
         labels: {
@@ -56,7 +57,6 @@ export default {
             tooltipFormat: 'll'
           },
           ticks: {
-            source: 'data',
             fontColor: 'white',
             autoSkip: true
           }
@@ -73,7 +73,8 @@ export default {
             fontSize: 14
           },
           ticks: {
-            fontColor: 'white'
+            fontColor: 'white',
+            autoSkip: true
           }
         }]
       }
