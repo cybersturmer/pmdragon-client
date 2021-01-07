@@ -100,8 +100,6 @@ export default {
         `/core/sprint-estimations/?sprint=${sprint.id}`
       )
 
-    console.log(estimations)
-
     const daysLabels = []
     const expectedTimeValues = []
     const realTimeValues = [{

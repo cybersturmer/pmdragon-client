@@ -1,15 +1,13 @@
 <template>
   <q-dialog
     ref="dialog"
-    @hide="onDialogHide"
-  >
+    @hide="onDialogHide">
     <q-card
       dark
       flat
       bordered
       class="q-dialog-plugin bg-secondary"
-      style="width: 85vw; max-width: 85vw;"
-    >
+      style="width: 85vw; max-width: 85vw;">
       <q-card-section horizontal>
         <q-card-section class="col-md-8 col-xs-12 col-sm-12">
           <!-- @todo Breadcrumbs for current issue -->
@@ -176,21 +174,27 @@
         <!-- Right section, we can change issue data here -->
           <q-card-section align="right">
             <q-btn-group flat>
+              <!-- Share button -->
               <q-btn
                 flat
                 dense
-                icon="share"
-                class="q-mr-sm"
-              />
+                icon="link"
+                @click="copyLink"/>
+              <!-- More button -->
               <q-btn
                 flat
                 dense
-                icon="more_vert"
-              >
+                icon="more_vert">
                 <IssueMorePopupMenu
                   v-on:remove="hide"
                   :issue="formData.issue"/>
               </q-btn>
+              <q-btn
+                flat
+                dense
+                icon="close"
+                @click="hide"
+              ></q-btn>
             </q-btn-group>
           </q-card-section>
           <q-card-section>
@@ -277,7 +281,8 @@
 <script>
 import { DATETIME_MASK } from 'src/services/masks'
 import { Dialogs } from 'pages/mixins/dialogs'
-import { date } from 'quasar'
+import { Notifications } from 'pages/mixins/notifications'
+import { copyToClipboard, date } from 'quasar'
 import { ErrorHandler, unWatch } from 'src/services/util'
 import { Api } from 'src/services/api'
 import EditorSaveButton from 'components/buttons/EditorSaveButton.vue'
@@ -287,7 +292,7 @@ import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
 export default {
   name: 'IssueEditDialog',
   components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
-  mixins: [Dialogs],
+  mixins: [Dialogs, Notifications],
   props: {
     issue: {
       type: Object,
@@ -335,6 +340,12 @@ export default {
     }
   },
   methods: {
+    copyLink () {
+      const host = this.$store.getters['connection/HOST']
+      const text = `${host}/dash/issue/${this.formData.issue.id}/`
+      copyToClipboard(text)
+        .then(() => this.showInformalNotification('Link copied to clipboard'))
+    },
     getRelativeDatetime (datetime) {
       /** Get relative datetime for messages **/
       return this.$moment(datetime).fromNow()

@@ -1,12 +1,13 @@
 <template>
-  <q-menu content-class="bg-accent text-white" fit anchor="bottom left" self="top right" auto-close>
-    <q-list dense style="min-width: 200px">
+  <q-menu dark fit anchor="bottom start" self="top start" auto-close>
+    <q-list dense style="min-width: 100px">
       <q-item
         clickable
         v-close-popup
-        @click="removeIssue"
-      >
-        <q-item-section>Remove Issue</q-item-section>
+        @click="removeIssue">
+        <q-item-section>
+          Remove Issue
+        </q-item-section>
       </q-item>
     </q-list>
   </q-menu>
@@ -26,7 +27,7 @@ export default {
       this.$q.dialog({
         dark: true,
         title: 'Confirmation',
-        message: `Would you like to delete issue: ${this.issue.title}`,
+        message: `Would you like to delete issue: "${this.issue.title}"`,
         ok: {
           label: 'Remove',
           color: 'red-14'

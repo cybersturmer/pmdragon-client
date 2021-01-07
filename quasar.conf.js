@@ -105,6 +105,7 @@ module.exports = function (/* ctx */) {
         'LocalStorage',
         'SessionStorage',
         'Dialog',
+        'Notify',
         'Loading'
       ]
     },
