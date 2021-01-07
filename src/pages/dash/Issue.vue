@@ -30,7 +30,7 @@
             </q-input>
           </q-card-section>
           <!-- Description -->
-          <q-card-section>
+          <q-card-section class="q-pt-xs">
             <!-- Block with issue description -->
             <div class="q-mb-xs text-subtitle2 text-amber">
               Description
