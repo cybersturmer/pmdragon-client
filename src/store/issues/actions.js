@@ -292,7 +292,7 @@ export async function DELETE_SPRINT ({ commit }, sprintId) {
       expectedStatus: 204
     })
       .delete(
-      `/core/sprints/${sprintId}`
+      `/core/sprints/${sprintId}/`
       )
 
     commit('DELETE_SPRINT', sprintId)
@@ -325,7 +325,7 @@ export async function DELETE_ISSUE ({ commit }, payload) {
       expectedStatus: 204
     })
       .delete(
-      `/core/issues/${payload.id}`
+      `/core/issues/${payload.id}/`
       )
 
     commit('DELETE_ISSUE', payload)
