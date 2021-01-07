@@ -27,6 +27,10 @@ export default {
         dark: true,
         title: 'Confirmation',
         message: `Would you like to delete issue: ${this.issue.title}`,
+        ok: {
+          label: 'Remove',
+          color: 'red-14'
+        },
         cancel: true,
         persistent: true
       })
