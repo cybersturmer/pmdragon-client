@@ -243,7 +243,11 @@ export default {
       this.$q.dialog({
         dark: true,
         title: 'Confirmation',
-        message: `Would you like to delete sprint: ${item.title}`,
+        message: `Would you like to delete sprint: "${item.title}"`,
+        ok: {
+          label: 'Remove',
+          color: 'red-14'
+        },
         cancel: true,
         persistent: true
       }).onOk(() => {
@@ -459,7 +463,9 @@ export default {
 
       const payload = {
         workspace,
-        project
+        project,
+        started_at: null,
+        finished_at: null
       }
 
       this.$store.dispatch('issues/ADD_SPRINT_TO_PROJECT', payload)

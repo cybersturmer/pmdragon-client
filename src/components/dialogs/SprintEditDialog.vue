@@ -12,15 +12,15 @@
         class="q-mt-sm"
       >
         <q-btn
-          outline
-          color="amber"
-          label="Update"
-          @click="onOKClick" />
-        <q-btn
           flat
           color="amber"
           label="Cancel"
           @click="onCancelClick" />
+        <q-btn
+          outline
+          color="amber"
+          label="Update"
+          @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>

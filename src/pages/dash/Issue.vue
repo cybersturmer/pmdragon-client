@@ -333,7 +333,7 @@ export default {
   methods: {
     copyLink () {
       const host = this.$store.getters['connection/HOST']
-      const text = `${host}/dash/issue/${this.formData.issue.id}/`
+      const text = `${host}/dash/issue/${this.formData.issue.id}`
       copyToClipboard(text)
         .then(() => this.showInformalNotification('Link copied to clipboard'))
     },
