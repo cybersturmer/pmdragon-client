@@ -174,6 +174,25 @@
         <q-separator dark vertical />
         <q-card-section class="col-md-4 xs-hide sm-hide">
         <!-- Right section, we can change issue data here -->
+          <q-card-section align="right">
+            <q-btn-group flat>
+              <q-btn
+                flat
+                dense
+                icon="share"
+                class="q-mr-sm"
+              />
+              <q-btn
+                flat
+                dense
+                icon="more_vert"
+              >
+                <IssueMorePopupMenu
+                  v-on:remove="hide"
+                  :issue="formData.issue"/>
+              </q-btn>
+            </q-btn-group>
+          </q-card-section>
           <q-card-section>
             <!-- Selection for issue state -->
             <q-select
@@ -263,10 +282,11 @@ import { ErrorHandler, unWatch } from 'src/services/util'
 import { Api } from 'src/services/api'
 import EditorSaveButton from 'components/buttons/EditorSaveButton.vue'
 import EditorCancelButton from 'components/buttons/EditorCancelButton.vue'
+import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
 
 export default {
   name: 'IssueEditDialog',
-  components: { EditorSaveButton, EditorCancelButton },
+  components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
   mixins: [Dialogs],
   props: {
     issue: {
