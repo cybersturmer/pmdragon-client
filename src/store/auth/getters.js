@@ -60,6 +60,10 @@ export function WORKSPACE_DATA (state, getters, rootState, rootGetters) {
     .find(workspace => workspace.prefix_url === rootGetters['current/WORKSPACE'])
 }
 
+export function PARTICIPANTS_BY_CURRENT_PROJECT (state, getters) {
+  return getters.WORKSPACE_DATA.participants
+}
+
 export function WORKSPACE_ID (state, getters) {
   try {
     return getters.WORKSPACE_DATA.id

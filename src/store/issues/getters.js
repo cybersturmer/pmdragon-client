@@ -136,6 +136,24 @@ export function IS_ISSUE_STATE_DONE (state) {
   }
 }
 
+export function ISSUE_STATE_BY_ID (state) {
+  return issueStateId => {
+    try {
+      return state.issue_states
+        .find(issueState => issueState.id === issueStateId)
+    } catch (e) {
+      return null
+    }
+  }
+}
+
+export function ISSUE_STATE_TITLE_BY_ID (state, getters) {
+  return issueStateId => {
+    if (!issueStateId) return false
+    return getters.ISSUE_STATE_BY_ID(issueStateId).title
+  }
+}
+
 export function ISSUE_TYPES_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
   return state.issue_types
     .filter((issueType) => issueType.project === rootGetters['current/PROJECT'])
@@ -150,6 +168,17 @@ export function ISSUE_TYPE_BY_ID (state) {
       return null
     }
   }
+}
+
+export function ISSUE_TYPE_TITLE_BY_ID (state, getters) {
+  return issueTypeId => {
+    if (!issueTypeId) return false
+    return getters.ISSUE_TYPE_BY_ID(issueTypeId).title
+  }
+}
+
+export function ISSUE_TYPE_ICON_BY_ID (state, getters) {
+  return issueTypeId => getters.ISSUE_TYPE_BY_ID(issueTypeId).icon
 }
 
 export function IS_ISSUE_TYPE_HAVE_ICON (state) {
