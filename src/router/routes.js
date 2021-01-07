@@ -112,6 +112,15 @@ const routes = [
         component: () => import('pages/dash/Board.vue')
       },
       {
+        name: 'issue',
+        path: 'issue/:id',
+        props: true,
+        meta: {
+          title: 'Issue' + PMDRAGON_STRING
+        },
+        component: () => import('pages/dash/Issue.vue')
+      },
+      {
         name: 'team',
         path: 'team',
         meta: {
