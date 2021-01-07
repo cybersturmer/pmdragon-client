@@ -3,7 +3,7 @@
           anchor="bottom start"
           self="top start"
           auto-close>
-    <q-list dense style="min-width: 100px">
+    <q-list dense style="min-width: 150px">
       <q-item
         clickable
         v-close-popup

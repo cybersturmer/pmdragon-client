@@ -5,10 +5,10 @@
     flat
     class="bg-secondary full-width">
       <q-card-section horizontal>
-      <q-card-section class="col-md-8 col-xs-12 col-sm-12">
+      <q-card-section class="col-md-9 col-xs-12 col-sm-12">
         <q-scroll-area
           dark
-          style="height: 70vh; border-bottom: 1px solid #686868;">
+          style="height: 73vh; border-bottom: 1px solid #686868;">
           <!-- Title block -->
           <q-card-section>
             <!-- Title editing section -->
@@ -168,7 +168,7 @@
         </q-card-section>
       </q-card-section>
       <q-separator dark vertical />
-      <q-card-section class="col-md-4 xs-hide sm-hide">
+      <q-card-section class="col-md-3 xs-hide sm-hide">
         <!-- Right section, we can change issue data here -->
         <q-card-section align="right">
           <q-btn-group flat>
