@@ -349,7 +349,7 @@ export default {
     },
     handleSprintIssueAdded (event, sprintId) {
       /** Handling adding inside of Sprint **/
-      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID'](sprintId).issues
+      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID_ISSUES'](sprintId)
 
       const handled = this.handleCommonAdded(currentSprintIssues, event)
       const compositeSprintIdsList = {
@@ -441,6 +441,26 @@ export default {
           this.handleBacklogIssueMoved(event, dragId)
           break
         case isSprintAdded:
+          if (this.$store.getters['issues/IS_SPRINT_STARTED'](dragId)) {
+            this.$q.dialog({
+              dark: true,
+              title: 'Adding issue',
+              message: 'Scope of started sprint will be affected by this.',
+              ok: {
+                label: 'Add issue',
+                color: 'amber',
+                outline: true
+              },
+              cancel: {
+                label: 'Cancel',
+                color: 'amber',
+                flat: true
+              }
+            })
+              .onCancel(() => {
+                return false
+              })
+          }
           this.handleSprintIssueAdded(event, dragId)
           break
         case isBacklogAdded:
