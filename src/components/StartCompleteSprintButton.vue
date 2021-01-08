@@ -55,12 +55,13 @@ export default {
         message: 'Would you like to complete Sprint',
         ok: {
           label: 'Complete',
-          color: 'amber'
+          color: 'amber',
+          outline: true
         },
         cancel: {
-          flat: true,
           label: 'Cancel',
-          color: 'primary'
+          color: 'amber',
+          flat: true
         }
       })
         .onOk(() => {
