@@ -117,6 +117,12 @@ export function IS_SPRINT_STARTED (state, getters) {
   return sprintId => getters.SPRINT_BY_ID(sprintId).is_started
 }
 
+export function SPRINT_BY_ID_ISSUES_IDS (state, getters) {
+  return sprintId => {
+    return getters.SPRINT_BY_ID(sprintId).issues
+  }
+}
+
 export function SPRINT_BY_ID_ISSUES (state, getters) {
   return sprintId => {
     return getters.ISSUES_BY_IDS(getters.SPRINT_BY_ID(sprintId).issues)
