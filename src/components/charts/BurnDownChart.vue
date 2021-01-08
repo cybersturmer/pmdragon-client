@@ -43,7 +43,7 @@ export default {
         }
       },
       tooltips: {
-        mode: 'index',
+        mode: 'point',
         intersect: false
       },
       scales: {
