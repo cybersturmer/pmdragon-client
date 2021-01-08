@@ -29,6 +29,11 @@ export default {
     options: {
       responsive: true,
       aspectRatio: 2,
+      elements: {
+        line: {
+          tension: 0.1
+        }
+      },
       legend: {
         display: true,
         labels: {
