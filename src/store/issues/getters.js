@@ -110,7 +110,11 @@ export function UNCOMPLETED_PROJECT_SPRINTS (state, getters) {
 }
 
 export function SPRINT_BY_ID (state) {
-  return sprintId => state.sprints.filter((sprint) => sprint.id === sprintId).pop()
+  return sprintId => state.sprints.find(sprint => sprint.id === sprintId)
+}
+
+export function IS_SPRINT_STARTED (state, getters) {
+  return sprintId => getters.SPRINT_BY_ID(sprintId).is_started
 }
 
 export function SPRINT_BY_ID_ISSUES (state, getters) {
