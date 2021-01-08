@@ -79,7 +79,7 @@
       :filter="invitedTable.filter"
       :pagination="invitedTable.pagination">
       <template #item="props">
-        <div class="q-pa-xs col-xs-12 col-sm-5 col-md-4 col-lg-2 col-xl-2">
+        <div class="q-pa-xs col-xs-12 col-sm-5 col-md-6 col-lg-3 col-xl-2">
           <q-card dark bordered>
             <q-card-section style="height: 90px">
               <p class="q-ma-sm q-pa-none">
