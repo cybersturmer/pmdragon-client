@@ -144,7 +144,7 @@ export default {
       return this.$store.getters['issues/SPRINTS_BY_CURRENT_PROJECT']
     },
     sprint: function () {
-      return this.$store.getters['issues/CURRENT_SPRINT']
+      return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
     },
     daysAmount () {
       const startedAt = this.sprint.started_at

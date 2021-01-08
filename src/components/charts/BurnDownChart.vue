@@ -87,7 +87,7 @@ export default {
   }),
   async mounted () {
     this.isLoaded = false
-    const sprint = this.$store.getters['issues/CURRENT_SPRINT']
+    const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
 
     const sprintStartedAt = new Date(sprint.started_at)
     const sprintFinishedAt = new Date(sprint.finished_at)
