@@ -79,7 +79,7 @@ export default {
         await this.$router.push({ name: 'loading' })
       } catch (e) {
         const error = new ErrorHandler(e)
-        this.showConfirmDialog('Login was not successful', error.message)
+        this.showOkDialog('Login was not successful', error.message)
       }
     }
   }

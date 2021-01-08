@@ -102,7 +102,7 @@ export default {
       if (this.teamFormEmail === null) return false
 
       if (!this.isValidEmail(this.teamFormEmail)) {
-        this.showConfirmDialog(
+        this.showOkDialog(
           'Not a correct email',
           'Please input correct email address'
         )

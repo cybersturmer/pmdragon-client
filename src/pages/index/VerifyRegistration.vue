@@ -101,7 +101,7 @@ export default {
         })
           .post('/auth/persons/', this.formData)
 
-        this.showConfirmDialog(
+        this.showOkDialog(
           'You are registered successfully',
           'Congratulations! You\'ve been registered. Now you can log in.')
 
@@ -109,7 +109,7 @@ export default {
       } catch (e) {
         const error = new ErrorHandler(e)
         error.setErrors(this.formErrors)
-        if (error.messageUseful) this.showConfirmDialog('Registration was not successful', error.message)
+        if (error.messageUseful) this.showOkDialog('Registration was not successful', error.message)
       }
     }
   }

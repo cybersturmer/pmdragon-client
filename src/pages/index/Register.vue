@@ -77,13 +77,13 @@ export default {
           true
         ]
 
-        this.showConfirmDialog(...dialog)
+        this.showOkDialog(...dialog)
         this.formData.prefix_url = ''
         this.formData.email = ''
       } catch (e) {
         const error = new ErrorHandler(e)
         error.setErrors(this.formErrors)
-        if (error.messageUseful) this.showConfirmDialog('Registration was not successful', error.message)
+        if (error.messageUseful) this.showOkDialog('Registration was not successful', error.message)
       }
     }
   }
