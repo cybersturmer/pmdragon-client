@@ -8,7 +8,7 @@
       <q-card-section class="col-md-9 col-xs-12 col-sm-12">
         <q-scroll-area
           dark
-          style="height: 73vh; border-bottom: 1px solid #686868;">
+          style="height: 72vh; border-bottom: 1px solid #686868;">
           <!-- Title block -->
           <q-card-section>
             <!-- Title editing section -->
