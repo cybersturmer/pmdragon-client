@@ -107,15 +107,12 @@ export default {
 
     const daysLabels = []
     const expectedTimeValues = []
-    const realTimeValues = [{
-      x: sprintStartedAt,
-      y: totalValue
-    }]
+    const realTimeValues = []
 
     for (const datum of estimations.data) {
       realTimeValues.push({
-        x: new Date(datum.updated_at),
-        y: datum.total_value - datum.done_value
+        x: new Date(datum.point_at),
+        y: datum.estimated_value
       })
     }
 
