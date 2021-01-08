@@ -141,21 +141,9 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('auth/RESET')
-        .then(() => {
-          /** We do not clear connection $store intentionally
-           * I think connection will be the same even after logout
-           * this.$store.dispatch('connection/RESET') **/
-          this.$store.dispatch('auth/RESET')
-          this.$store.dispatch('current/RESET')
-          this.$store.dispatch('issues/RESET')
-          this.$router.push({ name: 'login' })
-        })
-        .catch((e) => {
-          this.$q.dialog({
-            title: 'Error - Cannot LogOut',
-            message: e
-          })
-        })
+      this.$store.dispatch('current/RESET')
+      this.$store.dispatch('issues/RESET')
+      this.$router.push({ name: 'login' })
     },
     goToAccount () {
       if (this.$router.currentRoute.name === 'me') return false

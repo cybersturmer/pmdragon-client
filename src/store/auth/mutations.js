@@ -142,5 +142,12 @@ export function RESET () {
     LocalStorage.remove(`auth.${element}`)
   }
 
-  SessionStorage.remove('auth.tokens.refresh')
+  const sessionStorageResetList = [
+    'tokens.refresh',
+    'user_id'
+  ]
+
+  for (const element of sessionStorageResetList) {
+    SessionStorage.remove(`auth.${element}`)
+  }
 }
