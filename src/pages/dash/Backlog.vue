@@ -125,8 +125,8 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { updateSprintMixin } from 'src/pages/mixins/update_sprint'
-import { editIssueData } from 'pages/mixins/edit_issue_data'
+import { updateSprintMixin } from 'pages/mixins/updateSprint'
+import { editIssueData } from 'pages/mixins/editIssueData'
 import { unWatch } from 'src/services/util'
 import IssueBacklog from 'src/components/IssueBacklog.vue'
 import StartCompleteSprintButton from 'src/components/StartCompleteSprintButton.vue'

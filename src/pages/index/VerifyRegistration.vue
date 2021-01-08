@@ -50,7 +50,7 @@ import { Api } from 'src/services/api'
 import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
-import { fieldValidationMixin } from 'pages/mixins/field_validation'
+import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
 export default {
   name: 'VerifyRegistration',

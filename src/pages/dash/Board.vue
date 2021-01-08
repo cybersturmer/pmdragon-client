@@ -103,7 +103,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { updateSprintMixin } from 'src/pages/mixins/update_sprint'
+import { updateSprintMixin } from 'pages/mixins/updateSprint'
 import { date } from 'quasar'
 import { unWatch } from 'src/services/util'
 import IssueBoard from 'src/components/IssueBoard.vue'
@@ -111,7 +111,7 @@ import { DATE_MASK, SPRINT_REMAINING_UNIT } from 'src/services/masks'
 import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
 import StartCompleteSprintButton from 'src/components/StartCompleteSprintButton.vue'
 import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
-import { editIssueData } from 'pages/mixins/edit_issue_data'
+import { editIssueData } from 'pages/mixins/editIssueData'
 
 export default {
   name: 'BoardView',

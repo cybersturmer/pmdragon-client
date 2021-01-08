@@ -42,7 +42,7 @@
 
 <script>
 
-import { fieldValidationMixin } from 'pages/mixins/field_validation'
+import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { ErrorHandler } from 'src/services/util'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PrefixUrlField from 'components/fields/PrefixUrlField.vue'

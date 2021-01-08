@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { fieldValidationMixin } from 'pages/mixins/field_validation'
+import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
 export default {
   name: 'ConnectionEditDialog',
