@@ -1,6 +1,6 @@
 export const Dialogs = {
   methods: {
-    showConfirmDialog (title, message, unsafe = false) {
+    showOkDialog (title, message, unsafe = false) {
       return this.$q.dialog({
         dark: true,
         html: unsafe,
@@ -12,10 +12,28 @@ export const Dialogs = {
         }
       })
     },
+    showOkCancelDialog (title, message, actionOk = 'OK', unsafe = false) {
+      return this.$q.dialog({
+        dark: true,
+        title: title,
+        message: message,
+        html: unsafe,
+        ok: {
+          label: actionOk,
+          color: 'amber',
+          outline: true
+        },
+        cancel: {
+          label: 'Cancel',
+          color: 'amber',
+          flat: true
+        }
+      })
+    },
     showError (e) {
       if (!e.messageUseful) return false
 
-      return this.showConfirmDialog(
+      return this.showOkDialog(
         e.statusMessage,
         e.message
       )
