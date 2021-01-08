@@ -14,7 +14,7 @@ export function ISSUES (state) {
 export function ISSUE_BY_ID (state) {
   /** Getting issue from main list by id **/
   return issueId => {
-    return state.issues.find(issue => issue.id === issueId)
+    return state.issues.find(issue => issue.id === parseInt(issueId))
   }
 }
 
