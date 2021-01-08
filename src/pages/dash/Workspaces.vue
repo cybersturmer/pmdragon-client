@@ -1,9 +1,10 @@
 <template>
   <q-page class="q-pa-lg">
-    <div class="row justify-center">
+    <div class="row">
       <q-table
         dark
         grid
+        class="full-width items-center"
         :data="workspaces"
         no-data-label="You are not participating in any workspace"
         :filter="workspacesTable.filter"
