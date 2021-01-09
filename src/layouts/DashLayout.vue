@@ -11,9 +11,18 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <q-toolbar-title>
+        <q-toolbar-title :shrink="true" class="q-pa-xs">
           {{ toolbarText }}
         </q-toolbar-title>
+        <q-btn
+          flat
+          dense
+          round
+          icon="settings_applications"
+          @click="goToSettingsOfProject"
+          title="Manage project"
+        />
+        <q-space/>
         <q-btn
           flat
           round
@@ -154,6 +163,9 @@ export default {
       this.$store.dispatch('current/RESET_WORKSPACE')
       this.$store.dispatch('current/RESET_PROJECT')
       this.$router.push({ name: 'workspaces' })
+    },
+    goToSettingsOfProject () {
+      console.log('Moved to project settings')
     }
   },
   computed: {
