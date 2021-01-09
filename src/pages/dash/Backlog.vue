@@ -127,6 +127,7 @@
 import draggable from 'vuedraggable'
 import { updateSprintMixin } from 'pages/mixins/updateSprint'
 import { editIssueData } from 'pages/mixins/editIssueData'
+import { Dialogs } from 'pages/mixins/dialogs'
 import { unWatch } from 'src/services/util'
 import IssueBacklog from 'src/components/IssueBacklog.vue'
 import StartCompleteSprintButton from 'src/components/StartCompleteSprintButton.vue'
@@ -150,7 +151,7 @@ export default {
     draggable,
     IssueBacklog
   },
-  mixins: [updateSprintMixin, editIssueData],
+  mixins: [Dialogs, updateSprintMixin, editIssueData],
   data () {
     return {
       formData: {
@@ -165,36 +166,34 @@ export default {
         SPRINT: 1,
         BACKLOG: 0
       },
+      dragOptions: {
+        animation: 200,
+        group: 'issues',
+        disabled: false,
+        ghostClass: 'ghost'
+      },
       dragging: false,
       isIssueDialogOpened: false
     }
   },
   computed: {
-    dragOptions () {
-      return {
-        animation: 200,
-        group: 'issues',
-        disabled: false,
-        ghostClass: 'ghost'
-      }
-    },
-    backlog: function () {
+    backlog () {
       /** Getting current backlog by chosen workspace and project **/
       return this.$store.getters['issues/BACKLOG']
     },
-    backlogIssues: function () {
+    backlogIssues () {
       /** Getting current backlog issues **/
       return this.$store.getters['issues/BACKLOG_ISSUES']
     },
-    backlogIssuesLength: function () {
+    backlogIssuesLength () {
       /** Getting issues count **/
       return this.$store.getters['issues/BACKLOG_ISSUES_COUNT'] + ' issues'
     },
-    sprints: function () {
+    sprints () {
       /** Getting all sprints **/
       return this.$store.getters['issues/UNCOMPLETED_PROJECT_SPRINTS']
     },
-    isCreateIssueButtonEnabled: function () {
+    isCreateIssueButtonEnabled () {
       return Boolean(this.formData.title)
     },
     issueStates () {
@@ -216,12 +215,7 @@ export default {
           this.formData.title = ''
         })
         .catch((e) => {
-          this.$q.dialog({
-            title: 'Error - Cannot add issue to Backlog',
-            message: 'Please check your Internet connection'
-          })
-
-          console.log(e)
+          this.showError(e)
         })
     },
     editSprintDialog (item) {
@@ -240,27 +234,16 @@ export default {
         })
     },
     removeSprintDialog (item) {
-      this.$q.dialog({
-        dark: true,
-        title: 'Confirmation',
-        message: `Would you like to delete sprint: "${item.title}"`,
-        ok: {
-          label: 'Remove',
-          color: 'red-14'
-        },
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        this.$store.dispatch('issues/DELETE_SPRINT', item.id)
-          .catch((e) => {
-            this.$q.dialog({
-              title: 'Error - Cannot delete sprint',
-              message: 'Please check your Internet connection'
-            })
-
-            console.log(e)
-          })
-      })
+      const dialog = [
+        'Confirmation',
+        `Would you like to delete sprint: "${item.title}"`,
+        'Remove',
+        'danger'
+      ]
+      this.showOkCancelDialog(...dialog)
+        .onOk(() => {
+          this.$store.dispatch('issues/DELETE_SPRINT', item.id)
+        })
     },
     editIssueDialog (item) {
       this.$q.dialog({
@@ -349,8 +332,7 @@ export default {
     },
     handleSprintIssueAdded (event, sprintId) {
       /** Handling adding inside of Sprint **/
-      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID_ISSUES'](sprintId)
-
+      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
       const handled = this.handleCommonAdded(currentSprintIssues, event)
       const compositeSprintIdsList = {
         id: sprintId,
@@ -441,26 +423,6 @@ export default {
           this.handleBacklogIssueMoved(event, dragId)
           break
         case isSprintAdded:
-          if (this.$store.getters['issues/IS_SPRINT_STARTED'](dragId)) {
-            this.$q.dialog({
-              dark: true,
-              title: 'Adding issue',
-              message: 'Scope of started sprint will be affected by this.',
-              ok: {
-                label: 'Add issue',
-                color: 'amber',
-                outline: true
-              },
-              cancel: {
-                label: 'Cancel',
-                color: 'amber',
-                flat: true
-              }
-            })
-              .onCancel(() => {
-                return false
-              })
-          }
           this.handleSprintIssueAdded(event, dragId)
           break
         case isBacklogAdded:
