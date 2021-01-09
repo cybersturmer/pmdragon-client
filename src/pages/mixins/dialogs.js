@@ -12,7 +12,12 @@ export const Dialogs = {
         }
       })
     },
-    showOkCancelDialog (title, message, actionOk = 'OK', unsafe = false) {
+    showOkCancelDialog (title, message, actionOk = 'OK', actionColor = 'normal', unsafe = false) {
+      const colorOptions = {
+        normal: 'amber',
+        danger: 'red-14'
+      }
+
       return this.$q.dialog({
         dark: true,
         title: title,
@@ -20,14 +25,10 @@ export const Dialogs = {
         html: unsafe,
         ok: {
           label: actionOk,
-          color: 'amber',
-          outline: true
+          color: colorOptions[actionColor]
         },
-        cancel: {
-          label: 'Cancel',
-          color: 'amber',
-          flat: true
-        }
+        cancel: true,
+        persistent: true
       })
     },
     showError (e) {
