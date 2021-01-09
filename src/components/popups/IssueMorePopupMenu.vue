@@ -14,8 +14,11 @@
 </template>
 
 <script>
+import { Dialogs } from 'pages/mixins/dialogs'
+
 export default {
   name: 'IssueMorePopupMenu',
+  mixins: [Dialogs],
   props: {
     issue: {
       type: Object,
@@ -24,26 +27,19 @@ export default {
   },
   methods: {
     removeIssue () {
-      this.$q.dialog({
-        dark: true,
-        title: 'Confirmation',
-        message: `Would you like to delete issue: "${this.issue.title}"`,
-        ok: {
-          label: 'Remove',
-          color: 'red-14'
-        },
-        cancel: true,
-        persistent: true
-      })
+      const dialog = [
+        'Confirmation',
+        `Would you like to delete issue: "${this.issue.title}"`,
+        'Remove',
+        'danger'
+      ]
+      this.showOkCancelDialog(...dialog)
         .onOk(() => {
           try {
             this.$store.dispatch('issues/DELETE_ISSUE', this.issue)
             this.$emit('remove', this.issue.id)
           } catch (e) {
-            this.$q.dialog({
-              title: 'Error - Cannot delete issue',
-              message: 'Please check your Internet connection'
-            })
+            this.showError(e)
           }
         })
     }
