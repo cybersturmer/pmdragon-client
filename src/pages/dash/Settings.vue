@@ -62,7 +62,6 @@
                   flat
                   square
                   dark
-                  dense
                   bordered
                   ref="issue_types_table"
                   row-key="title"
@@ -70,6 +69,7 @@
                   :hide-bottom="true"
                   :data="issueTypes"
                   :columns="issueTypesTableData.columns"
+                  :pagination="issueTypesTableData.pagination"
                 >
                   <template #body-cell-title="props">
                     <q-td :props="props">
@@ -163,7 +163,6 @@
                   flat
                   square
                   dark
-                  dense
                   bordered
                   ref="issue_types_table"
                   row-key="title"
@@ -171,6 +170,7 @@
                   :hide-bottom="true"
                   :data="issueStates"
                   :columns="issueStatesTableData.columns"
+                  :pagination="issueStatesTableData.pagination"
                 >
                   <template #body-cell-title="props">
                     <q-td :props="props">
@@ -231,14 +231,13 @@
                   flat
                   square
                   dark
-                  dense
                   bordered
                   ref="issue_types_table"
                   row-key="title"
                   no-data-label="There are no issue types in your project"
-                  :hide-bottom="true"
                   :data="issueEstimations"
                   :columns="issueEstimationsTableData.columns"
+                  :pagination="issueEstimationsTableData.pagination"
                 >
                   <template #body-cell-title="props">
                     <q-td :props="props">
@@ -327,7 +326,10 @@ export default {
             align: 'center',
             field: row => row.icon
           }
-        ]
+        ],
+        pagination: {
+          rowsPerPage: 0
+        }
       },
       newIssueTypeFormData: {
         title: '',
@@ -359,7 +361,10 @@ export default {
             align: 'left',
             field: row => row.is_done
           }
-        ]
+        ],
+        pagination: {
+          rowsPerPage: 0
+        }
       },
       newIssueStateFormData: {},
       issueEstimationsTableData: {
@@ -379,10 +384,12 @@ export default {
             required: true,
             align: 'left',
             field: row => row.value,
-            style: 'width: 80px;',
-            sortable: true
+            style: 'width: 100px;'
           }
-        ]
+        ],
+        pagination: {
+          rowsPerPage: 0
+        }
       },
       newIssueEstimationFormData: {
         title: '',

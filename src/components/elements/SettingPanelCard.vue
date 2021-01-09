@@ -14,13 +14,12 @@
         Here is additional section
       </slot>
     </q-card-section>
-    <q-card-actions
-      v-if="areActions"
-      vertical>
+    <q-card-section
+      v-if="areActions">
       <slot name="actions">
       actions
       </slot>
-    </q-card-actions>
+    </q-card-section>
   </q-card>
 </template>
 
