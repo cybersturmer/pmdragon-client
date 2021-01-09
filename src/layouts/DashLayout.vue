@@ -18,7 +18,7 @@
           flat
           dense
           round
-          icon="settings_applications"
+          icon="settings"
           @click="goToSettingsOfProject"
           title="Manage project"
         />
