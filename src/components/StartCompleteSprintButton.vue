@@ -23,7 +23,7 @@ export default {
     }
   },
   computed: {
-    label: function () {
+    label () {
       return this.sprint.is_started ? 'Complete sprint' : 'Start sprint'
     }
   },

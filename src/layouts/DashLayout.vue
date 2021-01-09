@@ -157,7 +157,7 @@ export default {
     }
   },
   computed: {
-    toolbarText: function () {
+    toolbarText () {
       const workspaceName = this.$store.getters['current/WORKSPACE']
       const project = this.$store.getters['current/PROJECT']
 
@@ -168,19 +168,19 @@ export default {
 
       return '  PmDragon Community Edition'
     },
-    firstName: function () {
+    firstName () {
       return this.$store.getters['auth/MY_FIRST_NAME']
     },
-    lastName: function () {
+    lastName () {
       return this.$store.getters['auth/MY_LAST_NAME']
     },
-    username: function () {
+    username () {
       return this.$store.getters['auth/MY_USERNAME']
     },
-    avatarUrl: function () {
+    avatarUrl () {
       return this.$store.getters['auth/MY_AVATAR']
     },
-    isWorkspaceSelected: function () {
+    isWorkspaceSelected () {
       return this.$store.getters['current/WORKSPACE']
     }
   }

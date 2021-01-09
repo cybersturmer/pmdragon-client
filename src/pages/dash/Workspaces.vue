@@ -134,7 +134,7 @@ export default {
     }
   },
   computed: {
-    workspaces: function () {
+    workspaces () {
       const workspaces = this.$store.getters['auth/WORKSPACES']
       return workspaces.filter(workspace => workspace.projects.length > 0)
     }

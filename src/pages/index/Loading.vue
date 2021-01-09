@@ -14,7 +14,7 @@ export default {
     }
   },
   computed: {
-    loadingText: function () {
+    loadingText () {
       return `Loading ${this.module}...`
     }
   },

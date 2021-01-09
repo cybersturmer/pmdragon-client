@@ -44,7 +44,7 @@ export default {
     }
   },
   computed: {
-    datetime: function () {
+    datetime () {
       return this.rawDatetime
     }
   },

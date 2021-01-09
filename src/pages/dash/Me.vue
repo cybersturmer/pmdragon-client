@@ -168,10 +168,10 @@ export default {
     }
   },
   computed: {
-    avatarUrl: function () {
+    avatarUrl () {
       return this.$store.getters['auth/MY_AVATAR']
     },
-    avatarAllowMimes: function () {
+    avatarAllowMimes () {
       return AVATAR_ALLOW_MIMES
     }
   },

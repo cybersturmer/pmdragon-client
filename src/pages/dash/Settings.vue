@@ -149,18 +149,18 @@ export default {
   },
   computed: {
     interfaceTheme: {
-      get: function () {
+      get () {
         return this.$store.getters['current/INTERFACE_THEME']
       },
-      set: function (payload) {
+      set (payload) {
         this.$store.dispatch('current/SELECT_INTERFACE_THEME', payload)
       }
     },
     sprintDurations: {
-      get: function () {
+      get () {
         return this.$store.getters['issues/WORKSPACE_SPRINT_DURATION']
       },
-      set: function (payload) {
+      set (payload) {
         this.$store.dispatch('issues/INIT_SPRINT_DURATIONS', payload)
           .catch((e) => {
             console.log(e)
@@ -168,10 +168,10 @@ export default {
       }
     },
     language: {
-      get: function () {
+      get () {
         return 'English'
       },
-      set: function (value) {
+      set (value) {
         console.log(value)
       }
     }

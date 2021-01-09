@@ -125,25 +125,27 @@ export default {
     draggable
   },
   mixins: [updateSprintMixin, editIssueData],
-  computed: {
-    dragOptions () {
-      return {
+  data () {
+    return {
+      dragOptions: {
         animation: 200,
         group: 'issues',
         disabled: false,
         ghostClass: 'ghost'
       }
-    },
-    issueStates: function () {
+    }
+  },
+  computed: {
+    issueStates () {
       return this.$store.getters['issues/ISSUE_STATES_BY_CURRENT_PROJECT']
     },
-    issueTypes: function () {
+    issueTypes () {
       return this.$store.getters['issues/ISSUE_TYPES_BY_CURRENT_PROJECT']
     },
-    issues: function () {
+    issues () {
       return this.$store.getters['issues/SPRINTS_BY_CURRENT_PROJECT']
     },
-    sprint: function () {
+    sprint () {
       return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
     },
     daysAmount () {
@@ -152,44 +154,44 @@ export default {
 
       return date.getDateDiff(finishedAt, startedAt, SPRINT_REMAINING_UNIT)
     },
-    daysRemaining: function () {
+    daysRemaining () {
       const today = new Date()
       const finishedAt = this.sprint.finished_at
 
       return date.getDateDiff(finishedAt, today, SPRINT_REMAINING_UNIT)
     },
-    daysRemainingText: function () {
+    daysRemainingText () {
       if (this.daysRemaining > this.daysAmount) {
         return 'Will start soon...'
       } else {
         return this.daysRemaining > 0 ? this.daysRemaining + ' days remaining' : '0 days remaining'
       }
     },
-    sprintRange: function () {
+    sprintRange () {
       const startedAt = date.formatDate(this.sprint.started_at, DATE_MASK)
       const finishedAt = date.formatDate(this.sprint.finished_at, DATE_MASK)
       return `${startedAt} - ${finishedAt}`
     }
   },
   methods: {
-    getAssigneeById: function (assigneeId) {
+    getAssigneeById (assigneeId) {
       return this.$store.getters['auth/PERSON_BY_ID'](assigneeId)
     },
-    issuesByState: function (stateId) {
+    issuesByState (stateId) {
       return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES']
         .filter((issue) => issue.state_category === stateId)
     },
-    issuesByStateAmount: function (stateId) {
+    issuesByStateAmount (stateId) {
       return this.issuesByState(stateId).length
     },
-    handleIssueAdded: function (event, issueStateId) {
+    handleIssueAdded (event, issueStateId) {
       /** Handling added in Issues State **/
       const updatedElement = unWatch(event.added.element)
       updatedElement.state_category = issueStateId
 
       this.$store.dispatch('issues/UPDATE_ISSUE_STATE', updatedElement)
     },
-    handleCommonMoved: function (issuesList, event) {
+    handleCommonMoved (issuesList, event) {
       /** Handle moving - common function **/
 
       const immutableList = unWatch(issuesList)
@@ -217,7 +219,7 @@ export default {
 
       this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
     },
-    handleIssueStateChanging: function (event, issueStateId) {
+    handleIssueStateChanging (event, issueStateId) {
       /** Handling moving inside of states **/
       const isAdded = ('added' in event)
       const isRemoved = ('removed' in event)
