@@ -206,6 +206,12 @@ export function UPDATE_ISSUE_TYPES (state, payload) {
   LocalStorage.set('issues.issue_types', payload)
 }
 
+export function UPDATE_ISSUE_TYPE_ICONS (state, payload) {
+  state.issue_type_icons = payload
+
+  LocalStorage.set('issues.issue_type_icons', payload)
+}
+
 export function UPDATE_ISSUE_STATES (state, payload) {
   state.issue_states = payload
 
@@ -245,6 +251,7 @@ export function RESET () {
     'sprints',
     'issues',
     'issue_types',
+    'issue_type_icons',
     'issue_states',
     'issue_estimations',
     'sprint_durations'

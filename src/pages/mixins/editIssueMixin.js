@@ -392,7 +392,7 @@ export const editIssueMixin = {
       return this.$store.getters['issues/IS_ISSUE_TYPE_HAVE_ICON'](this.formData.issue.type_category)
     },
     getIssueTypeIcon () {
-      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ID'](this.formData.issue.type_category)
+      return this.$store.getters['issues/ISSUE_TYPE_BY_ID_ICON'](this.formData.issue.type_category)
     },
     mentioningRegex () {
       const regexArray = []

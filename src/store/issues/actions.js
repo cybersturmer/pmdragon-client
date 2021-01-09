@@ -97,6 +97,22 @@ export async function INIT_ISSUE_TYPES ({ commit }) {
   }
 }
 
+export async function INIT_ISSUE_TYPE_ICONS ({ commit }) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .get(
+        '/core/issue-type-icons/'
+      )
+
+    commit('UPDATE_ISSUE_TYPE_ICONS', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
 export async function INIT_ISSUE_ESTIMATIONS ({ commit }) {
   try {
     const response = await new Api({

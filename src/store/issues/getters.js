@@ -169,6 +169,10 @@ export function ISSUE_TYPES_BY_CURRENT_PROJECT (state, getters, rootState, rootG
     .filter((issueType) => issueType.project === rootGetters['current/PROJECT'])
 }
 
+export function ISSUE_TYPE_ICONS (state) {
+  return state.issue_type_icons
+}
+
 export function ISSUE_TYPE_BY_ID (state) {
   return issueTypeId => {
     try {
@@ -187,7 +191,7 @@ export function ISSUE_TYPE_TITLE_BY_ID (state, getters) {
   }
 }
 
-export function ISSUE_TYPE_ICON_BY_ID (state, getters) {
+export function ISSUE_TYPE_BY_ID_ICON (state, getters) {
   return issueTypeId => getters.ISSUE_TYPE_BY_ID(issueTypeId).icon
 }
 

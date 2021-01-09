@@ -165,7 +165,7 @@ export default {
       this.$router.push({ name: 'workspaces' })
     },
     goToSettingsOfProject () {
-      console.log('Moved to project settings')
+      this.$router.push({ name: 'settings' })
     }
   },
   computed: {
@@ -174,7 +174,7 @@ export default {
       const project = this.$store.getters['current/PROJECT']
 
       if (workspaceName && project) {
-        const projectName = this.$store.getters['auth/PROJECT_NAME']
+        const projectName = this.$store.getters['auth/PROJECT_TITLE']
         return `${workspaceName} - [ ${projectName} ]`
       }
 

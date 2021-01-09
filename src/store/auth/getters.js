@@ -105,9 +105,25 @@ export function PROJECT_DATA (state, getters, rootState, rootGetters) {
   }
 }
 
-export function PROJECT_NAME (state, getters) {
+export function PROJECT_TITLE (state, getters) {
   try {
     return getters.PROJECT_DATA.title
+  } catch (e) {
+    return null
+  }
+}
+
+export function PROJECT_KEY (state, getters) {
+  try {
+    return getters.PROJECT_DATA.key
+  } catch (e) {
+    return null
+  }
+}
+
+export function PROJECT_OWNED_BY (state, getters) {
+  try {
+    return getters.PERSON_BY_ID(getters.PROJECT_DATA.owned_by)
   } catch (e) {
     return null
   }

@@ -113,7 +113,7 @@
                        dense
                        rounded
                        flat
-                       icon="add"/>
+                       icon="keyboard_return"/>
               </template>
             </q-input>
           </q-card-section>

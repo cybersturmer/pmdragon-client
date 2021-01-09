@@ -46,6 +46,10 @@ export default {
             return this.$store.dispatch('issues/INIT_ISSUE_TYPES')
           })
           .then(() => {
+            this.showProgress('issue type icons')
+            return this.$store.dispatch('issues/INIT_ISSUE_TYPE_ICONS')
+          })
+          .then(() => {
             this.showProgress('issue estimations')
             return this.$store.dispatch('issues/INIT_ISSUE_ESTIMATIONS')
           })
