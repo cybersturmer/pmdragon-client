@@ -124,7 +124,8 @@ export async function UPDATE_PROJECT ({ commit }, payload) {
       expectedStatus: 200
     })
       .patch(
-        `/core/projects/${payload.id}/`
+        `/core/projects/${payload.id}/`,
+        payload
       )
 
     commit('UPDATE_PROJECT', response.data)
