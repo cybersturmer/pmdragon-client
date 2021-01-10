@@ -1,7 +1,7 @@
 import { ErrorHandler } from 'src/services/util'
 import { Api } from 'src/services/api'
 
-export async function INIT_BACKLOGS ({ rootGetters, commit }) {
+export async function INIT_BACKLOGS ({ commit }) {
   try {
     const response = await new Api({
       auth: true,
@@ -17,7 +17,7 @@ export async function INIT_BACKLOGS ({ rootGetters, commit }) {
   }
 }
 
-export async function INIT_SPRINTS ({ rootGetters, commit }) {
+export async function INIT_SPRINTS ({ commit }) {
   try {
     const response = await new Api({
       auth: true,
