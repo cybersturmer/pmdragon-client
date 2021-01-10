@@ -97,6 +97,154 @@ export async function INIT_ISSUE_TYPES ({ commit }) {
   }
 }
 
+/** Issue types actions **/
+export async function ADD_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 201
+    })
+      .post(
+        '/core/issue-types/',
+        payload
+      )
+
+    commit('ADD_ISSUE_TYPE_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function UPDATE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .patch(
+        `/core/issue-types/${payload.id}/`
+      )
+
+    commit('UPDATE_ISSUE_TYPE_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+
+    commit('DELETE_ISSUE_TYPE_CATEGORY', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+/** Issue states actions **/
+export async function ADD_ISSUE_STATE_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 201
+    })
+      .post(
+        '/core/issue-states/',
+        payload
+      )
+
+    commit('ADD_ISSUE_STATE_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function UPDATE_ISSUE_STATE_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .patch(
+        `/core/issue-states/${payload.id}/`
+      )
+
+    commit('UPDATE_ISSUE_STATE_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_ISSUE_STATE_CATEGORY ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+      .delete(
+        `/core/issue-states/${payload.id}/`
+      )
+
+    commit('DELETE_ISSUE_STATE_CATEGORY', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+/** Issue estimations actions **/
+export async function ADD_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 201
+    })
+      .post(
+        '/core/issue-estimations/',
+        payload
+      )
+
+    commit('ADD_ISSUE_ESTIMATION_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function UPDATE_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      responseStatus: true
+    })
+      .patch(
+        `/core/issue-estimations/${payload.id}/`,
+        payload
+      )
+
+    commit('UPDATE_ISSUE_ESTIMATION_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+      .delete(
+        `/core/issue-estimations/${payload.id}`
+      )
+
+    commit('DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
 export async function INIT_ISSUE_TYPE_ICONS ({ commit }) {
   try {
     const response = await new Api({

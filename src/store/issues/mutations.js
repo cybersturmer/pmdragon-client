@@ -1,5 +1,5 @@
 import { LocalStorage } from 'quasar'
-import { syncPair } from 'src/services/util'
+import { removeElement, syncPair } from 'src/services/util'
 
 function findBacklogByProjectId (state, projectId) {
   return state.backlogs
@@ -195,6 +195,81 @@ export function UPDATE_BACKLOG (state, payload) {
   state.backlogs.splice(backlogIndex, 1, payload)
 
   LocalStorage.set('issues.backlogs', state.backlogs)
+}
+
+/** Issue Type Category management **/
+export function ADD_ISSUE_TYPE_CATEGORY (state, payload) {
+  state.issue_types.push(payload)
+
+  LocalStorage.set('issues.issue_types', state.issue_states)
+}
+
+export function UPDATE_ISSUE_TYPE_CATEGORY (state, payload) {
+  const issueType = state.issue_types
+    .find(typeCategory => typeCategory.id === payload.id)
+
+  syncPair(payload, issueType)
+
+  LocalStorage.set('issues.issue_types', state.issue_states)
+}
+
+export function DELETE_ISSUE_TYPE_CATEGORY (state, payload) {
+  const issueType = state.issue_types
+    .find(typeCategory => typeCategory.id === payload.id)
+
+  removeElement(state.issue_types, issueType)
+
+  LocalStorage.set('issues.issue_types', state.issue_types)
+}
+
+/** Issue State Category management **/
+export function ADD_ISSUE_STATE_CATEGORY (state, payload) {
+  state.issue_states.push(payload)
+
+  LocalStorage.set('issues.issue_states', state.issue_states)
+}
+
+export function UPDATE_ISSUE_STATE_CATEGORY (state, payload) {
+  const issueState = state.issue_states
+    .find(stateCategory => stateCategory.id === payload.id)
+
+  syncPair(payload, issueState)
+
+  LocalStorage.set('issues.issue_states', state.issue_states)
+}
+
+export function DELETE_ISSUE_STATE_CATEGORY (state, payload) {
+  const issueState = state.issue_states
+    .find(stateCategory => stateCategory.id === payload.id)
+
+  removeElement(state.issue_states, issueState)
+
+  LocalStorage.set('issues.issue_states', state.issue_states)
+}
+
+/** Issue Estimation Category management **/
+export function ADD_ISSUE_ESTIMATION_CATEGORY (state, payload) {
+  state.issue_estimations.push(payload)
+
+  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
+}
+
+export function UPDATE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
+  const issueEstimation = state.issue_estimations
+    .find(estimationCategory => estimationCategory.id === payload)
+
+  syncPair(payload, issueEstimation)
+
+  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
+}
+
+export function DELETE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
+  const issueEstimation = state.issue_estimations
+    .find(estimationCategory => estimationCategory.id === payload.id)
+
+  removeElement(state.issue_estimations, issueEstimation)
+
+  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
 }
 
 export function UPDATE_ISSUE_TYPES (state, payload) {
