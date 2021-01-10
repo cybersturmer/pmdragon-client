@@ -1,9 +1,8 @@
 export function IS_LOGGED_IN (state, getters) {
   const isUserId = !!getters.MY_USER_ID
-  const isAccessTokenValid = !!getters.IS_ACCESS_TOKEN_VALID
-  const isRefreshTokenValid = !!getters.IS_REFRESH_TOKEN_VALID
+  const isRefreshTokenValid = getters.IS_REFRESH_TOKEN_VALID
 
-  return isUserId && isAccessTokenValid && isRefreshTokenValid
+  return isUserId && isRefreshTokenValid
 }
 
 export function IS_ACCESS_TOKEN_VALID (state) {
@@ -27,13 +26,12 @@ export function REFRESH_TOKEN (state) {
 }
 
 export function IS_REFRESH_TOKEN_REQUIRED (state, getters) {
-  const accessTokenExistsAndNotValid = getters.ACCESS_TOKEN &&
-                                       !getters.IS_ACCESS_TOKEN_VALID
+  /** We use this getters to understand can we just updated current tokens
+   * For it we need valid refresh token
+   * But we really need update access token just in a case it not valid anymore
+   * **/
 
-  const refreshTokenExistsAndValid = getters.REFRESH_TOKEN &&
-                                     getters.IS_REFRESH_TOKEN_VALID
-
-  return !accessTokenExistsAndNotValid || !refreshTokenExistsAndValid
+  return !getters.IS_ACCESS_TOKEN_VALID && getters.IS_REFRESH_TOKEN_VALID
 }
 
 export function PERSON_BY_ID (state, getters) {
@@ -61,7 +59,11 @@ export function WORKSPACE_DATA (state, getters, rootState, rootGetters) {
 }
 
 export function PARTICIPANTS_BY_CURRENT_PROJECT (state, getters) {
-  return getters.WORKSPACE_DATA.participants
+  try {
+    return getters.WORKSPACE_DATA.participants
+  } catch (e) {
+    return []
+  }
 }
 
 export function WORKSPACE_ID (state, getters) {
