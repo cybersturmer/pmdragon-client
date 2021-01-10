@@ -28,7 +28,7 @@
               <div class="row q-pa-sm">
                 <div class="col-8">
                   <div class="h6 text-amber">
-                    {{ sprint.title }} - {{ sprint.goal }} - (&nbsp;{{ sprint.issues.length }} issues&nbsp;)
+                    {{ sprint.title }} - {{ $q.screen.gt.sm ? sprint.goal: '' }} (&nbsp;{{ sprint.issues.length }} issues&nbsp;)
                   </div>
                 </div>
                 <div class="col-4 text-right">
@@ -106,7 +106,8 @@
               dense
               dark
               filled
-              placeholder="Add Issue">
+              placeholder="Add Issue"
+            >
               <template v-slot:append>
                 <q-btn @click="createIssue"
                        :disable="!isCreateIssueButtonEnabled"

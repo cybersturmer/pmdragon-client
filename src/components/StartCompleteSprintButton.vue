@@ -24,7 +24,9 @@ export default {
   },
   computed: {
     label () {
-      return this.sprint.is_started ? 'Complete sprint' : 'Start sprint'
+      const completeSprintLabel = this.$q.screen.lt.md ? 'Complete' : 'Complete sprint'
+      const startSprintLabel = this.$q.screen.lt.md ? 'Start' : 'Start sprint'
+      return this.sprint.is_started ? completeSprintLabel : startSprintLabel
     }
   },
   methods: {

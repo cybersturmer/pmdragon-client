@@ -15,6 +15,7 @@
           {{ toolbarText }}
         </q-toolbar-title>
         <q-btn
+          v-if="isWorkspaceSelected"
           flat
           dense
           round
@@ -30,16 +31,6 @@
           icon="swap_horiz"
           class="q-mr-xs"
           @click="goToWorkspaces"
-        />
-        <!-- @todo I Need to remove this hack when settings ready -->
-        <q-btn
-          v-if="isWorkspaceSelected && 1 === 0"
-          flat
-          round
-          dense
-          icon="settings"
-          class="q-mr-xs"
-          @click="goToSettings"
         />
         <q-btn
           v-if="isWorkspaceSelected"

@@ -150,7 +150,7 @@
                           icon="keyboard_return"/>
                  </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue type by typing and pressing Enter.
+                <p class="text-amber q-pt-sm">* Create new Issue type by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -164,9 +164,9 @@
                   square
                   dark
                   bordered
-                  ref="issue_types_table"
+                  ref="issue_states_table"
                   row-key="title"
-                  no-data-label="There are no issue types in your project"
+                  no-data-label="There are no issue states in your project"
                   :hide-bottom="true"
                   :data="issueStates"
                   :columns="issueStatesTableData.columns"
@@ -218,7 +218,7 @@
                            icon="keyboard_return"/>
                   </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue State by typing and pressing Enter.
+                <p class="text-amber q-pt-sm">* Create new Issue State by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -232,12 +232,13 @@
                   square
                   dark
                   bordered
-                  ref="issue_types_table"
+                  ref="issue_types_estimations"
                   row-key="title"
-                  no-data-label="There are no issue types in your project"
+                  no-data-label="There are no issue estimations in your project"
                   :data="issueEstimations"
                   :columns="issueEstimationsTableData.columns"
                   :pagination="issueEstimationsTableData.pagination"
+                  :hide-bottom="true"
                 >
                   <template #body-cell-title="props">
                     <q-td :props="props">
@@ -281,7 +282,7 @@
                            icon="keyboard_return"/>
                   </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue Estimation by typing and pressing Enter.
+                <p class="text-amber q-pt-sm">* Create new Issue Estimation by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>

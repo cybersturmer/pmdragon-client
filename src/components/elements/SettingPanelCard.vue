@@ -14,7 +14,7 @@
         Here is additional section
       </slot>
     </q-card-section>
-    <q-card-section
+    <q-card-section class="q-pa-xs q-ma-xs"
       v-if="areActions">
       <slot name="actions">
       actions
