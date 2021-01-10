@@ -24,7 +24,9 @@
                   type="text"
                   label="Project name"
                   color="amber"
-                  :value="projectName"
+                  :value="projectTitle"
+                  debounce="500"
+                  @input="updateProject($event, 'title')"
                 />
                 <q-input
                   dark
@@ -33,6 +35,8 @@
                   label="Project key"
                   color="amber"
                   :value="projectKey"
+                  debounce="500"
+                  @input="updateProject($event, 'key')"
                 />
                 <q-select
                   dark
@@ -41,13 +45,17 @@
                   :value="projectOwnedBy"
                   :options="participants"
                   :option-label="(item) => `${item.first_name} ${item.last_name}`"
+                  hint="Right after changing it you will not be able anymore to change the project."
+                  @input="updateProject($event, 'owned_by')"
                 />
               </template>
               <template #actions>
                 <q-btn-group>
                   <q-btn
                     color="red-14"
-                    label="Remove project"/>
+                    label="Remove project"
+                    @click="deleteProject"
+                  />
                 </q-btn-group>
                 <p class="text-amber q-pt-sm">* By clicking it you will delete this project with all its issues,
                   issue types, issue states, issue estimations</p>
@@ -80,14 +88,17 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
+                        debounce="500"
+                        @input="updateIssueType(props.row.id, 'title', $event)"
                       />
                     </q-td>
                   </template>
                   <template #body-cell-default="props">
                     <q-td :props="props">
                       <q-toggle
-                        :value="props.row.is_default"
                         color="info"
+                        :value="props.row.is_default"
+                        @input="updateIssueType(props.row.id, 'is_default', $event)"
                       />
                     </q-td>
                   </template>
@@ -101,6 +112,7 @@
                         :options="issueTypeIcons"
                         :option-label="(item) => item.prefix"
                         :value="props.row.icon"
+                        @input="updateIssueType(props.row.id, 'icon', $event)"
                         class="float-right col-3 overflow-hidden"
                       >
                         <template #selected-item="scope">
@@ -141,13 +153,17 @@
                   type="text"
                   label="New Issue Type"
                   color="amber"
-                  v-model="newIssueTypeFormData.title">
+                  :value="newIssueTypeFormData.title"
+                  @keyup.enter.native="createIssueType"
+                >
                  <template #append>
                    <!-- @Make it disabled if empty -->
                    <q-btn dense
                           rounded
                           flat
-                          icon="keyboard_return"/>
+                          icon="keyboard_return"
+                          @click="createIssueType"
+                   />
                  </template>
                 </q-input>
                 <p class="text-amber q-pt-sm">* Create new Issue type by typing Title and pressing Enter.
@@ -181,22 +197,28 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
+                        debounce="500"
+                        @input="updateIssueState(props.row.id, 'title', $event)"
                       />
                     </q-td>
                   </template>
                   <template #body-cell-default="props">
                     <q-td :props="props">
                       <q-toggle
-                        :value="props.row.is_default"
                         color="info"
+                        :value="props.row.is_default"
+                        debounce="500"
+                        @input="updateIssueState(props.row.id, 'is_default', $event)"
                       />
                     </q-td>
                   </template>
                   <template #body-cell-done="props">
                     <q-td :props="props">
                       <q-toggle
-                        :value="props.row.is_done"
                         color="info"
+                        :value="props.row.is_done"
+                        debounce="500"
+                        @input="updateIssueState(props.row.id, 'is_done', $event)"
                       />
                     </q-td>
                   </template>
@@ -209,13 +231,18 @@
                   type="text"
                   label="New Issue State"
                   color="amber"
-                  v-model="newIssueStateFormData.title">
+                  :value ="newIssueStateFormData.title"
+                  debounce="500"
+                  @keyup.enter.native="createIssueState"
+                >
                   <template #append>
                     <!-- @Make it disabled if empty -->
                     <q-btn dense
                            rounded
                            flat
-                           icon="keyboard_return"/>
+                           icon="keyboard_return"
+                           @click="createIssueState"
+                    />
                   </template>
                 </q-input>
                 <p class="text-amber q-pt-sm">* Create new Issue State by typing Title and pressing Enter.
@@ -249,6 +276,8 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
+                        debounce="500"
+                        @input="updateIssueEstimation(props.row.id, 'title', $event)"
                       />
                     </q-td>
                   </template>
@@ -261,6 +290,8 @@
                         type="number"
                         color="amber"
                         :value="props.row.value"
+                        debounce="500"
+                        @input="updateIssueEstimation(props.row.id, 'value', $event)"
                       />
                     </q-td>
                   </template>
@@ -273,13 +304,18 @@
                   type="text"
                   label="New Issue Estimation"
                   color="amber"
-                  v-model="newIssueEstimationFormData.title">
+                  v-model="newIssueEstimationFormData.title"
+                  debounce="500"
+                  @keyup.enter.native="createIssueEstimation"
+                >
                   <template #append>
                     <!-- @Make it disabled if empty -->
                     <q-btn dense
                            rounded
                            flat
-                           icon="keyboard_return"/>
+                           icon="keyboard_return"
+                           @click="createIssueEstimation"
+                    />
                   </template>
                 </q-input>
                 <p class="text-amber q-pt-sm">* Create new Issue Estimation by typing Title and pressing Enter.
@@ -294,12 +330,19 @@
 
 <script>
 import SettingPanelCard from 'components/elements/SettingPanelCard'
+import { Dialogs } from 'pages/mixins/dialogs'
 export default {
   name: 'SettingsView',
   components: { SettingPanelCard },
+  mixins: [Dialogs],
   data () {
     return {
       tab: 'general',
+      projectFormErrors: {
+        title: '',
+        key: '',
+        owned_by: ''
+      },
       issueTypesTableData: {
         columns: [
           {
@@ -399,7 +442,7 @@ export default {
     }
   },
   computed: {
-    projectName () {
+    projectTitle () {
       return this.$store.getters['auth/PROJECT_TITLE']
     },
     projectKey () {
@@ -429,6 +472,137 @@ export default {
       .catch((e) => {
         console.log(e)
       })
+  },
+  methods: {
+    async updateProject (value, attribute) {
+      const payload = {
+        id: this.$store.getters['current/PROJECT']
+      }
+
+      payload[attribute] = attribute === 'owned_by' ? value.id : value
+      try {
+        await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async deleteProject () {
+      const payload = {
+        id: this.$store.getters['current/PROJECT']
+      }
+
+      try {
+        await this.$store.dispatch('auth/DELETE_PROJECT', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async updateIssueType (id, attribute, value) {
+      const payload = {
+        id: id
+      }
+
+      payload[attribute] = value
+
+      try {
+        await this.$store.dispatch('issues/UPDATE_ISSUE_TYPE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async createIssueType () {
+      const payload = {
+        title: this.newIssueTypeFormData.title
+      }
+
+      try {
+        await this.$store.dispatch('issues/ADD_ISSUE_TYPE_CATEGORY', payload)
+        this.newIssueTypeFormData.title = ''
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async deleteIssueType (id) {
+      const payload = {
+        id: id
+      }
+
+      try {
+        await this.$store.dispatch('issues/DELETE_ISSUE_TYPE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async updateIssueState (id, attribute, value) {
+      const payload = {
+        id: id
+      }
+
+      payload[attribute] = value
+
+      try {
+        await this.$store.dispatch('issues/UPDATE_ISSUE_STATE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async createIssueState () {
+      const payload = {
+        title: this.newIssueStateFormData.title
+      }
+
+      try {
+        await this.$store.dispatch('issues/ADD_ISSUE_STATE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async deleteIssueState (id) {
+      const payload = {
+        id: id
+      }
+
+      try {
+        await this.$store.dispatch('issues/DELETE_ISSUE_STATE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async updateIssueEstimation (id, attribute, value) {
+      const payload = {
+        id: id
+      }
+
+      payload[attribute] = value
+
+      try {
+        await this.$store.dispatch('issues/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async createIssueEstimation () {
+      const payload = {
+        title: this.newIssueEstimationFormData.title
+      }
+
+      try {
+        await this.$store.dispatch('issues/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async deleteIssueEstimation (id) {
+      const payload = {
+        id: id
+      }
+
+      try {
+        await this.$store.dispatch('issues/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    }
   }
 }
 </script>
