@@ -117,6 +117,38 @@ export async function ADD_PROJECT ({ commit }, payload) {
   }
 }
 
+export async function UPDATE_PROJECT ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .patch(
+        `/core/projects/${payload.id}/`
+      )
+
+    commit('UPDATE_PROJECT', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_PROJECT ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+      .delete(
+      `/core/projects/${payload.id}/`
+      )
+
+    commit('DELETE_PROJECT', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
 export async function INVITE_TEAM ({ commit }, payload) {
   /**
    * Not related to Vuex store now, however gonna let it stay here **/
