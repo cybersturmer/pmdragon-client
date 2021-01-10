@@ -122,7 +122,8 @@ export async function UPDATE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
       expectedStatus: 200
     })
       .patch(
-        `/core/issue-types/${payload.id}/`
+        `/core/issue-types/${payload.id}/`,
+        payload
       )
 
     commit('UPDATE_ISSUE_TYPE_CATEGORY', response.data)
@@ -137,6 +138,9 @@ export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
       auth: true,
       expectedStatus: 204
     })
+      .delete(
+        `/core/issue-types/${payload.id}/`
+      )
 
     commit('DELETE_ISSUE_TYPE_CATEGORY', payload)
   } catch (e) {
@@ -169,7 +173,8 @@ export async function UPDATE_ISSUE_STATE_CATEGORY ({ commit }, payload) {
       expectedStatus: 200
     })
       .patch(
-        `/core/issue-states/${payload.id}/`
+        `/core/issue-states/${payload.id}/`,
+        payload
       )
 
     commit('UPDATE_ISSUE_STATE_CATEGORY', response.data)
@@ -236,7 +241,7 @@ export async function DELETE_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
       expectedStatus: 204
     })
       .delete(
-        `/core/issue-estimations/${payload.id}`
+        `/core/issue-estimations/${payload.id}/`
       )
 
     commit('DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
