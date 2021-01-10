@@ -65,3 +65,20 @@ export class ErrorHandler extends Error {
 export function unWatch (value) {
   return JSON.parse(JSON.stringify(value))
 }
+
+export function syncPair (copyFrom, copyTo) {
+  const attrs = Object.keys(copyFrom)
+  for (const attr of attrs) {
+    if (attr in copyTo && copyFrom[attr] !== copyTo[attr]) {
+      copyTo[attr] = copyFrom[attr]
+    }
+  }
+}
+
+export function removeElement (array, element) {
+  const index = array.indexOf(element)
+  if (index <= -1) throw new Error('Requested array do not contain given element')
+
+  array.splice(index, 1)
+  return array
+}
