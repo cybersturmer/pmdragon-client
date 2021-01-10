@@ -10,6 +10,10 @@ export function PROJECT (state) {
   return state.project
 }
 
+export function IS_SPACE_DEFINED (state) {
+  return state.workspace && state.project
+}
+
 export function INTERFACE_THEME (state) {
   return state.interface_theme
 }

@@ -56,6 +56,14 @@ const routes = [
           title: 'Loading workspaces...' + PMDRAGON_STRING
         },
         component: () => import('pages/index/Loading.vue')
+      },
+      {
+        name: 'kickstart',
+        path: 'kickstart',
+        meta: {
+          title: 'Welcome' + PMDRAGON_STRING
+        },
+        component: () => import('pages/index/Kickstart.vue')
       }
     ]
   },
@@ -64,18 +72,11 @@ const routes = [
     component: () => import('layouts/DashLayout.vue'),
     children: [
       {
-        name: 'kickstart',
-        path: 'kickstart',
-        meta: {
-          title: 'Welcome' + PMDRAGON_STRING
-        },
-        component: () => import('pages/index/Kickstart.vue')
-      },
-      {
         name: 'workspaces',
         path: 'workspaces',
         meta: {
-          title: 'Choose Workspace' + PMDRAGON_STRING
+          title: 'Choose Workspace' + PMDRAGON_STRING,
+          requireSpace: false
         },
         component: () => import('pages/dash/Workspaces.vue')
       },
@@ -83,7 +84,8 @@ const routes = [
         name: 'settings',
         path: 'settings',
         meta: {
-          title: 'Settings' + PMDRAGON_STRING
+          title: 'Settings' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Settings.vue')
       },
@@ -91,7 +93,8 @@ const routes = [
         name: 'me',
         path: 'me',
         meta: {
-          title: 'My Account' + PMDRAGON_STRING
+          title: 'My Account' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Me.vue')
       },
@@ -99,7 +102,8 @@ const routes = [
         name: 'backlog',
         path: 'backlog',
         meta: {
-          title: 'Backlog' + PMDRAGON_STRING
+          title: 'Backlog' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Backlog.vue')
       },
@@ -107,7 +111,8 @@ const routes = [
         name: 'board',
         path: 'board',
         meta: {
-          title: 'Board' + PMDRAGON_STRING
+          title: 'Board' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Board.vue')
       },
@@ -116,7 +121,8 @@ const routes = [
         path: 'issue/:id',
         props: true,
         meta: {
-          title: 'Issue' + PMDRAGON_STRING
+          title: 'Issue' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Issue.vue')
       },
@@ -124,7 +130,8 @@ const routes = [
         name: 'team',
         path: 'team',
         meta: {
-          title: 'Team' + PMDRAGON_STRING
+          title: 'Team' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Team.vue')
       },
@@ -132,7 +139,8 @@ const routes = [
         name: 'overview',
         path: 'overview',
         meta: {
-          title: 'Overview' + PMDRAGON_STRING
+          title: 'Overview' + PMDRAGON_STRING,
+          requireSpace: true
         },
         component: () => import('pages/dash/Overview.vue')
       }

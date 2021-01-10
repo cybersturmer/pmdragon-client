@@ -22,6 +22,17 @@ export function checkAccessMiddleware (to, from, next) {
   next()
 }
 
+export function checkUsabilityMiddleware (to, from, next) {
+  const isSpaceDefined = $store.getters['current/IS_SPACE_DEFINED']
+  const isRequireSpace = to.matched.some(item => item.meta.requireSpace)
+
+  if (!isSpaceDefined && isRequireSpace) {
+    return next({ name: 'workspaces' })
+  }
+
+  next()
+}
+
 export function setPageTitleMiddleware (to, from, next) {
   const pageTitle = to.matched.find(item => item.meta.title)
 
