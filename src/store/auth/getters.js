@@ -131,6 +131,14 @@ export function PROJECT_OWNED_BY (state, getters) {
   }
 }
 
+export function IS_ME_OWNER_OF_PROJECT (state, getters) {
+  try {
+    return getters.PROJECT_OWNED_BY.id === getters.MY_USER_ID
+  } catch (e) {
+    return false
+  }
+}
+
 export function MY_DATA (state, getters) {
   try {
     return getters.PERSON_BY_ID(getters.MY_USER_ID)

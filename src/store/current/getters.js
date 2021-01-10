@@ -11,7 +11,7 @@ export function PROJECT (state) {
 }
 
 export function IS_SPACE_DEFINED (state) {
-  return state.workspace && state.project
+  return Boolean(state.workspace && state.project)
 }
 
 export function INTERFACE_THEME (state) {
