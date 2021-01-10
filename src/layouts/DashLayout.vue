@@ -15,7 +15,7 @@
           {{ toolbarText }}
         </q-toolbar-title>
         <q-btn
-          v-if="isWorkspaceSelected"
+          v-if="isWorkspaceSelected && isMeOwnerOfCurrentProject"
           flat
           dense
           round
@@ -165,8 +165,8 @@ export default {
       const project = this.$store.getters['current/PROJECT']
 
       if (workspaceName && project) {
-        const projectName = this.$store.getters['auth/PROJECT_TITLE']
-        return `${workspaceName} - [ ${projectName} ]`
+        const projectTitle = this.$store.getters['auth/PROJECT_TITLE']
+        return `${workspaceName} - [ ${projectTitle} ]`
       }
 
       return '  PmDragon Community Edition'
@@ -182,6 +182,9 @@ export default {
     },
     avatarUrl () {
       return this.$store.getters['auth/MY_AVATAR']
+    },
+    isMeOwnerOfCurrentProject () {
+      return this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
     },
     isWorkspaceSelected () {
       return this.$store.getters['current/WORKSPACE']
