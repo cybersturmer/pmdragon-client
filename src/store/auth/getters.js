@@ -33,7 +33,7 @@ export function IS_REFRESH_TOKEN_REQUIRED (state, getters) {
   const refreshTokenExistsAndValid = getters.REFRESH_TOKEN &&
                                      getters.IS_REFRESH_TOKEN_VALID
 
-  return accessTokenExistsAndNotValid && refreshTokenExistsAndValid
+  return !accessTokenExistsAndNotValid || !refreshTokenExistsAndValid
 }
 
 export function PERSON_BY_ID (state, getters) {
