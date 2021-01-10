@@ -17,14 +17,14 @@
           dark
           v-model="formData.title"
           label="Project title"
-          :error="isFieldValid('title')"
+          :error="isFieldValid('formErrors','title')"
           :error-message="formErrors.title"
           label-color="amber"/>
         <q-input
           dark
           v-model="formData.key"
           label="Project key"
-          :error="isFieldValid('key')"
+          :error="isFieldValid('formErrors','key')"
           :error-message="formErrors.key"
           label-color="amber"/>
       </q-card-section>
