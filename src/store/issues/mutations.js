@@ -1,4 +1,5 @@
 import { LocalStorage } from 'quasar'
+import { syncPair } from 'src/services/util'
 
 function findBacklogByProjectId (state, projectId) {
   return state.backlogs
@@ -99,12 +100,7 @@ export function UPDATE_ISSUE (state, payload) {
   const issue = state.issues
     .find(issue => issue.id === payload.id)
 
-  for (const attr in payload) {
-    if (attr in issue && attr in payload && issue[attr] !== payload[attr]) {
-      issue[attr] = payload[attr]
-    }
-  }
-
+  syncPair(payload, issue)
   LocalStorage.set('issues.issues', state.issues)
 }
 
@@ -139,6 +135,7 @@ export function UPDATE_SPRINT_ISSUES (state, composite) {
    *  We use composite data for mutation **/
   const sprint = state.sprints
     .find(sprint => sprint.id === composite.id)
+
   sprint.issues = composite.issues
 
   LocalStorage.set('issues.sprints', state.sprints)

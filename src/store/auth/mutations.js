@@ -1,4 +1,5 @@
 import { LocalStorage, SessionStorage } from 'quasar'
+import { removeElement, syncPair } from 'src/services/util'
 
 function _parseTokenDetails (token) {
   const base64Url = token.split('.')[1]
@@ -20,6 +21,8 @@ function _parseTokenDetails (token) {
 }
 
 export function SET_ACCESS_TOKEN (state, payload) {
+  if (!payload) throw new Error('Empty access token given')
+
   const tokenDetails = _parseTokenDetails(payload)
   const expiredAt = new Date((tokenDetails.exp - 60) * 1000)
 
@@ -36,6 +39,8 @@ export function SET_ACCESS_TOKEN (state, payload) {
 }
 
 export function SET_REFRESH_TOKEN (state, payload) {
+  if (!payload) throw new Error('Empty refresh token given')
+
   const tokenDetails = _parseTokenDetails(payload)
   const expiredAt = new Date((tokenDetails.exp - 60) * 1000)
 
@@ -126,6 +131,29 @@ export function ADD_PROJECT (state, payload) {
     .find(workspace => workspace.id === payload.workspace)
 
   workspace.projects.push(payload)
+  LocalStorage.set('auth.workspaces', state.workspaces)
+}
+
+export function UPDATE_PROJECT (state, payload) {
+  const workspace = state.workspaces
+    .find(workspace => workspace.id === payload.workspace)
+  const project = workspace.projects
+    .find(project => project.id === payload.id)
+
+  syncPair(payload, project)
+  LocalStorage.set('auth.workspaces', state.workspaces)
+}
+
+export function DELETE_PROJECT (state, payload) {
+  /** Payload should contain workspace and project id at least **/
+  const workspace = state.workspaces
+    .find(workspace => workspace.id === payload.workspace)
+
+  const projects = workspace.projects
+  const project = projects
+    .find(project => project.id === payload.id)
+
+  workspace.projects = removeElement(workspace.projects, project)
   LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
