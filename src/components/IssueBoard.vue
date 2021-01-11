@@ -88,7 +88,7 @@ export default {
       return this.$store.getters['issues/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
     },
     getIssueTypeIcon () {
-      return this.$store.getters['issues/ISSUE_TYPE_BY_ID'](this.issue.type_category).icon
+      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     }
   }
 }

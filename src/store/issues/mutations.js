@@ -201,7 +201,7 @@ export function UPDATE_BACKLOG (state, payload) {
 export function ADD_ISSUE_TYPE_CATEGORY (state, payload) {
   state.issue_types.push(payload)
 
-  LocalStorage.set('issues.issue_types', state.issue_states)
+  LocalStorage.set('issues.issue_types', state.issue_types)
 }
 
 export function UPDATE_ISSUE_TYPE_CATEGORY (state, payload) {
@@ -210,7 +210,7 @@ export function UPDATE_ISSUE_TYPE_CATEGORY (state, payload) {
 
   syncPair(payload, issueType)
 
-  LocalStorage.set('issues.issue_types', state.issue_states)
+  LocalStorage.set('issues.issue_types', state.issue_types)
 }
 
 export function DELETE_ISSUE_TYPE_CATEGORY (state, payload) {

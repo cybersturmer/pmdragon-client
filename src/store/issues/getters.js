@@ -173,15 +173,47 @@ export function ISSUE_TYPE_ICONS (state) {
   return state.issue_type_icons
 }
 
-export function ISSUE_TYPE_BY_ID (state) {
+export function ISSUE_TYPE_ICON_BY_ID (state) {
+  return iconId => {
+    return state.issue_type_icons
+      .find(typeIcon => typeIcon.id === iconId)
+  }
+}
+
+export function ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID (state, getters, rootState, rootGetters) {
+  return (issueTypeCategoryId) => {
+    const issueType = state.issue_types
+      .find(typeCategory => typeCategory.id === issueTypeCategoryId &&
+        typeCategory.project === rootGetters['current/PROJECT'])
+
+    const iconId = issueType.icon
+    if (!iconId) return null
+
+    return state.issue_type_icons
+      .find(typeIcon => typeIcon.id === iconId)
+  }
+}
+
+export function ISSUE_TYPE_BY_ID (state, getters, rootState, rootGetters) {
   return issueTypeId => {
     try {
       return state.issue_types
-        .find(issueType => issueType.id === issueTypeId)
+        .find(typeCategory => typeCategory.id === issueTypeId &&
+          typeCategory.project === rootGetters['current/PROJECT'])
     } catch (e) {
       return null
     }
   }
+}
+
+export function ISSUE_TYPE_BY_DEFAULT (state, getters, rootState, rootGetters) {
+  return state.issue_types
+    .find(typeCategory => typeCategory.is_default === true &&
+      typeCategory.project === rootGetters['current/PROJECT'])
+}
+
+export function IS_TYPE_CATEGORY_BY_DEFAULT (state, getters) {
+  return getters.ISSUE_TYPE_BY_DEFAULT !== undefined
 }
 
 export function ISSUE_TYPE_TITLE_BY_ID (state, getters) {
@@ -200,6 +232,10 @@ export function IS_ISSUE_TYPE_HAVE_ICON (state) {
     try {
       const issueType = state.issue_types
         .find(issueType => issueType.id === issueTypeId)
+      //
+      // console.dir(issueTypeId)
+      // console.dir(issueType)
+      // console.dir(!!issueType.icon)
 
       return !!issueType.icon
     } catch (e) {

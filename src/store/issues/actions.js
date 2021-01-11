@@ -1,4 +1,4 @@
-import { ErrorHandler } from 'src/services/util'
+import { ErrorHandler, unWatch } from 'src/services/util'
 import { Api } from 'src/services/api'
 
 export async function INIT_BACKLOGS ({ commit }) {
@@ -115,7 +115,15 @@ export async function ADD_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
   }
 }
 
-export async function UPDATE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
+export async function UPDATE_ISSUE_TYPE_CATEGORY ({ commit, getters }, payload) {
+  const watchedDefault = getters.ISSUE_TYPE_BY_DEFAULT
+  /** If payload is unset default status and there is no more default
+   * We have to reject it and throw an exception **/
+
+  if (payload.is_default === false && (watchedDefault === undefined || watchedDefault.id === payload.id)) {
+    throw new ErrorHandler('You cannot disable the only one default')
+  }
+
   try {
     const response = await new Api({
       auth: true,
@@ -126,13 +134,23 @@ export async function UPDATE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
         payload
       )
 
+    if (response.data.is_default === true && watchedDefault !== undefined) {
+      const currentDefault = unWatch(watchedDefault)
+
+      if (payload.id !== currentDefault.id) {
+        currentDefault.is_default = false
+
+        commit('UPDATE_ISSUE_TYPE_CATEGORY', currentDefault)
+      }
+    }
+
     commit('UPDATE_ISSUE_TYPE_CATEGORY', response.data)
   } catch (e) {
     throw new ErrorHandler(e)
   }
 }
 
-export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
+export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit, getters }, payload) {
   try {
     await new Api({
       auth: true,
@@ -143,6 +161,10 @@ export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
       )
 
     commit('DELETE_ISSUE_TYPE_CATEGORY', payload)
+
+    if (!getters.IS_TYPE_CATEGORY_BY_DEFAULT) {
+      console.log(1)
+    }
   } catch (e) {
     throw new ErrorHandler(e)
   }

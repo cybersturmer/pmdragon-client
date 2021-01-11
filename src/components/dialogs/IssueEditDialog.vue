@@ -373,7 +373,7 @@ export default {
     },
     isItMe (id) {
       /** Return true if given id is current user id **/
-      return id === this.$root.$store.getters['auth/MY_USER_ID']
+      return id === this.$store.getters['auth/MY_USER_ID']
     },
     getParticipantTitleById (id) {
       /** return title with username, first name and last name as a String **/
@@ -418,7 +418,7 @@ export default {
         state_category: this.formData.issue.state_category
       }
 
-      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_state', payload)
     },
     updateIssueType (state) {
@@ -430,7 +430,7 @@ export default {
         type_category: this.formData.issue.type_category
       }
 
-      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_type', payload)
     },
     updateIssueAssignee (assignee) {
@@ -443,7 +443,7 @@ export default {
         assignee: assignee.id
       }
 
-      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_assignee', payload)
     },
     updateIssueEstimation (estimation) {
@@ -454,7 +454,7 @@ export default {
         estimation_category: estimation.id
       }
 
-      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_estimation', payload)
     },
     updateIssueTitle (title) {
@@ -468,7 +468,7 @@ export default {
         title: title
       }
 
-      this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.$emit('update_title', payload)
     },
     async handleEnterDescription (e) {
@@ -485,7 +485,7 @@ export default {
         description: this.formData.issue.description
       }
 
-      await this.$root.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
       this.isDescriptionEditing = false
 
       this.$emit('update_description', payload)
@@ -695,10 +695,10 @@ export default {
       return this.messages.length > 0
     },
     isIssueTypeIcon () {
-      return this.$root.$store.getters['issues/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
+      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     },
     getIssueTypeIcon () {
-      return this.$root.$store.getters['issues/ISSUE_TYPE_BY_ID'](this.issue.type_category).icon
+      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     },
     mentioningRegex () {
       const regexArray = []

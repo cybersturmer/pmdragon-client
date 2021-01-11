@@ -111,15 +111,15 @@
                         color="amber"
                         :options="issueTypeIcons"
                         :option-label="(item) => item.prefix"
-                        :value="props.row.icon"
+                        :value="getIssueTypeIconById(props.row.icon)"
                         @input="updateIssueType(props.row.id, 'icon', $event)"
                         class="float-right col-3 overflow-hidden"
                       >
                         <template #selected-item="scope">
                           <q-icon
                             size="sm"
-                            :name="scope.opt.prefix"
-                            :color="scope.opt.color"
+                            :name="getIssueTypeIconById(scope.opt.id).prefix"
+                            :color="getIssueTypeIconById(scope.opt.id).color"
                           />
                         </template>
                         <template #option="scope">
@@ -144,6 +144,17 @@
                       </q-select>
                     </q-td>
                   </template>
+                  <template #body-cell-id="props">
+                    <q-td :props="props">
+                      <q-btn
+                        flat
+                        size="sm"
+                        icon="close"
+                        label="Remove"
+                        @click="deleteIssueType(props.row.id)"
+                      />
+                    </q-td>
+                  </template>
                 </q-table>
               </template>
               <template #actions>
@@ -153,7 +164,7 @@
                   type="text"
                   label="New Issue Type"
                   color="amber"
-                  :value="newIssueTypeFormData.title"
+                  v-model="newIssueTypeFormData.title"
                   @keyup.enter.native="createIssueType"
                 >
                  <template #append>
@@ -231,7 +242,7 @@
                   type="text"
                   label="New Issue State"
                   color="amber"
-                  :value ="newIssueStateFormData.title"
+                  v-model="newIssueStateFormData.title"
                   debounce="500"
                   @keyup.enter.native="createIssueState"
                 >
@@ -369,6 +380,14 @@ export default {
             required: true,
             align: 'center',
             field: row => row.icon
+          },
+          {
+            name: 'id',
+            required: true,
+            align: 'right',
+            field: row => row.id,
+            format: val => val,
+            sortable: true
           }
         ],
         pagination: {
@@ -376,9 +395,7 @@ export default {
         }
       },
       newIssueTypeFormData: {
-        title: '',
-        is_default: false,
-        icon: null
+        title: ''
       },
       issueStatesTableData: {
         columns: [
@@ -436,8 +453,7 @@ export default {
         }
       },
       newIssueEstimationFormData: {
-        title: '',
-        value: 1
+        title: ''
       }
     }
   },
@@ -474,6 +490,9 @@ export default {
       })
   },
   methods: {
+    getIssueTypeIconById (iconId) {
+      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ID'](iconId)
+    },
     async updateProject (value, attribute) {
       const payload = {
         id: this.$store.getters['current/PROJECT']
@@ -502,7 +521,7 @@ export default {
         id: id
       }
 
-      payload[attribute] = value
+      payload[attribute] = attribute === 'icon' ? value.id : value
 
       try {
         await this.$store.dispatch('issues/UPDATE_ISSUE_TYPE_CATEGORY', payload)
@@ -512,7 +531,10 @@ export default {
     },
     async createIssueType () {
       const payload = {
-        title: this.newIssueTypeFormData.title
+        workspace: this.$store.getters['auth/WORKSPACE_ID'],
+        project: this.$store.getters['current/PROJECT'],
+        title: this.newIssueTypeFormData.title,
+        icon: null
       }
 
       try {
@@ -548,6 +570,8 @@ export default {
     },
     async createIssueState () {
       const payload = {
+        workspace: this.$store.getters['auth/WORKSPACE_ID'],
+        project: this.$store.getters['current/PROJECT'],
         title: this.newIssueStateFormData.title
       }
 
@@ -583,6 +607,8 @@ export default {
     },
     async createIssueEstimation () {
       const payload = {
+        workspace: this.$store.getters['auth/WORKSPACE_ID'],
+        project: this.$store.getters['current/PROJECT'],
         title: this.newIssueEstimationFormData.title
       }
 
