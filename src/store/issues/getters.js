@@ -164,6 +164,18 @@ export function ISSUE_STATE_TITLE_BY_ID (state, getters) {
   }
 }
 
+export function ISSUE_STATE_BY_DEFAULT (state, getters, rootState, rootGetters) {
+  return state.issue_states
+    .find(stateCategory => stateCategory.is_default === true &&
+      stateCategory.project === rootGetters['current/PROJECT'])
+}
+
+export function IS_STATE_CATEGORY_BY_DEFAULT (state, getters) {
+  return !!getters.ISSUE_STATE_BY_DEFAULT
+}
+
+/** Issue Types Block **/
+
 export function ISSUE_TYPES_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
   return state.issue_types
     .filter((issueType) => issueType.project === rootGetters['current/PROJECT'])
@@ -186,11 +198,10 @@ export function ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID (state, getters, rootS
       .find(typeCategory => typeCategory.id === issueTypeCategoryId &&
         typeCategory.project === rootGetters['current/PROJECT'])
 
-    const iconId = issueType.icon
-    if (!iconId) return null
+    if (!issueType || !issueType.icon) return null
 
     return state.issue_type_icons
-      .find(typeIcon => typeIcon.id === iconId)
+      .find(typeIcon => typeIcon.id === issueType.icon)
   }
 }
 
@@ -213,13 +224,17 @@ export function ISSUE_TYPE_BY_DEFAULT (state, getters, rootState, rootGetters) {
 }
 
 export function IS_TYPE_CATEGORY_BY_DEFAULT (state, getters) {
-  return getters.ISSUE_TYPE_BY_DEFAULT !== undefined
+  return !!getters.ISSUE_TYPE_BY_DEFAULT
 }
 
 export function ISSUE_TYPE_TITLE_BY_ID (state, getters) {
   return issueTypeId => {
     if (!issueTypeId) return false
-    return getters.ISSUE_TYPE_BY_ID(issueTypeId).title
+    try {
+      return getters.ISSUE_TYPE_BY_ID(issueTypeId).title
+    } catch (e) {
+      return 'None'
+    }
   }
 }
 
@@ -232,10 +247,6 @@ export function IS_ISSUE_TYPE_HAVE_ICON (state) {
     try {
       const issueType = state.issue_types
         .find(issueType => issueType.id === issueTypeId)
-      //
-      // console.dir(issueTypeId)
-      // console.dir(issueType)
-      // console.dir(!!issueType.icon)
 
       return !!issueType.icon
     } catch (e) {

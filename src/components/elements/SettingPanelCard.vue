@@ -1,7 +1,7 @@
 <template>
   <q-card dark flat class="bg-primary">
     <q-card-section class="q-pa-xs">
-      <p class="text-amber">*All changes will take effect immediately after leaving field</p>
+      <p class="text-amber">* All changes will take effect 1 second after input value</p>
     </q-card-section>
     <q-card-section class="q-pa-xs">
       <slot name="section">

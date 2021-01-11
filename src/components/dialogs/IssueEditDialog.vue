@@ -395,7 +395,7 @@ export default {
     },
     getIssueTypeTitle (id) {
       /** get Title for given issue type id **/
-      return this.issueTypes.find(type => type.id === id).title
+      return this.$store.getters['issues/ISSUE_TYPE_TITLE_BY_ID'](id)
     },
     getIssueTitleLabel () {
       /** get Issue title with Type and id of Issue **/

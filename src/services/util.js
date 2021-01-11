@@ -20,7 +20,7 @@ function _getStatusMessage (status) {
       message = 'Server unavailable. Please try again later'
       break
     default:
-      message = 'Something was wrong.'
+      message = 'Oops...'
   }
 
   return message
@@ -49,7 +49,7 @@ export class ErrorHandler extends Error {
     this.status = error.response ? error.response.status : false
     this.statusMessage = _getStatusMessage(this.status)
     this.message = message || _getResponseErrorMessage(error)
-    this.messageUseful = this.data ? !!error.response.data.detail : false
+    this.messageUseful = !!this.data || message
   }
 
   setErrors (errors) {

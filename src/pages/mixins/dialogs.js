@@ -32,7 +32,9 @@ export const Dialogs = {
       })
     },
     showError (e) {
-      if (!e.messageUseful) return false
+      if (!e.messageUseful) {
+        return false
+      }
 
       return this.showOkDialog(
         e.statusMessage,

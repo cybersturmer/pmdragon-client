@@ -256,7 +256,7 @@ export function ADD_ISSUE_ESTIMATION_CATEGORY (state, payload) {
 
 export function UPDATE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
   const issueEstimation = state.issue_estimations
-    .find(estimationCategory => estimationCategory.id === payload)
+    .find(estimationCategory => estimationCategory.id === payload.id)
 
   syncPair(payload, issueEstimation)
 

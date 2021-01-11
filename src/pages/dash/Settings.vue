@@ -25,7 +25,7 @@
                   label="Project name"
                   color="amber"
                   :value="projectTitle"
-                  debounce="500"
+                  :debounce="debounceDefault"
                   @input="updateProject($event, 'title')"
                 />
                 <q-input
@@ -35,7 +35,7 @@
                   label="Project key"
                   color="amber"
                   :value="projectKey"
-                  debounce="500"
+                  :debounce="debounceDefault"
                   @input="updateProject($event, 'key')"
                 />
                 <q-select
@@ -88,7 +88,7 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueType(props.row.id, 'title', $event)"
                       />
                     </q-td>
@@ -208,7 +208,7 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueState(props.row.id, 'title', $event)"
                       />
                     </q-td>
@@ -218,7 +218,7 @@
                       <q-toggle
                         color="info"
                         :value="props.row.is_default"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueState(props.row.id, 'is_default', $event)"
                       />
                     </q-td>
@@ -228,8 +228,19 @@
                       <q-toggle
                         color="info"
                         :value="props.row.is_done"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueState(props.row.id, 'is_done', $event)"
+                      />
+                    </q-td>
+                  </template>
+                  <template #body-cell-id="props">
+                    <q-td :props="props">
+                      <q-btn
+                        flat
+                        size="sm"
+                        icon="close"
+                        label="Remove"
+                        @click="deleteIssueState(props.row.id)"
                       />
                     </q-td>
                   </template>
@@ -243,7 +254,7 @@
                   label="New Issue State"
                   color="amber"
                   v-model="newIssueStateFormData.title"
-                  debounce="500"
+                  :debounce="debounceDefault"
                   @keyup.enter.native="createIssueState"
                 >
                   <template #append>
@@ -287,7 +298,7 @@
                         type="text"
                         color="amber"
                         :value="props.row.title"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueEstimation(props.row.id, 'title', $event)"
                       />
                     </q-td>
@@ -301,8 +312,19 @@
                         type="number"
                         color="amber"
                         :value="props.row.value"
-                        debounce="500"
+                        :debounce="debounceDefault"
                         @input="updateIssueEstimation(props.row.id, 'value', $event)"
+                      />
+                    </q-td>
+                  </template>
+                  <template #body-cell-id="props">
+                    <q-td :props="props">
+                      <q-btn
+                        flat
+                        size="sm"
+                        icon="close"
+                        label="Remove"
+                        @click="deleteIssueEstimation(props.row.id)"
                       />
                     </q-td>
                   </template>
@@ -316,7 +338,7 @@
                   label="New Issue Estimation"
                   color="amber"
                   v-model="newIssueEstimationFormData.title"
-                  debounce="500"
+                  :debounce="debounceDefault"
                   @keyup.enter.native="createIssueEstimation"
                 >
                   <template #append>
@@ -349,6 +371,7 @@ export default {
   data () {
     return {
       tab: 'general',
+      debounceDefault: 1000,
       projectFormErrors: {
         title: '',
         key: '',
@@ -421,6 +444,14 @@ export default {
             required: true,
             align: 'left',
             field: row => row.is_done
+          },
+          {
+            name: 'id',
+            required: true,
+            align: 'right',
+            field: row => row.id,
+            format: val => val,
+            sortable: true
           }
         ],
         pagination: {
@@ -445,7 +476,16 @@ export default {
             required: true,
             align: 'left',
             field: row => row.value,
-            style: 'width: 100px;'
+            style: 'width: 100px;',
+            sortable: true
+          },
+          {
+            name: 'id',
+            required: true,
+            align: 'right',
+            field: row => row.id,
+            format: val => val,
+            sortable: true
           }
         ],
         pagination: {
@@ -493,12 +533,12 @@ export default {
     getIssueTypeIconById (iconId) {
       return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ID'](iconId)
     },
-    async updateProject (value, attribute) {
+    async updateProject (event, attribute) {
       const payload = {
         id: this.$store.getters['current/PROJECT']
       }
 
-      payload[attribute] = attribute === 'owned_by' ? value.id : value
+      payload[attribute] = attribute === 'owned_by' ? event.id : event
       try {
         await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
       } catch (e) {
@@ -577,6 +617,7 @@ export default {
 
       try {
         await this.$store.dispatch('issues/ADD_ISSUE_STATE_CATEGORY', payload)
+        this.newIssueStateFormData.title = ''
       } catch (e) {
         this.showError(e)
       }
@@ -609,11 +650,13 @@ export default {
       const payload = {
         workspace: this.$store.getters['auth/WORKSPACE_ID'],
         project: this.$store.getters['current/PROJECT'],
-        title: this.newIssueEstimationFormData.title
+        title: this.newIssueEstimationFormData.title,
+        value: 0
       }
 
       try {
         await this.$store.dispatch('issues/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
+        this.newIssueEstimationFormData.title = ''
       } catch (e) {
         this.showError(e)
       }
