@@ -14,7 +14,13 @@
           <q-tab name="issue_estimations" icon="how_to_vote" label="Issue Estimations" />
         </q-tabs>
         <q-separator dark/>
-        <q-tab-panels class="bg-primary" style="border: 1px solid #777" v-model="tab" animated>
+        <q-tab-panels
+          class="bg-primary"
+          style="border: 1px solid #777"
+          v-model="tab"
+          animated
+          transition-next="fade"
+          transition-prev="fade">
           <q-tab-panel name="general">
             <SettingPanelCard are-actions>
               <template #section>
