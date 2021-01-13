@@ -155,7 +155,8 @@ export default {
 
 <style>
   .small_chart {
-    max-width: 850px;
+    position: relative;
+    max-width: 600px;
     margin: 0 auto;
   }
 </style>

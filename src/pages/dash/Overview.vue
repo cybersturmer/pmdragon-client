@@ -1,23 +1,28 @@
 <template>
   <q-page class="q-pa-lg">
-    <q-circular-progress
-      v-if="false"
-      show-value
-      size="50px"
-      min="0"
-      max="100"
-      :value="sprintDonePercentage"
-      center-color="primary"
-      color="accent">
-      {{ sprintDonePercentage }}%
-    </q-circular-progress>
-    <q-separator/>
+    <div class="text-center">
+      <q-circular-progress
+        show-value
+        size="50px"
+        :min="0"
+        :max="100"
+        :value="sprintDonePercentage"
+        center-color="primary"
+        color="accent">
+        {{ sprintDonePercentage }}%
+      </q-circular-progress>
+      <span class="q-ml-md text-h5">Sprint: "{{ sprintTitle }}"</span>
+      <p class="text-h6 text-amber">{{ this.startedAt }} - {{ this.finishedAt }}</p>
+    </div>
+    <q-separator class="q-mt-md"/>
     <BurnDownChart/>
   </q-page>
 </template>
 
 <script>
 import BurnDownChart from 'components/charts/BurnDownChart.vue'
+import { date } from 'quasar'
+import { DATETIME_MASK } from 'src/services/masks'
 
 export default {
   name: 'Overview',
@@ -27,6 +32,18 @@ export default {
       const totalSP = this.$store.getters['issues/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
       const currentSPDone = this.$store.getters['issues/STORY_POINT_DONE_FOR_STARTED_SPRINT']
       return Math.round(currentSPDone / totalSP * 100)
+    },
+    sprintTitle () {
+      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      return `${sprint.title}`
+    },
+    startedAt () {
+      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      return date.formatDate(sprint.started_at, DATETIME_MASK)
+    },
+    finishedAt () {
+      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      return date.formatDate(sprint.finished_at, DATETIME_MASK)
     }
   }
 }
