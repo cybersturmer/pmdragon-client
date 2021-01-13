@@ -22,7 +22,7 @@
 <script>
 import BurnDownChart from 'components/charts/BurnDownChart.vue'
 import { date } from 'quasar'
-import { DATETIME_MASK } from 'src/services/masks'
+import { DATE_MASK } from 'src/services/masks'
 
 export default {
   name: 'Overview',
@@ -39,11 +39,11 @@ export default {
     },
     startedAt () {
       const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
-      return date.formatDate(sprint.started_at, DATETIME_MASK)
+      return date.formatDate(sprint.started_at, DATE_MASK)
     },
     finishedAt () {
       const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
-      return date.formatDate(sprint.finished_at, DATETIME_MASK)
+      return date.formatDate(sprint.finished_at, DATE_MASK)
     }
   }
 }
