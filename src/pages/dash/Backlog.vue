@@ -331,6 +331,18 @@ export default {
 
       return { list: immutableList, ordering }
     },
+    notifyAboutStartedSprintAffecting (event, sprintId) {
+      /** Notify if someone start to put issues in already started sprint or take it from **/
+      const isSprintStarted = this.$store.getters['issues/IS_SPRINT_STARTED'](sprintId)
+      if (!isSprintStarted) return false
+
+      const droppedIssue = this.$store.getters['issues/ISSUE_BY_ID'](event.added.element.id)
+      const dialog = [
+        'Started Sprint affected',
+          `By adding #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
+      ]
+      this.showOkDialog(...dialog)
+    },
     handleSprintIssueAdded (event, sprintId) {
       /** Handling adding inside of Sprint **/
       const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
@@ -424,12 +436,14 @@ export default {
           this.handleBacklogIssueMoved(event, dragId)
           break
         case isSprintAdded:
+          this.notifyAboutStartedSprintAffecting(event, dragId)
           this.handleSprintIssueAdded(event, dragId)
           break
         case isBacklogAdded:
           this.handleBacklogIssueAdded(event, dragId)
           break
         case isSprintRemoved:
+          this.notifyAboutStartedSprintAffecting(event, dragId)
           this.handleSprintIssueRemoved(event, dragId)
           break
         case isBacklogRemoved:

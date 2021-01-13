@@ -335,6 +335,8 @@
                     </q-td>
                   </template>
                 </q-table>
+                <p class="text-amber q-pt-sm">** By changing values you will not affect already calculated
+                  Sprint Actual Efforts ( for example: BurnDown Chart)</p>
               </template>
               <template #actions>
                 <q-input
