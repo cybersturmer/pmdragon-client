@@ -1,7 +1,9 @@
 <template>
   <q-card dark flat class="bg-primary">
     <q-card-section class="q-pa-xs">
-      <p class="text-amber">* All changes will take effect 1 second after input value</p>
+      <slot name="default_pre_text">
+        <p class="text-amber">{{ defaultPreText }}</p>
+      </slot>
     </q-card-section>
     <q-card-section class="q-pa-xs">
       <slot name="section">
@@ -34,6 +36,10 @@ export default {
     isAdditionalSection: {
       type: Boolean,
       default: false
+    },
+    defaultPreText: {
+      type: String,
+      default: '* All changes will take effect 1 second after input value'
     }
   }
 }
