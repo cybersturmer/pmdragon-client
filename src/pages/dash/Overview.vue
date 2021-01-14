@@ -34,8 +34,11 @@ export default {
       return Math.round(currentSPDone / totalSP * 100)
     },
     sprintTitle () {
-      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
-      return `${sprint.title}`
+      try {
+        return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
+      } catch (e) {
+        return ''
+      }
     },
     startedAt () {
       const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']

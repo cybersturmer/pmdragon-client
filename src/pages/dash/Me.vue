@@ -21,90 +21,175 @@
         <q-tab-panel name="general">
           <!-- Main user Data card -->
           <!-- @todo Better to move it to separate component -->
-          <SettingPanelCard>
+          <SettingPanelCard :default-pre-text="defaultPreText">
               <template #section>
                 <q-card-section horizontal>
-                    <q-card-section class="col-md-9">
-                      <q-input
-                        dark
-                        flat
-                        type="text"
-                        color="amber"
-                        v-model="userFormData.firstName"
-                        label="First name"
-                      />
-                      <q-input
-                        dark
-                        flat
-                        type="text"
-                        color="amber"
-                        v-model="userFormData.lastName"
-                        label="Last name"
-                      />
-                      <q-input
-                        dark
-                        flat
-                        type="text"
-                        color="amber"
-                        v-model="userFormData.userName"
-                        label="Username"
-                      />
+                  <q-card-section class="col-6">
+                    <q-card-section class="q-pa-sm">
+                    <q-input
+                      dark
+                      flat
+                      type="text"
+                      color="amber"
+                      v-model="userFormData.firstName"
+                      label="First name"
+                    />
+                    <q-input
+                      dark
+                      flat
+                      type="text"
+                      color="amber"
+                      v-model="userFormData.lastName"
+                      label="Last name"
+                    />
+                    <q-input
+                      dark
+                      flat
+                      type="text"
+                      color="amber"
+                      v-model="userFormData.userName"
+                      label="Username"
+                      prefix="@"/>
                     </q-card-section>
-                    <q-separator dark vertical />
-                    <q-card-section class="col-auto">
-                      <q-uploader
-                        dark
-                        flat
-                        :accept="avatarAllowMimes"
-                        max-files="1"
-                        :factory="uploadFileAvatar"
-                        auto-upload
-                        hide-upload-btn
-                        @removed="onRemoved"
-                        style="max-width: 180px"
-                      />
-                    </q-card-section>
+                    <q-card-actions vertical>
+                      <q-btn-group>
+                        <q-btn
+                          dark
+                          outline
+                          color="amber"
+                          label="Update data"
+                          @click="saveUserData"/>
+                      </q-btn-group>
+                    </q-card-actions>
                   </q-card-section>
+                  <q-separator dark vertical />
+                  <q-card-section class="col-5 q-ml-md q-pa-xs">
+                    <q-uploader
+                      dark
+                      flat
+                      bordered
+                      ref="uploader"
+                      :accept="avatarAllowMimes"
+                      :max-files="1"
+                      :max-file-size="10485760"
+                      :max-total-size="10485760"
+                      :factory="uploadFileAvatar"
+                      auto-upload
+                      @removed="deleteAvatar"
+                      class="full-height"
+                    >
+                      <template #header>
+                        <div class="row no-wrap items-center justify-center">
+                          <q-btn
+                            dense
+                            flat
+                            v-if="!avatarUrl"
+                            class="full-width"
+                            type="a"
+                            label="Upload avatar"
+                            icon="image">
+                            <q-uploader-add-trigger />
+                          </q-btn>
+                        </div>
+                      </template>
+                      <template #list>
+                        <q-img
+                          style="border-radius: 5px"
+                          :src="avatarUrl"
+                          contain
+                          native-context-menu>
+                          <q-btn
+                            v-if="!reUploadIntended && avatarUrl"
+                            flat
+                            round
+                            size="md"
+                            style="top: 8px; right: 8px"
+                            class="absolute all-pointer-events"
+                            icon="close"
+                            @click="deleteAvatar"/>
+                        </q-img>
+                      </template>
+                    </q-uploader>
+                  </q-card-section>
+                </q-card-section>
               </template>
             </SettingPanelCard>
         </q-tab-panel>
         <q-tab-panel name="security">
-          <SettingPanelCard>
+          <SettingPanelCard :default-pre-text="defaultPreText">
             <!-- Password card -->
             <!-- @todo Better to move it to separate component -->
             <template #section>
-              <q-input
-                dark
-                dense
-                square
-                outlined
-                type="password"
-                label="Old password"
-                v-model="passwordFormData.oldPassword"
-                class="q-mb-sm"
-                standout="text-white bg-primary"
-              />
-              <q-input
-                dark
-                dense
-                square
-                outlined
-                type="password"
-                label="Password"
-                v-model="passwordFormData.newPassword1"
-                class="q-mb-sm"
-                standout="text-white bg-primary"
-              />
-              <q-input
-                dark
-                dense
-                square
-                outlined
-                type="password"
-                label="Password confirmation"
-                v-model="passwordFormData.newPassword2"
-                standout="text-white bg-primary"
-              />
+              <q-card-section horizontal>
+                <q-card-section class="col-6">
+                  <q-card-section>
+                    <q-input
+                      dark
+                      flat
+                      color="amber"
+                      type="password"
+                      label="Old password"
+                      v-model="passwordFormData.oldPassword"
+                      class="q-mb-sm"
+                    />
+                    <q-input
+                      dark
+                      flat
+                      color="amber"
+                      type="password"
+                      label="Password"
+                      v-model="passwordFormData.newPassword1"
+                      class="q-mb-sm"
+                    />
+                    <q-input
+                      dark
+                      flat
+                      color="amber"
+                      type="password"
+                      label="Password confirmation"
+                      v-model="passwordFormData.newPassword2"
+                    />
+                  </q-card-section>
+                  <q-card-actions vertical>
+                    <q-btn-group>
+                      <q-btn
+                        :disable="!arePasswords"
+                        dark
+                        outline
+                        color="amber"
+                        label="Update password"
+                        @click="savePassword"
+                      />
+                    </q-btn-group>
+                  </q-card-actions>
+                </q-card-section>
+                <q-separator dark vertical />
+                <q-card-section class="col-5">
+                  <q-card-section>
+                    <q-input
+                      dark
+                      readonly
+                      label="Email"
+                      color="amber"
+                      :value="email"
+                    />
+                    <q-input
+                      dark
+                      readonly
+                      label="Last Login"
+                      color="amber"
+                      :value="meLastLogin"
+                    />
+                    <q-input
+                      dark
+                      readonly
+                      label="Joined"
+                      color="amber"
+                      :value="meCreatedAt"
+                    />
+                  </q-card-section>
+                </q-card-section>
+              </q-card-section>
             </template>
           </SettingPanelCard>
         </q-tab-panel>
@@ -116,13 +201,17 @@
 <script>
 import { AVATAR_ALLOW_MIMES } from 'src/services/allow'
 import SettingPanelCard from 'components/elements/SettingPanelCard'
+import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
   name: 'AccountView',
   components: { SettingPanelCard },
+  mixins: [Dialogs],
   data () {
     return {
       tab: 'general',
+      defaultPreText: '* All changes will take effect after pressing update button.',
+      reUploadIntended: false,
       userFormData: {
         firstName: this.$store.getters['auth/MY_FIRST_NAME'],
         lastName: this.$store.getters['auth/MY_LAST_NAME'],
@@ -136,6 +225,13 @@ export default {
     }
   },
   methods: {
+    cons (data) {
+      console.log(data)
+      return ''
+    },
+    pickFile () {
+      this.$refs.uploader.pickFiles()
+    },
     saveUserData () {
       // Snake case cuz of API
       const payload = {
@@ -146,7 +242,7 @@ export default {
 
       this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
     },
-    savePassword () {
+    async savePassword () {
       // Snake case cuz of API
       const payload = {
         old_password: this.passwordFormData.oldPassword,
@@ -154,23 +250,54 @@ export default {
         new_password2: this.passwordFormData.newPassword2
       }
 
-      this.$store.dispatch('auth/UPDATE_MY_PASSWORD', payload)
+      try {
+        await this.$store.dispatch('auth/UPDATE_MY_PASSWORD', payload)
+        this.passwordFormData.oldPassword = ''
+        this.passwordFormData.newPassword1 = ''
+        this.passwordFormData.newPassword2 = ''
+      } catch (e) {
+        this.showError(e)
+      }
     },
     uploadFileAvatar (files) {
       files.forEach(file => {
         return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
       })
     },
-    onRemoved (file) {
+    deleteAvatar () {
       return this.$store.dispatch('auth/DELETE_MY_AVATAR')
     }
   },
   computed: {
+    arePasswords () {
+      return this.passwordFormData.newPassword1 &&
+        this.passwordFormData.newPassword2 &&
+        this.passwordFormData.oldPassword
+    },
     avatarUrl () {
       return this.$store.getters['auth/MY_AVATAR']
     },
     avatarAllowMimes () {
       return AVATAR_ALLOW_MIMES
+    },
+    email () {
+      return this.$store.getters['auth/MY_EMAIL']
+    },
+    meCreatedAt () {
+      try {
+        const meCreatedAt = this.$store.getters['auth/ME_CREATED_AT']
+        return this.$moment(meCreatedAt).fromNow()
+      } catch (e) {
+        return ''
+      }
+    },
+    meLastLogin () {
+      try {
+        const meLastLogin = this.$store.getters['auth/ME_LAST_LOGIN']
+        return this.$moment(meLastLogin).fromNow()
+      } catch (e) {
+        return ''
+      }
     }
   },
   mounted () {
@@ -180,25 +307,16 @@ export default {
 </script>
 
 <style lang="scss">
- .me_card {
-   min-height: 200px;
-   width: 213px;
- }
-
   .q-uploader__list {
     font-size: 0.5em;
     padding: 5px;
-    background-color: $amber;
+    background-color: $accent;
     overflow: hidden;
-    height: 165px;
-    max-height: 165px;
   }
 
  .q-uploader__file--img {
    min-width: initial;
    background-size: contain;
-   background-repeat: space;
-   height: 155px;
  }
 
   .q-uploader__subtitle {
