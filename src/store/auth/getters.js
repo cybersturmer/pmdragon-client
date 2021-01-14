@@ -181,6 +181,14 @@ export function MY_USERNAME (state, getters) {
   }
 }
 
+export function MY_EMAIL (state, getters) {
+  try {
+    return getters.MY_DATA.email
+  } catch (e) {
+    return null
+  }
+}
+
 export function MY_AVATAR (state, getters) {
   try {
     return getters.MY_DATA.avatar
@@ -191,4 +199,20 @@ export function MY_AVATAR (state, getters) {
 
 export function MY_USER_ID (state) {
   return state.user_id ? state.user_id : null
+}
+
+export function ME_LAST_LOGIN (state, getters) {
+  try {
+    return getters.MY_DATA.last_login
+  } catch (e) {
+    return null
+  }
+}
+
+export function ME_CREATED_AT (state, getters) {
+  try {
+    return getters.MY_DATA.created_at
+  } catch (e) {
+    return null
+  }
 }
