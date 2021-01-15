@@ -26,30 +26,30 @@
                 <q-card-section horizontal>
                   <q-card-section class="col-6">
                     <q-card-section class="q-pa-sm">
-                    <q-input
-                      dark
-                      flat
-                      type="text"
-                      color="amber"
-                      v-model="userFormData.firstName"
-                      label="First name"
-                    />
-                    <q-input
-                      dark
-                      flat
-                      type="text"
-                      color="amber"
-                      v-model="userFormData.lastName"
-                      label="Last name"
-                    />
-                    <q-input
-                      dark
-                      flat
-                      type="text"
-                      color="amber"
-                      v-model="userFormData.userName"
-                      label="Username"
-                      prefix="@"/>
+                      <q-input
+                        dark
+                        flat
+                        type="text"
+                        color="amber"
+                        v-model="userFormData.firstName"
+                        label="First name"
+                      />
+                      <q-input
+                        dark
+                        flat
+                        type="text"
+                        color="amber"
+                        v-model="userFormData.lastName"
+                        label="Last name"
+                      />
+                      <q-input
+                        dark
+                        flat
+                        type="text"
+                        color="amber"
+                        v-model="userFormData.userName"
+                        label="Username"
+                        prefix="@"/>
                     </q-card-section>
                     <q-card-actions vertical>
                       <q-btn-group>
@@ -63,7 +63,7 @@
                     </q-card-actions>
                   </q-card-section>
                   <q-separator dark vertical />
-                  <q-card-section class="col-5 q-ml-md q-pa-xs">
+                  <q-card-section class="col-5 q-ml-xs q-pa-xs">
                     <q-uploader
                       dark
                       flat
@@ -79,15 +79,16 @@
                       class="full-height"
                     >
                       <template #header>
-                        <div class="row no-wrap items-center justify-center">
+                        <div
+                          v-if="!avatarUrl"
+                          class="row no-wrap items-center justify-center">
                           <q-btn
                             dense
                             flat
-                            v-if="!avatarUrl"
                             class="full-width"
                             type="a"
                             label="Upload avatar"
-                            icon="image">
+                            icon="upload">
                             <q-uploader-add-trigger />
                           </q-btn>
                         </div>
@@ -102,11 +103,26 @@
                             v-if="!reUploadIntended && avatarUrl"
                             flat
                             round
-                            size="md"
                             style="top: 8px; right: 8px"
                             class="absolute all-pointer-events"
                             icon="close"
-                            @click="deleteAvatar"/>
+                            @click="deleteAvatar">
+                            <q-tooltip>
+                              Remove avatar
+                            </q-tooltip>
+                          </q-btn>
+                          <q-btn
+                            v-if="!reUploadIntended && avatarUrl"
+                            flat
+                            round
+                            style="top: 8px; right: 45px"
+                            class="absolute all-pointer-events"
+                            icon="update">
+                            <q-uploader-add-trigger />
+                            <q-tooltip>
+                              Update avatar
+                            </q-tooltip>
+                          </q-btn>
                         </q-img>
                       </template>
                     </q-uploader>
