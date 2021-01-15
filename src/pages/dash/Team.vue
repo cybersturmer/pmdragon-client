@@ -34,7 +34,7 @@
               <q-card-section class="col-4">
                 <q-avatar
                   v-if="props.row.avatar">
-                  <img :src="props.row.avatar" :alt="props.row.username">
+                  <img :src="isMe(props.row.id) ? myAvatarUrl : props.row.avatar" :alt="props.row.username">
                 </q-avatar>
               </q-card-section>
               <!-- Name block -->
@@ -155,12 +155,11 @@ export default {
     }
   },
   computed: {
+    myAvatarUrl () {
+      return this.$store.getters['auth/MY_AVATAR']
+    },
     participants () {
-      try {
-        return this.$store.getters['auth/WORKSPACE_DATA'].participants
-      } catch (e) {
-        return []
-      }
+      return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
     },
     invited () {
       const workspaceId = this.$store.getters['auth/WORKSPACE_ID']
