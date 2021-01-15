@@ -1,6 +1,10 @@
 export const Dialogs = {
   methods: {
-    showOkDialog (title, message, unsafe = false) {
+    showOkDialog (
+      title,
+      message,
+      unsafe = false
+    ) {
       return this.$q.dialog({
         dark: true,
         html: unsafe,
@@ -12,7 +16,13 @@ export const Dialogs = {
         }
       })
     },
-    showOkCancelDialog (title, message, actionOk = 'OK', actionColor = 'normal', unsafe = false) {
+    showOkCancelDialog (
+      title,
+      message,
+      actionOk = 'OK',
+      actionColor = 'normal',
+      unsafe = false
+    ) {
       const colorOptions = {
         normal: 'amber',
         danger: 'red-14'
