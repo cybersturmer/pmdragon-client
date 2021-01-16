@@ -95,12 +95,12 @@
                       </template>
                       <template #list>
                         <q-img
+                          v-if="avatarUrl"
                           style="border-radius: 5px"
                           :src="avatarUrl"
                           contain
                           native-context-menu>
                           <q-btn
-                            v-if="!reUploadIntended && avatarUrl"
                             flat
                             round
                             style="top: 8px; right: 8px"
@@ -112,7 +112,6 @@
                             </q-tooltip>
                           </q-btn>
                           <q-btn
-                            v-if="!reUploadIntended && avatarUrl"
                             flat
                             round
                             style="top: 8px; right: 45px"
@@ -227,7 +226,7 @@ export default {
     return {
       tab: 'general',
       defaultPreText: '* All changes will take effect after pressing update button.',
-      reUploadIntended: false,
+      reUploadIntended: true,
       userFormData: {
         firstName: this.$store.getters['auth/MY_FIRST_NAME'],
         lastName: this.$store.getters['auth/MY_LAST_NAME'],
@@ -241,10 +240,6 @@ export default {
     }
   },
   methods: {
-    cons (data) {
-      console.log(data)
-      return ''
-    },
     pickFile () {
       this.$refs.uploader.pickFiles()
     },
@@ -279,6 +274,8 @@ export default {
       files.forEach(file => {
         return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
       })
+
+      this.reUploadIntended = false
     },
     deleteAvatar () {
       return this.$store.dispatch('auth/DELETE_MY_AVATAR')
