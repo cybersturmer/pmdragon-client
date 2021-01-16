@@ -252,11 +252,7 @@ export default {
         dark: true,
         title: 'Issue ',
         component: IssueEditDialog,
-        issue: item,
-        issueStates: this.issueStates,
-        issueTypes: this.issueTypes,
-        participants: this.participants,
-        $store: this.$store
+        id: item.id
       })
     },
     sprintIssues (sprintId) {

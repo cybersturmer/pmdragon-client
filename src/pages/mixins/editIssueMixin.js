@@ -13,12 +13,13 @@ export const editIssueMixin = {
   mixins: [Dialogs, Notifications],
   props: {
     id: {
-      type: String,
+      type: Number,
       required: true
     }
   },
   data () {
     return {
+      tab: 'messages',
       editorToolbar: [
         ['bold', 'italic', 'underline', 'strike'],
         ['viewsource'],
@@ -38,6 +39,7 @@ export const editIssueMixin = {
       isNewMessageEditing: false,
       editingMessageId: null,
       messages: [],
+      history: [],
       mask: DATETIME_MASK
     }
   },
@@ -47,6 +49,7 @@ export const editIssueMixin = {
 
     try {
       await this.getMessages()
+      await this.getHistory()
     } catch (e) {
       this.showError(new ErrorHandler(e))
     }
@@ -106,6 +109,18 @@ export const editIssueMixin = {
         )
 
       this.messages = response.data
+    },
+    async getHistory () {
+      /** get history of changes for current issue **/
+      const response = await new Api({
+        auth: true,
+        expectedStatus: 200
+      })
+        .get(
+          `/core/issues-history/?issue=${this.formData.issue.id}`
+        )
+
+      this.history = response.data
     },
     getIssueTypeTitle (id) {
       /** get Title for given issue type id **/
@@ -357,6 +372,9 @@ export const editIssueMixin = {
     }
   },
   computed: {
+    timelineLayout () {
+      return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
+    },
     estimations () {
       return this.$store.getters['issues/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
     },
