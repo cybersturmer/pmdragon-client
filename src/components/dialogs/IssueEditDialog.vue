@@ -22,7 +22,7 @@
                 :value="formData.issue.title"
                 :debounce="1000"
                 @input="updateIssueTitle($event)"
-                :label="getIssueTitleLabel()"
+                :label="getIssueTitleLabel"
                 label-color="amber">
                 <template v-slot:before>
                   <q-icon
@@ -36,7 +36,7 @@
               </q-input>
             </q-card-section>
             <!-- Description -->
-            <q-card-section>
+            <q-card-section class="q-pt-xs">
               <!-- Block with issue description -->
               <div class="q-mb-xs text-subtitle2 text-amber">
                 Description
@@ -80,53 +80,108 @@
             >
               <!-- Block with messages -->
               <q-card-section>
-                <div class="q-mb-xs text-subtitle2 text-amber">
-                  Messages
-                </div>
-                <q-card
-                  dark
-                  flat
-                  bordered
-                  v-show="thereAreMessages"
-                >
-                  <q-card-section>
-                    <q-chat-message
-                      v-for="message in messages"
-                      v-bind:key="message.id"
-                      :name="getParticipantTitleById(message.created_by)"
-                      :avatar="getParticipantById(message.created_by).avatar"
-                      size="6"
-                      :text-sanitize="false"
-                      bg-color="accent"
-                      text-color="amber"
-                      :sent="isItMe(message.created_by)"
+                <q-tabs
+                  v-model="tab"
+                  dense
+                  narrow-indicator>
+                  <q-tab name="messages" label="Messages"/>
+                  <q-tab name="history" label="History"/>
+                </q-tabs>
+                <q-separator />
+                <q-tab-panels
+                  v-model="tab"
+                  class="bg-primary"
+                  transition-next="fade"
+                  transition-prev="fade"
+                  animated>
+                  <q-tab-panel
+                    dark
+                    class="no-padding"
+                    name="messages">
+                    <q-card
+                      dark
+                      flat
+                      bordered
                     >
-                      <template #default>
-                        <div v-html="message.description"/>
-                        <div class="text-left q-message-stamp">
-                          {{ getRelativeDatetime(message.updated_at) }}
-                        </div>
-                        <div class="text-right">
-                          <q-btn-group
-                            v-show="isItMe(message.created_by)"
-                            outline
-                            class="bottom-right">
-                            <q-btn
-                              size="sm"
-                              label="edit"
-                              @click="startMessageEditing(message.id)"
-                            />
-                            <q-btn
-                              size="sm"
-                              label="delete"
-                              @click="removeMessage(message.id)"
-                            />
-                          </q-btn-group>
-                        </div>
-                      </template>
-                    </q-chat-message>
-                  </q-card-section>
-                </q-card>
+                      <q-card-section>
+                        <q-chat-message
+                          v-for="message in messages"
+                          v-bind:key="message.id"
+                          :name="getParticipantTitleById(message.created_by)"
+                          :avatar="getParticipantById(message.created_by).avatar"
+                          size="6"
+                          :text-sanitize="false"
+                          bg-color="accent"
+                          text-color="amber"
+                          :sent="isItMe(message.created_by)"
+                        >
+                          <template #default>
+                            <div v-html="message.description"/>
+                            <div class="text-left q-message-stamp">
+                              {{ getRelativeDatetime(message.updated_at) }}
+                            </div>
+                            <div class="text-right">
+                              <q-btn-group
+                                v-show="isItMe(message.created_by)"
+                                outline
+                                class="bottom-right">
+                                <q-btn
+                                  size="sm"
+                                  label="edit"
+                                  @click="startMessageEditing(message.id)"
+                                />
+                                <q-btn
+                                  size="sm"
+                                  label="delete"
+                                  @click="removeMessage(message.id)"
+                                />
+                              </q-btn-group>
+                            </div>
+                          </template>
+                        </q-chat-message>
+                      </q-card-section>
+                    </q-card>
+                  </q-tab-panel>
+                  <q-tab-panel
+                    dark
+                    name="history"
+                    class="no-padding"
+                  >
+                    <q-card
+                      dark
+                      flat
+                      bordered>
+                      <q-card-section class="q-pt-xs q-pb-xs">
+                        <q-timeline
+                          :layout="timelineLayout"
+                          color="accent"
+                          dark>
+                          <q-timeline-entry
+                            v-for="entry in history"
+                            :key="entry.id"
+                            :title="`${getParticipantTitleById(entry.changed_by)} updated (${entry.edited_field})`"
+                            :subtitle="getRelativeDatetime(entry.updated_at)"
+                            color="secondary"
+                            :icon="entry.entry_type ? entry.entry_type : 'radio_button_checked'">
+                            <div class="row items-center">
+                              <span
+                                v-html="entry.before_value"
+                                class="q-pa-sm q-ma-xs bg-grey-10"
+                                style="border: 1px solid gray; border-radius: 5px;">
+                              </span>
+                              <span
+                                v-html="entry.after_value"
+                                class="q-pa-sm q-ma-xs bg-blue-grey-10"
+                                style="border: 1px solid gray; border-radius: 5px;"
+                              />
+                            </div>
+                          </q-timeline-entry>
+                    </q-timeline>
+                      </q-card-section>
+                    </q-card>
+                  </q-tab-panel>
+                </q-tab-panels>
+
               </q-card-section>
             </q-card-section>
           </q-scroll-area>
@@ -280,11 +335,12 @@
 </template>
 
 <script>
+import { editIssueMixin } from 'pages/mixins/editIssueMixin'
 import { DATETIME_MASK } from 'src/services/masks'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
 import { copyToClipboard, date } from 'quasar'
-import { ErrorHandler, unWatch } from 'src/services/util'
+import { ErrorHandler } from 'src/services/util'
 import { Api } from 'src/services/api'
 import EditorSaveButton from 'components/buttons/EditorSaveButton.vue'
 import EditorCancelButton from 'components/buttons/EditorCancelButton.vue'
@@ -293,36 +349,16 @@ import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
 export default {
   name: 'IssueEditDialog',
   components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
-  mixins: [Dialogs, Notifications],
-  props: {
-    issue: {
-      type: Object,
-      required: true
-    },
-    issueStates: {
-      type: Array,
-      required: true
-    },
-    issueTypes: {
-      type: Array,
-      required: true
-    },
-    participants: {
-      type: Array,
-      required: true
-    }
-  },
+  mixins: [editIssueMixin, Dialogs, Notifications],
   data () {
     return {
+      tab: 'messages',
       editorToolbar: [
         ['bold', 'italic', 'underline', 'strike'],
         ['viewsource'],
         ['undo', 'redo']
       ],
       isDescriptionEditing: !this.issue.description,
-      formData: {
-        issue: unWatch(this.issue)
-      },
       formNewMessage: {
         issue: this.issue.id,
         description: ''
@@ -330,12 +366,14 @@ export default {
       isNewMessageEditing: false,
       editingMessageId: null,
       messages: [],
+      history: [],
       mask: DATETIME_MASK
     }
   },
   async mounted () {
     try {
       await this.getMessages()
+      await this.getHistory()
     } catch (e) {
       this.showError(new ErrorHandler(e))
     }
@@ -393,6 +431,17 @@ export default {
         )
 
       this.messages = response.data
+    },
+    async getHistory () {
+      const response = await new Api({
+        auth: true,
+        expectedStatus: 200
+      })
+        .get(
+          `/core/issues-history/?issue=${this.formData.issue.id}`
+        )
+
+      this.history = response.data
     },
     getIssueTypeTitle (id) {
       /** get Title for given issue type id **/
@@ -673,6 +722,9 @@ export default {
     }
   },
   computed: {
+    timelineLayout () {
+      return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
+    },
     estimations () {
       return this.$store.getters['issues/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
     },
@@ -736,5 +788,13 @@ export default {
 
   .editor_token:before {
     content: '@'
+  }
+
+  .q-timeline__title {
+    font-size: 0.9rem;
+  }
+
+  .q-timeline__content {
+    padding-bottom: 5px;
   }
 </style>

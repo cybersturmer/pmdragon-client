@@ -15,6 +15,7 @@
             <q-input
               dark
               :value="formData.issue.title"
+              debounce="1000"
               @input="updateIssueTitle($event)"
               :label="issueTitleLabel"
               label-color="amber">
