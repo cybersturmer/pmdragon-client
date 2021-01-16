@@ -13,7 +13,6 @@ export const editIssueMixin = {
   mixins: [Dialogs, Notifications],
   props: {
     id: {
-      type: Number,
       required: true
     }
   },
@@ -44,7 +43,7 @@ export const editIssueMixin = {
     }
   },
   async mounted () {
-    this.formData.issue = unWatch(this.$store.getters['issues/ISSUE_BY_ID'](this.id))
+    this.formData.issue = unWatch(this.$store.getters['issues/ISSUE_BY_ID'](parseInt(this.id)))
     this.isDescriptionEditing = !this.formData.issue.description
 
     try {

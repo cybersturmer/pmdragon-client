@@ -157,7 +157,7 @@
                           :subtitle="getRelativeDatetime(entry.updated_at)"
                           color="secondary"
                           :icon="entry.entry_type ? entry.entry_type : 'radio_button_checked'">
-                          <div class="row items-center">
+                          <div class="row items-center text-amber">
                               <span
                                 v-html="entry.before_value"
                                 class="q-pa-sm q-ma-xs bg-grey-10"
@@ -348,7 +348,7 @@ export default {
 }
 
 .q-timeline__title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .q-timeline__content {
