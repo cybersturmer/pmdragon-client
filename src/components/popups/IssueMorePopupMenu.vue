@@ -33,10 +33,15 @@ export default {
         'Remove',
         'danger'
       ]
+
       this.showOkCancelDialog(...dialog)
         .onOk(() => {
           try {
             this.$store.dispatch('issues/DELETE_ISSUE', this.issue)
+            if (this.$route.name === 'issue') {
+              this.$router.push({ name: 'backlog' })
+            }
+
             this.$emit('remove', this.issue.id)
           } catch (e) {
             this.showError(e)
