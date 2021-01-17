@@ -19,7 +19,7 @@
           flat
           dense
           round
-          icon="settings"
+          icon="work_outline"
           @click="goToSettingsOfProject"
           title="Manage project"
         />
@@ -37,7 +37,7 @@
           flat
           round
           dense
-          icon="account_circle"
+          icon="person"
           class="q-mr-xs"
           @click="goToAccount"
         />
