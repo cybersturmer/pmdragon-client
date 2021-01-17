@@ -303,7 +303,7 @@ export function DELETE_ISSUE (state, payload) {
     })
 
   state.issues.splice(issueIndex, 1)
-  LocalStorage.set('issues.issues', state.backlogs)
+  LocalStorage.set('issues.issues', state.issues)
 }
 
 export function UNBIND_ISSUE_FROM_BACKLOG (state, payload) {
