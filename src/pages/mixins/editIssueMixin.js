@@ -126,7 +126,7 @@ export const editIssueMixin = {
     getParticipantTitleById (id) {
       /** return title with username, first name and last name as a String **/
       const participant = this.getParticipantById(id)
-      return `@${participant.username} ( ${participant.first_name} ${participant.last_name} )`
+      return participant.id ? `@${participant.username} (${participant.first_name} ${participant.last_name})` : ''
     },
     async getMessages () {
       /** get messages for current issue without paging
