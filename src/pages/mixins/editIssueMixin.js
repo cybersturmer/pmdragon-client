@@ -44,7 +44,6 @@ export const editIssueMixin = {
   },
   async mounted () {
     this.formData.issue = unWatch(this.$store.getters['issues/ISSUE_BY_ID'](parseInt(this.id)))
-    this.isDescriptionEditing = !this.formData.issue.description
 
     try {
       await this.getMessages()
@@ -74,7 +73,7 @@ export const editIssueMixin = {
           action += ' priority'
           break
         default:
-          action = `updated (${entry.edited_field})`
+          action = `updated ${entry.edited_field}`
       }
 
       switch (entry.entry_type) {
