@@ -54,6 +54,38 @@ export const editIssueMixin = {
     }
   },
   methods: {
+    isTimelineShowValues (entry) {
+      if (entry.edited_field === 'Ordering') {
+        return false
+      }
+
+      return entry.before_value || entry.after_value
+    },
+    buildTimeLineEntryTitle (entry) {
+      /** Here we can make a title for issue event **/
+      const participantTitle = this.getParticipantTitleById(entry.changed_by)
+
+      let action = ''
+      switch (entry.edited_field) {
+        case 'Ordering':
+          action = parseInt(entry.before_value) > parseInt(entry.after_value)
+            ? 'increased'
+            : 'decreased'
+          action += ' priority'
+          break
+        default:
+          action = `updated (${entry.edited_field})`
+      }
+
+      switch (entry.entry_type) {
+        case 'edit':
+          return `${participantTitle} ${action}`
+        case 'add_task':
+          return `${participantTitle} created this Issue`
+        default:
+          return `${participantTitle} did (${entry.entry_type})`
+      }
+    },
     copyLink () {
       /** Copy link to issue in buffer **/
       const host = this.$store.getters['connection/HOST']

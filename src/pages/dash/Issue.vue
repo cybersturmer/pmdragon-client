@@ -153,17 +153,21 @@
                         <q-timeline-entry
                           v-for="entry in history"
                           :key="entry.id"
-                          :title="`${getParticipantTitleById(entry.changed_by)} updated (${entry.edited_field})`"
+                          :title="buildTimeLineEntryTitle(entry)"
                           :subtitle="getRelativeDatetime(entry.updated_at)"
                           color="secondary"
                           :icon="entry.entry_type ? entry.entry_type : 'radio_button_checked'">
-                          <div class="row items-center text-amber">
+                          <div
+                            v-if="isTimelineShowValues(entry)"
+                            class="row items-center">
                               <span
+                                v-if="entry.before_value"
                                 v-html="entry.before_value"
                                 class="q-pa-sm q-ma-xs bg-grey-10"
                                 style="border: 1px solid gray; border-radius: 5px;">
                               </span>
                             <span
+                              v-if="entry.after_value"
                               v-html="entry.after_value"
                               class="q-pa-sm q-ma-xs bg-blue-grey-10"
                               style="border: 1px solid gray; border-radius: 5px;"
@@ -348,7 +352,7 @@ export default {
 }
 
 .q-timeline__title {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .q-timeline__content {
