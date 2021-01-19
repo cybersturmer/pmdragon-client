@@ -26,6 +26,11 @@ export function ISSUES_BY_IDS (state) {
   }
 }
 
+/** ATTACHMENTS block **/
+// @todo Get Attachments
+// @todo Get Attachment by Id
+// @todo Get Attachments by Ids
+
 /** Sprints block **/
 export function SPRINTS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
   return state.sprints

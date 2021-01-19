@@ -97,6 +97,11 @@ export async function INIT_ISSUE_TYPES ({ commit }) {
   }
 }
 
+/** ATTACHMENTS block **/
+// @todo init attachments
+// @todo patch attachment
+// @todo remove attachment
+
 /** Issue types actions **/
 export async function ADD_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
   try {
@@ -513,23 +518,6 @@ export async function DELETE_SPRINT ({ commit }, sprintId) {
       )
 
     commit('DELETE_SPRINT', sprintId)
-  } catch (e) {
-    throw new ErrorHandler(e)
-  }
-}
-
-export async function EDIT_ISSUE ({ commit }, payload) {
-  try {
-    const response = await new Api({
-      auth: true,
-      expectedStatus: 200
-    })
-      .put(
-      `/core/issues/${payload.id}/`,
-      payload
-      )
-
-    commit('EDIT_ISSUE', response.data)
   } catch (e) {
     throw new ErrorHandler(e)
   }

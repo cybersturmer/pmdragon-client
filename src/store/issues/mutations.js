@@ -8,23 +8,6 @@ function findBacklogByProjectId (state, projectId) {
     })
 }
 
-function findBacklogIssue (issues, issueId) {
-  return issues
-    .findIndex((el, index, array) => {
-      return el.id === issueId
-    })
-}
-
-function findIssueIndexesInBacklog (state, projectId, issueId) {
-  const backlogIndex = findBacklogByProjectId(state, projectId)
-  const issuesIndex = findBacklogIssue(state.backlogs[backlogIndex].issues, issueId)
-
-  return {
-    backlogIndex,
-    issuesIndex
-  }
-}
-
 function findSprintIndexById (state, sprintId) {
   return state.sprints
     .findIndex((el, index, array) => {
@@ -55,9 +38,48 @@ export function INIT_ISSUES (state, payload) {
   LocalStorage.set('issues.issues', payload)
 }
 
+export function INIT_ATTACHMENTS (state, payload) {
+  state.issue_attachments = payload
+  LocalStorage.set('issues.issue_attachments', payload)
+}
+
 export function INIT_SPRINT_DURATIONS (state, payload) {
   state.sprint_durations = payload
   LocalStorage.set('issues.sprint_durations', payload)
+}
+
+/** ATTACHMENTS manage block **/
+function saveIssueAttachmentStateToLocalStorage (state) {
+  LocalStorage.set('issues.issue_attachments', state.issue_attachments)
+}
+
+export function ADD_ATTACHMENT (state, payload) {
+  state.issue_attachments.push(payload)
+  saveIssueAttachmentStateToLocalStorage(state)
+}
+
+export function EDIT_ATTACHMENT (state, payload) {
+  const attachment = state.issue_attachments
+    .find(attachmentEl => attachmentEl.id === payload)
+
+  syncPair(payload, attachment)
+  saveIssueAttachmentStateToLocalStorage(state)
+}
+
+export function REMOVE_ATTACHMENT (state, payload) {
+  const attachment = state.issue_attachments
+    .find(attachmentEl => attachmentEl.id === payload)
+
+  removeElement(state.issue_attachments, attachment)
+  saveIssueAttachmentStateToLocalStorage(state)
+}
+
+/** BACKLOG manage block **/
+export function ORDER_BACKLOG_ISSUES (state, payload) {
+  const project = payload[0].project
+  const backlogIndex = findBacklogByProjectId(state, project)
+  state.backlogs[backlogIndex].issues = payload
+  LocalStorage.set('issues.backlogs', state.backlogs)
 }
 
 export function ADD_ISSUE_TO_BACKLOG (state, payload) {
@@ -69,30 +91,26 @@ export function ADD_ISSUE_TO_BACKLOG (state, payload) {
   LocalStorage.set('issues.backlogs', state.backlogs)
 }
 
+export function UPDATE_BACKLOG_ISSUES (state, composite) {
+  /** Just update issues inside of Backlog
+   * We use composite data for mutation **/
+  const backlog = state.backlogs
+    .find(backlog => backlog.id === composite.id)
+  backlog.issues = composite.issues
+
+  LocalStorage.set('issues.backlogs', state.backlogs)
+}
+
+export function UPDATE_BACKLOG (state, payload) {
+  const backlogIndex = findBacklogByProjectId(state, payload.id)
+  state.backlogs.splice(backlogIndex, 1, payload)
+
+  LocalStorage.set('issues.backlogs', state.backlogs)
+}
+
 export function ADD_ISSUE_TO_ISSUES (state, payload) {
   state.issues.push(payload)
   LocalStorage.set('issues.issues', state.issues)
-}
-
-export function EDIT_ISSUE (state, payload) {
-  /**
-   * Payload should contain at least workspace, project, id, field
-   * It helps us to put it in the right place */
-
-  const issueIndex = state.issues
-    .findIndex((el, index, array) => {
-      return el.id === payload.id
-    })
-
-  state.issues.splice(issueIndex, 1, payload)
-  LocalStorage.set('issues.issues', state.backlogs)
-}
-
-export function ORDER_BACKLOG_ISSUES (state, payload) {
-  const project = payload[0].project
-  const backlogIndex = findBacklogByProjectId(state, project)
-  state.backlogs[backlogIndex].issues = payload
-  LocalStorage.set('issues.backlogs', state.backlogs)
 }
 
 export function UPDATE_ISSUE (state, payload) {
@@ -170,16 +188,6 @@ export function DELETE_SPRINT (state, sprintId) {
   LocalStorage.set('issues.sprints', state.sprints)
 }
 
-export function UPDATE_BACKLOG_ISSUES (state, composite) {
-  /** Just update issues inside of Backlog
-   * We use composite data for mutation **/
-  const backlog = state.backlogs
-    .find(backlog => backlog.id === composite.id)
-  backlog.issues = composite.issues
-
-  LocalStorage.set('issues.backlogs', state.backlogs)
-}
-
 export function UPDATE_SPRINT (state, payload) {
   /**
    * We use this mutation for update issues inside of sprint
@@ -188,13 +196,6 @@ export function UPDATE_SPRINT (state, payload) {
   state.sprints.splice(sprintIndex, 1, payload)
 
   LocalStorage.set('issues.sprints', state.sprints)
-}
-
-export function UPDATE_BACKLOG (state, payload) {
-  const backlogIndex = findBacklogByProjectId(state, payload.id)
-  state.backlogs.splice(backlogIndex, 1, payload)
-
-  LocalStorage.set('issues.backlogs', state.backlogs)
 }
 
 /** Issue Type Category management **/
@@ -304,17 +305,6 @@ export function DELETE_ISSUE (state, payload) {
 
   state.issues.splice(issueIndex, 1)
   LocalStorage.set('issues.issues', state.issues)
-}
-
-export function UNBIND_ISSUE_FROM_BACKLOG (state, payload) {
-  const indexes = findIssueIndexesInBacklog(state, payload.project, payload.id)
-  state.backlogs[indexes.backlogIndex].issues.splice(indexes.issuesIndex, 1)
-  LocalStorage.set('issues.backlogs', state.backlogs)
-}
-
-export function UNBIND_ISSUE_FROM_SPRINT (state, payload) {
-  state.sprints
-    .filter((sprint) => payload.id in sprint.issues)
 }
 
 export function RESET () {
