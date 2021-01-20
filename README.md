@@ -2,7 +2,7 @@
 [Main repository](https://github.com/cybersturmer/pmdragon)
 
 ## Build
-### Electron application (Linux | MacOs | Win)
+### Electron application ( Linux | MacOs | Win )
 quasar build -m electron
 
 
