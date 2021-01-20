@@ -27,9 +27,25 @@ export function ISSUES_BY_IDS (state) {
 }
 
 /** ATTACHMENTS block **/
-// @todo Get Attachments
-// @todo Get Attachment by Id
-// @todo Get Attachments by Ids
+
+export function ATTACHMENTS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
+  return state.issue_attachments
+    .filter((attachment) => attachment.project === rootGetters['current/PROJECT'])
+}
+
+export function ATTACHMENT_BY_ID (state) {
+  return attachmentId => {
+    return state.issue_attachments
+      .find(attachment => attachment.id === attachmentId)
+  }
+}
+
+export function ATTACHMENTS_BY_IDS (state) {
+  return attachmentIds => {
+    return state.issue_attachments
+      .filter((attachment) => attachment.indexOf(attachment.id) >= 0)
+  }
+}
 
 /** Sprints block **/
 export function SPRINTS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {

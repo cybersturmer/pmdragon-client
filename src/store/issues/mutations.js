@@ -58,7 +58,7 @@ export function ADD_ATTACHMENT (state, payload) {
   saveIssueAttachmentStateToLocalStorage(state)
 }
 
-export function EDIT_ATTACHMENT (state, payload) {
+export function UPDATE_ATTACHMENT (state, payload) {
   const attachment = state.issue_attachments
     .find(attachmentEl => attachmentEl.id === payload)
 
@@ -66,7 +66,7 @@ export function EDIT_ATTACHMENT (state, payload) {
   saveIssueAttachmentStateToLocalStorage(state)
 }
 
-export function REMOVE_ATTACHMENT (state, payload) {
+export function DELETE_ATTACHMENT (state, payload) {
   const attachment = state.issue_attachments
     .find(attachmentEl => attachmentEl.id === payload)
 

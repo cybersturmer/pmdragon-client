@@ -62,6 +62,10 @@ export default {
             return this.$store.dispatch('issues/INIT_ISSUES')
           })
           .then(() => {
+            this.showProgress('issue attachments')
+            return this.$store.dispatch('issues/INIT_ATTACHMENTS')
+          })
+          .then(() => {
             this.showProgress('sprints')
             return this.$store.dispatch('issues/INIT_SPRINTS')
           })

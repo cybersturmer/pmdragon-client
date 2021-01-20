@@ -98,9 +98,71 @@ export async function INIT_ISSUE_TYPES ({ commit }) {
 }
 
 /** ATTACHMENTS block **/
-// @todo init attachments
-// @todo patch attachment
-// @todo remove attachment
+export async function INIT_ATTACHMENTS ({ commit }) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .get(
+        '/core/issue-attachments/'
+      )
+
+    commit('INIT_ATTACHMENTS', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function ADD_ATTACHMENT ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 201
+    })
+      .post(
+        '/core/issue-attachments/',
+        payload
+      )
+
+    commit('ADD_ATTACHMENT', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function PATCH_ATTACHMENT ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .patch(
+        `/core/issue-attachments/${payload.id}/`,
+        payload
+      )
+
+    commit('UPDATE_ATTACHMENT', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_ATTACHMENT ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+      .delete(
+        `/core/issue-attachments/${payload.id}/`
+      )
+
+    commit('DELETE_ATTACHMENT', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
 
 /** Issue types actions **/
 export async function ADD_ISSUE_TYPE_CATEGORY ({ commit }, payload) {
@@ -274,7 +336,7 @@ export async function UPDATE_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
   try {
     const response = await new Api({
       auth: true,
-      responseStatus: true
+      expectedStatus: 200
     })
       .patch(
         `/core/issue-estimations/${payload.id}/`,
