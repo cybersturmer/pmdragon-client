@@ -1,6 +1,10 @@
 # Cross platform Client for PmDragon CE
 [Main repository](https://github.com/cybersturmer/pmdragon)
 
+## Build
+### Electron application (Linux | MacOs | Win)
+quasar build -m electron
+
 
 ## License
 
