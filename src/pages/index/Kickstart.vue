@@ -15,7 +15,7 @@
         :done="isUserStepDone"
         done-color="positive"
         title="Some bytes about you"
-        icon="face"
+        icon="mdi-face-recognition"
       >
         <q-input
           v-model="userFormData.first_name"
@@ -62,7 +62,7 @@
         :done="isProjectStepDone"
         done-color="positive"
         title="Create your first project"
-        icon="work"
+        icon="mdi-briefcase"
       >
         <q-input
           v-model="projectFormData.title"
@@ -92,7 +92,7 @@
         :title="`Add people you work with in workspace ${this.workspace}`"
         :done="isTeamStepDone"
         done-color="positive"
-        icon="supervisor_account"
+        icon="mdi-account-multiple"
       >
         <q-table
           flat
@@ -116,7 +116,7 @@
                 dark
                 flat
                 dense
-                icon="person_remove"
+                icon="mdi-account-minus"
                 size="sm"
                 class="float-right"
                 @click="cancelInvitation(props.row.email)"
@@ -138,7 +138,7 @@
           <template v-slot:append>
             <q-btn dense
                    flat
-                   icon="add"
+                   icon="mdi-keyboard-return"
                    @click="addTeamMember"
             />
           </template>
@@ -148,7 +148,7 @@
         :name="4"
         title="Congratulations"
         done-color="positive"
-        icon="thumb_up"
+        icon="mdi-thumb-up"
       >
         <q-card dark flat>
           Hello there

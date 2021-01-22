@@ -35,6 +35,49 @@
                 </template>
               </q-input>
             </q-card-section>
+            <q-card-section>
+              <q-uploader
+                dark
+                flat
+                bordered
+                :max-file-size="10485760"
+                auto-upload
+                ref="uploader"
+                url="http://localhost:4444/upload"
+                class="full-width"
+              >
+                <template #header>
+                  <div>
+                    <q-btn
+                      dense
+                      flat
+                      type="a"
+                      label="Upload avatar"
+                      icon="mdi-attachment"
+                    >
+                      <q-uploader-add-trigger />
+                    </q-btn>
+                  </div>
+                </template>
+                <template #list>
+                  <q-scroll-area
+                    dark
+                    horizontal
+                    style="height: 80px;"
+                    class="bg-primary rounded-borders full-width"
+                  >
+                    <div class="row no-wrap">
+                      <div v-for="n in 10" :key="n" style="width: 100px" class="q-pa-sm">
+                        <q-icon
+                          name="mdi-file-word-box"
+                          size="xl"
+                        />
+                      </div>
+                    </div>
+                  </q-scroll-area>
+                </template>
+              </q-uploader>
+            </q-card-section>
             <!-- Description -->
             <q-card-section class="q-pt-xs">
               <!-- Block with issue description -->
@@ -161,7 +204,7 @@
                             :title="buildTimeLineEntryTitle(entry)"
                             :subtitle="getRelativeDatetime(entry.updated_at)"
                             color="secondary"
-                            :icon="entry.entry_type ? entry.entry_type : 'radio_button_checked'">
+                            :icon="entry.entry_type ? entry.entry_type : 'mdi-radiobox-marked'">
                             <div
                               v-if="isTimelineShowValues(entry)"
                               class="row items-center">
@@ -236,13 +279,13 @@
               <q-btn
                 flat
                 dense
-                icon="link"
+                icon="mdi-link-variant"
                 @click="copyLink"/>
               <!-- More button -->
               <q-btn
                 flat
                 dense
-                icon="more_vert">
+                icon="mdi-dots-vertical">
                 <IssueMorePopupMenu
                   v-on:remove="hide"
                   :issue="formData.issue"/>
@@ -250,7 +293,7 @@
               <q-btn
                 flat
                 dense
-                icon="close"
+                icon="mdi-close"
                 @click="hide"
               ></q-btn>
             </q-btn-group>

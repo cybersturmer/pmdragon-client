@@ -50,7 +50,7 @@
                       flat
                       dense
                       color="amber"
-                      icon="more_vert">
+                      icon="mdi-dots-vertical">
                       <q-menu dark fit anchor="top left" self="top left" auto-close>
                         <q-list>
                           <q-item clickable

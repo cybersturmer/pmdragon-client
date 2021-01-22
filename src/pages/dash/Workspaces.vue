@@ -32,7 +32,7 @@
         <template #top-right>
           <q-input dark dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
             <template #append>
-              <q-icon name="search" />
+              <q-icon name="mdi-magnify" />
             </template>
           </q-input>
         </template>

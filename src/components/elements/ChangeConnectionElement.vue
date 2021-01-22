@@ -2,7 +2,7 @@
   <q-page-sticky position="top-right" :offset="[50, 50]">
     <q-fab
       outline
-      icon="settings"
+      icon="mdi-cog"
       direction="left"
       color="amber">
       <q-fab-action
@@ -11,7 +11,7 @@
         class="q-pa-sm"
         label="Set Host"
         text-color="amber"
-        icon="electrical_services" />
+        icon="mdi-connection" />
     </q-fab>
   </q-page-sticky>
 </template>

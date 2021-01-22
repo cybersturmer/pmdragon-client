@@ -114,7 +114,7 @@
                        dense
                        rounded
                        flat
-                       icon="keyboard_return"/>
+                       icon="mdi-keyboard-return"/>
               </template>
             </q-input>
           </q-card-section>

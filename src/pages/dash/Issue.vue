@@ -156,7 +156,7 @@
                           :title="buildTimeLineEntryTitle(entry)"
                           :subtitle="getRelativeDatetime(entry.updated_at)"
                           color="secondary"
-                          :icon="entry.entry_type ? entry.entry_type : 'radio_button_checked'">
+                          :icon="entry.entry_type ? entry.entry_type : 'mdi-radiobox-marked'">
                           <div
                             v-if="isTimelineShowValues(entry)"
                             class="row items-center">
@@ -231,13 +231,13 @@
             <q-btn
               flat
               dense
-              icon="link"
+              icon="mdi-link-variant"
               @click="copyLink"/>
             <!-- More button -->
             <q-btn
               flat
               dense
-              icon="more_vert">
+              icon="mdi-dots-vertical">
               <IssueMorePopupMenu
                 :issue="formData.issue"/>
             </q-btn>

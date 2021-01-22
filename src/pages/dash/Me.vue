@@ -7,8 +7,8 @@
         dense
         align="justify"
         narrow-indicator>
-        <q-tab name="general" icon="stars" label="General"/>
-        <q-tab name="security" icon="security" label="Security"/>
+        <q-tab name="general" icon="mdi-star-circle" label="General"/>
+        <q-tab name="security" icon="mdi-security" label="Security"/>
       </q-tabs>
       <q-separator dark/>
       <q-tab-panels
@@ -87,7 +87,7 @@
                             class="full-width"
                             type="a"
                             label="Upload avatar"
-                            icon="upload">
+                            icon="mdi-upload">
                             <q-uploader-add-trigger />
                           </q-btn>
                         </div>
@@ -104,7 +104,7 @@
                             round
                             style="top: 8px; right: 8px"
                             class="absolute all-pointer-events"
-                            icon="close"
+                            icon="mdi-delete"
                             @click="deleteAvatar">
                             <q-tooltip>
                               Remove avatar
@@ -115,7 +115,7 @@
                             round
                             style="top: 8px; right: 45px"
                             class="absolute all-pointer-events"
-                            icon="update">
+                            icon="mdi-update">
                             <q-uploader-add-trigger />
                             <q-tooltip>
                               Update avatar

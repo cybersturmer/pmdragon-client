@@ -7,7 +7,7 @@
           flat
           dense
           round
-          icon="menu"
+          icon="mdi-menu"
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
@@ -19,7 +19,7 @@
           flat
           dense
           round
-          icon="work_outline"
+          icon="mdi-tune-variant"
           @click="goToSettingsOfProject"
           title="Manage project"
         />
@@ -28,7 +28,7 @@
           flat
           round
           dense
-          icon="swap_horiz"
+          icon="mdi-swap-horizontal"
           class="q-mr-xs"
           @click="goToWorkspaces"
         />
@@ -37,7 +37,7 @@
           flat
           round
           dense
-          icon="person"
+          icon="mdi-account"
           class="q-mr-xs"
           @click="goToAccount"
         />
@@ -45,7 +45,7 @@
           flat
           round
           dense
-          icon="exit_to_app"
+          icon="mdi-exit-to-app"
           class="q-mr-xs"
           @click="logout"
         />
@@ -65,7 +65,7 @@
         <q-list dark class="q-pa-md">
           <q-item clickable v-ripple to="/dash/backlog">
             <q-item-section avatar>
-              <q-icon name="toc" />
+              <q-icon name="mdi-view-list" />
             </q-item-section>
 
             <q-item-section>
@@ -75,7 +75,7 @@
 
           <q-item clickable v-ripple to="/dash/board">
             <q-item-section avatar>
-              <q-icon name="dashboard" />
+              <q-icon name="mdi-view-dashboard" />
             </q-item-section>
 
             <q-item-section>
@@ -85,7 +85,7 @@
 
           <q-item clickable v-ripple to="/dash/team">
             <q-item-section avatar>
-              <q-icon name="people" />
+              <q-icon name="mdi-account-multiple" />
             </q-item-section>
 
             <q-item-section>
@@ -95,7 +95,7 @@
 
           <q-item clickable v-ripple to="/dash/overview">
             <q-item-section avatar>
-              <q-icon name="leaderboard" />
+              <q-icon name="mdi-chart-bar" />
             </q-item-section>
 
             <q-item-section>

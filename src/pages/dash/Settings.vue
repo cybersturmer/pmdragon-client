@@ -8,10 +8,10 @@
           align="justify"
           narrow-indicator
         >
-          <q-tab name="general" icon="stars" label="General"/>
-          <q-tab name="issue_types" icon="receipt" label="Issue Types" />
-          <q-tab name="issue_states" icon="schema" label="Issue States" />
-          <q-tab name="issue_estimations" icon="how_to_vote" label="Issue Estimations" />
+          <q-tab name="general" icon="mdi-star-circle" label="General"/>
+          <q-tab name="issue_types" icon="mdi-receipt" label="Issue Types" />
+          <q-tab name="issue_states" icon="mdi-transit-connection-horizontal" label="Issue States" />
+          <q-tab name="issue_estimations" icon="mdi-vote" label="Issue Estimations" />
         </q-tabs>
         <q-separator dark/>
         <q-tab-panels
@@ -60,6 +60,7 @@
                   <q-btn
                     color="red-14"
                     label="Remove project"
+                    icon="mdi-delete"
                     @click="deleteProject"
                   />
                 </q-btn-group>
@@ -155,7 +156,8 @@
                       <q-btn
                         flat
                         size="sm"
-                        icon="close"
+                        icon="mdi-delete"
+                        color="amber"
                         label="Remove"
                         @click="deleteIssueType(props.row.id)"
                       />
@@ -178,7 +180,7 @@
                    <q-btn dense
                           rounded
                           flat
-                          icon="keyboard_return"
+                          icon="mdi-keyboard-return"
                           @click="createIssueType"
                    />
                  </template>
@@ -244,7 +246,8 @@
                       <q-btn
                         flat
                         size="sm"
-                        icon="close"
+                        icon="mdi-delete"
+                        color="amber"
                         label="Remove"
                         @click="deleteIssueState(props.row.id)"
                       />
@@ -268,7 +271,7 @@
                     <q-btn dense
                            rounded
                            flat
-                           icon="keyboard_return"
+                           icon="mdi-keyboard-return"
                            @click="createIssueState"
                     />
                   </template>
@@ -328,7 +331,8 @@
                       <q-btn
                         flat
                         size="sm"
-                        icon="close"
+                        icon="mdi-delete"
+                        color="amber"
                         label="Remove"
                         @click="deleteIssueEstimation(props.row.id)"
                       />
@@ -354,7 +358,7 @@
                     <q-btn dense
                            rounded
                            flat
-                           icon="keyboard_return"
+                           icon="mdi-keyboard-return"
                            @click="createIssueEstimation"
                     />
                   </template>

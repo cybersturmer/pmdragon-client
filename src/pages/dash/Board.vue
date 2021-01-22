@@ -18,7 +18,7 @@
         <div class="col text-right">
           <span class="text-subtitle1 q-mr-md">
             <!-- Days till the end of sprint remaining and dates on hover -->
-            <q-icon name="access_time"></q-icon>
+            <q-icon name="mdi-timer-sand"></q-icon>
             <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
           </span>
           <q-btn-group :outline="this.$q.screen.gt.sm">
@@ -51,7 +51,7 @@
             {{ issue_state.title }}
             <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}</span>
             <q-icon v-if="issue_state.is_done"
-                    name="done"
+                    name="mdi-check"
                     color="positive"
                     class="q-ml-sm"
             />

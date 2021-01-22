@@ -24,7 +24,7 @@
                 dark
                 flat
                 dense
-                icon="person_remove"
+                icon="mdi-account-minus"
                 size="sm"
                 class="float-right"
                 @click="cancelInvitation(props.row.email)"
@@ -48,7 +48,7 @@
           <template #append>
             <q-btn dense
                    flat
-                   icon="add"
+                   icon="mdi-keyboard-return"
                    @click="addTeamMember"
             />
           </template>

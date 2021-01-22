@@ -2,10 +2,31 @@
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
-        <q-input dark v-model="form.title"/>
-        <q-input dark v-model="form.goal"/>
-        <DateTimeField v-model="form.startedAt"/>
-        <DateTimeField v-model="form.finishedAt"/>
+        <q-input
+          v-model="form.title"
+          dark
+          flat
+          type="text"
+          label="Sprint title"
+          color="amber"
+          label-color="amber"
+        />
+        <q-input
+          v-model="form.goal"
+          dark
+          flat
+          type="text"
+          label="Sprint Goal"
+          color="amber"
+        />
+        <DateTimeField
+          v-model="form.startedAt"
+          label="Started At"
+        />
+        <DateTimeField
+          v-model="form.finishedAt"
+          label="Finished At"
+        />
       </q-card-section>
       <q-card-actions
         align="right"
