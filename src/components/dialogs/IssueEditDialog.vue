@@ -48,12 +48,12 @@
                 <template #header>
                   <div>
                     <span class="text-bold">
-                      ATTACHMENTS
+                      ATTACHMENTS:
                     </span>
                     <q-btn
+                      dense
                       flat
-                      icon="mdi-attachment"
-                      label="Attach file">
+                      icon="mdi-attachment">
                       <q-uploader-add-trigger />
                     </q-btn>
                   </div>
@@ -63,7 +63,7 @@
                     dark
                     horizontal
                     visible
-                    style="height: 55px;"
+                    style="height: 50px;"
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
@@ -75,7 +75,7 @@
                           removable
                           clickable
                           color="amber"
-                          icon="mdi-file-word-box"
+                          :icon="attachment.icon"
                           :label="attachment.title"
                         />
                       </div>
