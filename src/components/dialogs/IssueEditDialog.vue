@@ -39,7 +39,6 @@
               <q-uploader
                 dark
                 flat
-                bordered
                 :max-file-size="10485760"
                 auto-upload
                 ref="uploader"
@@ -48,13 +47,13 @@
               >
                 <template #header>
                   <div>
+                    <span class="text-bold">
+                      ATTACHMENTS
+                    </span>
                     <q-btn
-                      dense
                       flat
-                      type="a"
-                      label="Upload avatar"
                       icon="mdi-attachment"
-                    >
+                      label="Attach file">
                       <q-uploader-add-trigger />
                     </q-btn>
                   </div>
@@ -63,14 +62,21 @@
                   <q-scroll-area
                     dark
                     horizontal
-                    style="height: 80px;"
+                    visible
+                    style="height: 55px;"
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
-                      <div v-for="n in 10" :key="n" style="width: 100px" class="q-pa-sm">
-                        <q-icon
-                          name="mdi-file-word-box"
-                          size="xl"
+                      <div v-for="attachment in getAttachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
+                        <q-chip
+                          dark
+                          outline
+                          square
+                          removable
+                          clickable
+                          color="amber"
+                          icon="mdi-file-word-box"
+                          :label="attachment.title"
                         />
                       </div>
                     </div>
@@ -81,7 +87,7 @@
             <!-- Description -->
             <q-card-section class="q-pt-xs">
               <!-- Block with issue description -->
-              <div class="q-mb-xs text-subtitle2 text-amber">
+              <div class="q-mb-xs text-subtitle2 text-amber text-uppercase">
                 Description
               </div>
               <q-card

@@ -43,7 +43,7 @@ export function ATTACHMENT_BY_ID (state) {
 export function ATTACHMENTS_BY_IDS (state) {
   return attachmentIds => {
     return state.issue_attachments
-      .filter((attachment) => attachment.indexOf(attachment.id) >= 0)
+      .filter((attachment) => attachmentIds.indexOf(attachment.id) >= 0)
   }
 }
 

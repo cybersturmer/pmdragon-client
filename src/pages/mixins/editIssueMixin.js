@@ -28,7 +28,8 @@ export const editIssueMixin = {
       formData: {
         issue: {
           title: '',
-          description: ''
+          description: '',
+          attachments: []
         }
       },
       formNewMessage: {
@@ -402,6 +403,14 @@ export const editIssueMixin = {
     }
   },
   computed: {
+    getAttachments () {
+      try {
+        const attachments = this.formData.issue.attachments
+        return this.$store.getters['issues/ATTACHMENTS_BY_IDS'](attachments)
+      } catch (e) {
+        return []
+      }
+    },
     timelineLayout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
     },
