@@ -24,12 +24,12 @@
     "audit:lighthouse": "lighthouse http://localhost:3000 view --output-path=./test/lighthouse/reports/index.html --config-path=./test/lighthouse/configs/full-config.js"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.13",
+    "@quasar/extras": "^1.9.14",
     "axios": "^0.21.1",
     "axios-auth-refresh": "^3.0.0",
     "chart.js": "^2.9.4",
-    "core-js": "^3.8.2",
-    "quasar": "^1.15.0",
+    "core-js": "^3.8.3",
+    "quasar": "^1.15.1",
     "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.22.4",
     "vue-moment": "^4.1.0",
