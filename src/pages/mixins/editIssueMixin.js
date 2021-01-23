@@ -1,5 +1,5 @@
 import { DATETIME_MASK } from 'src/services/masks'
-import { ErrorHandler, unWatch } from 'src/services/util'
+import { ErrorHandler, removeElement, unWatch } from 'src/services/util'
 import { copyToClipboard, date } from 'quasar'
 import { Api } from 'src/services/api'
 import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
@@ -72,8 +72,29 @@ export const editIssueMixin = {
           file: file,
           data: payloadTemplate
         }
-        await this.$store.dispatch('issues/ADD_ATTACHMENT', payload)
+
+        try {
+          await this.$store.dispatch('issues/ADD_ATTACHMENT', payload)
+        } catch (e) {
+          return Promise.reject('One of file was not uploaded')
+        }
       }
+
+      this.$nextTick(this.$refs.uploader.removeQueuedFiles)
+      return Promise.resolve('Successfully uploaded')
+    },
+    async deleteFileAttachmentFromIssue (attachment) {
+      const issueId = this.formData.issue.id
+      let patchedAttachments = unWatch(this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](issueId))
+
+      patchedAttachments = removeElement(patchedAttachments, attachment.id)
+
+      const payload = {
+        id: issueId,
+        attachments: patchedAttachments
+      }
+
+      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
     },
     isTimelineShowValues (entry) {
       if (entry.edited_field === 'Ordering') {

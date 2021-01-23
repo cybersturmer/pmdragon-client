@@ -129,12 +129,23 @@ export function UPDATE_ISSUE (state, payload) {
 
 export function ADD_ATTACHMENT_TO_ISSUE (state, payload) {
   const issueId = payload.issue
-  const attachmentId = payload.attachment
+  const attachmentId = payload.attachment.id
 
   const issue = state.issues
     .find(issue => issue.id === issueId)
 
   issue.attachments.push(attachmentId)
+  saveIssuesStateToLocalStorage(state)
+}
+
+export function REMOVE_ATTACHMENT_FROM_ISSUE (state, payload) {
+  const issueId = payload.issue
+  const attachmentId = payload.attachment.id
+
+  const issue = state.issue
+    .find(issue => issue.id === issueId)
+
+  removeElement(issue.attachments, attachmentId)
   saveIssuesStateToLocalStorage(state)
 }
 

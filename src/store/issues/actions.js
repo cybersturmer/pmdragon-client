@@ -137,7 +137,7 @@ export async function ADD_ATTACHMENT ({ commit }, payload) {
 
     const issuePayload = {
       issue: payload.data.issue,
-      attachment: response.data.id
+      attachment: response.data
     }
 
     commit('ADD_ATTACHMENT_TO_ISSUE', issuePayload)
@@ -170,10 +170,11 @@ export async function DELETE_ATTACHMENT ({ commit }, payload) {
       expectedStatus: 204
     })
       .delete(
-        `/core/issue-attachments/${payload.id}/`
+        `/core/issue-attachments/${payload.attachment.id}/`
       )
 
-    commit('DELETE_ATTACHMENT', payload)
+    commit('DELETE_ATTACHMENT', payload.attachment)
+    commit('REMOVE_ATTACHMENT_FROM_ISSUE', payload)
   } catch (e) {
     throw new ErrorHandler(e)
   }

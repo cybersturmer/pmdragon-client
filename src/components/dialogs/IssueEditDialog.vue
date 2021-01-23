@@ -76,6 +76,7 @@
                           color="primary"
                           :icon="attachment.icon"
                           :label="attachment.title"
+                          @remove="deleteFileAttachmentFromIssue(attachment)"
                           @click="downloadFile(attachment.attachment)"
                         />
                       </div>
