@@ -54,6 +54,9 @@ export const editIssueMixin = {
     }
   },
   methods: {
+    downloadFile (url) {
+      window.open(url)
+    },
     async uploadFileAttachment (files) {
       const payloadTemplate = {
         workspace: this.$store.getters['auth/WORKSPACE_ID'],
@@ -96,9 +99,9 @@ export const editIssueMixin = {
       }
 
       switch (entry.entry_type) {
-        case 'edit':
+        case 'mdi-playlist-edit':
           return `${participantTitle} ${action}`
-        case 'add_task':
+        case 'mdi-playlist-plus':
           return `${participantTitle} created this Issue`
         default:
           return `${participantTitle} did (${entry.entry_type})`

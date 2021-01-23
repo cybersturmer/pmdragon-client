@@ -48,9 +48,8 @@
                 <template #header>
                   <div>
                     <span class="text-bold text-amber">
-                      ATTACHMENTS
+                      ATTACHMENTS ({{ attachmentsAmount }}):
                     </span>
-                    <span class="text-amber">({{ attachmentsAmount }}):</span>
                     <q-btn
                       dense
                       flat
@@ -64,20 +63,22 @@
                     dark
                     horizontal
                     visible
-                    style="height: 60px;"
+                    style="height: 65px;"
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
                       <div v-for="attachment in attachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
                         <q-chip
                           dark
-                          outline
+                          dense
                           square
                           removable
                           clickable
-                          color="amber"
+                          color="primary"
+                          size="lg"
                           :icon="attachment.icon"
                           :label="attachment.title"
+                          @click="downloadFile(attachment.attachment)"
                         />
                       </div>
                     </div>
