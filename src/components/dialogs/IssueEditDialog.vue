@@ -63,19 +63,17 @@
                     dark
                     horizontal
                     visible
-                    style="height: 65px;"
+                    style="height: 55px;"
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
                       <div v-for="attachment in attachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
                         <q-chip
                           dark
-                          dense
                           square
                           removable
                           clickable
                           color="primary"
-                          size="lg"
                           :icon="attachment.icon"
                           :label="attachment.title"
                           @click="downloadFile(attachment.attachment)"
