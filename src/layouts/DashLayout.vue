@@ -19,7 +19,7 @@
           flat
           dense
           round
-          icon="mdi-tune-variant"
+          icon="mdi-tune"
           @click="goToSettingsOfProject"
           title="Manage project"
         />

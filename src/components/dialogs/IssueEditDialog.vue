@@ -35,6 +35,7 @@
                 </template>
               </q-input>
             </q-card-section>
+            <!-- Attachments -->
             <q-card-section>
               <q-uploader
                 dark
@@ -53,9 +54,19 @@
                     <q-btn
                       dense
                       flat
-                      icon="mdi-attachment">
+                      label="Upload file"
+                      class="q-pl-sm q-pr-sm"
+                      icon="mdi-upload">
                       <q-uploader-add-trigger />
                     </q-btn>
+                    <q-btn
+                      dense
+                      flat
+                      label="Link file"
+                      class="q-pl-sm q-pr-sm"
+                      icon="mdi-link-plus"
+                      @click="showSelectAttachmentDialog"
+                    />
                   </div>
                 </template>
                 <template #list>
@@ -67,7 +78,10 @@
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
-                      <div v-for="attachment in attachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
+                      <div
+                        v-for="attachment in attachments"
+                        :key="attachment.id"
+                        class="q-pa-sm truncate-chip-labels">
                         <q-chip
                           dark
                           square
@@ -277,7 +291,6 @@
             </q-card-section>
           </q-card-section>
         </q-card-section>
-        <q-separator dark vertical />
         <q-card-section class="col-md-4 xs-hide sm-hide">
         <!-- Right section, we can change issue data here -->
           <q-card-section align="right">

@@ -7,6 +7,7 @@ import EditorSaveButton from 'components/buttons/EditorSaveButton'
 import EditorCancelButton from 'components/buttons/EditorCancelButton'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
+import SelectAttachmentDialog from 'components/dialogs/SelectAttachmentDialog'
 
 export const editIssueMixin = {
   components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
@@ -82,6 +83,31 @@ export const editIssueMixin = {
 
       this.$nextTick(this.$refs.uploader.removeQueuedFiles)
       return Promise.resolve('Successfully uploaded')
+    },
+    async linkFileAttachment (attachment) {
+      const issueId = this.formData.issue.id
+      const attachments = unWatch(this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](issueId))
+
+      attachments.push(attachment.id)
+
+      const payload = {
+        id: issueId,
+        attachments: attachments
+      }
+
+      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+    },
+    async showSelectAttachmentDialog () {
+      this.$q.dialog({
+        parent: this,
+        dark: true,
+        title: 'Select attachment ',
+        component: SelectAttachmentDialog,
+        issueId: this.formData.issue.id
+      })
+        .onOk((attachment) => {
+          this.linkFileAttachment(attachment)
+        })
     },
     async deleteFileAttachmentFromIssue (attachment) {
       const issueId = this.formData.issue.id
