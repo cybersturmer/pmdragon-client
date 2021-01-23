@@ -18,6 +18,16 @@ export function ISSUE_BY_ID (state) {
   }
 }
 
+export function ISSUE_BY_ID_ATTACHMENTS (state, getters) {
+  return issueId => {
+    try {
+      return getters.ISSUE_BY_ID(issueId).attachments
+    } catch (e) {
+      return []
+    }
+  }
+}
+
 export function ISSUES_BY_IDS (state) {
   return issuesIds => {
     return state.issues

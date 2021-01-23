@@ -108,9 +108,14 @@ export function UPDATE_BACKLOG (state, payload) {
   LocalStorage.set('issues.backlogs', state.backlogs)
 }
 
+/** Issues Block **/
+function saveIssuesStateToLocalStorage (state) {
+  LocalStorage.set('issues.issues', state.issues)
+}
+
 export function ADD_ISSUE_TO_ISSUES (state, payload) {
   state.issues.push(payload)
-  LocalStorage.set('issues.issues', state.issues)
+  saveIssuesStateToLocalStorage(state)
 }
 
 export function UPDATE_ISSUE (state, payload) {
@@ -119,7 +124,18 @@ export function UPDATE_ISSUE (state, payload) {
     .find(issue => issue.id === payload.id)
 
   syncPair(payload, issue)
-  LocalStorage.set('issues.issues', state.issues)
+  saveIssuesStateToLocalStorage(state)
+}
+
+export function ADD_ATTACHMENT_TO_ISSUE (state, payload) {
+  const issueId = payload.issue
+  const attachmentId = payload.attachment
+
+  const issue = state.issues
+    .find(issue => issue.id === issueId)
+
+  issue.attachments.push(attachmentId)
+  saveIssuesStateToLocalStorage(state)
 }
 
 export function UPDATE_ISSUE_STATE (state, payload) {
@@ -129,7 +145,7 @@ export function UPDATE_ISSUE_STATE (state, payload) {
 
   issue.state_category = payload.state_category
 
-  LocalStorage.set('issues.issues', state.issues)
+  saveIssuesStateToLocalStorage(state)
 }
 
 export function UPDATE_ISSUES_ORDERING (state, payload) {
@@ -139,7 +155,7 @@ export function UPDATE_ISSUES_ORDERING (state, payload) {
     issue.ordering = issuePayload.ordering
   })
 
-  LocalStorage.set('issues.issues', state.issues)
+  saveIssuesStateToLocalStorage(state)
 }
 
 export function ADD_SPRINT_TO_PROJECT (state, payload) {

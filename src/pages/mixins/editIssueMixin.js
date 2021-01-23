@@ -54,6 +54,24 @@ export const editIssueMixin = {
     }
   },
   methods: {
+    async uploadFileAttachment (files) {
+      const payloadTemplate = {
+        workspace: this.$store.getters['auth/WORKSPACE_ID'],
+        project: this.$store.getters['current/PROJECT'],
+        title: '',
+        issue: this.formData.issue.id
+      }
+
+      for (const file of files) {
+        payloadTemplate.title = file.name
+
+        const payload = {
+          file: file,
+          data: payloadTemplate
+        }
+        await this.$store.dispatch('issues/ADD_ATTACHMENT', payload)
+      }
+    },
     isTimelineShowValues (entry) {
       if (entry.edited_field === 'Ordering') {
         return false
@@ -403,13 +421,16 @@ export const editIssueMixin = {
     }
   },
   computed: {
-    getAttachments () {
+    attachments () {
       try {
-        const attachments = this.formData.issue.attachments
+        const attachments = this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
         return this.$store.getters['issues/ATTACHMENTS_BY_IDS'](attachments)
       } catch (e) {
         return []
       }
+    },
+    attachmentsAmount () {
+      return this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id).length
     },
     timelineLayout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')

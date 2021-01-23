@@ -39,17 +39,18 @@
               <q-uploader
                 dark
                 flat
-                :max-file-size="10485760"
-                auto-upload
                 ref="uploader"
-                url="http://localhost:4444/upload"
+                auto-upload
+                :factory="uploadFileAttachment"
+                :max-file-size="10485760"
                 class="full-width"
               >
                 <template #header>
                   <div>
-                    <span class="text-bold">
-                      ATTACHMENTS:
+                    <span class="text-bold text-amber">
+                      ATTACHMENTS
                     </span>
+                    <span class="text-amber">({{ attachmentsAmount }}):</span>
                     <q-btn
                       dense
                       flat
@@ -63,11 +64,11 @@
                     dark
                     horizontal
                     visible
-                    style="height: 50px;"
+                    style="height: 60px;"
                     class="bg-primary rounded-borders full-width"
                   >
                     <div class="row no-wrap">
-                      <div v-for="attachment in getAttachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
+                      <div v-for="attachment in attachments" :key="attachment.id" class="q-pa-sm truncate-chip-labels">
                         <q-chip
                           dark
                           outline

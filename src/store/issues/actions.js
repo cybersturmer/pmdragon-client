@@ -115,6 +115,10 @@ export async function INIT_ATTACHMENTS ({ commit }) {
 }
 
 export async function ADD_ATTACHMENT ({ commit }, payload) {
+  const formData = new FormData()
+  formData.append('file', payload.file)
+  formData.append('data', JSON.stringify(payload.data))
+
   try {
     const response = await new Api({
       auth: true,
@@ -122,10 +126,21 @@ export async function ADD_ATTACHMENT ({ commit }, payload) {
     })
       .post(
         '/core/issue-attachments/',
-        payload
+        formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
       )
 
     commit('ADD_ATTACHMENT', response.data)
+
+    const issuePayload = {
+      issue: payload.data.issue,
+      attachment: response.data.id
+    }
+
+    commit('ADD_ATTACHMENT_TO_ISSUE', issuePayload)
   } catch (e) {
     throw new ErrorHandler(e)
   }
