@@ -6,7 +6,7 @@
           <q-icon
             name="mdi-form-select"
           />
-          Choose file to attach
+          Choose file from ({{ workspace }})
         </div>
       </q-card-section>
       <q-card-section style="max-height: 50vh" class="q-pa-xs">
@@ -56,6 +56,9 @@ export default {
   computed: {
     attachments () {
       return this.$store.getters['issues/ATTACHMENTS_BY_CURRENT_PROJECT']
+    },
+    workspace () {
+      return this.$store.getters['current/WORKSPACE']
     }
   },
   methods: {
