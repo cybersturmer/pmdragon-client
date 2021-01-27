@@ -48,8 +48,9 @@
               >
                 <template #header>
                   <div>
-                    <span class="text-bold text-amber">
-                      ATTACHMENTS ({{ attachmentsAmount }}):
+                    <span v-if="$q.screen.gt.sm"
+                      class="text-bold text-amber">
+                      ATTACHMENTS {{ attachmentsAmount }}
                     </span>
                     <q-btn
                       dense
