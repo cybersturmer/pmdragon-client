@@ -28,10 +28,12 @@
               <div class="row q-pa-sm">
                 <div class="col-8">
                   <div class="h6 text-amber">
-                    {{ sprint.title }} - {{ $q.screen.gt.sm ? sprint.goal: '' }} (&nbsp;{{ sprint.issues.length }} issues&nbsp;)
+                    {{ sprint.title }}
+                    {{ $q.screen.gt.sm ? `- ${sprint.goal} ( ${sprint.issues.length }) issues`: '' }}
                   </div>
                 </div>
-                <div class="col-4 text-right">
+                <q-space/>
+                <div class="col-auto text-right">
                   <q-btn-group outline>
                     <StartCompleteSprintButton
                       v-if="index === 0"
@@ -472,12 +474,11 @@ export default {
   }
 
   .no-move {
-    transition: transform 0s;
+    transition: transform 0.1s;
   }
 
   .ghost {
-    opacity: 0.5;
-    background: rgba(255, 255, 255, 0.6);
+    opacity: 0.2;
   }
 
   .my-card:not(:last-child) {
