@@ -8,6 +8,7 @@
   "scripts": {
     "web:dev": "quasar dev",
     "electron:dev": "quasar dev -m electron",
+    "android:dev": "quasar dev -m android",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "test:unit": "jest --updateSnapshot",
@@ -24,7 +25,7 @@
     "audit:lighthouse": "lighthouse http://localhost:3000 view --output-path=./test/lighthouse/reports/index.html --config-path=./test/lighthouse/configs/full-config.js"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.14",
+    "@quasar/extras": "^1.9.15",
     "axios": "^0.21.1",
     "axios-auth-refresh": "^3.0.0",
     "chart.js": "^2.9.4",
@@ -39,7 +40,7 @@
     "@quasar/app": "^2.1.14",
     "babel-eslint": "^10.0.1",
     "devtron": "^1.4.0",
-    "electron": "^9.4.1",
+    "electron": "^9.4.2",
     "electron-debug": "^3.2.0",
     "electron-devtools-installer": "^3.1.1",
     "electron-packager": "^15.2.0",
