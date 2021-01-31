@@ -1,0 +1,9 @@
+node_modules
+ssl
+.quasar
+dist
+.idea
+npm-debug.log*
+src-cordova/node_modules
+src-cordova/platforms
+src-cordova/plugins
