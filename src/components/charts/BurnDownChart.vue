@@ -1,6 +1,9 @@
 <template>
   <q-card
-    dark>
+    dark
+    class="bg-primary"
+    style="border: 1px solid #606060;"
+  >
     <q-card-section>
       <div class="small_chart">
       <LineChart
@@ -28,7 +31,7 @@ export default {
     chartdata: null,
     options: {
       responsive: true,
-      aspectRatio: 2,
+      aspectRatio: 0.5,
       elements: {
         line: {
           tension: 0.1
@@ -156,7 +159,7 @@ export default {
 <style>
   .small_chart {
     position: relative;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
   }
 </style>
