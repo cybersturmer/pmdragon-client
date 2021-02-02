@@ -7,6 +7,7 @@
     :value="email"
     :error="isError"
     :error-message="errorMessage"
+    :rules="[isValidEmail]"
     label="Email"
     label-color="amber"
   />

@@ -68,6 +68,7 @@ export default {
   methods: {
     async register () {
       if (this.formErrors.prefix_url.length < 1 || this.formErrors.email.length < 1) {
+        this.showError(new ErrorHandler(new Error(), 'Please input workspace url and email'))
         return false
       }
 
