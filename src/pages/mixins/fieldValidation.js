@@ -32,6 +32,12 @@ export const fieldValidationMixin = {
         '(\\:\\d+)?$', // Specific Port
         'i')
       return !!pattern.test(str) || 'Should be a valid Host example: https://pmdragon.org'
+    },
+    isValidWorkspacePrefix (str) {
+      const pattern = new RegExp(
+        '^[a-zA-Z0-9]{3,20}$'
+      )
+      return !!pattern.test(str) || 'Should be a valid url from 3 to 20 letters example: pmdragon'
     }
   }
 }

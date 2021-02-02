@@ -67,6 +67,10 @@ export default {
   },
   methods: {
     async register () {
+      if (this.formErrors.prefix_url.length < 1 || this.formErrors.email.length < 1) {
+        return false
+      }
+
       try {
         await this.$store.dispatch('auth/REGISTER', this.formData)
         const dialog = [

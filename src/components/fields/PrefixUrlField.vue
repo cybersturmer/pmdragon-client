@@ -4,6 +4,7 @@
     flat
     type="text"
     @input="handleInput"
+    :rules="[isValidWorkspacePrefix]"
     :value="prefixUrl"
     :error="isError"
     :error-message="errorMessage"
