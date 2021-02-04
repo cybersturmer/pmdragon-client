@@ -1,1 +1,1 @@
-web: quasar serve
+web: npm start
