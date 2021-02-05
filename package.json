@@ -51,9 +51,9 @@
     "moment-timezone": "^0.5.32"
   },
   "engines": {
-    "node": ">= 14.4.0",
-    "npm": ">= 7.5.2",
-    "yarn": ">= 1.22.10"
+    "node": "14.4.0",
+    "npm": "7.5.2",
+    "yarn": "1.22.10"
   },
   "browserslist": [
     "last 10 Chrome versions",
