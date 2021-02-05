@@ -8,5 +8,5 @@ const app = express()
 const path = require('path')
 
 app.use(history())
-app.use(serveStatic(path.join(__dirname, '/dist/spa')))
+app.use(serveStatic(path.join(__dirname, 'dist/spa')))
 app.listen(port)
