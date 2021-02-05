@@ -28,7 +28,8 @@
     "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.22.4",
     "vue-moment": "^4.1.0",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^2.24.3",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "@quasar/app": "^2.1.14",
@@ -50,9 +51,9 @@
     "moment-timezone": "^0.5.32"
   },
   "engines": {
-    "node": ">= 10.18.1",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "node": ">= 14.4.0",
+    "npm": ">= 7.5.2",
+    "yarn": ">= 1.22.10"
   },
   "browserslist": [
     "last 10 Chrome versions",
