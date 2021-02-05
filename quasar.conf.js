@@ -11,7 +11,7 @@ const fs = require('fs')
 
 module.exports = function (/* ctx */) {
   return {
-    https: true,
+    https: !process.env.HEROKU,
     supportTS: false,
 
     // https://quasar.dev/quasar-cli/cli-documentation/prefetch-feature
@@ -74,7 +74,11 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: true,
+      https: process.env.HEROKU ? false : {
+        key: fs.readFileSync('ssl/localhost-key.pem'),
+        cert: fs.readFileSync('ssl/localhost.pem'),
+        ca: fs.readFileSync('ssl/mkcert development CA 209615209350349705268104912190401250134.crt')
+      },
       port: 8080,
       open: false
     },
