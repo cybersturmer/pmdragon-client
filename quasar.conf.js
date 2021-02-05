@@ -74,11 +74,7 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      // https: {
-      //   key: fs.readFileSync('ssl/localhost-key.pem'),
-      //   cert: fs.readFileSync('ssl/localhost.pem'),
-      //   ca: fs.readFileSync('ssl/mkcert development CA 209615209350349705268104912190401250134.crt')
-      // },
+      https: true,
       port: 8080,
       open: false
     },
