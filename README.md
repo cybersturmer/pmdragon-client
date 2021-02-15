@@ -10,6 +10,6 @@ quasar build -m electron
 
 PmDragon is an MIT-licensed open source project.
 
-Copyright ©2020-present Wladimir Stürmer
+Copyright ©2020-present Vladimir Shturmer
 
 [MIT License](https://en.wikipedia.org/wiki/MIT_License)
