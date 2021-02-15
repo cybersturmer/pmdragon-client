@@ -4,8 +4,7 @@
 ## Demo
 https://pmdragon-client.herokuapp.com/
 
-## Build
-### Electron application ( Linux | MacOs | Win )
+## Build Application ( Linux | macOS | Win )
 quasar build -m electron
 
 ## Deploy Web version by one click
