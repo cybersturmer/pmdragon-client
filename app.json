@@ -1,0 +1,30 @@
+{
+  "name": "PmDragon CE",
+  "description": "Cross platform client for PmDragon",
+  "keywords": [
+    "scrum",
+    "scrum-board",
+    "scrum-agile",
+    "scrum-team"
+  ],
+  "website": "https://pmdragon.org",
+  "repository": "https://github.com/cybersturmer/pmdragon-client",
+  "logo": "https://github.com/cybersturmer/pmdragon/blob/master/docs/images/geometry.svg",
+  "env": {
+    "HEROKU": {
+      "description": "We use special flow for heroku, just let it stay True",
+      "value": "true"
+    },
+    "YARN_PRODUCTION": {
+      "description": "We set it to false.",
+      "value": "false"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "image": "heroku/nodejs"
+}
