@@ -20,18 +20,17 @@ export const fieldValidationMixin = {
     isValidHost (str) {
       /** For host we can use
        * ONLY https due secure reason
-       * Domain name such as https://localhost or https://pmdragon.org or any other valid
+       * Domain name such as localhost or pmdragon.org or any other valid
        * Or even IP address
        * SPECIFIC PORT example https://pmdragon.org:8080
        * **/
       const pattern = new RegExp(
-        '^(https?:\\/\\/)?' + // Protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // Domain name
+        '^((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // Domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))|' + // Or IPv4 address
         '(localhost)' + // Or localhost
         '(\\:\\d+)?$', // Specific Port
         'i')
-      return !!pattern.test(str) || 'Should be a valid Host example: https://pmdragon.org'
+      return !!pattern.test(str) || 'Should be a valid Host without protocol, example: pmdragon.org'
     },
     isValidWorkspacePrefix (str) {
       const pattern = new RegExp(
