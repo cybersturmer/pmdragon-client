@@ -1,7 +1,13 @@
 # Client for PmDragon CE
+Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
+Quasar (Vue.Js / JavaScript) based Cross-platform software.
+
+## Links
+You can find deployment tool, documentation, licensing in:
 [Main repository](https://github.com/cybersturmer/pmdragon)
 
-Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
+API can be found in:
+[API repository](https://github.com/cybersturmer/pmdragon-core-api)
 
 ## Video Channel
 [YouTube](https://www.youtube.com/watch?v=ZlPRVjLoKqA&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0&index=1)
