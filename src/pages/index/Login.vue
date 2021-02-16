@@ -74,8 +74,10 @@ export default {
         await this.$store.dispatch('issues/RESET')
 
         await this.$store.dispatch('auth/LOGIN', this.formData)
+
         this.formData.username = ''
         this.formData.password = ''
+
         await this.$router.push({ name: 'loading' })
       } catch (e) {
         const error = new ErrorHandler(e)

@@ -28,7 +28,7 @@ export class Api {
       }
     }
 
-    const refreshAuthLogic = (failedRequest) => this._refreshTokens()
+    const refreshAuthLogic = (failedRequest) => this._refreshTokens(failedRequest)
       .then((tokenRefreshResponse) => {
         failedRequest.response.config.headers.Authorization =
           this._getAccessTokenHeader()
@@ -38,7 +38,15 @@ export class Api {
 
     this.instance = axios.create(this.axiosOptions)
 
-    createAuthRefreshInterceptor(this.instance, refreshAuthLogic)
+    createAuthRefreshInterceptor(
+      this.instance,
+      refreshAuthLogic,
+      {
+        statusCodes: [401],
+        retryInstance: this.instance,
+        interceptNetworkError: false
+      }
+    )
 
     return this.instance
   }
@@ -84,7 +92,13 @@ export class Api {
     $store.commit('auth/SET_REFRESH_TOKEN', refreshToken)
   }
 
-  _refreshTokens () {
+  _refreshTokens (failedRequest) {
+    if (failedRequest.config.url === '/auth/obtain/') {
+      return Promise.reject(failedRequest)
+    }
+    console.log('FAILED')
+    console.dir(failedRequest)
+
     return $store.dispatch('auth/REFRESH')
   }
 
