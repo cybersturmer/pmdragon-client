@@ -92,7 +92,7 @@
       </div>
     </div>
     <div v-if="!sprint" class="full-width q-pa-md text-center">
-      <div class="text-h5"><q-icon name="history"/>&nbsp;You have not started a sprint.</div>
+      <div class="text-h5"><q-icon name="mdi-history"/>&nbsp;You have not started a sprint.</div>
       <span class="text-subtitle1">Go to
         <router-link :to="{ path: 'backlog' }" class="text-amber">
           Backlog page
