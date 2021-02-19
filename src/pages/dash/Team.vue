@@ -168,12 +168,12 @@ export default {
       return invited.filter((invitation) => invitation.workspace === workspaceId)
     },
     myId () {
-      return this.$store.getters['auth/MY_USER_ID']
+      return this.$store.getters['auth/MY_PERSON_ID']
     }
   },
   methods: {
     isMe (personId) {
-      return this.$store.getters['auth/MY_USER_ID'] === personId
+      return this.$store.getters['auth/MY_PERSON_ID'] === personId
     },
     inviteMembersDialog () {
       this.$q.dialog({

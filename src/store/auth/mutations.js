@@ -32,10 +32,10 @@ export function SET_ACCESS_TOKEN (state, payload) {
   }
 
   state.tokens.access = access
-  state.user_id = tokenDetails.user_id
+  state.person_id = tokenDetails.person_id
 
   LocalStorage.set('auth.tokens.access', access)
-  LocalStorage.set('auth.user_id', tokenDetails.user_id)
+  LocalStorage.set('auth.person_id', tokenDetails.person_id)
 }
 
 export function SET_REFRESH_TOKEN (state, payload) {
@@ -50,40 +50,40 @@ export function SET_REFRESH_TOKEN (state, payload) {
   }
 
   state.tokens.refresh = refresh
-  state.user_id = tokenDetails.user_id
+  state.person_id = tokenDetails.person_id
 
   SessionStorage.set('auth.tokens.refresh', refresh)
-  SessionStorage.set('auth.user_id', tokenDetails.user_id)
+  SessionStorage.set('auth.person_id', tokenDetails.person_id)
 }
 
 export function SET_MY_FIRST_NAME (state, payload) {
-  const me = state.persons.find(me => me.id === state.user_id)
+  const me = state.persons.find(me => me.id === state.person_id)
   me.first_name = payload
   LocalStorage.set('auth.persons', state.persons)
 }
 
 export function SET_MY_LAST_NAME (state, payload) {
-  const me = state.persons.find(me => me.id === state.user_id)
+  const me = state.persons.find(me => me.id === state.person_id)
   me.last_name = payload
   LocalStorage.set('auth.persons', state.persons)
 }
 
 export function SET_MY_USERNAME (state, payload) {
-  const me = state.persons.find(me => me.id === state.user_id)
+  const me = state.persons.find(me => me.id === state.person_id)
   me.username = payload
   LocalStorage.set('auth.persons', state.persons)
 }
 
 export function SET_MY_AVATAR (state, payload) {
   if (payload == null) return false
-  const me = state.persons.find(me => me.id === state.user_id)
+  const me = state.persons.find(me => me.id === state.person_id)
 
   me.avatar = payload
   LocalStorage.set('auth.persons', state.persons)
 }
 
 export function RESET_MY_AVATAR (state) {
-  const me = state.persons.find(me => me.id === state.user_id)
+  const me = state.persons.find(me => me.id === state.person_id)
   me.avatar = null
   LocalStorage.set('auth.persons', state.persons)
 }
@@ -159,7 +159,7 @@ export function DELETE_PROJECT (state, payload) {
 
 export function RESET () {
   const localStorageResetList = [
-    'user_id',
+    'person_id',
     'workspaces',
     'persons',
     'invited',
@@ -172,7 +172,7 @@ export function RESET () {
 
   const sessionStorageResetList = [
     'tokens.refresh',
-    'user_id'
+    'person_id'
   ]
 
   for (const element of sessionStorageResetList) {

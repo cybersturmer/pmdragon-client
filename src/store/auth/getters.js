@@ -1,5 +1,5 @@
 export function IS_LOGGED_IN (state, getters) {
-  const isUserId = !!getters.MY_USER_ID
+  const isUserId = !!getters.MY_PERSON_ID
   const isRefreshTokenValid = getters.IS_REFRESH_TOKEN_VALID
 
   return isUserId && isRefreshTokenValid
@@ -133,7 +133,7 @@ export function PROJECT_OWNED_BY (state, getters) {
 
 export function IS_ME_OWNER_OF_PROJECT (state, getters) {
   try {
-    return getters.PROJECT_OWNED_BY.id === getters.MY_USER_ID
+    return getters.PROJECT_OWNED_BY.id === getters.MY_PERSON_ID
   } catch (e) {
     return false
   }
@@ -141,7 +141,7 @@ export function IS_ME_OWNER_OF_PROJECT (state, getters) {
 
 export function MY_DATA (state, getters) {
   try {
-    return getters.PERSON_BY_ID(getters.MY_USER_ID)
+    return getters.PERSON_BY_ID(getters.MY_PERSON_ID)
   } catch (e) {
     return null
   }
@@ -197,8 +197,8 @@ export function MY_AVATAR (state, getters) {
   }
 }
 
-export function MY_USER_ID (state) {
-  return state.user_id ? state.user_id : null
+export function MY_PERSON_ID (state) {
+  return state.person_id ? state.person_id : null
 }
 
 export function ME_LAST_LOGIN (state, getters) {

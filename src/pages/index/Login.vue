@@ -66,6 +66,10 @@ export default {
       }
     }
   },
+  created () {
+    console.log('Starting connection...')
+    console.dir(this.$socket)
+  },
   methods: {
     async login () {
       try {

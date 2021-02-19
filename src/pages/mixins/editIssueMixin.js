@@ -189,7 +189,7 @@ export const editIssueMixin = {
     },
     isItMe (id) {
       /** Return true if given id is current user id **/
-      return id === this.$store.getters['auth/MY_USER_ID']
+      return id === this.$store.getters['auth/MY_PERSON_ID']
     },
     getParticipantTitleById (id) {
       /** return title with username, first name and last name as a String **/
