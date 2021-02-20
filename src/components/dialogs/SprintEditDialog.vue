@@ -28,15 +28,7 @@
           label="Finished At"
         />
       </q-card-section>
-      <q-card-actions
-        align="right"
-        class="q-mt-sm"
-      >
-        <q-btn
-          flat
-          color="amber"
-          label="Cancel"
-          @click="onCancelClick" />
+      <q-card-actions vertical>
         <q-btn
           outline
           color="amber"
