@@ -9,6 +9,7 @@
           :rules="[isValidHost]"
           label="Host"
           label-color="amber"
+          :prefix="prefix"
           :error="isValid('formErrors', 'host')"
           :error-message="formErrors.host"
         />
@@ -74,6 +75,11 @@ export default {
 
     onCancelClick () {
       this.hide()
+    }
+  },
+  computed: {
+    prefix () {
+      return !process.env.DEV ? 'https://' : 'http://'
     }
   }
 }

@@ -1,8 +1,8 @@
 import { LocalStorage } from 'quasar'
-import { DEBUG, DEBUG_ENV, PROD_ENV } from 'src/.env'
+import { DEBUG_ENV, PROD_ENV } from 'src/.env'
 
 function getDefaultEnv () {
-  return DEBUG ? DEBUG_ENV : PROD_ENV
+  return process.env.DEV ? DEBUG_ENV : PROD_ENV
 }
 
 export default function () {

@@ -1,7 +1,5 @@
-import { DEBUG } from 'src/.env'
-
 export function REST_ENDPOINT (state) {
-  const protocol = DEBUG ? 'http' : 'https'
+  const protocol = process.env.DEV ? 'http' : 'https'
   return `${protocol}://${state.host}/api`
 }
 
