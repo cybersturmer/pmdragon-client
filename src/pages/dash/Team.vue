@@ -22,7 +22,7 @@
       <template #top-right>
         <q-input dark dense debounce="300" v-model="teamTable.filter" placeholder="Search">
           <template #append>
-            <q-icon name="search" />
+            <q-icon name="mdi-account-search" />
           </template>
         </q-input>
       </template>
