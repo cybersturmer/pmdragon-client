@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
 import current from './current'
-import issues from './issues'
+import core from './core'
 import connection from './connection'
 
 Vue.use(Vuex)
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     connection,
     auth,
     current,
-    issues
+    core
   },
 
   // enable strict mode (adds overhead!)

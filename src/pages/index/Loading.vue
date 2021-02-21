@@ -39,39 +39,39 @@ export default {
           })
           .then(() => {
             this.showProgress('issue states')
-            return this.$store.dispatch('issues/INIT_ISSUE_STATES')
+            return this.$store.dispatch('core/INIT_ISSUE_STATES')
           })
           .then(() => {
             this.showProgress('issue types')
-            return this.$store.dispatch('issues/INIT_ISSUE_TYPES')
+            return this.$store.dispatch('core/INIT_ISSUE_TYPES')
           })
           .then(() => {
             this.showProgress('issue type icons')
-            return this.$store.dispatch('issues/INIT_ISSUE_TYPE_ICONS')
+            return this.$store.dispatch('core/INIT_ISSUE_TYPE_ICONS')
           })
           .then(() => {
             this.showProgress('issue estimations')
-            return this.$store.dispatch('issues/INIT_ISSUE_ESTIMATIONS')
+            return this.$store.dispatch('core/INIT_ISSUE_ESTIMATIONS')
           })
           .then(() => {
             this.showProgress('sprint durations')
-            return this.$store.dispatch('issues/INIT_SPRINT_DURATIONS')
+            return this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
           })
           .then(() => {
             this.showProgress('issues')
-            return this.$store.dispatch('issues/INIT_ISSUES')
+            return this.$store.dispatch('core/INIT_ISSUES')
           })
           .then(() => {
             this.showProgress('issue attachments')
-            return this.$store.dispatch('issues/INIT_ATTACHMENTS')
+            return this.$store.dispatch('core/INIT_ATTACHMENTS')
           })
           .then(() => {
             this.showProgress('sprints')
-            return this.$store.dispatch('issues/INIT_SPRINTS')
+            return this.$store.dispatch('core/INIT_SPRINTS')
           })
           .then(() => {
             this.showProgress('backlogs')
-            return this.$store.dispatch('issues/INIT_BACKLOGS')
+            return this.$store.dispatch('core/INIT_BACKLOGS')
           })
           .then(() => {
             this.showProgress('invited')

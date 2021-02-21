@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     attachments () {
-      return this.$store.getters['issues/ATTACHMENTS_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ATTACHMENTS_BY_CURRENT_PROJECT']
     },
     workspace () {
       return this.$store.getters['current/WORKSPACE']

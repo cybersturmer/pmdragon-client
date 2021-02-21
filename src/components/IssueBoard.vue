@@ -61,7 +61,7 @@ export default {
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
     },
     estimationTitle () {
-      const estimation = this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
+      const estimation = this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
       try {
         return estimation.title
       } catch (e) {
@@ -79,16 +79,16 @@ export default {
       return this.assignee ? this.assignee.username : false
     },
     isDone () {
-      return this.$store.getters['issues/IS_ISSUE_STATE_DONE'](this.issue.state_category)
+      return this.$store.getters['core/IS_ISSUE_STATE_DONE'](this.issue.state_category)
     },
     isIssueTypeIcon () {
-      return this.$store.getters['issues/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
+      return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
     },
     getIssueTypeTitle () {
-      return this.$store.getters['issues/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
+      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
     },
     getIssueTypeIcon () {
-      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     }
   }
 }

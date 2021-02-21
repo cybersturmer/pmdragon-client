@@ -25,32 +25,32 @@ function findBacklogIndexById (state, backlogId) {
 
 export function INIT_BACKLOGS (state, payload) {
   state.backlogs = payload
-  LocalStorage.set('issues.backlogs', payload)
+  LocalStorage.set('core.backlogs', payload)
 }
 
 export function INIT_SPRINTS (state, payload) {
   state.sprints = payload
-  LocalStorage.set('issues.sprints', payload)
+  LocalStorage.set('core.sprints', payload)
 }
 
 export function INIT_ISSUES (state, payload) {
   state.issues = payload
-  LocalStorage.set('issues.issues', payload)
+  LocalStorage.set('core.issues', payload)
 }
 
 export function INIT_ATTACHMENTS (state, payload) {
   state.issue_attachments = payload
-  LocalStorage.set('issues.issue_attachments', payload)
+  LocalStorage.set('core.issue_attachments', payload)
 }
 
 export function INIT_SPRINT_DURATIONS (state, payload) {
   state.sprint_durations = payload
-  LocalStorage.set('issues.sprint_durations', payload)
+  LocalStorage.set('core.sprint_durations', payload)
 }
 
 /** ATTACHMENTS manage block **/
 function saveIssueAttachmentStateToLocalStorage (state) {
-  LocalStorage.set('issues.issue_attachments', state.issue_attachments)
+  LocalStorage.set('core.issue_attachments', state.issue_attachments)
 }
 
 export function ADD_ATTACHMENT (state, payload) {
@@ -79,7 +79,7 @@ export function ORDER_BACKLOG_ISSUES (state, payload) {
   const project = payload[0].project
   const backlogIndex = findBacklogByProjectId(state, project)
   state.backlogs[backlogIndex].issues = payload
-  LocalStorage.set('issues.backlogs', state.backlogs)
+  LocalStorage.set('core.backlogs', state.backlogs)
 }
 
 export function ADD_ISSUE_TO_BACKLOG (state, payload) {
@@ -88,29 +88,29 @@ export function ADD_ISSUE_TO_BACKLOG (state, payload) {
 
   backlog.issues.push(payload.id)
 
-  LocalStorage.set('issues.backlogs', state.backlogs)
+  LocalStorage.set('core.backlogs', state.backlogs)
 }
 
 export function UPDATE_BACKLOG_ISSUES (state, composite) {
-  /** Just update issues inside of Backlog
+  /** Just update core inside of Backlog
    * We use composite data for mutation **/
   const backlog = state.backlogs
     .find(backlog => backlog.id === composite.id)
   backlog.issues = composite.issues
 
-  LocalStorage.set('issues.backlogs', state.backlogs)
+  LocalStorage.set('core.backlogs', state.backlogs)
 }
 
 export function UPDATE_BACKLOG (state, payload) {
   const backlogIndex = findBacklogByProjectId(state, payload.id)
   state.backlogs.splice(backlogIndex, 1, payload)
 
-  LocalStorage.set('issues.backlogs', state.backlogs)
+  LocalStorage.set('core.backlogs', state.backlogs)
 }
 
 /** Issues Block **/
 function saveIssuesStateToLocalStorage (state) {
-  LocalStorage.set('issues.issues', state.issues)
+  LocalStorage.set('core.issues', state.issues)
 }
 
 export function ADD_ISSUE_TO_ISSUES (state, payload) {
@@ -172,18 +172,18 @@ export function UPDATE_ISSUES_ORDERING (state, payload) {
 export function ADD_SPRINT_TO_PROJECT (state, payload) {
   state.sprints.push(payload)
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 export function UPDATE_SPRINT_ISSUES (state, composite) {
-  /** Just update issues inside sprint
+  /** Just update core inside sprint
    *  We use composite data for mutation **/
   const sprint = state.sprints
     .find(sprint => sprint.id === composite.id)
 
   sprint.issues = composite.issues
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 export function START_SPRINT (state, sprintId) {
@@ -192,7 +192,7 @@ export function START_SPRINT (state, sprintId) {
     .find(sprint => sprint.id === sprintId)
   sprint.is_started = true
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 export function COMPLETE_SPRINT (state, sprintId) {
@@ -203,7 +203,7 @@ export function COMPLETE_SPRINT (state, sprintId) {
     .find(sprint => sprint.id === sprintId)
   sprint.is_completed = true
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 export function DELETE_SPRINT (state, sprintId) {
@@ -212,24 +212,24 @@ export function DELETE_SPRINT (state, sprintId) {
   const sprintIndex = findSprintIndexById(state, sprintId)
   state.sprints.splice(sprintIndex, 1)
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 export function UPDATE_SPRINT (state, payload) {
   /**
-   * We use this mutation for update issues inside of sprint
+   * We use this mutation for update core inside of sprint
    * We can update base sprint information also **/
   const sprintIndex = findSprintIndexById(state, payload.id)
   state.sprints.splice(sprintIndex, 1, payload)
 
-  LocalStorage.set('issues.sprints', state.sprints)
+  LocalStorage.set('core.sprints', state.sprints)
 }
 
 /** Issue Type Category management **/
 export function ADD_ISSUE_TYPE_CATEGORY (state, payload) {
   state.issue_types.push(payload)
 
-  LocalStorage.set('issues.issue_types', state.issue_types)
+  LocalStorage.set('core.issue_types', state.issue_types)
 }
 
 export function UPDATE_ISSUE_TYPE_CATEGORY (state, payload) {
@@ -238,7 +238,7 @@ export function UPDATE_ISSUE_TYPE_CATEGORY (state, payload) {
 
   syncPair(payload, issueType)
 
-  LocalStorage.set('issues.issue_types', state.issue_types)
+  LocalStorage.set('core.issue_types', state.issue_types)
 }
 
 export function DELETE_ISSUE_TYPE_CATEGORY (state, payload) {
@@ -247,14 +247,14 @@ export function DELETE_ISSUE_TYPE_CATEGORY (state, payload) {
 
   removeElement(state.issue_types, issueType)
 
-  LocalStorage.set('issues.issue_types', state.issue_types)
+  LocalStorage.set('core.issue_types', state.issue_types)
 }
 
 /** Issue State Category management **/
 export function ADD_ISSUE_STATE_CATEGORY (state, payload) {
   state.issue_states.push(payload)
 
-  LocalStorage.set('issues.issue_states', state.issue_states)
+  LocalStorage.set('core.issue_states', state.issue_states)
 }
 
 export function UPDATE_ISSUE_STATE_CATEGORY (state, payload) {
@@ -263,7 +263,7 @@ export function UPDATE_ISSUE_STATE_CATEGORY (state, payload) {
 
   syncPair(payload, issueState)
 
-  LocalStorage.set('issues.issue_states', state.issue_states)
+  LocalStorage.set('core.issue_states', state.issue_states)
 }
 
 export function DELETE_ISSUE_STATE_CATEGORY (state, payload) {
@@ -272,14 +272,14 @@ export function DELETE_ISSUE_STATE_CATEGORY (state, payload) {
 
   removeElement(state.issue_states, issueState)
 
-  LocalStorage.set('issues.issue_states', state.issue_states)
+  LocalStorage.set('core.issue_states', state.issue_states)
 }
 
 /** Issue Estimation Category management **/
 export function ADD_ISSUE_ESTIMATION_CATEGORY (state, payload) {
   state.issue_estimations.push(payload)
 
-  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
+  LocalStorage.set('core.issue_estimations', state.issue_estimations)
 }
 
 export function UPDATE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
@@ -288,7 +288,7 @@ export function UPDATE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
 
   syncPair(payload, issueEstimation)
 
-  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
+  LocalStorage.set('core.issue_estimations', state.issue_estimations)
 }
 
 export function DELETE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
@@ -297,31 +297,31 @@ export function DELETE_ISSUE_ESTIMATION_CATEGORY (state, payload) {
 
   removeElement(state.issue_estimations, issueEstimation)
 
-  LocalStorage.set('issues.issue_estimations', state.issue_estimations)
+  LocalStorage.set('core.issue_estimations', state.issue_estimations)
 }
 
 export function UPDATE_ISSUE_TYPES (state, payload) {
   state.issue_types = payload
 
-  LocalStorage.set('issues.issue_types', payload)
+  LocalStorage.set('core.issue_types', payload)
 }
 
 export function UPDATE_ISSUE_TYPE_ICONS (state, payload) {
   state.issue_type_icons = payload
 
-  LocalStorage.set('issues.issue_type_icons', payload)
+  LocalStorage.set('core.issue_type_icons', payload)
 }
 
 export function UPDATE_ISSUE_STATES (state, payload) {
   state.issue_states = payload
 
-  LocalStorage.set('issues.issue_states', payload)
+  LocalStorage.set('core.issue_states', payload)
 }
 
 export function UPDATE_ISSUE_ESTIMATIONS (state, payload) {
   state.issue_estimations = payload
 
-  LocalStorage.set('issues.issue_estimations', payload)
+  LocalStorage.set('core.issue_estimations', payload)
 }
 
 export function DELETE_ISSUE (state, payload) {
@@ -331,7 +331,7 @@ export function DELETE_ISSUE (state, payload) {
     })
 
   state.issues.splice(issueIndex, 1)
-  LocalStorage.set('issues.issues', state.issues)
+  LocalStorage.set('core.issues', state.issues)
 }
 
 export function RESET () {
@@ -347,6 +347,6 @@ export function RESET () {
   ]
 
   for (const element of localStorageResetList) {
-    LocalStorage.remove(`issues.${element}`)
+    LocalStorage.remove(`core.${element}`)
   }
 }

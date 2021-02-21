@@ -523,27 +523,27 @@ export default {
       return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
     },
     issueTypes () {
-      return this.$store.getters['issues/ISSUE_TYPES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
     },
     issueTypeIcons () {
-      return this.$store.getters['issues/ISSUE_TYPE_ICONS']
+      return this.$store.getters['core/ISSUE_TYPE_ICONS']
     },
     issueStates () {
-      return this.$store.getters['issues/ISSUE_STATES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
     },
     issueEstimations () {
-      return this.$store.getters['issues/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
     }
   },
   mounted () {
-    this.$store.dispatch('issues/INIT_SPRINT_DURATIONS')
+    this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
       .catch((e) => {
         console.log(e)
       })
   },
   methods: {
     getIssueTypeIconById (iconId) {
-      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ID'](iconId)
+      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
     },
     async updateProject (event, attribute) {
       const payload = {
@@ -576,7 +576,7 @@ export default {
       payload[attribute] = attribute === 'icon' ? value.id : value
 
       try {
-        await this.$store.dispatch('issues/UPDATE_ISSUE_TYPE_CATEGORY', payload)
+        await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }
@@ -590,7 +590,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/ADD_ISSUE_TYPE_CATEGORY', payload)
+        await this.$store.dispatch('core/ADD_ISSUE_TYPE_CATEGORY', payload)
         this.newIssueTypeFormData.title = ''
       } catch (e) {
         this.showError(e)
@@ -602,7 +602,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/DELETE_ISSUE_TYPE_CATEGORY', payload)
+        await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }
@@ -615,7 +615,7 @@ export default {
       payload[attribute] = value
 
       try {
-        await this.$store.dispatch('issues/UPDATE_ISSUE_STATE_CATEGORY', payload)
+        await this.$store.dispatch('core/UPDATE_ISSUE_STATE_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }
@@ -628,7 +628,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/ADD_ISSUE_STATE_CATEGORY', payload)
+        await this.$store.dispatch('core/ADD_ISSUE_STATE_CATEGORY', payload)
         this.newIssueStateFormData.title = ''
       } catch (e) {
         this.showError(e)
@@ -640,7 +640,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/DELETE_ISSUE_STATE_CATEGORY', payload)
+        await this.$store.dispatch('core/DELETE_ISSUE_STATE_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }
@@ -653,7 +653,7 @@ export default {
       payload[attribute] = value
 
       try {
-        await this.$store.dispatch('issues/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
+        await this.$store.dispatch('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }
@@ -667,7 +667,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
+        await this.$store.dispatch('core/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
         this.newIssueEstimationFormData.title = ''
       } catch (e) {
         this.showError(e)
@@ -679,7 +679,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('issues/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
+        await this.$store.dispatch('core/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }

@@ -29,23 +29,23 @@ export default {
   components: { BurnDownChart },
   computed: {
     sprintDonePercentage () {
-      const totalSP = this.$store.getters['issues/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
-      const currentSPDone = this.$store.getters['issues/STORY_POINT_DONE_FOR_STARTED_SPRINT']
+      const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
+      const currentSPDone = this.$store.getters['core/STORY_POINT_DONE_FOR_STARTED_SPRINT']
       return Math.round(currentSPDone / totalSP * 100)
     },
     sprintTitle () {
       try {
-        return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
+        return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
       } catch (e) {
         return ''
       }
     },
     startedAt () {
-      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
       return date.formatDate(sprint.started_at, DATE_MASK)
     },
     finishedAt () {
-      const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      const sprint = this.$store.getters['cores/SPRINT_STARTED_BY_CURRENT_PROJECT']
       return date.formatDate(sprint.finished_at, DATE_MASK)
     }
   }

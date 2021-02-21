@@ -40,16 +40,16 @@ export default {
   },
   computed: {
     isIssueTypeIcon () {
-      return this.$store.getters['issues/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
+      return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
     },
     getIssueTypeIcon () {
-      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     },
     getIssueTypeTitle () {
-      return this.$store.getters['issues/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
+      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
     },
     estimationTitle () {
-      const estimation = this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
+      const estimation = this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
       try {
         return estimation.title
       } catch (e) {

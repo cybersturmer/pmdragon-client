@@ -71,7 +71,7 @@ export default {
       try {
         await this.$store.dispatch('current/RESET')
         await this.$store.dispatch('auth/RESET')
-        await this.$store.dispatch('issues/RESET')
+        await this.$store.dispatch('core/RESET')
 
         await this.$store.dispatch('auth/LOGIN', this.formData)
 

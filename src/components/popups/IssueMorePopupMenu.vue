@@ -37,7 +37,7 @@ export default {
       this.showOkCancelDialog(...dialog)
         .onOk(() => {
           try {
-            this.$store.dispatch('issues/DELETE_ISSUE', this.issue)
+            this.$store.dispatch('core/DELETE_ISSUE', this.issue)
             if (this.$route.name === 'issue') {
               this.$router.push({ name: 'backlog' })
             }
