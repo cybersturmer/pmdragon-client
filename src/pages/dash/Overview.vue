@@ -29,9 +29,13 @@ export default {
   components: { BurnDownChart },
   computed: {
     sprintDonePercentage () {
-      const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
-      const currentSPDone = this.$store.getters['core/STORY_POINT_DONE_FOR_STARTED_SPRINT']
-      return Math.round(currentSPDone / totalSP * 100)
+      try {
+        const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
+        const currentSPDone = this.$store.getters['core/STORY_POINT_DONE_FOR_STARTED_SPRINT']
+        return Math.round(currentSPDone / totalSP * 100)
+      } catch (e) {
+        return 0
+      }
     },
     sprintTitle () {
       try {
@@ -41,17 +45,21 @@ export default {
       }
     },
     startedAt () {
-      const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-      return date.formatDate(sprint.started_at, DATE_MASK)
+      try {
+        const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+        return date.formatDate(sprint.started_at, DATE_MASK)
+      } catch (e) {
+        return null
+      }
     },
     finishedAt () {
-      const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-      return date.formatDate(sprint.finished_at, DATE_MASK)
+      try {
+        const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+        return date.formatDate(sprint.finished_at, DATE_MASK)
+      } catch (e) {
+        return null
+      }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
