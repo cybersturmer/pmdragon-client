@@ -4,7 +4,8 @@ export function REST_ENDPOINT (state) {
 }
 
 export function SOCKET_ENDPOINT (state) {
-  return `wss://${state.host}/ws`
+  const protocol = process.env.DEV ? 'ws' : 'wss'
+  return `${protocol}://${state.host}/ws/`
 }
 
 export function HOST (state) {
