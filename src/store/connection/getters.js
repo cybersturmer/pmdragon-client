@@ -11,3 +11,11 @@ export function SOCKET_ENDPOINT (state) {
 export function HOST (state) {
   return state.host
 }
+
+export function SOCKET_CONNECTED (state) {
+  return state.socketConnected
+}
+
+export function SOCKET_RECONNECT_ERROR (state) {
+  return state.socketReconnectError
+}

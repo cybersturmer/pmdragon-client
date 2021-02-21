@@ -17,10 +17,9 @@ Vue.use(
   {
     store: $store,
     reconnection: true,
-    reconnectionAttempts: 5,
     reconnectionDelay: 3000,
     format: 'json',
-    passToStoreHandler (eventName, event, next) {
+    passToStoreHandler (eventName, event) {
       if (!eventName.startsWith('SOCKET_')) { return null }
 
       const namespace = 'connection'

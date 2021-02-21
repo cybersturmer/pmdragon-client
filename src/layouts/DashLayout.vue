@@ -109,6 +109,13 @@
       <q-card square flat class="absolute-top bg-grey-8" style="height: 150px;">
         <div class="absolute-bottom text-center bg-grey-8" style="margin-bottom: 1em;">
           <q-avatar v-if="avatarUrl" size="65px" class="q-mb-sm">
+            <q-badge
+              rounded
+              floating
+              :color="connectionColor"
+              :title="connectedText"
+              class="connection-state">
+            </q-badge>
             <img :src="avatarUrl">
           </q-avatar>
           <div class="text-h6">{{ firstName }} {{ lastName }}</div>
@@ -179,6 +186,26 @@ export default {
     username () {
       return this.$store.getters['auth/MY_USERNAME']
     },
+    connected () {
+      return this.$store.getters['connection/SOCKET_CONNECTED']
+    },
+    connectionError () {
+      return this.$store.getters['connection/SOCKET_RECONNECT_ERROR']
+    },
+    connectedText () {
+      switch (!!this.connected) {
+        case true: return 'Connected'
+        case false:
+          return this.connectionError ? 'No connection' : 'Disconnected'
+      }
+      return ''
+    },
+    connectionColor () {
+      switch (this.connectedText) {
+        case 'Connected': return 'positive'
+        default: return 'negative'
+      }
+    },
     avatarUrl () {
       return this.$store.getters['auth/MY_AVATAR']
     },
@@ -223,5 +250,13 @@ export default {
   .q-field--dark .q-field__suffix,
   .q-field--dark .q-field__input {
     font-weight: bold;
+  }
+
+  .connection-state {
+    height: 12px;
+    width: 12px;
+    top: 55px;
+    right: 15px;
+    border-radius: 15px;
   }
 </style>
