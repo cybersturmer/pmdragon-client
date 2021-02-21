@@ -1,14 +1,49 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import $store from 'src/store'
 
 import routes from './routes'
 import VueMoment from 'vue-moment'
+import VueNativeSock from 'vue-native-websocket'
 import moment from 'moment-timezone'
 
 Vue.use(VueRouter)
 Vue.use(VueMoment, {
   moment
 })
+Vue.use(
+  VueNativeSock,
+  $store.getters['connection/SOCKET_ENDPOINT'],
+  {
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 3000,
+    format: 'json',
+    passToStoreHandler (eventName, event, next) {
+      console.log(eventName)
+      console.log(event)
+      console.log(next)
+
+      if (!eventName.startsWith('SOCKET_')) { return null }
+
+      const namespace = 'connection'
+      let target = eventName.toUpperCase()
+      let method = 'commit'
+      let msg = event
+
+      if (event.data) {
+        msg = JSON.parse(event.data)
+        if (msg.mutation) {
+          target = [namespace, msg.mutation].join('/')
+        } else if (msg.action) {
+          method = 'dispatch'
+          target = [namespace, msg.action].join('/')
+        }
+      }
+      this.store[method](target, msg)
+    }
+  }
+)
 
 /*
  * If not building with SSR mode, you can

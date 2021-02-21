@@ -7,6 +7,11 @@ function getDefaultEnv () {
 
 export default function () {
   return {
-    host: LocalStorage.getItem('connection.host') || getDefaultEnv()
+    host: LocalStorage.getItem('connection.host') || getDefaultEnv(),
+    socket: {
+      connected: false,
+      reconnectError: false,
+      message: ''
+    }
   }
 }
