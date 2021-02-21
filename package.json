@@ -24,11 +24,10 @@
     "express": "^4.17.1",
     "quasar": "^1.15.2",
     "serve-static": "^1.14.1",
-    "socket.io-client": "^2.4.0",
     "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.22.4",
     "vue-moment": "^4.1.0",
-    "vue-socket.io": "^3.0.10",
+    "vue-native-websocket": "^2.0.14",
     "vuedraggable": "^2.24.3",
     "yarn": "^1.22.10"
   },
