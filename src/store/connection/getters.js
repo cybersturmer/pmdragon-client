@@ -8,6 +8,10 @@ export function SOCKET_ENDPOINT (state) {
   return `${protocol}://${state.host}/ws/`
 }
 
+export function SOCKET_ENDPOINT_WITH_TOKEN (state, getters, rootState, rootGetters) {
+  return `${getters.SOCKET_ENDPOINT}?token=${rootGetters['auth/ACCESS_TOKEN']}`
+}
+
 export function HOST (state) {
   return state.host
 }

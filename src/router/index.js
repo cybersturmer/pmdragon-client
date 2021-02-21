@@ -13,7 +13,7 @@ Vue.use(VueMoment, {
 })
 Vue.use(
   VueNativeSock,
-  $store.getters['connection/SOCKET_ENDPOINT'],
+  $store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN'],
   {
     store: $store,
     reconnection: true,
