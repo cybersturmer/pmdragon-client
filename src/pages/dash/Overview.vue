@@ -45,7 +45,7 @@ export default {
       return date.formatDate(sprint.started_at, DATE_MASK)
     },
     finishedAt () {
-      const sprint = this.$store.getters['cores/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
       return date.formatDate(sprint.finished_at, DATE_MASK)
     }
   }
