@@ -7,7 +7,10 @@ export function SET_HOST (state, payload) {
 
 export function RESET () {
   const localStorageResetList = [
-    'host'
+    'host',
+    'socketConnected',
+    'socketReconnectError',
+    'socketMessage'
   ]
 
   for (const element of localStorageResetList) {
@@ -16,11 +19,11 @@ export function RESET () {
 }
 
 export function SOCKET_ONOPEN (state, event) {
-  state.socket.connected = true
+  state.socketConnected = true
 }
 
 export function SOCKET_ONCLOSE (state, event) {
-  state.socket.connected = false
+  state.socketConnected = false
 }
 
 export function SOCKET_ONERROR (state, event) {
@@ -28,7 +31,7 @@ export function SOCKET_ONERROR (state, event) {
 }
 
 export function SOCKET_ONMESSAGE (state, message) {
-  state.socket.message = message
+  state.socketMessage = message
 }
 
 export function SOCKET_RECONNECT (state, count) {
@@ -36,5 +39,5 @@ export function SOCKET_RECONNECT (state, count) {
 }
 
 export function SOCKET_RECONNECT_ERROR (state) {
-  state.socket.reconnectError = true
+  state.socketReconnectError = true
 }

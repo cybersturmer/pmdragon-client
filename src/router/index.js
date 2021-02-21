@@ -15,19 +15,16 @@ Vue.use(
   VueNativeSock,
   $store.getters['connection/SOCKET_ENDPOINT'],
   {
+    store: $store,
     reconnection: true,
     reconnectionAttempts: 5,
     reconnectionDelay: 3000,
     format: 'json',
     passToStoreHandler (eventName, event, next) {
-      console.log(eventName)
-      console.log(event)
-      console.log(next)
-
       if (!eventName.startsWith('SOCKET_')) { return null }
 
       const namespace = 'connection'
-      let target = eventName.toUpperCase()
+      let target = ['connection', eventName.toUpperCase()].join('/')
       let method = 'commit'
       let msg = event
 
@@ -40,6 +37,7 @@ Vue.use(
           target = [namespace, msg.action].join('/')
         }
       }
+
       this.store[method](target, msg)
     }
   }
