@@ -182,28 +182,28 @@ export default {
   computed: {
     backlog () {
       /** Getting current backlog by chosen workspace and project **/
-      return this.$store.getters['issues/BACKLOG']
+      return this.$store.getters['core/BACKLOG']
     },
     backlogIssues () {
-      /** Getting current backlog issues **/
-      return this.$store.getters['issues/BACKLOG_ISSUES']
+      /** Getting current backlog core **/
+      return this.$store.getters['core/BACKLOG_ISSUES']
     },
     backlogIssuesLength () {
-      /** Getting issues count **/
-      return this.$store.getters['issues/BACKLOG_ISSUES_COUNT'] + ' issues'
+      /** Getting core count **/
+      return this.$store.getters['core/BACKLOG_ISSUES_COUNT'] + ' core'
     },
     sprints () {
       /** Getting all sprints **/
-      return this.$store.getters['issues/UNCOMPLETED_PROJECT_SPRINTS']
+      return this.$store.getters['core/UNCOMPLETED_PROJECT_SPRINTS']
     },
     isCreateIssueButtonEnabled () {
       return Boolean(this.formData.title)
     },
     issueStates () {
-      return this.$store.getters['issues/ISSUE_STATES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
     },
     issueTypes () {
-      return this.$store.getters['issues/ISSUE_TYPES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
     }
   },
   methods: {
@@ -213,7 +213,7 @@ export default {
 
       this.formData.workspace = this.$store.getters['auth/WORKSPACE_ID']
       this.formData.project = this.$store.getters['current/PROJECT']
-      this.$store.dispatch('issues/ADD_ISSUE_TO_BACKLOG', this.formData)
+      this.$store.dispatch('core/ADD_ISSUE_TO_BACKLOG', this.formData)
         .then(() => {
           this.formData.title = ''
         })
@@ -233,7 +233,7 @@ export default {
         finishedAt: item.finished_at
       })
         .onOk((data) => {
-          this.$store.dispatch('issues/EDIT_SPRINT', data)
+          this.$store.dispatch('core/EDIT_SPRINT', data)
         })
     },
     removeSprintDialog (item) {
@@ -245,7 +245,7 @@ export default {
       ]
       this.showOkCancelDialog(...dialog)
         .onOk(() => {
-          this.$store.dispatch('issues/DELETE_SPRINT', item.id)
+          this.$store.dispatch('core/DELETE_SPRINT', item.id)
         })
     },
     editIssueDialog (item) {
@@ -258,7 +258,7 @@ export default {
       })
     },
     sprintIssues (sprintId) {
-      return this.$store.getters['issues/SPRINT_BY_ID_ISSUES'](sprintId)
+      return this.$store.getters['core/SPRINT_BY_ID_ISSUES'](sprintId)
     },
     areSprintIssues (sprintId) {
       return this.sprintIssues(sprintId).length > 0
@@ -286,13 +286,13 @@ export default {
     },
     handleSprintIssueMoved (event, sprintId) {
       /** Handling moving inside of sprint **/
-      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID'](sprintId).issues
+      const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID'](sprintId).issues
 
       const handled = this.handleCommonMoved(currentSprintIssues, event)
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+      this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         .then(() => {
-          this.$store.commit('issues/UPDATE_SPRINT_ISSUES', {
+          this.$store.commit('core/UPDATE_SPRINT_ISSUES', {
             id: sprintId,
             issues: handled.list
           })
@@ -300,13 +300,13 @@ export default {
     },
     handleBacklogIssueMoved (event, backlogId) {
       /** Handling moving inside of backlog **/
-      const currentBacklogIssues = this.$store.getters['issues/BACKLOG'].issues
+      const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
 
       const handled = this.handleCommonMoved(currentBacklogIssues, event)
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+      this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         .then(() => {
-          this.$store.commit('issues/UPDATE_BACKLOG_ISSUES', {
+          this.$store.commit('core/UPDATE_BACKLOG_ISSUES', {
             id: backlogId,
             issues: handled.list
           })
@@ -330,11 +330,11 @@ export default {
       return { list: immutableList, ordering }
     },
     notifyAboutStartedSprintAffecting (event, sprintId) {
-      /** Notify if someone start to put issues in already started sprint or take it from **/
-      const isSprintStarted = this.$store.getters['issues/IS_SPRINT_STARTED'](sprintId)
+      /** Notify if someone start to put core in already started sprint or take it from **/
+      const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED'](sprintId)
       if (!isSprintStarted) return false
 
-      const droppedIssue = this.$store.getters['issues/ISSUE_BY_ID'](event.added.element.id)
+      const droppedIssue = this.$store.getters['core/ISSUE_BY_ID'](event.added.element.id)
       const dialog = [
         'Started Sprint affected',
           `By adding #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
@@ -343,30 +343,30 @@ export default {
     },
     handleSprintIssueAdded (event, sprintId) {
       /** Handling adding inside of Sprint **/
-      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
+      const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
       const handled = this.handleCommonAdded(currentSprintIssues, event)
       const compositeSprintIdsList = {
         id: sprintId,
         issues: handled.list
       }
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_IN_SPRINT', compositeSprintIdsList)
+      this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIdsList)
         .then(() => {
-          this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+          this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         })
     },
     handleBacklogIssueAdded (event, backlogId) {
       /** Handling adding to Backlog **/
-      const currentBacklogIssues = this.$store.getters['issues/BACKLOG'].issues
+      const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
 
       const handled = this.handleCommonAdded(currentBacklogIssues, event)
       const compositeBacklogIdsList = {
         id: backlogId,
         issues: handled.list
       }
-      this.$store.dispatch('issues/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIdsList)
+      this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIdsList)
         .then(() => {
-          this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+          this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         })
     },
     handleCommonRemoved (issuesList, event) {
@@ -388,7 +388,7 @@ export default {
     },
     handleSprintIssueRemoved (event, sprintId) {
       /** Handling removing from Sprint **/
-      const currentSprintIssues = this.$store.getters['issues/SPRINT_BY_ID'](sprintId).issues
+      const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID'](sprintId).issues
 
       const handled = this.handleCommonRemoved(currentSprintIssues, event)
       const compositeSprintIds = {
@@ -396,14 +396,14 @@ export default {
         issues: handled.list
       }
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_IN_SPRINT', compositeSprintIds)
+      this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIds)
         .then(() => {
-          this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+          this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         })
     },
     handleBacklogIssueRemoved (event, backlogId) {
       /** Handling removing from Backlog **/
-      const currentBacklogIssues = this.$store.getters['issues/BACKLOG'].issues
+      const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
 
       const handled = this.handleCommonRemoved(currentBacklogIssues, event)
       const compositeBacklogIds = {
@@ -411,9 +411,9 @@ export default {
         issues: handled.list
       }
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIds)
+      this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIds)
         .then(() => {
-          this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+          this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
         })
     },
     handleDraggableEvent (event, dragType, dragId) {
@@ -463,7 +463,7 @@ export default {
         finished_at: null
       }
 
-      this.$store.dispatch('issues/ADD_SPRINT_TO_PROJECT', payload)
+      this.$store.dispatch('core/ADD_SPRINT_TO_PROJECT', payload)
     }
   }
 }

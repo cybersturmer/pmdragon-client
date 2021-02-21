@@ -137,16 +137,16 @@ export default {
   },
   computed: {
     issueStates () {
-      return this.$store.getters['issues/ISSUE_STATES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
     },
     issueTypes () {
-      return this.$store.getters['issues/ISSUE_TYPES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
     },
     issues () {
-      return this.$store.getters['issues/SPRINTS_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/SPRINTS_BY_CURRENT_PROJECT']
     },
     sprint () {
-      return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
     },
     daysAmount () {
       const startedAt = this.sprint.started_at
@@ -178,7 +178,7 @@ export default {
       return this.$store.getters['auth/PERSON_BY_ID'](assigneeId)
     },
     issuesByState (stateId) {
-      return this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES']
+      return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES']
         .filter((issue) => issue.state_category === stateId)
     },
     issuesByStateAmount (stateId) {
@@ -189,7 +189,7 @@ export default {
       const updatedElement = unWatch(event.added.element)
       updatedElement.state_category = issueStateId
 
-      this.$store.dispatch('issues/UPDATE_ISSUE_STATE', updatedElement)
+      this.$store.dispatch('core/UPDATE_ISSUE_STATE', updatedElement)
     },
     handleCommonMoved (issuesList, event) {
       /** Handle moving - common function **/
@@ -217,7 +217,7 @@ export default {
       const issuesList = this.issuesByState(stateId)
       const handled = this.handleCommonMoved(issuesList, event)
 
-      this.$store.dispatch('issues/UPDATE_ISSUES_ORDERING', handled.ordering)
+      this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
     },
     handleIssueStateChanging (event, issueStateId) {
       /** Handling moving inside of states **/
@@ -258,7 +258,7 @@ export default {
         finishedAt: item.finished_at
       })
         .onOk((data) => {
-          this.$store.dispatch('issues/EDIT_SPRINT', data)
+          this.$store.dispatch('core/EDIT_SPRINT', data)
         })
     }
   }

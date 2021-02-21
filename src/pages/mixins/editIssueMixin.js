@@ -45,7 +45,7 @@ export const editIssueMixin = {
     }
   },
   async mounted () {
-    this.formData.issue = unWatch(this.$store.getters['issues/ISSUE_BY_ID'](parseInt(this.id)))
+    this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
     try {
       await this.getMessages()
@@ -75,7 +75,7 @@ export const editIssueMixin = {
         }
 
         try {
-          await this.$store.dispatch('issues/ADD_ATTACHMENT', payload)
+          await this.$store.dispatch('core/ADD_ATTACHMENT', payload)
         } catch (e) {
           return Promise.reject('One of file was not uploaded')
         }
@@ -86,7 +86,7 @@ export const editIssueMixin = {
     },
     async linkFileAttachment (attachment) {
       const issueId = this.formData.issue.id
-      const attachments = unWatch(this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](issueId))
+      const attachments = unWatch(this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](issueId))
 
       attachments.push(attachment.id)
 
@@ -95,7 +95,7 @@ export const editIssueMixin = {
         attachments: attachments
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
     },
     async showSelectAttachmentDialog () {
       this.$q.dialog({
@@ -111,7 +111,7 @@ export const editIssueMixin = {
     },
     async deleteFileAttachmentFromIssue (attachment) {
       const issueId = this.formData.issue.id
-      let patchedAttachments = unWatch(this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](issueId))
+      let patchedAttachments = unWatch(this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](issueId))
 
       patchedAttachments = removeElement(patchedAttachments, attachment.id)
 
@@ -120,7 +120,7 @@ export const editIssueMixin = {
         attachments: patchedAttachments
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
     },
     isTimelineShowValues (entry) {
       if (entry.edited_field === 'Ordering') {
@@ -167,11 +167,11 @@ export const editIssueMixin = {
     },
     getIssueStateById (id) {
       /** Get Issue state by Id, we got Issue State from props given to component **/
-      return this.$store.getters['issues/ISSUE_STATE_BY_ID'](id)
+      return this.$store.getters['core/ISSUE_STATE_BY_ID'](id)
     },
     getIssueTypeById (id) {
       /** Get Issue Type by Id, we got Issue Types from props given to component **/
-      return this.$store.getters['issues/ISSUE_TYPE_BY_ID'](id)
+      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](id)
     },
     getParticipantById (id) {
       /** Get participant object by given id from participants list given in props
@@ -223,7 +223,7 @@ export const editIssueMixin = {
     },
     getIssueTypeTitle (id) {
       /** get Title for given issue type id **/
-      return this.$store.getters['issues/ISSUE_TYPE_TITLE_BY_ID'](id)
+      return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](id)
     },
     startEditingDescription () {
       /** update description state
@@ -241,7 +241,7 @@ export const editIssueMixin = {
         state_category: this.formData.issue.state_category
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.$emit('update_state', payload)
     },
     async updateIssueType (state) {
@@ -253,7 +253,7 @@ export const editIssueMixin = {
         type_category: this.formData.issue.type_category
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.$emit('update_type', payload)
     },
     async updateIssueAssignee (assignee) {
@@ -266,7 +266,7 @@ export const editIssueMixin = {
         assignee: assignee.id
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.$emit('update_assignee', payload)
     },
     async updateIssueEstimation (estimation) {
@@ -277,7 +277,7 @@ export const editIssueMixin = {
         estimation_category: estimation.id
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.$emit('update_estimation', payload)
     },
     async updateIssueTitle (title) {
@@ -291,7 +291,7 @@ export const editIssueMixin = {
         title: title
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.$emit('update_title', payload)
     },
     async handleEnterDescription (e) {
@@ -308,7 +308,7 @@ export const editIssueMixin = {
         description: this.formData.issue.description
       }
 
-      await this.$store.dispatch('issues/PATCH_ISSUE', payload)
+      await this.$store.dispatch('core/PATCH_ISSUE', payload)
       this.isDescriptionEditing = false
 
       this.$emit('update_description', payload)
@@ -473,36 +473,36 @@ export const editIssueMixin = {
   computed: {
     attachments () {
       try {
-        const attachments = this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
-        return this.$store.getters['issues/ATTACHMENTS_BY_IDS'](attachments)
+        const attachments = this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
+        return this.$store.getters['core/ATTACHMENTS_BY_IDS'](attachments)
       } catch (e) {
         return []
       }
     },
     attachmentsAmount () {
-      return this.$store.getters['issues/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id).length
+      return this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id).length
     },
     timelineLayout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
     },
     estimations () {
-      return this.$store.getters['issues/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
     },
     states () {
-      return this.$store.getters['issues/ISSUE_STATES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
     },
     types () {
-      return this.$store.getters['issues/ISSUE_TYPES_BY_CURRENT_PROJECT']
+      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
     },
     participants () {
       return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
     },
     estimation () {
-      return this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category)
+      return this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category)
     },
     estimationTitle () {
       try {
-        return this.$store.getters['issues/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category).title
+        return this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category).title
       } catch (e) {
         return 'None'
       }
@@ -517,10 +517,10 @@ export const editIssueMixin = {
       return this.messages.length > 0
     },
     isIssueTypeIcon () {
-      return this.$store.getters['issues/IS_ISSUE_TYPE_HAVE_ICON'](this.formData.issue.type_category)
+      return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.formData.issue.type_category)
     },
     getIssueTypeIcon () {
-      return this.$store.getters['issues/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.formData.issue.type_category)
+      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.formData.issue.type_category)
     },
     mentioningRegex () {
       const regexArray = []

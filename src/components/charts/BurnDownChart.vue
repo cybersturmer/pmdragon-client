@@ -90,14 +90,14 @@ export default {
   }),
   async mounted () {
     this.isLoaded = false
-    const sprint = this.$store.getters['issues/SPRINT_STARTED_BY_CURRENT_PROJECT']
+    const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
 
     const sprintStartedAt = new Date(sprint.started_at)
     const sprintFinishedAt = new Date(sprint.finished_at)
     const diffDays = date
       .getDateDiff(sprintFinishedAt, sprintStartedAt, 'days')
 
-    const totalValue = this.$store.getters['issues/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
+    const totalValue = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
     const perDayDecrement = totalValue / diffDays
 
     const estimations = await new Api({

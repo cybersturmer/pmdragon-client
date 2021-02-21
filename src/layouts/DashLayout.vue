@@ -129,20 +129,19 @@
 
 export default {
   name: 'DashLayout',
-
-  components: {
-  },
-
   data () {
     return {
       leftDrawerOpen: false
     }
   },
+  created () {
+    /** Socket initiating **/
+  },
   methods: {
     logout () {
       this.$store.dispatch('auth/RESET')
       this.$store.dispatch('current/RESET')
-      this.$store.dispatch('issues/RESET')
+      this.$store.dispatch('core/RESET')
       this.$router.push({ name: 'login' })
     },
     goToAccount () {
