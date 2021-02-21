@@ -35,7 +35,7 @@ export function SOCKET_ONMESSAGE (state, message) {
 }
 
 export function SOCKET_RECONNECT (state, count) {
-  console.info(state, count)
+  console.info(`Reconnecting... ${count}`)
 }
 
 export function SOCKET_RECONNECT_ERROR (state) {
