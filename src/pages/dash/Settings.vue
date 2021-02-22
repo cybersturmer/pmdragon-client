@@ -564,6 +564,12 @@ export default {
 
       try {
         await this.$store.dispatch('auth/DELETE_PROJECT', payload)
+        this.showOkDialog(
+          'Project was removed',
+          'Current project was removed.'
+        )
+
+        await this.$router.push({ name: 'loading' })
       } catch (e) {
         this.showError(e)
       }
