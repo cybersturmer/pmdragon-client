@@ -10,6 +10,7 @@ export default function () {
     host: LocalStorage.getItem('connection.host') || getDefaultEnv(),
     socketConnected: false,
     socketReconnectError: false,
-    socketMessage: ''
+    socketMessage: '',
+    socketRequestId: 0
   }
 }

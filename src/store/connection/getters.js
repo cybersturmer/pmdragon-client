@@ -23,3 +23,7 @@ export function SOCKET_CONNECTED (state) {
 export function SOCKET_RECONNECT_ERROR (state) {
   return state.socketReconnectError
 }
+
+export function SOCKET_REQUEST_ID (state) {
+  return state.socketRequestId++
+}
