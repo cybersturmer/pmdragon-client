@@ -28,8 +28,13 @@ function _getStatusMessage (status) {
 
 function _getResponseErrorMessage (error) {
   if (error.response && error.response.data) {
-    if (error.response.data.detail) return error.response.data.detail
-    else return _getStatusMessage(error.response.status)
+    if (error.response.data.detail) {
+      return error.response.data.detail
+    } else if (error.response.data.non_field_errors) {
+      return error.response.data.non_field_errors.join(' ')
+    } else {
+      return _getStatusMessage(error.response.status)
+    }
   }
 
   if (error.response && error.response.statusText) return error.response.statusText
