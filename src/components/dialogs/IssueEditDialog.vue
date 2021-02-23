@@ -410,15 +410,6 @@ export default {
   methods: {
     show () {
       this.$refs.dialog.show()
-      this.$options.sockets.onmessage = (data) => console.log(data)
-
-      const payload = {
-        action: 'subscribe_to_messages_in_issue',
-        request_id: 4,
-        issue_pk: this.id
-      }
-
-      this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
     },
 
     hide () {

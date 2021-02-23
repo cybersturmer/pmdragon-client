@@ -8,6 +8,7 @@ import EditorCancelButton from 'components/buttons/EditorCancelButton'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
 import SelectAttachmentDialog from 'components/dialogs/SelectAttachmentDialog'
+import { MessageWebsocketHandler } from 'src/services/websockets/messages'
 
 export const editIssueMixin = {
   components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
@@ -53,6 +54,17 @@ export const editIssueMixin = {
     } catch (e) {
       this.showError(new ErrorHandler(e))
     }
+
+    this.$options.sockets.onmessage = (data) => new MessageWebsocketHandler(this.messages, data)
+    await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
+
+    const payload = {
+      action: 'subscribe_to_messages_in_issue',
+      request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+      issue_pk: this.id
+    }
+
+    this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
   },
   methods: {
     downloadFile (url) {
