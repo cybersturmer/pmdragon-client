@@ -87,3 +87,15 @@ export function removeElement (array, element) {
   array.splice(index, 1)
   return array
 }
+
+export function updateElement (array, oldElement, newElement) {
+  const oldIndex = array.indexOf(oldElement)
+  if (oldIndex <= -1) throw new Error('Requested array do not contain given element')
+
+  array.splice(oldIndex, 1, newElement)
+}
+
+export function updateElementById (array, newElement) {
+  const oldElement = array.find(element => element.id === newElement.id)
+  updateElement(array, oldElement, newElement)
+}
