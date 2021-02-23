@@ -41,3 +41,8 @@ export function SOCKET_RECONNECT (state, count) {
 export function SOCKET_RECONNECT_ERROR (state) {
   state.socketReconnectError = true
 }
+
+export function UPDATE_SOCKET_REQUEST_ID (state) {
+  state.socketRequestId++
+  LocalStorage.set('connection.socketRequestId', state.socketRequestId)
+}

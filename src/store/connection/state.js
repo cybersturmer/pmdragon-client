@@ -11,6 +11,6 @@ export default function () {
     socketConnected: false,
     socketReconnectError: false,
     socketMessage: '',
-    socketRequestId: 0
+    socketRequestId: LocalStorage.getItem('connection.socketRequestId') || 0
   }
 }

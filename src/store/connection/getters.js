@@ -25,5 +25,5 @@ export function SOCKET_RECONNECT_ERROR (state) {
 }
 
 export function SOCKET_REQUEST_ID (state) {
-  return state.socketRequestId++
+  return state.socketRequestId
 }
