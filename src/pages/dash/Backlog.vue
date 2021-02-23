@@ -20,6 +20,7 @@
       <div class="col bg-primary">
         <q-scroll-area
           dark
+          visible
           class="rounded-borders"
           style="height: 100%; padding: 1.25rem; border: 1px solid #606060;">
             <div
@@ -77,6 +78,7 @@
       <div class="col" v-if="backlogIssues">
         <q-scroll-area
           dark
+          visible
           class="rounded-borders bg-primary q-pa-sm"
           style="height: calc(100% - 35px); border: 1px solid #606060;">
           <draggable

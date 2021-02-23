@@ -184,7 +184,9 @@
                             <div class="text-left q-message-stamp">
                               {{ getRelativeDatetime(message.updated_at) }}
                             </div>
-                            <div class="text-right">
+                            <div
+                              v-show="$q.screen.gt.sm"
+                              class="text-right">
                               <q-btn-group
                                 v-show="isItMe(message.created_by)"
                                 outline

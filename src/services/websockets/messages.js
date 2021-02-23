@@ -9,7 +9,7 @@ export class MessageWebsocketHandler {
     const data = JSON.parse(event.data)
     const payload = data.payload
 
-    if (payload.message.created_by === this.person) return false
+    if ('created' in payload.message && payload.message.created_by === this.person) return false
 
     this.processEvent(payload)
   }

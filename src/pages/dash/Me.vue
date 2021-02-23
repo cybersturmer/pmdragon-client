@@ -7,8 +7,19 @@
         dense
         align="justify"
         narrow-indicator>
-        <q-tab name="general" icon="mdi-star-circle" label="General"/>
-        <q-tab name="security" icon="mdi-security" label="Security"/>
+        <q-tab
+          name="general"
+          icon="mdi-star-circle"
+          label="General"/>
+        <q-tab
+          v-show="$q.screen.lt.sm"
+          name="avatar"
+          icon="mdi-image"
+          label="Avatar"/>
+        <q-tab
+          name="security"
+          icon="mdi-security"
+          label="Security"/>
       </q-tabs>
       <q-separator dark/>
       <q-tab-panels
@@ -24,7 +35,7 @@
           <SettingPanelCard :default-pre-text="defaultPreText">
               <template #section>
                 <q-card-section horizontal>
-                  <q-card-section class="col-6">
+                  <q-card-section class="col-xs-12 col-sm-6 col-md-6">
                     <q-card-section class="q-pa-sm">
                       <q-input
                         dark
@@ -62,72 +73,25 @@
                       </q-btn-group>
                     </q-card-actions>
                   </q-card-section>
-                  <q-separator dark vertical />
-                  <q-card-section class="col-5 q-ml-xs q-pa-xs">
-                    <q-uploader
-                      dark
-                      flat
-                      bordered
-                      ref="uploader"
-                      :accept="avatarAllowMimes"
-                      :max-files="1"
-                      :max-file-size="10485760"
-                      :max-total-size="10485760"
-                      :factory="uploadFileAvatar"
-                      auto-upload
-                      @removed="deleteAvatar"
-                      class="full-height"
-                    >
-                      <template #header>
-                        <div
-                          v-if="!justUploaded">
-                          <q-btn
-                            dense
-                            flat
-                            class="full-width"
-                            type="a"
-                            label="Upload avatar"
-                            icon="mdi-upload">
-                            <q-uploader-add-trigger />
-                          </q-btn>
-                        </div>
-                      </template>
-                      <template #list>
-                        <q-img
-                          v-if="avatarUrl"
-                          style="border-radius: 5px"
-                          :src="avatarUrl"
-                          contain
-                          native-context-menu>
-                          <q-btn
-                            flat
-                            round
-                            style="top: 8px; right: 8px"
-                            class="absolute all-pointer-events"
-                            icon="mdi-delete"
-                            @click="deleteAvatar">
-                            <q-tooltip>
-                              Remove avatar
-                            </q-tooltip>
-                          </q-btn>
-                          <q-btn
-                            flat
-                            round
-                            style="top: 8px; right: 45px"
-                            class="absolute all-pointer-events"
-                            icon="mdi-update">
-                            <q-uploader-add-trigger />
-                            <q-tooltip>
-                              Update avatar
-                            </q-tooltip>
-                          </q-btn>
-                        </q-img>
-                      </template>
-                    </q-uploader>
+                  <q-separator
+                    v-show="$q.screen.gt.xs"
+                    dark
+                    vertical />
+                  <q-card-section
+                    v-show="$q.screen.gt.xs"
+                    class="q-ml-xs q-pa-xs">
+                    <AvatarUploader/>
                   </q-card-section>
                 </q-card-section>
               </template>
             </SettingPanelCard>
+        </q-tab-panel>
+        <q-tab-panel name="avatar">
+          <q-card dark flat class="bg-primary">
+            <q-card-section class="items-center">
+              <AvatarUploader/>
+            </q-card-section>
+          </q-card>
         </q-tab-panel>
         <q-tab-panel name="security">
           <SettingPanelCard :default-pre-text="defaultPreText">
@@ -135,7 +99,7 @@
             <!-- @todo Better to move it to separate component -->
             <template #section>
               <q-card-section horizontal>
-                <q-card-section class="col-6">
+                <q-card-section class="col-xs-12 col-sm-6">
                   <q-card-section>
                     <q-input
                       dark
@@ -177,8 +141,13 @@
                     </q-btn-group>
                   </q-card-actions>
                 </q-card-section>
-                <q-separator dark vertical />
-                <q-card-section class="col-5">
+                <q-separator
+                  v-show="$q.screen.gt.xs"
+                  dark
+                  vertical />
+                <q-card-section
+                  v-show="$q.screen.gt.xs"
+                  class="col-5">
                   <q-card-section>
                     <q-input
                       dark
@@ -213,13 +182,13 @@
 </template>
 
 <script>
-import { AVATAR_ALLOW_MIMES } from 'src/services/allow'
 import SettingPanelCard from 'components/elements/SettingPanelCard'
+import AvatarUploader from 'components/elements/AvatarUploader'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
   name: 'AccountView',
-  components: { SettingPanelCard },
+  components: { AvatarUploader, SettingPanelCard },
   mixins: [Dialogs],
   data () {
     return {
@@ -240,9 +209,6 @@ export default {
     }
   },
   methods: {
-    pickFile () {
-      this.$refs.uploader.pickFiles()
-    },
     saveUserData () {
       // Snake case cuz of API
       const payload = {
@@ -269,17 +235,6 @@ export default {
       } catch (e) {
         this.showError(e)
       }
-    },
-    uploadFileAvatar (files) {
-      files.forEach(file => {
-        return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
-      })
-
-      this.justUploaded = true
-    },
-    async deleteAvatar () {
-      await this.$store.dispatch('auth/DELETE_MY_AVATAR')
-      this.justUploaded = false
     }
   },
   computed: {
@@ -287,12 +242,6 @@ export default {
       return this.passwordFormData.newPassword1 &&
         this.passwordFormData.newPassword2 &&
         this.passwordFormData.oldPassword
-    },
-    avatarUrl () {
-      return this.$store.getters['auth/MY_AVATAR']
-    },
-    avatarAllowMimes () {
-      return AVATAR_ALLOW_MIMES
     },
     email () {
       return this.$store.getters['auth/MY_EMAIL']
@@ -313,36 +262,6 @@ export default {
         return ''
       }
     }
-  },
-  mounted () {
-
   }
 }
 </script>
-
-<style lang="scss">
-  .q-uploader__list {
-    font-size: 0.5em;
-    padding: 5px;
-    background-color: $accent;
-    overflow: hidden;
-  }
-
- .q-uploader__file--img {
-   min-width: initial;
-   background-size: contain;
- }
-
-  .q-uploader__subtitle {
-   font-size: 10px;
-  }
-
- .q-uploader__title {
-   font-size: 12px!important;
- }
-
- .q-uploader__list {
-   padding: 0;
- }
-
-</style>
