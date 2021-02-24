@@ -66,6 +66,10 @@ export const editIssueMixin = {
 
     this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
   },
+  beforeDestroy () {
+    delete this.$options.sockets.onmessage()
+    this.$disconnect()
+  },
   methods: {
     downloadFile (url) {
       window.open(url)
