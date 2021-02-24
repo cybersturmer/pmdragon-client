@@ -2,21 +2,32 @@ import { Api } from 'src/services/api'
 import { ErrorHandler } from 'src/services/util'
 
 export async function REGISTER ({ commit }, credentials) {
-  return await new Api().post('/auth/person-registration-requests/',
-    credentials)
+  try {
+    await new Api({
+      expectedStatus: 201
+    })
+      .post(
+        '/auth/person-registration-requests/',
+        credentials
+      )
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
 }
 
 export async function LOGIN ({ commit }, credentials) {
-  const response = await new Api({ expectedStatus: 200 })
-    .post(
-      '/auth/obtain/',
-      credentials
-    )
+  try {
+    const response = await new Api({ expectedStatus: 200 })
+      .post(
+        '/auth/obtain/',
+        credentials
+      )
 
-  commit('SET_ACCESS_TOKEN', response.data.access)
-  commit('SET_REFRESH_TOKEN', response.data.refresh)
-
-  return response.data
+    commit('SET_ACCESS_TOKEN', response.data.access)
+    commit('SET_REFRESH_TOKEN', response.data.refresh)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
 }
 
 export async function REFRESH ({ commit, getters }) {
@@ -24,16 +35,20 @@ export async function REFRESH ({ commit, getters }) {
     refresh: getters.REFRESH_TOKEN
   }
 
-  const response = await new Api({ expectedStatus: 200 })
-    .post(
-      '/auth/refresh/',
-      payload
-    )
+  try {
+    const response = await new Api({ expectedStatus: 200 })
+      .post(
+        '/auth/refresh/',
+        payload
+      )
 
-  commit('SET_ACCESS_TOKEN', response.data.access)
-  commit('SET_REFRESH_TOKEN', response.data.refresh)
+    commit('SET_ACCESS_TOKEN', response.data.access)
+    commit('SET_REFRESH_TOKEN', response.data.refresh)
 
-  return Promise.resolve(response.data)
+    return Promise.resolve(response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
 }
 
 export async function INIT_WORKSPACES ({ commit }) {
