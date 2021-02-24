@@ -15,6 +15,7 @@ Vue.use(
   VueNativeSock,
   $store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN'],
   {
+    connectManually: true,
     store: $store,
     reconnection: true,
     reconnectionDelay: 3000,

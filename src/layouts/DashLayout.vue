@@ -142,7 +142,8 @@ export default {
     }
   },
   created () {
-    /** Socket initiating **/
+    /** Socket manual connection **/
+    this.$connect()
   },
   methods: {
     logout () {

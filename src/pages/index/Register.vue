@@ -82,9 +82,10 @@ export default {
           true
         ]
 
-        this.showOkDialog(...dialog)
         this.formData.prefix_url = ''
         this.formData.email = ''
+
+        this.showOkDialog(...dialog)
       } catch (e) {
         e.setErrors(this.formErrors)
       }
