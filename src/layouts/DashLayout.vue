@@ -147,6 +147,9 @@ export default {
   },
   methods: {
     logout () {
+      // Disconnect from sockets first (we use auth credentials to connect websockets)
+      this.$disconnect()
+
       this.$store.dispatch('auth/RESET')
       this.$store.dispatch('current/RESET')
       this.$store.dispatch('core/RESET')
