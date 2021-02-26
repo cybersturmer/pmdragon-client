@@ -45,6 +45,13 @@ export const editIssueMixin = {
       mask: DATETIME_MASK
     }
   },
+  watch: {
+    messages (newArray, oldArray) {
+      if (newArray.length > oldArray.length) {
+        this._scrollToEnd()
+      }
+    }
+  },
   async mounted () {
     this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
@@ -71,6 +78,10 @@ export const editIssueMixin = {
     this.$disconnect()
   },
   methods: {
+    _scrollToEnd () {
+      const scrollSize = this.$refs.scrollArea.scrollSize
+      this.$refs.scrollArea.setScrollPosition(scrollSize)
+    },
     downloadFile (url) {
       window.open(url)
     },

@@ -12,6 +12,7 @@
         <q-card-section class="col-md-8 col-xs-12 col-sm-12">
           <!-- @todo Breadcrumbs for current issue -->
           <q-scroll-area
+            ref="scrollArea"
             dark
             style="height: 65vh; border-bottom: 1px solid #686868;">
             <!-- Title block -->

@@ -7,6 +7,7 @@
       <q-card-section horizontal>
       <q-card-section class="col-md-9 col-xs-12 col-sm-12">
         <q-scroll-area
+          ref="scrollArea"
           dark
           style="height: 72vh; border-bottom: 1px solid #686868;">
           <!-- Title block -->
