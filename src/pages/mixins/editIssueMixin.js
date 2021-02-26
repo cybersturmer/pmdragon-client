@@ -62,7 +62,12 @@ export const editIssueMixin = {
       this.showError(new ErrorHandler(e))
     }
 
-    this.$options.sockets.onmessage = (data) => new MessageWebsocketHandler(this.messages, data)
+    this.$options.sockets.onmessage = (data) => {
+      const handler = new MessageWebsocketHandler(this.messages, data)
+      handler.processEvent()
+      this._scrollToEnd()
+    }
+
     await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 
     const payload = {
@@ -74,13 +79,16 @@ export const editIssueMixin = {
     this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
   },
   beforeDestroy () {
-    delete this.$options.sockets.onmessage()
+    delete this.$options.sockets.onmessage
     this.$disconnect()
   },
   methods: {
     _scrollToEnd () {
-      const scrollSize = this.$refs.scrollArea.scrollSize
-      this.$refs.scrollArea.setScrollPosition(scrollSize)
+      const scrollPercentage = this.$refs.scrollArea.scrollPercentage
+
+      if (scrollPercentage >= 0.5) {
+        this.$refs.scrollArea.setScrollPercentage(1.1, 600)
+      }
     },
     downloadFile (url) {
       window.open(url)

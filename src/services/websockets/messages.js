@@ -7,11 +7,7 @@ export class MessageWebsocketHandler {
     this.person = $store.getters['auth/MY_PERSON_ID']
 
     const data = JSON.parse(event.data)
-    const payload = data.payload
-
-    if ('created_by' in payload.message && payload.message.created_by === this.person) return false
-
-    this.processEvent(payload)
+    this.payload = data.payload
   }
 
   onCreate (message) {
@@ -26,19 +22,20 @@ export class MessageWebsocketHandler {
     removeElement(this.messages, message)
   }
 
-  processEvent (payload) {
-    switch (payload.action) {
+  processEvent () {
+    if ('created_by' in this.payload.message && this.payload.message.created_by === this.person) return false
+    switch (this.payload.action) {
       case 'create':
-        this.onCreate(payload.message)
+        this.onCreate(this.payload.message)
         break
       case 'update':
-        this.onUpdate(payload.message)
+        this.onUpdate(this.payload.message)
         break
       case 'delete':
-        this.onDelete(payload.message)
+        this.onDelete(this.payload.message)
         break
       default:
-        console.info(`Unhandled websocket action: ${payload.action}`)
+        console.info(`Unhandled websocket action: ${this.payload.action}`)
     }
   }
 }
