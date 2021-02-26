@@ -9,12 +9,12 @@ export class MessageWebsocketHandler {
     const data = JSON.parse(event.data)
     const payload = data.payload
 
-    if ('created' in payload.message && payload.message.created_by === this.person) return false
+    if ('created_by' in payload.message && payload.message.created_by === this.person) return false
 
     this.processEvent(payload)
   }
 
-  async onCreate (message) {
+  onCreate (message) {
     this.messages.push(message)
   }
 
@@ -26,10 +26,10 @@ export class MessageWebsocketHandler {
     removeElement(this.messages, message)
   }
 
-  async processEvent (payload) {
+  processEvent (payload) {
     switch (payload.action) {
       case 'create':
-        await this.onCreate(payload.message)
+        this.onCreate(payload.message)
         break
       case 'update':
         this.onUpdate(payload.message)
