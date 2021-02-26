@@ -1,3 +1,4 @@
+/** Service getters **/
 export function IS_LOGGED_IN (state, getters) {
   const isUserId = !!getters.MY_PERSON_ID
   const isRefreshTokenValid = getters.IS_REFRESH_TOKEN_VALID
@@ -5,6 +6,7 @@ export function IS_LOGGED_IN (state, getters) {
   return isUserId && isRefreshTokenValid
 }
 
+/** Auth tokens **/
 export function IS_ACCESS_TOKEN_VALID (state) {
   const now = Date.now()
   return state.tokens.access.expired_at !== null &&
@@ -34,6 +36,11 @@ export function IS_REFRESH_TOKEN_REQUIRED (state, getters) {
   return !getters.IS_ACCESS_TOKEN_VALID && getters.IS_REFRESH_TOKEN_VALID
 }
 
+/** Person getters **/
+export function PERSONS (state) {
+  return state.persons
+}
+
 export function PERSON_BY_ID (state, getters) {
   /** Getting person by id from current workspace **/
   return personId => {
@@ -41,29 +48,9 @@ export function PERSON_BY_ID (state, getters) {
   }
 }
 
+/** Workspace getters **/
 export function WORKSPACES (state) {
   return state.workspaces
-}
-
-export function PERSONS (state) {
-  return state.persons
-}
-
-export function INVITED (state) {
-  return state.invited
-}
-
-export function WORKSPACE_DATA (state, getters, rootState, rootGetters) {
-  return state.workspaces
-    .find(workspace => workspace.prefix_url === rootGetters['current/WORKSPACE'])
-}
-
-export function PARTICIPANTS_BY_CURRENT_PROJECT (state, getters) {
-  try {
-    return getters.WORKSPACE_DATA.participants
-  } catch (e) {
-    return []
-  }
 }
 
 export function WORKSPACE_ID (state, getters) {
@@ -90,6 +77,19 @@ export function WORKSPACE_FIRST_PREFIX (state) {
   }
 }
 
+export function WORKSPACE_DATA (state, getters, rootState, rootGetters) {
+  return state.workspaces
+    .find(workspace => workspace.prefix_url === rootGetters['current/WORKSPACE'])
+}
+
+export function PARTICIPANTS_BY_CURRENT_PROJECT (state, getters) {
+  try {
+    return getters.WORKSPACE_DATA.participants
+  } catch (e) {
+    return []
+  }
+}
+
 export function IS_ANY_PROJECT (state) {
   try {
     return !!state.workspaces.find(workspace => workspace.projects.length > 0)
@@ -98,6 +98,12 @@ export function IS_ANY_PROJECT (state) {
   }
 }
 
+/** Invited getters **/
+export function INVITED (state) {
+  return state.invited
+}
+
+/** Project getters **/
 export function PROJECT_DATA (state, getters, rootState, rootGetters) {
   try {
     return getters.WORKSPACE_DATA.projects.find(
@@ -139,6 +145,7 @@ export function IS_ME_OWNER_OF_PROJECT (state, getters) {
   }
 }
 
+/** My data getters **/
 export function MY_DATA (state, getters) {
   try {
     return getters.PERSON_BY_ID(getters.MY_PERSON_ID)
