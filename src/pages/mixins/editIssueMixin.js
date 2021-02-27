@@ -86,7 +86,7 @@ export const editIssueMixin = {
     _scrollToEnd () {
       const scrollPercentage = this.$refs.scrollArea.scrollPercentage
 
-      if (scrollPercentage >= 0.5) {
+      if (scrollPercentage >= 0.95) {
         this.$refs.scrollArea.setScrollPercentage(1.1, 600)
       }
     },
