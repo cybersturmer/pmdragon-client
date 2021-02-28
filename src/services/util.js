@@ -88,6 +88,15 @@ export function removeElement (array, element) {
   return array
 }
 
+export function removeElementById (array, element) {
+  const arrayElement = array.find(_element => element.id === _element.id)
+  const index = array.indexOf(arrayElement)
+  if (index <= -1) throw new Error('Requested array do not contain given element')
+
+  array.splice(index, 1)
+  return array
+}
+
 export function updateElement (array, oldElement, newElement) {
   const oldIndex = array.indexOf(oldElement)
   if (oldIndex <= -1) throw new Error('Requested array do not contain given element')

@@ -1,4 +1,5 @@
 import { LocalStorage } from 'quasar'
+import { removeElementById, updateElementById } from 'src/services/util'
 
 // Workspaces managing
 export function SELECT_WORKSPACE (state, payload) {
@@ -32,6 +33,21 @@ export function SET_ISSUE_MESSAGES (state, payload) {
   LocalStorage.set('current.issue_messages', payload)
 }
 
+export function ADD_ISSUE_MESSAGE (state, payload) {
+  state.issue_messages.push(payload)
+  LocalStorage.set('current.issue_messages', state.issue_messages)
+}
+
+export function UPDATE_ISSUE_MESSAGE (state, payload) {
+  updateElementById(state.issue_messages, payload)
+  LocalStorage.set('current.issue_messages', state.issue_messages)
+}
+
+export function DELETE_ISSUE_MESSAGE (state, payload) {
+  removeElementById(state.issue_messages, payload)
+  LocalStorage.set('current.issue_messages', state.issue_messages)
+}
+
 export function SET_ISSUE_HISTORY (state, payload) {
   state.issue_history = payload
   LocalStorage.set('current.issue_history', payload)
@@ -42,7 +58,8 @@ export function RESET () {
     'workspace',
     'project',
     'issue',
-    'issue_messages'
+    'issue_messages',
+    'issue_history'
   ]
 
   for (const element of localStorageResetList) {

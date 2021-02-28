@@ -134,6 +134,8 @@
 
 <script>
 
+import { WsController } from 'src/services/websockets/WsController'
+
 export default {
   name: 'DashLayout',
   data () {
@@ -171,6 +173,12 @@ export default {
     /** Socket manual connection **/
     const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
     this.$connect(target, this.websocketConfiguration)
+
+    this.$options.sockets.onmessage = (data) => {
+      const handler = new WsController()
+      handler.processEvent(data)
+      this._scrollToEnd()
+    }
   },
   methods: {
     logout () {

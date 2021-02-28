@@ -8,7 +8,6 @@ import EditorCancelButton from 'components/buttons/EditorCancelButton'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
 import SelectAttachmentDialog from 'components/dialogs/SelectAttachmentDialog'
-import { MessageWebsocketHandler } from 'src/services/websockets/messages'
 
 export const editIssueMixin = {
   components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
@@ -43,6 +42,11 @@ export const editIssueMixin = {
       mask: DATETIME_MASK
     }
   },
+  watch: {
+    messages (newArray, oldArray) {
+      this._scrollToEnd()
+    }
+  },
   async mounted () {
     this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
@@ -52,13 +56,6 @@ export const editIssueMixin = {
       await this.getHistory()
     } catch (e) {
       this.showError(new ErrorHandler(e))
-    }
-
-    this.$options.sockets.onmessage = (data) => {
-      console.dir(data)
-      const handler = new MessageWebsocketHandler(this.messages, data)
-      handler.processEvent()
-      this._scrollToEnd()
     }
 
     await this.$store.dispatch('connection/UPDATE_REQUEST_ID')

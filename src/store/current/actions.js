@@ -27,7 +27,7 @@ export function RESET_ISSUE_MESSAGES ({ commit }) {
 }
 
 export function RESET_ISSUE_HISTORY ({ commit }) {
-  commit('')
+  commit('SET_ISSUE_HISTORY', null)
 }
 
 export function RESET ({ commit }) {
