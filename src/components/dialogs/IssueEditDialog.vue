@@ -156,9 +156,9 @@
                 <q-tab-panels
                   v-model="tab"
                   class="bg-primary"
+                  animated
                   transition-next="fade"
-                  transition-prev="fade"
-                  animated>
+                  transition-prev="fade">
                   <q-tab-panel
                     dark
                     class="no-padding"
