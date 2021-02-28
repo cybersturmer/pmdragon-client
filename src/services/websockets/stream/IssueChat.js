@@ -3,9 +3,6 @@ import $store from 'src/store'
 export class IssueChat {
   constructor (payload) {
     this.person = $store.getters['auth/MY_PERSON_ID']
-    if (!this.isMyEvent(payload)) return false
-
-    this.processPayload(payload)
   }
 
   isMyEvent (payload) {
@@ -13,8 +10,7 @@ export class IssueChat {
   }
 
   processPayload (payload) {
-    if ('created_by' in payload.message &&
-      payload.message.created_by === this.person) return false
+    if (!this.isMyEvent(payload)) return false
 
     switch (payload.action) {
       case 'create':

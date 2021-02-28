@@ -17,6 +17,7 @@ export class WsController {
       throw Error('Undefined stream handler.')
     }
 
-    Controller(payload)
+    const controllerInstance = new Controller()
+    controllerInstance.processPayload(payload)
   }
 }
