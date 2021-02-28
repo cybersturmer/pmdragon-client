@@ -10,7 +10,7 @@ export class IssueChat {
   }
 
   processPayload (payload) {
-    if (!this.isMyEvent(payload)) return false
+    if (this.isMyEvent(payload)) return false
 
     switch (payload.action) {
       case 'create':
