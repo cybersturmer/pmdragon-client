@@ -177,7 +177,6 @@ export default {
     this.$options.sockets.onmessage = (data) => {
       const handler = new WsController()
       handler.processEvent(data)
-      this._scrollToEnd()
     }
   },
   methods: {
