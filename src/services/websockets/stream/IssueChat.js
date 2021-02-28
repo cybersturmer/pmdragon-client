@@ -1,7 +1,7 @@
 import $store from 'src/store'
 
 export class IssueChat {
-  constructor (payload) {
+  constructor () {
     this.person = $store.getters['auth/MY_PERSON_ID']
   }
 
@@ -28,14 +28,14 @@ export class IssueChat {
   }
 
   onCreate (message) {
-    this.$store.commit('current/ADD_ISSUE_MESSAGE', message)
+    $store.commit('current/ADD_ISSUE_MESSAGE', message)
   }
 
   onUpdate (message) {
-    this.$store.commit('current/UPDATE_ISSUE_MESSAGE', message)
+    $store.commit('current/UPDATE_ISSUE_MESSAGE', message)
   }
 
   onDelete (message) {
-    this.$store.commit('current/DELETE_ISSUE_MESSAGE', message)
+    $store.commit('current/DELETE_ISSUE_MESSAGE', message)
   }
 }
