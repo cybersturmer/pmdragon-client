@@ -49,6 +49,20 @@ export const editIssueMixin = {
   },
   async mounted () {
     this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
+    await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
+
+    const currentIssue = this.$store.getters['current/ISSUE']
+
+    /** Let's unsubscribe from previously opened issue if that exist **/
+    if (currentIssue) {
+      const payload = {
+        action: 'unsubscribe_from_messages_in_issue',
+        request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+        issue_pk: currentIssue
+      }
+
+      this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
+    }
 
     try {
       await this.$store.dispatch('current/SET_ISSUE', this.id)
@@ -57,8 +71,6 @@ export const editIssueMixin = {
     } catch (e) {
       this.showError(new ErrorHandler(e))
     }
-
-    await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 
     const payload = {
       action: 'subscribe_to_messages_in_issue',
