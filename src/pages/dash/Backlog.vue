@@ -192,7 +192,7 @@ export default {
     },
     backlogIssuesLength () {
       /** Getting core count **/
-      return this.$store.getters['core/BACKLOG_ISSUES_COUNT'] + ' core'
+      return this.$store.getters['core/BACKLOG_ISSUES_COUNT'] + ' issues'
     },
     sprints () {
       /** Getting all sprints **/
