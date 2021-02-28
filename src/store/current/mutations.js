@@ -22,17 +22,27 @@ export function SELECT_PROJECT (state, payload) {
   LocalStorage.set('current.project', payload)
 }
 
-// Settings managing
-export function SELECT_INTERFACE_THEME (state, payload) {
-  state.interface_theme = payload
-  LocalStorage.set('current.interface_theme', payload)
+export function SET_ISSUE (state, payload) {
+  state.issue = payload
+  LocalStorage.set('current.issue', payload)
+}
+
+export function SET_ISSUE_MESSAGES (state, payload) {
+  state.issue_messages = payload
+  LocalStorage.set('current.issue_messages', payload)
+}
+
+export function SET_ISSUE_HISTORY (state, payload) {
+  state.issue_history = payload
+  LocalStorage.set('current.issue_history', payload)
 }
 
 export function RESET () {
   const localStorageResetList = [
     'workspace',
     'project',
-    'interface_theme'
+    'issue',
+    'issue_messages'
   ]
 
   for (const element of localStorageResetList) {

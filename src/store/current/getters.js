@@ -14,6 +14,18 @@ export function IS_SPACE_DEFINED (state) {
   return Boolean(state.workspace && state.project)
 }
 
-export function INTERFACE_THEME (state) {
-  return state.interface_theme
+export function ISSUE (state) {
+  return state.issue
+}
+
+export function ISSUE_MESSAGES (state) {
+  return state.issue_messages
+}
+
+export function ARE_ISSUE_MESSAGES (state) {
+  return state.issue_messages.length > 0
+}
+
+export function ISSUE_HISTORY (state) {
+  return state.issue_history
 }

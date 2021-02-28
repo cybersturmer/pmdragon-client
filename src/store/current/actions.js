@@ -6,8 +6,28 @@ export function SELECT_PROJECT ({ commit }, payload) {
   commit('SELECT_PROJECT', payload)
 }
 
-export function SELECT_INTERFACE_THEME ({ commit }, payload) {
-  commit('SELECT_INTERFACE_THEME', payload)
+export function SET_ISSUE ({ commit }, payload) {
+  commit('SET_ISSUE', payload)
+}
+
+export function SET_ISSUE_MESSAGES ({ commit }, payload) {
+  commit('SET_ISSUE_MESSAGES', payload)
+}
+
+export function SET_ISSUE_HISTORY ({ commit }, payload) {
+  commit('SET_ISSUE_HISTORY', payload)
+}
+
+export function RESET_ISSUE ({ commit }) {
+  commit('SET_ISSUE', null)
+}
+
+export function RESET_ISSUE_MESSAGES ({ commit }) {
+  commit('SET_ISSUE_MESSAGES', null)
+}
+
+export function RESET_ISSUE_HISTORY ({ commit }) {
+  commit('')
 }
 
 export function RESET ({ commit }) {

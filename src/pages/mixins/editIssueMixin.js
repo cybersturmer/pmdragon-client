@@ -40,22 +40,14 @@ export const editIssueMixin = {
       },
       isNewMessageEditing: false,
       editingMessageId: null,
-      messages: [],
-      history: [],
       mask: DATETIME_MASK
-    }
-  },
-  watch: {
-    messages (newArray, oldArray) {
-      if (newArray.length > oldArray.length) {
-        this._scrollToEnd()
-      }
     }
   },
   async mounted () {
     this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
     try {
+      await this.$store.dispatch('current/SET_ISSUE', this.id)
       await this.getMessages()
       await this.getHistory()
     } catch (e) {
@@ -63,6 +55,7 @@ export const editIssueMixin = {
     }
 
     this.$options.sockets.onmessage = (data) => {
+      console.dir(data)
       const handler = new MessageWebsocketHandler(this.messages, data)
       handler.processEvent()
       this._scrollToEnd()
@@ -77,10 +70,6 @@ export const editIssueMixin = {
     }
 
     this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
-  },
-  beforeDestroy () {
-    delete this.$options.sockets.onmessage
-    this.$disconnect()
   },
   methods: {
     _scrollToEnd () {
@@ -247,7 +236,7 @@ export const editIssueMixin = {
           `/core/issue-messages/?issue=${this.formData.issue.id}`
         )
 
-      this.messages = response.data
+      await this.$store.dispatch('current/SET_ISSUE_MESSAGES', response.data)
     },
     async getHistory () {
       /** get history of changes for current issue **/
@@ -259,7 +248,7 @@ export const editIssueMixin = {
           `/core/issues-history/?issue=${this.formData.issue.id}`
         )
 
-      this.history = response.data
+      await this.$store.dispatch('current/SET_ISSUE_HISTORY', response.data)
     },
     getIssueTypeTitle (id) {
       /** get Title for given issue type id **/
@@ -511,6 +500,12 @@ export const editIssueMixin = {
     }
   },
   computed: {
+    messages () {
+      return this.$store.getters['current/ISSUE_MESSAGES']
+    },
+    history () {
+      return this.$store.getters['current/ISSUE_HISTORY']
+    },
     attachments () {
       try {
         const attachments = this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
@@ -554,7 +549,7 @@ export const editIssueMixin = {
       return date.formatDate(this.formData.issue.updated_at, DATETIME_MASK)
     },
     thereAreMessages () {
-      return this.messages.length > 0
+      return this.$store.getters['current/ARE_ISSUE_MESSAGES']
     },
     isIssueTypeIcon () {
       return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.formData.issue.type_category)
