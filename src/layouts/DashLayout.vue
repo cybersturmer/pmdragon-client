@@ -138,12 +138,39 @@ export default {
   name: 'DashLayout',
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      websocketConfiguration: {
+        store: this.$store,
+        reconnection: true,
+        reconnectionDelay: 3000,
+        format: 'json',
+        passToStoreHandler (eventName, event) {
+          if (!eventName.startsWith('SOCKET_')) { return null }
+
+          const namespace = 'connection'
+          let target = ['connection', eventName.toUpperCase()].join('/')
+          let method = 'commit'
+          let msg = event
+
+          if (event.data) {
+            msg = JSON.parse(event.data)
+            if (msg.mutation) {
+              target = [namespace, msg.mutation].join('/')
+            } else if (msg.action) {
+              method = 'dispatch'
+              target = [namespace, msg.action].join('/')
+            }
+          }
+
+          this.store[method](target, msg)
+        }
+      }
     }
   },
   created () {
     /** Socket manual connection **/
-    this.$connect()
+    const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
+    this.$connect(target, this.websocketConfiguration)
   },
   methods: {
     logout () {
