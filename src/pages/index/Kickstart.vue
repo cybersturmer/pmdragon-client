@@ -59,99 +59,12 @@
       </q-step>
       <q-step
         :name="2"
-        :done="isProjectStepDone"
-        done-color="positive"
-        title="Create your first project"
-        icon="mdi-briefcase"
-      >
-        <q-input
-          v-model="projectFormData.title"
-          dark
-          dense
-          square
-          filled
-          type="text"
-          label="Project title"
-          class="q-mb-sm"
-          standout="text-white bg-primary"
-        />
-        <q-input
-          v-model="projectFormData.key"
-          dark
-          dense
-          square
-          filled
-          type="text"
-          label="Project short key"
-          class="q-mb-sm"
-          standout="text-white bg-primary"
-        />
-      </q-step>
-      <q-step
-        :name="3"
-        :title="`Add people you work with in workspace ${this.workspace}`"
-        :done="isTeamStepDone"
-        done-color="positive"
-        icon="mdi-account-multiple"
-      >
-        <q-table
-          flat
-          square
-          dark
-          dense
-          bordered
-          ref="table"
-          row-key="email"
-          no-data-label="Invite your team members by adding them by email."
-          :hide-bottom="true"
-          :hide-header="true"
-          :data="teamTableData.data"
-          :columns="teamTableData.columns"
-          :pagination="teamTableData.pagination"
-        >
-          <template v-slot:body-cell-email="props">
-            <q-td :props="props">
-              {{ props.row.email }}
-              <q-btn
-                dark
-                flat
-                dense
-                icon="mdi-account-minus"
-                size="sm"
-                class="float-right"
-                @click="cancelInvitation(props.row.email)"
-              />
-            </q-td>
-          </template>
-        </q-table>
-        <q-input
-          v-model="teamFormEmail"
-          type="email"
-          square
-          dense
-          dark
-          filled
-          label-color="amber"
-          placeholder="user@mail.com"
-          @keyup.enter="addTeamMember"
-        >
-          <template v-slot:append>
-            <q-btn dense
-                   flat
-                   icon="mdi-keyboard-return"
-                   @click="addTeamMember"
-            />
-          </template>
-        </q-input>
-      </q-step>
-      <q-step
-        :name="4"
         title="Congratulations"
         done-color="positive"
         icon="mdi-thumb-up"
       >
         <q-card dark flat>
-          Hello there
+          Congratulations, now you can work in you workspace.
         </q-card>
       </q-step>
       <template v-slot:navigation>
@@ -182,11 +95,9 @@ export default {
   mixins: [fieldValidationMixin, Dialogs],
   data () {
     return {
-      steps: [1, 2, 3, 4],
+      steps: [1, 2],
       step: this.getInitStep(),
       isUserStepDone: false,
-      isProjectStepDone: false,
-      isTeamStepDone: false,
       userFormData: {
         first_name: this.$store.getters['auth/MY_FIRST_NAME'],
         last_name: this.$store.getters['auth/MY_LAST_NAME'],
@@ -196,35 +107,7 @@ export default {
         first_name: '',
         last_name: '',
         username: ''
-      },
-      projectFormData: {
-        workspace: this.$store.getters['auth/WORKSPACE_FIRST_ID'],
-        title: '',
-        key: ''
-      },
-      projectFormErrors: {
-        workspace: '',
-        title: '',
-        key: ''
-      },
-      teamTableData: {
-        columns: [
-          {
-            name: 'email',
-            required: true,
-            align: 'left',
-            field: row => row.email,
-            format: val => `${val}`,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        },
-        data: []
-      },
-      teamFormErrors: {},
-      teamFormEmail: null
+      }
     }
   },
   computed: {
@@ -239,13 +122,8 @@ export default {
 
       return isFirstName && isLastName && isUsername
     },
-    isAnyProject () {
-      /** We have to check it to understand do current user
-       * have at least one project **/
-      return this.$store.getters['auth/IS_ANY_PROJECT']
-    },
     nextLabel () {
-      return this.step === 4 ? 'Finish' : 'Continue'
+      return this.step === 2 ? 'Finish' : 'Continue'
     }
   },
   methods: {
@@ -256,12 +134,6 @@ export default {
             await this.updateUserData()
             break
           case 2:
-            await this.createProject()
-            break
-          case 3:
-            await this.createTeam()
-            break
-          case 4:
             await this.$router.push({ name: 'loading' })
             break
         }
@@ -273,89 +145,18 @@ export default {
           case 1:
             error.setErrors(this.userFormErrors)
             break
-          case 2:
-            error.setErrors(this.projectFormErrors)
-            break
         }
 
         this.showError(error)
       }
-    },
-    cancelInvitation (email) {
-      /**
-       * Just remove email from the payload that we gonna send to
-       * create team members **/
-
-      this.teamTableData.data = this.teamTableData.data.filter((row) => row.email !== email)
     },
     async updateUserData () {
       /** Update user data on server and mark step as done **/
       await this.$store.dispatch('auth/UPDATE_MY_DATA', this.userFormData)
       this.isUserStepDone = true
     },
-    async createProject () {
-      /** Create project on server and mark step as done **/
-      await this.$store.dispatch('auth/ADD_PROJECT', this.projectFormData)
-      this.isProjectStepDone = true
-    },
-    async createTeam () {
-      /** Create team by sending emails on server **/
-      const payload = {
-        invites: []
-      }
-
-      const teamData = this.teamTableData.data
-
-      for (const emailElement in teamData) {
-        const dictPayload = {
-          email: teamData[emailElement].email,
-          workspace: this.$store.getters['auth/WORKSPACE_FIRST_ID']
-        }
-
-        payload.invites.push(dictPayload)
-      }
-
-      await this.$store.dispatch('auth/INVITE_TEAM', payload)
-      this.isTeamStepDone = true
-    },
-    addTeamMember () {
-      /** Just add a team member to temp var **/
-      if (this.teamFormEmail === null) return false
-
-      if (!this.isValidEmail(this.teamFormEmail)) {
-        this.showOkDialog(
-          'Not a correct email',
-          'Please input correct email address'
-        )
-
-        return false
-      }
-
-      this.teamTableData.data.push({
-        email: this.teamFormEmail
-      })
-
-      this.teamFormEmail = null
-    },
     getInitStep () {
-      /**
-       * This method checks if user already filled his/her name and last name
-       * created project or have more than one team member except of self
-       * so that we define step we need to complete before continue **/
-
-      const isMyDataFilled = !!this.$store.getters['auth/IS_MY_DATA_FILLED']
-      const isAnyProject = !!this.$store.getters['auth/IS_ANY_PROJECT']
-
-      switch (true) {
-        case isAnyProject && isMyDataFilled:
-          return 3
-        case isAnyProject && !isMyDataFilled:
-          return 1
-        case !isAnyProject && isMyDataFilled:
-          return 2
-        default:
-          return 1
-      }
+      return 1
     }
   }
 }
