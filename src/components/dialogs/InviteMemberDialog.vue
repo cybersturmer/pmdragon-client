@@ -136,6 +136,9 @@ export default {
     },
 
     async onOKClick () {
+      /** Let's add already filled team member **/
+
+      this.addTeamMember()
       /** Create team by sending emails on server **/
       const payload = {
         invites: []
