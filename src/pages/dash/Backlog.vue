@@ -336,10 +336,26 @@ export default {
       const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED'](sprintId)
       if (!isSprintStarted) return false
 
-      const droppedIssue = this.$store.getters['core/ISSUE_BY_ID'](event.added.element.id)
+      let elId = null
+      let actionText = ''
+      switch (true) {
+        case 'added' in event:
+          elId = event.added.element.id
+          actionText = 'adding'
+          break
+        case 'removed' in event:
+          elId = event.removed.element.id
+          actionText = 'removing'
+          break
+        default:
+          throw Error('Unexpected event data')
+      }
+
+      const droppedIssue = this.$store.getters['core/ISSUE_BY_ID'](elId)
+
       const dialog = [
         'Started Sprint affected',
-          `By adding #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
+          `By ${actionText} #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
       ]
       this.showOkDialog(...dialog)
     },
@@ -390,7 +406,7 @@ export default {
     },
     handleSprintIssueRemoved (event, sprintId) {
       /** Handling removing from Sprint **/
-      const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID'](sprintId).issues
+      const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
 
       const handled = this.handleCommonRemoved(currentSprintIssues, event)
       const compositeSprintIds = {
@@ -419,38 +435,58 @@ export default {
         })
     },
     handleDraggableEvent (event, dragType, dragId) {
-      const isSprintMoved = ('moved' in event) && (dragType === this.dragTypes.SPRINT)
-      const isBacklogMoved = ('moved' in event) && (dragType === this.dragTypes.BACKLOG)
+      /** Handle dropping from Sprint/Backlog to Sprint/Backlog
+       * This call can be called twice for any drag&drop
+       * Object {
+       *  removed: {
+       *    element: {data},
+       *    oldIndex: 0
+       *  }
+       * }
+       *
+       * * Object {
+       *  added: {
+       *    element: {data},
+       *    newIndex: 0
+       *  }
+       * }
+       * **/
 
-      const isSprintAdded = ('added' in event) && (dragType === this.dragTypes.SPRINT)
-      const isBacklogAdded = ('added' in event) && (dragType === this.dragTypes.BACKLOG)
+      // Moving events block
+      const isMovedInsideOfSprint = ('moved' in event) && (dragType === this.dragTypes.SPRINT)
+      const isMovedInsideOfBacklog = ('moved' in event) && (dragType === this.dragTypes.BACKLOG)
 
-      const isSprintRemoved = ('removed' in event) && (dragType === this.dragTypes.SPRINT)
-      const isBacklogRemoved = ('removed' in event) && (dragType === this.dragTypes.BACKLOG)
+      // Adding events block
+      const isAddedToSprint = ('added' in event) && (dragType === this.dragTypes.SPRINT)
+      const isAddedToBacklog = ('added' in event) && (dragType === this.dragTypes.BACKLOG)
+
+      // Removing events block
+      const isRemovedFromSprint = ('removed' in event) && (dragType === this.dragTypes.SPRINT)
+      const isRemovedFromBacklog = ('removed' in event) && (dragType === this.dragTypes.BACKLOG)
 
       switch (true) {
-        case isSprintMoved:
+        case isMovedInsideOfSprint:
           this.handleSprintIssueMoved(event, dragId)
           break
-        case isBacklogMoved:
+        case isMovedInsideOfBacklog:
           this.handleBacklogIssueMoved(event, dragId)
           break
-        case isSprintAdded:
+        case isAddedToSprint:
           this.notifyAboutStartedSprintAffecting(event, dragId)
           this.handleSprintIssueAdded(event, dragId)
           break
-        case isBacklogAdded:
+        case isAddedToBacklog:
           this.handleBacklogIssueAdded(event, dragId)
           break
-        case isSprintRemoved:
+        case isRemovedFromSprint:
           this.notifyAboutStartedSprintAffecting(event, dragId)
           this.handleSprintIssueRemoved(event, dragId)
           break
-        case isBacklogRemoved:
+        case isRemovedFromBacklog:
           this.handleBacklogIssueRemoved(event, dragId)
           break
         default:
-          throw new Error('This error should not occurred')
+          throw new Error('Unexpected dragging type')
       }
     },
     createSprint () {
