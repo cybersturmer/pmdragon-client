@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-2 items-center">
                     <q-btn
-                      v-show="!isMe(props.row.id)"
+                      v-show="!isMe(props.row.id) && notOwner(props.row.id)"
                       flat
                       dense
                       color="amber"
@@ -174,6 +174,9 @@ export default {
   methods: {
     isMe (personId) {
       return this.$store.getters['auth/MY_PERSON_ID'] === personId
+    },
+    notOwner (personId) {
+      return this.$store.getters['auth/PROJECT_OWNED_BY'].id !== personId
     },
     inviteMembersDialog () {
       this.$q.dialog({
