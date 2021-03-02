@@ -18,7 +18,6 @@ export class Api {
     this.axiosOptions = {
       baseURL: host,
       withCredentials: false,
-      timeout: 1000,
       validateStatus: (data) => this._expectStatus(data)
     }
 
