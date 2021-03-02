@@ -84,8 +84,8 @@ export const editIssueMixin = {
     _scrollToEnd () {
       const scrollPercentage = this.$refs.scrollArea.scrollPercentage
 
-      if (scrollPercentage >= 0.95) {
-        this.$refs.scrollArea.setScrollPercentage(1.1, 600)
+      if (scrollPercentage >= 0.90) {
+        this.$refs.scrollArea.setScrollPercentage(1.25, 300)
       }
     },
     downloadFile (url) {
