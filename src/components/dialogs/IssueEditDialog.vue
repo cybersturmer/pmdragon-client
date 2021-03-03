@@ -7,14 +7,14 @@
       flat
       bordered
       class="q-dialog-plugin bg-secondary"
-      style="width: 85vw; max-width: 85vw;">
+      style="width: 90vw; height: 90vh; max-width: 90vw;">
       <q-card-section horizontal>
-        <q-card-section class="col-md-8 col-xs-12 col-sm-12">
+        <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''}`">
           <!-- @todo Breadcrumbs for current issue -->
           <q-scroll-area
             ref="scrollArea"
             dark
-            style="height: 65vh; border-bottom: 1px solid #686868;">
+            style="height: 69vh; border-bottom: 1px solid #686868;">
             <!-- Title block -->
             <q-card-section>
               <!-- Title editing section -->
