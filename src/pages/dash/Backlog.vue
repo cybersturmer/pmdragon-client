@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex q-layout-padding">
     <div class="column full-width">
-      <div class="row q-pa-sm">
+      <div class="row q-pt-sm q-pl-sm">
         <div class="col-8">
           <BlockHeader title="Sprints"/>
         </div>
@@ -27,7 +27,7 @@
               v-for="(sprint, index) in sprints"
               :key="sprint.id">
               <div class="row q-pa-sm">
-                <div class="col-8">
+                <div class="col-auto">
                   <div class="h6 text-amber">
                     {{ sprint.title }}
                     {{ $q.screen.gt.sm ? `- ${sprint.goal} ( ${sprint.issues.length }) issues`: '' }}
@@ -54,6 +54,7 @@
                 </div>
                 <draggable
                   :value="sprintIssues(sprint.id)"
+                  :handle="$q.screen.lt.sm ? '.handle' : false"
                   v-bind="dragOptions"
                   @change="handleDraggableEvent($event, dragTypes.SPRINT, sprint.id)"
                 >
@@ -62,7 +63,6 @@
                       v-for="issue in sprintIssues(sprint.id)"
                       :key="issue.id"
                       :issue="issue"
-                      @click.native="editIssueDialog(issue)"
                     />
                   </transition-group>
                 </draggable>
@@ -83,6 +83,7 @@
           style="height: calc(100% - 35px); border: 1px solid #606060;">
           <draggable
             :value="backlogIssues"
+            :handle="$q.screen.lt.sm ? '.handle' : false"
             v-bind="dragOptions"
             @change="handleDraggableEvent($event, dragTypes.BACKLOG, backlog.id)"
             style="padding: 10px; min-height: 67px;">
@@ -91,7 +92,6 @@
                 v-for="issue in backlogIssues"
                 :key="issue.id"
                 :issue="issue"
-                @click.native="editIssueDialog(issue)"
               />
             </transition-group>
           </draggable>
@@ -249,15 +249,6 @@ export default {
         .onOk(() => {
           this.$store.dispatch('core/DELETE_SPRINT', item.id)
         })
-    },
-    editIssueDialog (item) {
-      this.$q.dialog({
-        parent: this,
-        dark: true,
-        title: 'Issue ',
-        component: IssueEditDialog,
-        id: item.id
-      })
     },
     sprintIssues (sprintId) {
       return this.$store.getters['core/SPRINT_BY_ID_ISSUES'](sprintId)

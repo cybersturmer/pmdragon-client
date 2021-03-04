@@ -1,35 +1,58 @@
 <template>
   <q-card
+    clickable
     dense
     dark
     bordered
-    class="q-mb-sm q-pa-xs issue-backlog">
-    <q-card-section class="row items-center justify-between q-pa-sm">
-      <div class="col-auto">
-        # {{ issue.id }}
+    class="q-mb-sm issue-backlog"
+    @click="$q.screen.lt.sm ? false : openEditDialog"
+  >
+    <q-card-section horizontal>
+      <q-card-section
+        v-ripple
+        @click="openEditDialog"
+        class="row full-width">
+        <!-- ID + Icon + Title -->
+        <div>
+          # {{ issue.id }}
+          <q-icon
+            v-if="isIssueTypeIcon"
+            :name="getIssueTypeIcon.prefix"
+            :color="getIssueTypeIcon.color"
+            size="sm"
+            :title="getIssueTypeTitle"/>
+          {{ issue.title }}
+        </div>
+        <!-- Estimation data X, L, XL ... -->
+        <div class="xs-hide sm-hide float-right q-ml-sm">
+          <q-chip
+            v-show="estimationTitle"
+            dark
+            size="sm"
+            :label="estimationTitle"
+            color="secondary"
+            text-color="amber"
+            style="border-radius: 15px"/>
+        </div>
+      </q-card-section>
+      <q-card-section
+        v-if="$q.screen.lt.sm"
+        v-ripple
+        class="row justify-center items-center">
+        <!-- Open Dialog button -->
         <q-icon
-          v-if="isIssueTypeIcon"
-          :name="getIssueTypeIcon.prefix"
-          :color="getIssueTypeIcon.color"
+          name="mdi-dots-grid"
           size="sm"
-          :title="getIssueTypeTitle"/>
-        {{ issue.title }}
-      </div>
-      <div class="xs-hide md-hide sm-hide col-auto">
-        <q-chip
-          v-show="estimationTitle"
-          dark
-          size="sm"
-          :label="estimationTitle"
-          color="secondary"
-          text-color="amber"
-          style="border-radius: 15px"/>
-      </div>
+          title="Open Dialog"
+          class="vertical-middle handle"/>
+      </q-card-section>
     </q-card-section>
   </q-card>
 </template>
 
 <script>
+import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+
 export default {
   name: 'IssueBacklog',
   props: {
@@ -56,6 +79,17 @@ export default {
         return ''
       }
     }
+  },
+  methods: {
+    openEditDialog () {
+      this.$q.dialog({
+        parent: this,
+        dark: true,
+        title: 'Issue ',
+        component: IssueEditDialog,
+        id: this.issue.id
+      })
+    }
   }
 }
 </script>
@@ -71,5 +105,9 @@ export default {
   .issue-backlog:hover {
     background-color: $primary!important;
     cursor: pointer;
+  }
+
+  .handle {
+    cursor: move;
   }
 </style>

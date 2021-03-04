@@ -79,7 +79,6 @@
 
                   <IssueBoard
                     v-for="issue in issuesByState(issue_state.id)"
-                    @click.native="editIssueDialog(issue)"
                     :key="issue.id"
                     :issue="issue"
                     :assignee="getAssigneeById()"
@@ -237,15 +236,6 @@ export default {
         default:
           throw new Error('This error should not occurred')
       }
-    },
-    editIssueDialog (item) {
-      this.$q.dialog({
-        parent: this,
-        dark: true,
-        title: 'Issue ',
-        component: IssueEditDialog,
-        id: item.id
-      })
     },
     editSprintDialog (item) {
       this.$q.dialog({

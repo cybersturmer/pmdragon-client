@@ -1,9 +1,12 @@
 <template>
   <q-card
+    clickable
     dense
     dark
     bordered
-    class="my-card q-ma-sm overflow-hidden text-center issue-backlog">
+    class="my-card q-ma-sm overflow-hidden text-center issue-backlog"
+    @click="openEditDialog"
+  >
     <q-card-section>
       <span :class="`text-muted ${ isDone ? 'text-strike': '' }`">
         #{{ issue.id }}
@@ -48,6 +51,8 @@
 </template>
 
 <script>
+import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+
 export default {
   name: 'IssueBoard',
   props: {
@@ -89,6 +94,17 @@ export default {
     },
     getIssueTypeIcon () {
       return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+    }
+  },
+  methods: {
+    openEditDialog () {
+      this.$q.dialog({
+        parent: this,
+        dark: true,
+        title: 'Issue ',
+        component: IssueEditDialog,
+        id: this.issue.id
+      })
     }
   }
 }
