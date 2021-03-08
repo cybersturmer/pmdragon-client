@@ -5,7 +5,7 @@
     type="text"
     @input="handleInput"
     :rules="[isValidWorkspacePrefix]"
-    :value="prefixUrl"
+    :value="value"
     :error="isError"
     :error-message="errorMessage"
     label="Workspace prefix"
@@ -23,14 +23,8 @@ export default {
     value: String,
     errorMessage: String
   },
-  data () {
-    return {
-      prefixUrl: this.value
-    }
-  },
   methods: {
     handleInput (value) {
-      this.prefixUrl = value
       this.$emit('input', value)
     }
   },

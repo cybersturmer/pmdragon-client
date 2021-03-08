@@ -6,12 +6,14 @@
         <div class="column">
           <div class="col">
             <PrefixUrlField
+              ref="prefixUrlField"
               v-model="formData.prefix_url"
               :errorMessage="formErrors.prefix_url"
             />
           </div>
           <div class="col">
             <EmailField
+              ref="emailField"
               v-model="formData.email"
               :errorMessage="formErrors.email"
               @keyup.enter.native="resetFieldErrorMessage('formErrors','email')"
@@ -67,7 +69,7 @@ export default {
   },
   methods: {
     async register () {
-      if (this.formErrors.prefix_url.length > 0 || this.formErrors.email.length > 0) {
+      if (this.formData.prefix_url.length < 1 || this.formData.email.length < 1) {
         this.showError(new ErrorHandler(new Error(), 'Please input workspace url and email'))
         return false
       }
@@ -82,11 +84,14 @@ export default {
           true
         ]
 
-        this.formData.prefix_url = ''
-        this.formData.email = ''
+        console.dir(this.$refs.prefixUrlField)
+
+        this.$set(this.formData, 'prefix_url', '')
+        this.$set(this.formData, 'email', '')
 
         this.showOkDialog(...dialog)
       } catch (e) {
+        console.dir(e)
         e.setErrors(this.formErrors)
       }
     }

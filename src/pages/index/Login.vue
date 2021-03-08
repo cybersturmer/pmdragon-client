@@ -75,8 +75,8 @@ export default {
 
         await this.$store.dispatch('auth/LOGIN', this.formData)
 
-        this.formData.username = ''
-        this.formData.password = ''
+        this.$set(this.formData, 'username', '')
+        this.$set(this.formData, 'password', '')
 
         await this.$router.push({ name: 'loading' })
       } catch (e) {
