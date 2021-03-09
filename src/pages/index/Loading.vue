@@ -93,9 +93,7 @@ export default {
         /**
          * Do this person need a kickstart helper **/
         const isUserDataEmpty = !this.$store.getters['auth/IS_MY_DATA_FILLED']
-        const isNoProject = !this.$store.getters['auth/IS_ANY_PROJECT']
-
-        if (isUserDataEmpty || isNoProject) return this.$router.push({ name: 'kickstart' })
+        if (isUserDataEmpty) return this.$router.push({ name: 'kickstart' })
         else this.$router.push({ name: 'workspaces' })
       })
       .catch((e) => {
