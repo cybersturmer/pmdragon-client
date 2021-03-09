@@ -65,6 +65,14 @@ export class ErrorHandler extends Error {
       }
     }
   }
+
+  dropErrors (errors) {
+    /** Just set any key in object to empty string */
+    if (!this.request) return false
+    for (const key of Object.keys(errors)) {
+      errors[key] = ''
+    }
+  }
 }
 
 export function unWatch (value) {

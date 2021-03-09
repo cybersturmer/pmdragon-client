@@ -45,7 +45,6 @@
 <script>
 
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
-import { ErrorHandler } from 'src/services/util'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PrefixUrlField from 'components/fields/PrefixUrlField.vue'
 import EmailField from 'components/fields/EmailField.vue'
@@ -70,7 +69,7 @@ export default {
   methods: {
     async register () {
       if (this.formData.prefix_url.length < 1 || this.formData.email.length < 1) {
-        this.showError(new ErrorHandler(new Error(), 'Please input workspace url and email'))
+        this.showRaisedError('Please input workspace url and email')
         return false
       }
 
@@ -84,14 +83,16 @@ export default {
           true
         ]
 
-        console.dir(this.$refs.prefixUrlField)
+        this.formData.prefix_url = ''
+        this.formData.email = ''
 
-        this.$set(this.formData, 'prefix_url', '')
-        this.$set(this.formData, 'email', '')
+        this.resetFieldsErrorMessage('formErrors', [
+          'prefix_url',
+          'email'
+        ])
 
         this.showOkDialog(...dialog)
       } catch (e) {
-        console.dir(e)
         e.setErrors(this.formErrors)
       }
     }

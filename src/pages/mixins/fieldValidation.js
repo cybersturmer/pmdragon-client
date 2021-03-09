@@ -13,6 +13,11 @@ export const fieldValidationMixin = {
     resetFieldErrorMessage (module, field) {
       this[module][field] = ''
     },
+    resetFieldsErrorMessage (module, fields) {
+      for (const field of fields) {
+        this.resetFieldErrorMessage(module, field)
+      }
+    },
     isValidEmail (emailString) {
       /** We Do not check empty value by regular expression */
       const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/

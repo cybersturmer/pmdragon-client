@@ -1,3 +1,5 @@
+import { ErrorHandler } from 'src/services/util'
+
 export const Dialogs = {
   methods: {
     showOkDialog (
@@ -50,6 +52,9 @@ export const Dialogs = {
         e.statusMessage,
         e.message
       )
+    },
+    showRaisedError (message) {
+      this.showError(new ErrorHandler(new Error(), message))
     }
   }
 }
