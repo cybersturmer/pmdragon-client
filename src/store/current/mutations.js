@@ -23,6 +23,14 @@ export function SELECT_PROJECT (state, payload) {
   LocalStorage.set('current.project', payload)
 }
 
+export function SET_LOADING_STATE (state, payload) {
+  state.loading = payload
+}
+
+export function SET_LOADING_TEXT (state, payload) {
+  state.loading_text = payload
+}
+
 export function SET_ISSUE (state, payload) {
   state.issue = payload
   LocalStorage.set('current.issue', payload)

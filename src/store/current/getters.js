@@ -14,6 +14,14 @@ export function IS_SPACE_DEFINED (state) {
   return Boolean(state.workspace && state.project)
 }
 
+export function LOADING (state) {
+  return !!state.loading
+}
+
+export function LOADING_TEXT (state) {
+  return state.loading_text
+}
+
 export function ISSUE (state) {
   return state.issue
 }

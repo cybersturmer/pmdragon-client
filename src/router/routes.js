@@ -1,3 +1,5 @@
+import $store from 'src/store'
+
 const PMDRAGON_STRING = '  |  PmDragon'
 
 const routes = [
@@ -55,7 +57,29 @@ const routes = [
         meta: {
           title: 'Loading workspaces...' + PMDRAGON_STRING
         },
-        component: () => import('pages/index/Loading.vue')
+        component: () => import('pages/index/Loading.vue'),
+        beforeEnter: (to, from, next) => {
+          $store.dispatch('current/START_LOADING', 'Loading data...')
+            .then(() =>
+              Promise.all([
+                $store.dispatch('auth/INIT_WORKSPACES'),
+                $store.dispatch('auth/INIT_PERSONS'),
+                $store.dispatch('core/INIT_ISSUE_STATES'),
+                $store.dispatch('core/INIT_ISSUE_TYPES'),
+                $store.dispatch('core/INIT_ISSUE_TYPE_ICONS'),
+                $store.dispatch('core/INIT_ISSUE_ESTIMATIONS'),
+                $store.dispatch('core/INIT_SPRINT_DURATIONS'),
+                $store.dispatch('core/INIT_ISSUES'),
+                $store.dispatch('core/INIT_ATTACHMENTS'),
+                $store.dispatch('core/INIT_SPRINTS'),
+                $store.dispatch('core/INIT_BACKLOGS'),
+                $store.dispatch('auth/INIT_INVITED')
+              ]))
+            .then(() =>
+              $store.dispatch('current/STOP_LOADING'))
+            .then(() =>
+              next())
+        }
       },
       {
         name: 'kickstart',

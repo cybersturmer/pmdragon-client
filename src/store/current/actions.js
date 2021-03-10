@@ -6,6 +6,16 @@ export function SELECT_PROJECT ({ commit }, payload) {
   commit('SELECT_PROJECT', payload)
 }
 
+export function START_LOADING ({ commit }, message) {
+  commit('SET_LOADING_STATE', true)
+  commit('SET_LOADING_TEXT', message)
+}
+
+export function STOP_LOADING ({ commit }) {
+  commit('SET_LOADING_STATE', false)
+  commit('SET_LOADING_TEXT', null)
+}
+
 export function SET_ISSUE ({ commit }, payload) {
   commit('SET_ISSUE', payload)
 }
