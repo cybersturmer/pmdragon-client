@@ -8,12 +8,12 @@ export function SELECT_PROJECT ({ commit }, payload) {
 
 export function START_LOADING ({ commit }, message) {
   commit('SET_LOADING_STATE', true)
-  commit('SET_LOADING_TEXT', message)
+  commit('SET_LOADING_MODULE', message)
 }
 
 export function STOP_LOADING ({ commit }) {
   commit('SET_LOADING_STATE', false)
-  commit('SET_LOADING_TEXT', null)
+  commit('SET_LOADING_MODULE', null)
 }
 
 export function SET_ISSUE ({ commit }, payload) {

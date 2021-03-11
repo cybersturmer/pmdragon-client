@@ -27,8 +27,8 @@ export function SET_LOADING_STATE (state, payload) {
   state.loading = payload
 }
 
-export function SET_LOADING_TEXT (state, payload) {
-  state.loading_text = payload
+export function SET_LOADING_MODULE (state, payload) {
+  state.loading_module = payload
 }
 
 export function SET_ISSUE (state, payload) {

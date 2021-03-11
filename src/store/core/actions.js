@@ -114,6 +114,38 @@ export async function INIT_ATTACHMENTS ({ commit }) {
   }
 }
 
+export async function INIT_ISSUE_TYPE_ICONS ({ commit }) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .get(
+        '/core/issue-type-icons/'
+      )
+
+    commit('UPDATE_ISSUE_TYPE_ICONS', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function INIT_ISSUE_ESTIMATIONS ({ commit }) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .get(
+        '/core/issue-estimations/'
+      )
+
+    commit('UPDATE_ISSUE_ESTIMATIONS', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
 export async function ADD_ATTACHMENT ({ commit }, payload) {
   const formData = new FormData()
   formData.append('file', payload.file)
@@ -376,38 +408,6 @@ export async function DELETE_ISSUE_ESTIMATION_CATEGORY ({ commit }, payload) {
       )
 
     commit('DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
-  } catch (e) {
-    throw new ErrorHandler(e)
-  }
-}
-
-export async function INIT_ISSUE_TYPE_ICONS ({ commit }) {
-  try {
-    const response = await new Api({
-      auth: true,
-      expectedStatus: 200
-    })
-      .get(
-        '/core/issue-type-icons/'
-      )
-
-    commit('UPDATE_ISSUE_TYPE_ICONS', response.data)
-  } catch (e) {
-    throw new ErrorHandler(e)
-  }
-}
-
-export async function INIT_ISSUE_ESTIMATIONS ({ commit }) {
-  try {
-    const response = await new Api({
-      auth: true,
-      expectedStatus: 200
-    })
-      .get(
-        '/core/issue-estimations/'
-      )
-
-    commit('UPDATE_ISSUE_ESTIMATIONS', response.data)
   } catch (e) {
     throw new ErrorHandler(e)
   }

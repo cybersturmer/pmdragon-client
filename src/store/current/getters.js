@@ -19,7 +19,9 @@ export function LOADING (state) {
 }
 
 export function LOADING_TEXT (state) {
-  return state.loading_text
+  if (!state.loading_module) return ''
+
+  return `Loading ${state.loading_module}...`
 }
 
 export function ISSUE (state) {
