@@ -566,6 +566,20 @@ export const editIssueMixin = {
     getIssueTypeIcon () {
       return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.formData.issue.type_category)
     },
+    getIssueTypeIconColor () {
+      try {
+        return this.getIssueTypeIcon.color
+      } catch (e) {
+        return ''
+      }
+    },
+    getIssueTypeIconPrefix () {
+      try {
+        return this.getIssueTypeIcon.prefix
+      } catch (e) {
+        return ''
+      }
+    },
     mentioningRegex () {
       const regexArray = []
       for (const participant of this.participants) {

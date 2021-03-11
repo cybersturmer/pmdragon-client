@@ -28,8 +28,8 @@
                 <template v-slot:before>
                   <q-icon
                     v-if="isIssueTypeIcon"
-                    :name="getIssueTypeIcon.prefix"
-                    :color="getIssueTypeIcon.color"
+                    :name="getIssueTypeIconPrefix"
+                    :color="getIssueTypeIconColor"
                     :title="getIssueTypeTitle(formData.issue.type_category)"
                     size="md"
                   />
