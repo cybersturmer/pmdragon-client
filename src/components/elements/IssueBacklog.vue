@@ -17,8 +17,8 @@
           # {{ issue.id }}
           <q-icon
             v-if="isIssueTypeIcon"
-            :name="getIssueTypeIcon.prefix"
-            :color="getIssueTypeIcon.color"
+            :name="getIssueTypeIconPrefix"
+            :color="getIssueTypeIconColor"
             size="sm"
             :title="getIssueTypeTitle"/>
           {{ issue.title }}
@@ -67,6 +67,20 @@ export default {
     },
     getIssueTypeIcon () {
       return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+    },
+    getIssueTypeIconPrefix () {
+      try {
+        return this.getIssueTypeIcon.prefix
+      } catch (e) {
+        return ''
+      }
+    },
+    getIssueTypeIconColor () {
+      try {
+        return this.getIssueTypeIcon.color
+      } catch (e) {
+        return ''
+      }
     },
     getIssueTypeTitle () {
       return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
