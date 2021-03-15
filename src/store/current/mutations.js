@@ -62,6 +62,8 @@ export function SET_ISSUE_HISTORY (state, payload) {
 }
 
 export function RESET () {
+  /** loading and loading_module are not stored in LC
+   * So we don't need to clean it **/
   const localStorageResetList = [
     'workspace',
     'project',
