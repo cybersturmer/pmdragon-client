@@ -8,9 +8,9 @@
           square
           dense
           @input="updateWorkspace($event)"
-          :value="getWorkspaceById(formData.workspace)"
           :options="workspaces"
-          :option-label="(item) => item.prefix_url.toUpperCase()"
+          :value="formData.workspace"
+          :option-label="(item) => item.prefix_url"
           option-value="id"
         />
         <q-input
@@ -48,16 +48,10 @@ import { Dialogs } from 'pages/mixins/dialogs'
 export default {
   name: 'ProjectCreateDialog',
   mixins: [fieldValidationMixin, Dialogs],
-  props: {
-    defaultWorkspace: {
-      type: Number,
-      required: false
-    }
-  },
   data () {
     return {
       formData: {
-        workspace: this.defaultWorkspace || this.$store.getters['auth/WORKSPACE_FIRST_ID'],
+        workspace: this.$store.getters['auth/WORKSPACE_FIRST'],
         title: '',
         key: ''
       },
@@ -72,10 +66,7 @@ export default {
     updateWorkspace ($event) {
       this.formData.workspace = $event.id
     },
-    getWorkspaceById (id) {
-      return this.$store.getters['auth/WORKSPACES']
-        .find(workspace => workspace.id === id)
-    },
+
     show () {
       this.$refs.dialog.show()
     },
@@ -89,12 +80,8 @@ export default {
     },
 
     inputPrefixUrl ($event) {
-      this.dropErrors()
+      this.resetFieldErrorMessage('formErrors', 'prefix_url')
       this.formData.prefix_url = $event
-    },
-
-    dropErrors () {
-      this.formErrors.prefix_url = ''
     },
 
     async onOKClick () {

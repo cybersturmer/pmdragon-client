@@ -86,7 +86,7 @@ export default {
         this.formData.prefix_url = ''
         this.formData.email = ''
 
-        this.resetFieldsErrorMessage('formErrors', [
+        this.resetFieldsErrorMessages('formErrors', [
           'prefix_url',
           'email'
         ])

@@ -104,7 +104,7 @@ export default {
           this.createProjectDialog(data.id)
         })
     },
-    createProjectDialog (defaultWorkspace = null) {
+    createProjectDialog () {
       const options = {
         parent: this,
         dark: true,
@@ -112,7 +112,6 @@ export default {
         component: ProjectCreateDialog
       }
 
-      if (defaultWorkspace) { options.defaultWorkspace = defaultWorkspace }
       this.$q.dialog(options)
         .onOk(() => {
           this.$router.push({ name: 'loading' })

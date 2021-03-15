@@ -61,17 +61,25 @@ export function WORKSPACE_ID (state, getters) {
   }
 }
 
-export function WORKSPACE_FIRST_ID (state) {
+export function WORKSPACE_FIRST (state) {
   try {
-    return state.workspaces[0].id
+    return state.workspaces[0]
   } catch (e) {
     return null
   }
 }
 
-export function WORKSPACE_FIRST_PREFIX (state) {
+export function WORKSPACE_FIRST_ID (state, getters) {
   try {
-    return state.workspaces[0].prefix_url
+    return getters.WORKSPACE_FIRST.id
+  } catch (e) {
+    return null
+  }
+}
+
+export function WORKSPACE_FIRST_PREFIX (state, getters) {
+  try {
+    return getters.WORKSPACE_FIRST.prefix_url
   } catch (e) {
     return null
   }

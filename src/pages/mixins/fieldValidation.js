@@ -13,7 +13,7 @@ export const fieldValidationMixin = {
     resetFieldErrorMessage (module, field) {
       this[module][field] = ''
     },
-    resetFieldsErrorMessage (module, fields) {
+    resetFieldsErrorMessages (module, fields) {
       for (const field of fields) {
         this.resetFieldErrorMessage(module, field)
       }
