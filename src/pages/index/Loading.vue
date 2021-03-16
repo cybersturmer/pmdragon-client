@@ -26,6 +26,7 @@ export default {
       })
     },
     hideProgress () {
+      this.$store.dispatch('current/STOP_LOADING')
       this.$q.loading.hide()
     }
   },
@@ -67,8 +68,7 @@ export default {
           this.$store.dispatch('core/INIT_BACKLOGS'),
           this.$store.dispatch('auth/INIT_INVITED')
         ]))
-      .then(() => this.$store.dispatch('current/STOP_LOADING'))
-      .then(() => {
+      .finally(() => {
         this.hideProgress()
         if (!this.$store.getters['auth/IS_MY_DATA_FILLED']) this.$router.push({ name: 'kickstart' })
         this.$router.push({ name: 'workspaces' })
