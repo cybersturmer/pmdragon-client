@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import { QSpinnerGears } from 'quasar'
 import { loading } from 'pages/mixins/loading'
 
 export default {
