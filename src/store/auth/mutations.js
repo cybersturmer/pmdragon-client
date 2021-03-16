@@ -149,6 +149,8 @@ export function DELETE_PROJECT (state, payload) {
   const workspace = state.workspaces
     .find(workspace => workspace.id === payload.workspace)
 
+  if (!workspace) throw Error('Workspace is not defined.')
+
   const projects = workspace.projects
   const project = projects
     .find(project => project.id === payload.id)

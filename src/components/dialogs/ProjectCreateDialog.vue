@@ -86,7 +86,7 @@ export default {
 
     async onOKClick () {
       const payload = {
-        workspace: this.formData.workspace,
+        workspace: this.formData.workspace.id,
         title: this.formData.title,
         key: this.formData.key
       }
@@ -97,6 +97,7 @@ export default {
         this.hide()
       } catch (e) {
         e.setErrors(this.formErrors)
+        this.showError(e)
       }
     },
 

@@ -559,18 +559,21 @@ export default {
     },
     async deleteProject () {
       const payload = {
-        id: this.$store.getters['current/PROJECT']
+        id: this.$store.getters['current/PROJECT'],
+        workspace: this.$store.getters['auth/WORKSPACE_ID']
       }
 
       try {
+        console.log('start deleting...')
         await this.$store.dispatch('auth/DELETE_PROJECT', payload)
         this.showOkDialog(
           'Project was removed',
           'Current project was removed.'
         )
-
-        await this.$router.push({ name: 'loading' })
+          .onOk(r => this.$router.push({ name: 'loading' }))
       } catch (e) {
+        console.log('Error:')
+        console.dir(e)
         this.showError(e)
       }
     },
