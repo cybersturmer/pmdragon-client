@@ -216,6 +216,11 @@ export function ISSUE_TYPE_ICONS (state) {
   return state.issue_type_icons
 }
 
+export function ISSUE_TYPES_ICONS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
+  return state.issue_type_icons
+    .filter((issueTypesIcons) => issueTypesIcons.project === rootGetters['current/PROJECT'])
+}
+
 export function ISSUE_TYPE_ICON_BY_ID (state) {
   return iconId => {
     return state.issue_type_icons

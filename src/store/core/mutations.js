@@ -1,5 +1,5 @@
 import { LocalStorage } from 'quasar'
-import { removeElement, syncPair } from 'src/services/util'
+import { removeElement, removeElementById, syncPair } from 'src/services/util'
 
 function findBacklogByProjectId (state, projectId) {
   return state.backlogs
@@ -248,6 +248,28 @@ export function DELETE_ISSUE_TYPE_CATEGORY (state, payload) {
   removeElement(state.issue_types, issueType)
 
   LocalStorage.set('core.issue_types', state.issue_types)
+}
+
+/** Issue Type Icons Category management */
+export function ADD_ISSUE_TYPE_ICON_CATEGORY (state, payload) {
+  state.issue_type_icons.push(payload)
+
+  LocalStorage.set('core.issue_type_icons', state.issue_type_icons)
+}
+
+export function UPDATE_ISSUE_TYPE_ICON_CATEGORY (state, payload) {
+  const issueTypeIcon = state.issue_type_icons
+    .find(typeIconCategory => typeIconCategory.id === payload.id)
+
+  syncPair(payload, issueTypeIcon)
+
+  LocalStorage.set('core.issue_type_icons', state.issue_type_icons)
+}
+
+export function DELETE_ISSUE_TYPE_ICON_CATEGORY (state, payload) {
+  removeElementById(state.issue_type_icons, payload)
+
+  LocalStorage.set('core.issue_type_icons', state.issue_type_icons)
 }
 
 /** Issue State Category management **/

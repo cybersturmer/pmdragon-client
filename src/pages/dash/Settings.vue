@@ -10,6 +10,7 @@
         >
           <q-tab name="general" icon="mdi-star-circle" label="General"/>
           <q-tab name="issue_types" icon="mdi-receipt" label="Issue Types" />
+          <q-tab name="issue_types_icons" icon="mdi-tooltip-image" label="Issue Types Icons" />
           <q-tab name="issue_states" icon="mdi-transit-connection-horizontal" label="Issue States" />
           <q-tab name="issue_estimations" icon="mdi-vote" label="Issue Estimations" />
         </q-tabs>
@@ -186,6 +187,100 @@
                  </template>
                 </q-input>
                 <p class="text-amber q-pt-sm">* Create new Issue type by typing Title and pressing Enter.
+                  You can configure other options after creating</p>
+              </template>
+            </SettingPanelCard>
+          </q-tab-panel>
+
+          <!-- Issue types' icons -->
+          <q-tab-panel name="issue_types_icons">
+            <SettingPanelCard are-actions>
+              <template #section>
+                <q-table
+                  flat
+                  square
+                  dark
+                  bordered
+                  ref="issue_types_icons_table"
+                  row-key="prefix"
+                  no-data-label="There are no issue types icons in your project"
+                  :hide-bottom="true"
+                  :data="issueTypeIcons"
+                  :columns="issueTypesIconsTableData.columns"
+                  :pagination="issueTypesIconsTableData.pagination"
+                >
+                  <template #body-cell-icon="props">
+                    <q-td>
+                      <q-icon
+                        size="sm"
+                        :name="props.row.prefix"
+                        :color="props.row.color"
+                      />
+                    </q-td>
+                  </template>
+                  <template #body-cell-prefix="props">
+                    <q-td :props="props">
+                      <q-input
+                        dark
+                        flat
+                        borderless
+                        type="text"
+                        color="amber"
+                        readonly
+                        :value="props.row.prefix"
+                        :debounce="debounceDefault"
+                      />
+                    </q-td>
+                  </template>
+                  <template #body-cell-color="props">
+                    <q-td :props="props">
+                      <q-input
+                        dark
+                        flat
+                        borderless
+                        type="text"
+                        color="amber"
+                        :value="props.row.color"
+                        :debounce="debounceDefault"
+                        @input="updateIssueTypeIcon(props.row.id, 'color', $event)"
+                      />
+                    </q-td>
+                  </template>
+                  <template #body-cell-id="props">
+                    <q-td :props="props">
+                      <q-btn
+                        flat
+                        size="sm"
+                        icon="mdi-delete"
+                        color="amber"
+                        label="Remove"
+                        @click="deleteIssueTypeIcon(props.row.id)"
+                      />
+                    </q-td>
+                  </template>
+                </q-table>
+              </template>
+              <template #actions>
+                <q-input
+                  dark
+                  flat
+                  type="text"
+                  label="New Issue Types' Icon"
+                  color="amber"
+                  v-model="newIssueTypeIconFormData.prefix"
+                  @keyup.enter.native="createIssueTypeIcon"
+                >
+                  <template #append>
+                    <!-- @Make it disabled if empty -->
+                    <q-btn dense
+                           rounded
+                           flat
+                           icon="mdi-keyboard-return"
+                           @click="createIssueTypeIcon"
+                    />
+                  </template>
+                </q-input>
+                <p class="text-amber q-pt-sm">* Create new Issue type icon by typing prefix and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -432,6 +527,48 @@ export default {
       newIssueTypeFormData: {
         title: ''
       },
+      issueTypesIconsTableData: {
+        columns: [
+          {
+            name: 'icon',
+            required: true,
+            align: 'center',
+            field: row => row
+          },
+          {
+            label: 'Prefix',
+            name: 'prefix',
+            required: true,
+            align: 'left',
+            field: row => row.prefix,
+            format: val => `${val}`,
+            sortable: true
+          },
+          {
+            label: 'Color',
+            name: 'color',
+            required: true,
+            align: 'left',
+            field: row => row.color,
+            format: val => val,
+            sortable: true
+          },
+          {
+            name: 'id',
+            required: true,
+            align: 'right',
+            field: row => row.id,
+            format: val => val,
+            sortable: true
+          }
+        ],
+        pagination: {
+          rowsPerPage: 0
+        }
+      },
+      newIssueTypeIconFormData: {
+        prefix: ''
+      },
       issueStatesTableData: {
         columns: [
           {
@@ -526,7 +663,7 @@ export default {
       return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
     },
     issueTypeIcons () {
-      return this.$store.getters['core/ISSUE_TYPE_ICONS']
+      return this.$store.getters['core/ISSUE_TYPES_ICONS_BY_CURRENT_PROJECT']
     },
     issueStates () {
       return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
@@ -563,17 +700,20 @@ export default {
         workspace: this.$store.getters['auth/WORKSPACE_ID']
       }
 
+      const dialog = [
+        'Do you want to remove project?',
+        'All information in project will be deleted',
+        'Remove',
+        'danger'
+      ]
+
       try {
-        console.log('start deleting...')
-        await this.$store.dispatch('auth/DELETE_PROJECT', payload)
-        this.showOkDialog(
-          'Project was removed',
-          'Current project was removed.'
-        )
-          .onOk(r => this.$router.push({ name: 'loading' }))
+        this.showOkCancelDialog(...dialog)
+          .onOk(r => {
+            this.$store.dispatch('auth/DELETE_PROJECT', payload)
+            this.$router.push({ name: 'loading' })
+          })
       } catch (e) {
-        console.log('Error:')
-        console.dir(e)
         this.showError(e)
       }
     },
@@ -612,6 +752,45 @@ export default {
 
       try {
         await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async updateIssueTypeIcon (id, attribute, value) {
+      const payload = {
+        id: id
+      }
+
+      payload[attribute] = value
+
+      try {
+        await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', payload)
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async createIssueTypeIcon () {
+      const payload = {
+        workspace: this.$store.getters['auth/WORKSPACE_ID'],
+        project: this.$store.getters['current/PROJECT'],
+        prefix: `mdi-${this.newIssueTypeIconFormData.prefix}`,
+        color: 'grey-12'
+      }
+
+      try {
+        await this.$store.dispatch('core/ADD_ISSUE_TYPE_ICON_CATEGORY', payload)
+        this.newIssueTypeIconFormData.prefix = ''
+      } catch (e) {
+        this.showError(e)
+      }
+    },
+    async deleteIssueTypeIcon (id) {
+      const payload = {
+        id: id
+      }
+
+      try {
+        await this.$store.dispatch('core/DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
       } catch (e) {
         this.showError(e)
       }

@@ -2,6 +2,7 @@ import { ErrorHandler } from 'src/services/util'
 
 export const Dialogs = {
   methods: {
+
     showOkDialog (
       title,
       message,

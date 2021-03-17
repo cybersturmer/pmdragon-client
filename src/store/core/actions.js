@@ -287,6 +287,57 @@ export async function DELETE_ISSUE_TYPE_CATEGORY ({ commit, getters }, payload) 
   }
 }
 
+/** Issue types' icons */
+export async function ADD_ISSUE_TYPE_ICON_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 201
+    })
+      .post(
+        '/core/issue-type-icons/',
+        payload
+      )
+
+    commit('ADD_ISSUE_TYPE_ICON_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function UPDATE_ISSUE_TYPE_ICON_CATEGORY ({ commit }, payload) {
+  try {
+    const response = await new Api({
+      auth: true,
+      expectedStatus: 200
+    })
+      .patch(
+        `/core/issue-type-icons/${payload.id}/`,
+        payload
+      )
+
+    commit('UPDATE_ISSUE_TYPE_ICON_CATEGORY', response.data)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
+export async function DELETE_ISSUE_TYPE_ICON_CATEGORY ({ commit }, payload) {
+  try {
+    await new Api({
+      auth: true,
+      expectedStatus: 204
+    })
+      .delete(
+        `/core/issue-type-icons/${payload.id}/`
+      )
+
+    commit('DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
+  } catch (e) {
+    throw new ErrorHandler(e)
+  }
+}
+
 /** Issue states actions **/
 export async function ADD_ISSUE_STATE_CATEGORY ({ commit }, payload) {
   try {
