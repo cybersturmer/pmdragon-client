@@ -90,13 +90,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!sprint" class="full-width q-pa-md text-center">
-      <div class="text-h5"><q-icon name="mdi-history"/>&nbsp;You have not started a sprint.</div>
-      <span class="text-subtitle1">Go to
-        <router-link :to="{ path: 'backlog' }" class="text-amber">
-          Backlog page
-        </router-link> and start a sprint to continue...</span>
-    </div>
+    <NoStartedSprintNotification v-if="!sprint"/>
   </q-page>
 </template>
 
@@ -111,10 +105,12 @@ import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
 import StartCompleteSprintButton from 'components/buttons/StartCompleteSprintButton.vue'
 import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
 import { editIssueData } from 'pages/mixins/editIssueData'
+import NoStartedSprintNotification from 'components/elements/NoStartedSprintNotification.vue'
 
 export default {
   name: 'BoardView',
   components: {
+    NoStartedSprintNotification,
     StartCompleteSprintButton,
     // eslint-disable-next-line vue/no-unused-components
     IssueEditDialog,

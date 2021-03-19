@@ -324,7 +324,7 @@ export default {
     },
     notifyAboutStartedSprintAffecting (event, sprintId) {
       /** Notify if someone start to put core in already started sprint or take it from **/
-      const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED'](sprintId)
+      const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED_BY_ID'](sprintId)
       if (!isSprintStarted) return false
 
       let elId = null

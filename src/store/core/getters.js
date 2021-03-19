@@ -144,7 +144,11 @@ export function SPRINT_BY_ID (state) {
   return sprintId => state.sprints.find(sprint => sprint.id === sprintId)
 }
 
-export function IS_SPRINT_STARTED (state, getters) {
+export function SPRINT_STARTED_BUT_NOT_COMPLETED (state) {
+  return state.sprints.find(sprint => sprint.is_started === true && sprint.is_completed === false)
+}
+
+export function IS_SPRINT_STARTED_BY_ID (state, getters) {
   return sprintId => getters.SPRINT_BY_ID(sprintId).is_started
 }
 

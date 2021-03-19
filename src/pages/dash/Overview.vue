@@ -1,6 +1,8 @@
 <template>
-  <q-page class="q-pa-lg">
-    <div class="text-center">
+  <q-page class="flex q-layout-padding overflow-hidden">
+    <div
+      v-if="IsSprintStartedButNotCompleted"
+      class="full-width text-center">
       <q-circular-progress
         show-value
         size="50px"
@@ -13,21 +15,26 @@
       </q-circular-progress>
       <span class="q-ml-md text-h5">Sprint: {{ sprintTitle }}</span>
       <p class="text-h6 text-amber">{{ this.startedAt }} - {{ this.finishedAt }}</p>
+      <q-separator class="q-mt-md"/>
+      <BurnDownChart/>
     </div>
-    <q-separator class="q-mt-md"/>
-    <BurnDownChart/>
+    <NoStartedSprintNotification v-else />
   </q-page>
 </template>
 
 <script>
 import BurnDownChart from 'components/charts/BurnDownChart.vue'
+import NoStartedSprintNotification from 'components/elements/NoStartedSprintNotification.vue'
 import { date } from 'quasar'
 import { DATE_MASK } from 'src/services/masks'
 
 export default {
   name: 'Overview',
-  components: { BurnDownChart },
+  components: { BurnDownChart, NoStartedSprintNotification },
   computed: {
+    IsSprintStartedButNotCompleted () {
+      return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED']
+    },
     sprintDonePercentage () {
       try {
         const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
