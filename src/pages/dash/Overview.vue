@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex q-layout-padding overflow-hidden">
     <div
-      v-if="IsSprintStartedButNotCompleted"
+      v-if="!IsSprintStartedButNotCompleted"
       class="full-width text-center">
       <q-circular-progress
         show-value

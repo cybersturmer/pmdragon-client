@@ -27,7 +27,7 @@
               label="Sign In"
               @click="login"
             />
-            <router-link :to="{ path: '/' }" class="float-right" style="text-decoration: none">
+            <router-link :to="{ path: '/register' }" class="float-right" style="text-decoration: none">
               <template>
               <q-btn
                 flat

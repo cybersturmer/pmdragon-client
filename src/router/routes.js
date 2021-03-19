@@ -7,7 +7,7 @@ const routes = [
     children: [
       {
         name: 'register',
-        path: '/',
+        path: '/register',
         meta: {
           title: 'Register' + PMDRAGON_STRING
         },
@@ -15,7 +15,7 @@ const routes = [
       },
       {
         name: 'login',
-        path: '/login',
+        path: '/',
         meta: {
           title: 'Sign In' + PMDRAGON_STRING
         },
