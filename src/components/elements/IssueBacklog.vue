@@ -23,10 +23,11 @@
             :title="getIssueTypeTitle"/>
           {{ issue.title }}
         </div>
+      </q-card-section>
+      <q-card-section v-if="$q.screen.gt.sm && estimationTitle">
         <!-- Estimation data X, L, XL ... -->
         <div class="xs-hide sm-hide float-right q-ml-sm">
           <q-chip
-            v-show="estimationTitle"
             dark
             size="sm"
             :label="estimationTitle"
