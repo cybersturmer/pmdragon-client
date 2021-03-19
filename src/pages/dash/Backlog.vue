@@ -238,6 +238,7 @@ export default {
       })
         .onOk((data) => {
           this.$store.dispatch('core/EDIT_SPRINT', data)
+            .catch((e) => this.showError(e))
         })
     },
     removeSprintDialog (item) {

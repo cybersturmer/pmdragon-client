@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex q-layout-padding overflow-hidden">
     <div
-      v-if="!IsSprintStartedButNotCompleted"
+      v-if="IsSprintStartedButNotCompleted"
       class="full-width text-center">
       <q-circular-progress
         show-value
@@ -33,7 +33,7 @@ export default {
   components: { BurnDownChart, NoStartedSprintNotification },
   computed: {
     IsSprintStartedButNotCompleted () {
-      return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED']
+      return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT']
     },
     sprintDonePercentage () {
       try {
