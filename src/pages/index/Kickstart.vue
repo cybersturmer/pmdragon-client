@@ -111,16 +111,9 @@ export default {
     }
   },
   computed: {
-    workspace () {
-      return this.$store.getters['auth/WORKSPACE_FIRST_PREFIX']
-    },
     isUserDataFilled () {
       /** If user data filled we return true **/
-      const isFirstName = !!this.$store.getters['auth/MY_FIRST_NAME']
-      const isLastName = !!this.$store.getters['auth/MY_LAST_NAME']
-      const isUsername = !!this.$store.getters['auth/MY_USERNAME']
-
-      return isFirstName && isLastName && isUsername
+      return this.$store.getters['auth/IS_MY_DATA_FILLED']
     },
     nextLabel () {
       return this.step === 2 ? 'Finish' : 'Continue'
@@ -134,8 +127,7 @@ export default {
             await this.updateUserData()
             break
           case 2:
-            await this.$router.push({ name: 'loading' })
-            break
+            return this.$router.push({ name: 'loading' })
         }
 
         /** If everything was fine - we move further **/

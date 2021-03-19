@@ -34,8 +34,11 @@ export default {
         ]))
       .finally(() => {
         this.hideProgress()
-        if (!this.$store.getters['auth/IS_MY_DATA_FILLED']) this.$router.push({ name: 'kickstart' })
-        this.$router.push({ name: 'workspaces' })
+        if (this.$store.getters['auth/IS_MY_DATA_INCOMPLETE']) {
+          this.$router.push({ name: 'kickstart' })
+        } else {
+          this.$router.push({ name: 'workspaces' })
+        }
       })
   }
 }

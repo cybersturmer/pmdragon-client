@@ -164,11 +164,19 @@ export function MY_DATA (state, getters) {
 
 export function IS_MY_DATA_FILLED (state, getters) {
   try {
-    return !!getters.MY_FIRST_NAME &&
-           !!getters.MY_LAST_NAME &&
-           !!getters.MY_USERNAME
+    const myData = getters.MY_DATA
+    return Boolean(myData.first_name && myData.last_name && myData.username)
   } catch (e) {
     return false
+  }
+}
+
+export function IS_MY_DATA_INCOMPLETE (state, getters) {
+  try {
+    const myData = getters.MY_DATA
+    return !myData.first_name || !myData.last_name || !myData.username
+  } catch (e) {
+    return true
   }
 }
 

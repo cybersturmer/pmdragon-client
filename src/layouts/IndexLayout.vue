@@ -1,9 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="bg-grey-9 text-white">
     <q-page-container>
-      <keep-alive>
-        <router-view />
-      </keep-alive>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
@@ -13,7 +11,3 @@ export default {
   name: 'IndexLayout'
 }
 </script>
-
-<style scoped>
-
-</style>
