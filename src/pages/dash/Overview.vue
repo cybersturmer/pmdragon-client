@@ -11,7 +11,7 @@
         color="accent">
         {{ sprintDonePercentage }}%
       </q-circular-progress>
-      <span class="q-ml-md text-h5">Sprint: "{{ sprintTitle }}"</span>
+      <span class="q-ml-md text-h5">Sprint: {{ sprintTitle }}</span>
       <p class="text-h6 text-amber">{{ this.startedAt }} - {{ this.finishedAt }}</p>
     </div>
     <q-separator class="q-mt-md"/>
@@ -31,6 +31,8 @@ export default {
     sprintDonePercentage () {
       try {
         const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
+        if (totalSP === 0) return 0
+
         const currentSPDone = this.$store.getters['core/STORY_POINT_DONE_FOR_STARTED_SPRINT']
         return Math.round(currentSPDone / totalSP * 100)
       } catch (e) {
@@ -39,7 +41,8 @@ export default {
     },
     sprintTitle () {
       try {
-        return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
+        const title = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
+        return `"${title}"`
       } catch (e) {
         return ''
       }
