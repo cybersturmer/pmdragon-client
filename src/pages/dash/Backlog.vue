@@ -50,7 +50,7 @@
               </div>
               <div class="q-card--bordered q-pa-sm"
                    style="border: 1px dashed #606060; min-height: 67px;">
-                <div v-if="!areSprintIssues(sprint.id)"
+                <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center text-amber q-pt-md">
                   Plan sprint by dropping issues here.
                 </div>
@@ -59,6 +59,8 @@
                   :handle="$q.screen.lt.sm ? '.handle' : false"
                   v-bind="dragOptions"
                   @change="handleDraggableEvent($event, dragTypes.SPRINT, sprint.id)"
+                  @start="dragging=true"
+                  @end="dragging=false"
                 >
                   <transition-group type="transition" name="flip-list" tag="div">
                     <IssueBacklog
@@ -88,6 +90,8 @@
             :handle="$q.screen.lt.sm ? '.handle' : false"
             v-bind="dragOptions"
             @change="handleDraggableEvent($event, dragTypes.BACKLOG, backlog.id)"
+            @start="dragging=true"
+            @end="dragging=false"
             style="padding: 10px; min-height: 67px;">
             <transition-group type="transition" name="flip-list" tag="div">
               <IssueBacklog
