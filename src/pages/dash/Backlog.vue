@@ -38,7 +38,9 @@
                   <q-btn-group outline>
                     <StartCompleteSprintButton
                       v-if="index === 0"
-                      :sprint="sprint"/>
+                      @dialog="editSprintDialog(sprint)"
+                      :sprint="sprint"
+                    />
                     <SprintMorePopupMenu
                       :sprintId="sprint.id"
                       v-on:edit="editSprintDialog(sprint)"

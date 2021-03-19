@@ -39,9 +39,10 @@ export default {
           message: 'Cant start sprint without start and end date. Set started at and finished at dates first.',
           ok: {
             label: 'OK',
-            color: 'amber'
+            outline: true
           }
         })
+          .onOk(r => this.$emit('dialog'))
       } else {
         this.$store.dispatch('core/START_SPRINT', sprintId)
           .catch((e) => {
