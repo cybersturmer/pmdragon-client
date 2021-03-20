@@ -7,17 +7,20 @@
     class="my-card q-ma-sm overflow-hidden text-center issue-backlog"
     @click="openEditDialog"
   >
-    <q-card-section>
-      <span :class="`text-muted ${ isDone ? 'text-strike': '' }`">
-        #{{ issue.id }}
+    <q-card-section class="q-py-sm">
+      <div :class="`text-muted ${ isDone ? 'text-strike': '' }`">
+        {{ issue.title }}
+      </div>
+      <div class="text-right">
         <q-icon
           v-if="isIssueTypeIcon"
           :name="getIssueTypeIcon.prefix"
           :color="getIssueTypeIcon.color"
           size="xs"
+          class="q-pa-none"
           :title="getIssueTypeTitle"/>
-        {{ issue.title }}
-      </span>
+        {{ issue.project_number }}
+      </div>
     </q-card-section>
     <q-card-section class="q-pa-xs row items-center justify-between" horizontal>
       <div class="col-auto">

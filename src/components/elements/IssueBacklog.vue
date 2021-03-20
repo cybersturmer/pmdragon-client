@@ -14,13 +14,13 @@
         class="row full-width">
         <!-- ID + Icon + Title -->
         <div>
-          # {{ issue.id }}
           <q-icon
             v-if="isIssueTypeIcon"
             :name="getIssueTypeIconPrefix"
             :color="getIssueTypeIconColor"
             size="sm"
             :title="getIssueTypeTitle"/>
+          <span class="text-muted q-mx-xs">{{ issue.project_number }}</span>
           {{ issue.title }}
         </div>
       </q-card-section>

@@ -29,6 +29,7 @@ export const editIssueMixin = {
       formData: {
         issue: {
           title: '',
+          project_number: '',
           description: '',
           attachments: []
         }
@@ -598,7 +599,7 @@ export const editIssueMixin = {
     issueTitleLabel () {
       /** get Issue title with Type and id of Issue **/
       const issueType = this.getIssueTypeTitle(this.formData.issue.type_category)
-      return `#${this.formData.issue.id} ${issueType}`
+      return `#${this.formData.issue.project_number} ${issueType}`
     }
   }
 }
