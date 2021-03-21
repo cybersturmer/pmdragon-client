@@ -38,16 +38,21 @@
       </div>
       <!-- Section with assignee -->
       <div class="col-auto">
+        <q-avatar
+          v-if="$q.screen.lt.xl && isAvatar"
+          square
+          size="sm"
+        >
+          <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
+        </q-avatar>
         <q-chip
-            v-if="assigneeUsername"
+            v-if="$q.screen.gt.md && assigneeUsername"
             dark
             square
             size="sm"
             color="secondary"
             text-color="amber">
-          <q-avatar v-if="isAvatar">
-            <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
-          </q-avatar>
+
           <span v-if="$q.screen.gt.md" class="overflow-dotted">
             @{{ assigneeUsername }}
           </span>
