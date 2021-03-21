@@ -12,6 +12,7 @@
       </div>
     </q-card-section>
     <q-card-section class="q-pa-sm row items-center justify-between" horizontal>
+      <!-- Section with icon + project number -->
       <div class="col-auto">
         <q-icon
           v-if="isIssueTypeIcon"
@@ -20,28 +21,29 @@
           size="xs"
           class="q-pa-none"
           :title="getIssueTypeTitle"/>
-        <span class="text-weight-bold q-mx-xs">{{ issue.project_number }}</span>
+        <span class="text-weight-bold q-mx-xs">
+          {{ issue.project_number }}
+        </span>
       </div>
-      <div
-        class="xs-hide md-hide sm-hide col-auto">
+      <!-- Section with estimation like xs, xxl -->
+      <div class="xs-hide md-hide sm-hide col-auto">
         <q-chip
           v-show="estimationTitle"
           dark
           size="md"
           :label="estimationTitle"
           color="secondary"
-          text-color="amber"
-          style="border-radius: 15px"/>
+          text-color="amber"/>
       </div>
+      <!-- Section with assignee -->
       <div class="col-auto">
         <q-chip
             v-if="assigneeUsername"
             dark
-            class="text-left"
+            square
             size="md"
             color="secondary"
-            text-color="amber"
-            style="border-radius: 15px">
+            text-color="amber">
           <q-avatar v-if="isAvatar">
             <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
           </q-avatar>
