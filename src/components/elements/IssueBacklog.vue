@@ -21,7 +21,7 @@
             size="sm"
             :title="getIssueTypeTitle"/>
           <span class="text-weight-bold q-mx-xs">{{ issue.project_number }}</span>
-          {{ issue.title }}
+          <span>{{ issue.title }}</span>
         </div>
       </q-card-section>
       <q-card-section v-if="$q.screen.gt.sm && estimationTitle">
