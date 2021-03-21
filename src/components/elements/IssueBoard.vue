@@ -11,7 +11,7 @@
         {{ issue.title }}
       </div>
     </q-card-section>
-    <q-card-section class="q-pa-xs row items-center justify-between" horizontal>
+    <q-card-section class="q-pa-sm row items-center justify-between" horizontal>
       <div class="col-auto">
         <q-icon
           v-if="isIssueTypeIcon"
