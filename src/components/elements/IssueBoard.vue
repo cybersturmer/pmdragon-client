@@ -10,7 +10,9 @@
       <div :class="`text-muted ${ isDone ? 'text-strike': '' }`">
         {{ issue.title }}
       </div>
-      <div class="text-right">
+    </q-card-section>
+    <q-card-section class="q-pa-sm row items-center justify-between" horizontal>
+      <div class="col-auto">
         <q-icon
           v-if="isIssueTypeIcon"
           :name="getIssueTypeIcon.prefix"
@@ -20,8 +22,17 @@
           :title="getIssueTypeTitle"/>
         <span class="text-weight-bold q-mx-xs">{{ issue.project_number }}</span>
       </div>
-    </q-card-section>
-    <q-card-section class="q-pa-xs row items-center justify-between" horizontal>
+      <div
+        class="xs-hide md-hide sm-hide col-auto">
+        <q-chip
+          v-show="estimationTitle"
+          dark
+          size="md"
+          :label="estimationTitle"
+          color="secondary"
+          text-color="amber"
+          style="border-radius: 15px"/>
+      </div>
       <div class="col-auto">
         <q-chip
             v-if="assigneeUsername"
@@ -36,17 +47,6 @@
           </q-avatar>
           <span>@{{ assigneeUsername }}</span>
         </q-chip>
-      </div>
-      <div
-        class="xs-hide md-hide sm-hide col-auto">
-        <q-chip
-          v-show="estimationTitle"
-          dark
-          size="md"
-          :label="estimationTitle"
-          color="secondary"
-          text-color="amber"
-          style="border-radius: 15px"/>
       </div>
     </q-card-section>
   </q-card>
