@@ -30,6 +30,7 @@
         <q-chip
           v-show="estimationTitle"
           dark
+          square
           size="md"
           :label="estimationTitle"
           color="secondary"
@@ -47,7 +48,7 @@
           <q-avatar v-if="isAvatar">
             <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
           </q-avatar>
-          <span v-if="$q.screen.gt.sm">
+          <span v-if="$q.screen.gt.sm" class="overflow-dotted">
             @{{ assigneeUsername }}
           </span>
         </q-chip>
@@ -123,5 +124,11 @@ export default {
   .issue-backlog:hover {
     background-color: $primary!important;
     cursor: pointer;
+  }
+
+  .overflow-dotted {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 </style>
