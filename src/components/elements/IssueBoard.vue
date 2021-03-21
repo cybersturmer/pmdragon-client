@@ -48,7 +48,7 @@
           <q-avatar v-if="isAvatar">
             <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
           </q-avatar>
-          <span v-if="$q.screen.gt.sm" class="overflow-dotted">
+          <span v-if="$q.screen.gt.md" class="overflow-dotted">
             @{{ assigneeUsername }}
           </span>
         </q-chip>
