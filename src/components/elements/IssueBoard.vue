@@ -31,7 +31,7 @@
           v-show="estimationTitle"
           dark
           square
-          size="md"
+          size="sm"
           :label="estimationTitle"
           color="secondary"
           text-color="amber"/>
@@ -42,7 +42,7 @@
             v-if="assigneeUsername"
             dark
             square
-            size="md"
+            size="sm"
             color="secondary"
             text-color="amber">
           <q-avatar v-if="isAvatar">
