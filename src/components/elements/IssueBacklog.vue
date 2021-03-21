@@ -5,8 +5,7 @@
     dark
     bordered
     class="q-mb-sm issue-backlog"
-    @click="$q.screen.lt.sm ? false : openEditDialog"
-  >
+    @click="$q.screen.lt.sm ? false : openEditDialog">
     <q-card-section horizontal>
       <q-card-section
         v-ripple

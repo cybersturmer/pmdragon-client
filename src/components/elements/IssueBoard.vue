@@ -5,8 +5,7 @@
     dark
     bordered
     class="my-card q-ma-sm overflow-hidden text-center issue-backlog"
-    @click="openEditDialog"
-  >
+    @click="openEditDialog">
     <q-card-section class="q-py-sm">
       <div :class="`text-muted ${ isDone ? 'text-strike': '' }`">
         {{ issue.title }}
@@ -19,7 +18,7 @@
           size="xs"
           class="q-pa-none"
           :title="getIssueTypeTitle"/>
-        {{ issue.project_number }}
+        <span class="text-weight-bold q-mx-xs">{{ issue.project_number }}</span>
       </div>
     </q-card-section>
     <q-card-section class="q-pa-xs row items-center justify-between" horizontal>
