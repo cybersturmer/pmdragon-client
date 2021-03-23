@@ -1,9 +1,9 @@
 <template>
   <q-page class="flex q-layout-padding overflow-hidden">
+    <!-- If we have already started sprint -->
     <div v-if="sprint" class="full-width row items-stretch">
-      <!-- Here we gonna put information about sprint and view controls -->
-
-      <div class="full-width row q-pa-sm">
+      <!-- Just sprint name + goal + remaining days and compete / edit buttons -->
+      <div class="full-width row q-pa-sm-sm q-pa-xs-xs">
         <div class="col">
           <span class="text-h5 q-mr-md">
             <!-- Sprint name -->
@@ -37,60 +37,60 @@
         <!-- Sprint complete button -->
         <!-- Edit sprint button -->
       </div>
-
+      <!-- Block with issue states columns -->
       <div class="row full-height full-width">
-        <!-- Container for issue status columns -->
-        <div
-          v-for="issue_state in issueStates"
-          :key="issue_state.id"
-          class="col bg-primary q-ma-xs">
-          <!-- Column for head of column and state column -->
+          <!-- Container for issue status columns -->
+          <div
+            v-for="issue_state in issueStates"
+            :key="issue_state.id"
+            class="col-xs-12 col-sm-12 col-md-grow bg-primary q-ma-xs q-my-md">
+            <!-- Column for head of column and state column -->
 
-          <div class="q-pa-xs text-center text-uppercase" style="border: 1px solid #343434">
-            <!-- Printable HEAD of column -->
-            {{ issue_state.title }}
-            <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}</span>
-            <q-icon v-if="issue_state.is_done"
-                    name="mdi-check"
-                    color="positive"
-                    class="q-ml-sm"
-            />
+            <div class="q-pa-xs text-center text-uppercase" style="border: 1px solid #343434">
+              <!-- Printable HEAD of column -->
+              {{ issue_state.title }}
+              <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}</span>
+              <q-icon v-if="issue_state.is_done"
+                      name="mdi-check"
+                      color="positive"
+                      class="q-ml-sm"
+              />
 
+            </div>
+
+            <!--  Block of main state info  -->
+            <div class="bg-secondary full-height">
+
+              <q-scroll-area visible v-scroll-fire class="full-height">
+
+                <draggable
+                  :value="issuesByState(issue_state.id)"
+                  v-bind="dragOptions"
+                  @change="handleIssueStateChanging($event, issue_state.id)"
+                  class="full-height overflow-hidden-y">
+
+                  <transition-group
+                    type="transition"
+                    name="flip-list"
+                    tag="div"
+                    :class="`fit full-height q-pa-xs overflow-hidden ${$q.screen.lt.md ? 'vertical_issue_state_column' : 'horizontal_issue_state_column'}`"
+                    style="border: 1px dashed var(--q-color-accent)">
+
+                    <IssueBoard
+                      v-for="issue in issuesByState(issue_state.id)"
+                      :key="issue.id"
+                      :issue="issue"
+                      :assignee="getAssigneeById()"
+                    />
+                  </transition-group>
+                </draggable>
+              </q-scroll-area>
+            </div>
           </div>
-
-          <!--  Block of main state info  -->
-          <div class="bg-secondary full-height">
-
-            <q-scroll-area class="fit">
-
-              <draggable
-                :value="issuesByState(issue_state.id)"
-                v-bind="dragOptions"
-                @change="handleIssueStateChanging($event, issue_state.id)"
-                class="full-height overflow-hidden-y">
-
-                <transition-group
-                  type="transition"
-                  name="flip-list"
-                  tag="div"
-                  class="fit full-height q-pa-xs overflow-hidden-y"
-                  style="min-height: calc(100vh - 190px);
-                       border: 1px dashed var(--q-color-accent)">
-
-                  <IssueBoard
-                    v-for="issue in issuesByState(issue_state.id)"
-                    :key="issue.id"
-                    :issue="issue"
-                    :assignee="getAssigneeById()"
-                  />
-                </transition-group>
-              </draggable>
-            </q-scroll-area>
-          </div>
-        </div>
       </div>
     </div>
-    <NoStartedSprintNotification v-if="!sprint"/>
+    <!-- If there is no started sprint yet -->
+    <NoStartedSprintNotification v-else/>
   </q-page>
 </template>
 
@@ -173,8 +173,7 @@ export default {
       return this.$store.getters['auth/PERSON_BY_ID'](assigneeId)
     },
     issuesByState (stateId) {
-      return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES']
-        .filter((issue) => issue.state_category === stateId)
+      return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
     },
     issuesByStateAmount (stateId) {
       return this.issuesByState(stateId).length
@@ -262,5 +261,13 @@ export default {
   .ghost {
     opacity: 0.5;
     background: rgba(255, 255, 255, 0.6);
+  }
+
+  .vertical_issue_state_column {
+    min-height: 20vh;
+  }
+
+  .horizontal_issue_state_column {
+    min-height: calc(100vh - 190px);
   }
 </style>

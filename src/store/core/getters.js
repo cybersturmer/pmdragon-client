@@ -87,6 +87,13 @@ export function SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES (state, getters) {
   }
 }
 
+export function SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID (state, getters) {
+  return issuesState => {
+    return getters.SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES
+      .filter((issue) => issue.state_category === issuesState)
+  }
+}
+
 export function STORY_POINT_TOTAL_FOR_STARTED_SPRINT (state, getters) {
   try {
     const issues = getters.SPRINT_STARTED_BY_CURRENT_PROJECT_ISSUES
