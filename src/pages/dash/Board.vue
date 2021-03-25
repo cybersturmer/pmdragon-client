@@ -13,7 +13,6 @@
             <!-- Sprint goal -->
             ( {{ sprint.goal }} )
           </span>
-
         </div>
         <div class="col text-right">
           <span class="text-subtitle1 q-mr-md">
