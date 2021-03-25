@@ -8,6 +8,7 @@
   >
     <q-card-section horizontal>
       <q-card-section
+        clickable
         v-ripple
         @click="openEditDialog"
         class="q-pb-sm">
@@ -18,7 +19,7 @@
           </span>
         </q-card-section>
         <!-- Additional information block -->
-        <q-card-section horizontal class="row items-center justify-end">
+        <q-card-section horizontal class="row items-center justify-between">
           <!-- Project number and icon -->
           <div class="col q-pa-none">
             <q-icon
@@ -34,7 +35,9 @@
             </span>
           </div>
           <!-- Estimation title like XXL -->
-          <div class="col q-pa-none">
+          <div
+            v-if="$q.screen.gt.sm"
+            class="col q-pa-none">
             <q-chip
               v-show="estimationTitle"
               dark
@@ -52,6 +55,7 @@
               <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
             </q-avatar>
             <q-chip
+              v-if="$q.screen.gt.sm"
               dark
               square
               size="sm"
