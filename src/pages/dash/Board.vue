@@ -264,7 +264,7 @@ export default {
   }
 
   .vertical_issue_state_column {
-    min-height: 20vh;
+    min-height: 15vh;
   }
 
   .horizontal_issue_state_column {

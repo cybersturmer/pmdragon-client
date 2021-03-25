@@ -1,63 +1,79 @@
 <template>
   <q-card
-    clickable
-    dense
     dark
+    dense
     bordered
-    class="my-card q-ma-sm overflow-hidden text-center issue-backlog"
-    @click="openEditDialog">
-    <q-card-section class="q-py-sm">
-      <div :class="`text-left text-muted ${ isDone ? 'text-strike': '' }`">
-        {{ issue.title }}
-      </div>
-    </q-card-section>
-    <q-card-section class="q-pa-sm row items-center justify-between" horizontal>
-      <!-- Section with icon + project number -->
-      <div class="col-auto">
-        <q-icon
-          v-if="isIssueTypeIcon"
-          :name="getIssueTypeIcon.prefix"
-          :color="getIssueTypeIcon.color"
-          size="xs"
-          class="q-pa-none"
-          :title="getIssueTypeTitle"/>
-        <span class="text-weight-bold q-mx-xs">
-          {{ issue.project_number }}
-        </span>
-      </div>
-      <!-- Section with estimation like xs, xxl -->
-      <div class="xs-hide md-hide sm-hide col-auto">
-        <q-chip
-          v-show="estimationTitle"
-          dark
-          square
-          size="sm"
-          :label="estimationTitle"
-          color="secondary"
-          text-color="amber"/>
-      </div>
-      <!-- Section with assignee -->
-      <div class="col-auto">
-        <q-avatar
-          v-if="$q.screen.lt.xl && isAvatar"
-          square
-          size="sm"
-        >
-          <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
-        </q-avatar>
-        <q-chip
-            v-if="$q.screen.gt.md && assigneeUsername"
-            dark
-            square
-            size="sm"
-            color="secondary"
-            text-color="amber">
-
-          <span v-if="$q.screen.gt.md" class="overflow-dotted">
-            @{{ assigneeUsername }}
+    class="my-card q-ma-sm overflow-hidden issue-backlog"
+    @click="$q.screen.lt.sm ? false : openEditDialog"
+  >
+    <q-card-section horizontal>
+      <q-card-section
+        v-ripple
+        @click="openEditDialog"
+        class="q-pb-sm">
+        <!-- Title -->
+        <q-card-section class="q-pa-none text-justify">
+          <span :class="`text-left text-muted ${ isDone ? 'text-strike': '' }`">
+            {{ issue.title }}
           </span>
-        </q-chip>
-      </div>
+        </q-card-section>
+        <!-- Additional information block -->
+        <q-card-section horizontal class="row items-center justify-end">
+          <!-- Project number and icon -->
+          <div class="col q-pa-none">
+            <q-icon
+              v-if="getIssueTypeIcon"
+              :name="getIssueTypeIcon.prefix"
+              :color="getIssueTypeIcon.color"
+              size="xs"
+              class="q-pa-none"
+              :title="getIssueTypeTitle"/>
+            <!-- Project number -->
+            <span class="text-weight-bold q-mx-xs">
+            {{ issue.project_number }}
+            </span>
+          </div>
+          <!-- Estimation title like XXL -->
+          <div class="col q-pa-none">
+            <q-chip
+              v-show="estimationTitle"
+              dark
+              square
+              size="sm"
+              :label="estimationTitle"
+              color="secondary"
+              text-color="amber"/>
+          </div>
+          <!-- Avatar and assignee information -->
+          <div class="col q-pa-none overflow-dotted">
+            <q-avatar
+              square
+              size="sm">
+              <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
+            </q-avatar>
+            <q-chip
+              dark
+              square
+              size="sm"
+              color="secondary"
+              text-color="amber">
+              <span class="overflow-dotted">
+                @{{ assignee.username }}
+              </span>
+            </q-chip>
+          </div>
+        </q-card-section>
+      </q-card-section>
+      <q-card-section
+        v-if="$q.screen.lt.sm"
+        v-ripple
+        class="row justify-center items-center">
+        <q-icon
+          name="mdi-dots-grid"
+          size="sm"
+          title="Open Dialog"
+          class="vertical-middle handle"/>
+      </q-card-section>
     </q-card-section>
   </q-card>
 </template>
@@ -77,6 +93,12 @@ export default {
     assignee () {
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
     },
+    getIssueTypeIcon () {
+      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+    },
+    getIssueTypeTitle () {
+      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
+    },
     estimationTitle () {
       const estimation = this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
       try {
@@ -85,27 +107,8 @@ export default {
         return ''
       }
     },
-    isAvatar () {
-      try {
-        return this.assignee.avatar
-      } catch (e) {
-        return false
-      }
-    },
-    assigneeUsername () {
-      return this.assignee ? this.assignee.username : false
-    },
     isDone () {
       return this.$store.getters['core/IS_ISSUE_STATE_DONE'](this.issue.state_category)
-    },
-    isIssueTypeIcon () {
-      return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
-    },
-    getIssueTypeTitle () {
-      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
-    },
-    getIssueTypeIcon () {
-      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
     }
   },
   methods: {
@@ -122,18 +125,20 @@ export default {
 }
 </script>
 <style lang="scss">
-  .q-card__actions {
-    padding: 4px;
-  }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .25s;
+}
 
-  .issue-backlog:hover {
-    background-color: $primary!important;
-    cursor: pointer;
-  }
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 
-  .overflow-dotted {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+.issue-backlog:hover {
+  background-color: $primary!important;
+  cursor: pointer;
+}
+
+.handle {
+  cursor: move;
+}
 </style>
