@@ -50,6 +50,7 @@
           <!-- Avatar and assignee information -->
           <div class="col q-pa-none overflow-dotted">
             <q-avatar
+              v-if="assigneeAvatar"
               square
               size="sm">
               <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
@@ -96,6 +97,13 @@ export default {
   computed: {
     assignee () {
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
+    },
+    assigneeAvatar () {
+      try {
+        return this.assignee.avatar
+      } catch (e) {
+        return false
+      }
     },
     getIssueTypeIcon () {
       return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
