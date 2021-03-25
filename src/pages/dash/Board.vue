@@ -3,9 +3,9 @@
     <!-- If we have already started sprint -->
     <div v-if="sprint" class="full-width row items-stretch">
       <!-- Just sprint name + goal + remaining days and compete / edit buttons -->
-      <div class="full-width row q-pa-sm-sm q-pa-xs-xs">
+      <div class="full-width row q-mt-sm">
         <div class="col">
-          <span class="text-h5 q-mr-md">
+          <span class="text-h5 q-pa-sm q-mr-md">
             <!-- Sprint name -->
             {{ sprint.title }}
           </span>
