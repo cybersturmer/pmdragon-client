@@ -1,11 +1,11 @@
 <template>
-  <q-page class="flex q-layout-padding overflow-hidden">
+  <q-page :class="`flex ${$q.screen.gt.sm ? 'q-layout-padding' : ''} overflow-hidden`">
     <!-- If we have already started sprint -->
     <div v-if="sprint" class="full-width row items-stretch">
       <!-- Just sprint name + goal + remaining days and compete / edit buttons -->
-      <div class="full-width row q-mt-sm">
+      <div class="full-width row q-pb-none q-pt-md q-px-md">
         <div class="col">
-          <span class="text-h5 q-pa-sm q-mr-md">
+          <span class="text-h5 q-mr-md">
             <!-- Sprint name -->
             {{ sprint.title }}
           </span>
