@@ -8,12 +8,12 @@
   >
     <q-card-section horizontal>
       <q-card-section
+        class="col-10 q-pb-sm col-grow"
         clickable
         v-ripple
-        @click="openEditDialog"
-        class="q-pb-sm">
+        @click="openEditDialog">
         <!-- Title -->
-        <q-card-section class="q-pa-none text-justify">
+        <q-card-section class="q-pt-none text-left">
           <span :class="`text-left text-muted ${ isDone ? 'text-strike': '' }`">
             {{ issue.title }}
           </span>
@@ -21,7 +21,7 @@
         <!-- Additional information block -->
         <q-card-section horizontal class="row items-center justify-between">
           <!-- Project number and icon -->
-          <div class="col q-pa-none">
+          <div class="col text-caption q-pa-none">
             <q-icon
               v-if="getIssueTypeIcon"
               :name="getIssueTypeIcon.prefix"
@@ -30,7 +30,7 @@
               class="q-pa-none"
               :title="getIssueTypeTitle"/>
             <!-- Project number -->
-            <span class="text-weight-bold q-mx-xs">
+            <span class="text-weight-bold">
             {{ issue.project_number }}
             </span>
           </div>
@@ -56,7 +56,7 @@
               <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
             </q-avatar>
             <q-chip
-              v-if="$q.screen.gt.sm"
+              v-if="$q.screen.gt.md"
               dark
               square
               size="sm"
@@ -72,7 +72,7 @@
       <q-card-section
         v-if="$q.screen.lt.sm"
         v-ripple
-        class="row justify-center items-center">
+        class="row justify-center items-center q-pa-md">
         <q-icon
           name="mdi-dots-grid"
           size="sm"
@@ -152,5 +152,11 @@ export default {
 
 .handle {
   cursor: move;
+}
+
+.overflow-dotted {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

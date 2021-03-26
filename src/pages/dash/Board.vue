@@ -15,9 +15,9 @@
           </span>
         </div>
         <div class="col text-right">
-          <span class="text-subtitle1 q-mr-md">
+          <span class="text-h6 q-mr-md">
             <!-- Days till the end of sprint remaining and dates on hover -->
-            <q-icon name="mdi-timer-sand"></q-icon>
+            <q-icon name="mdi-timer-sand"/>
             <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
           </span>
           <q-btn-group :outline="this.$q.screen.gt.sm">
@@ -64,6 +64,7 @@
 
                 <draggable
                   :value="issuesByState(issue_state.id)"
+                  :handle="$q.screen.lt.sm ? '.handle' : false"
                   v-bind="dragOptions"
                   @change="handleIssueStateChanging($event, issue_state.id)"
                   class="full-height overflow-hidden-y">

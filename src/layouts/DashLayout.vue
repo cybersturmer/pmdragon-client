@@ -270,8 +270,9 @@ export default {
   }
 
   .text-h6 {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
   }
+
   .header-image {
     height: 100%;
     z-index: -1;
