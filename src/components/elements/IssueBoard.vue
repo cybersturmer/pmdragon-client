@@ -13,7 +13,7 @@
         v-ripple
         @click="openEditDialog">
         <!-- Title -->
-        <q-card-section class="q-pt-none text-left">
+        <q-card-section class="q-pt-none q-px-none text-left">
           <span :class="`text-left text-muted ${ isDone ? 'text-strike': '' }`">
             {{ issue.title }}
           </span>
