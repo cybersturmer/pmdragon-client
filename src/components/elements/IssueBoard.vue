@@ -19,36 +19,22 @@
           </span>
         </q-card-section>
         <!-- Additional information block -->
-        <q-card-section horizontal class="row items-center justify-between">
+        <q-card-section horizontal class="row items-center justify-start">
           <!-- Project number and icon -->
-          <div class="col text-caption q-pa-none">
+          <div class="col-auto q-pr-sm text-caption q-pa-none">
             <q-icon
               v-if="getIssueTypeIcon"
               :name="getIssueTypeIcon.prefix"
               :color="getIssueTypeIcon.color"
               size="xs"
-              class="q-pa-none"
               :title="getIssueTypeTitle"/>
             <!-- Project number -->
             <span class="text-weight-bold">
             {{ issue.project_number }}
             </span>
           </div>
-          <!-- Estimation title like XXL -->
-          <div
-            v-if="$q.screen.gt.sm"
-            class="col q-pa-none">
-            <q-chip
-              v-show="estimationTitle"
-              dark
-              square
-              size="sm"
-              :label="estimationTitle"
-              color="secondary"
-              text-color="amber"/>
-          </div>
           <!-- Avatar and assignee information -->
-          <div class="col q-pa-none overflow-dotted">
+          <div class="col-auto overflow-dotted">
             <q-avatar
               v-if="assigneeAvatar"
               square
@@ -66,6 +52,19 @@
                 @{{ assignee.username }}
               </span>
             </q-chip>
+          </div>
+          <!-- Estimation title like XXL -->
+          <div
+            v-if="$q.screen.gt.md"
+            class="col-auto q-pa-none">
+            <q-chip
+              v-show="estimationTitle"
+              dark
+              square
+              size="sm"
+              :label="estimationTitle"
+              color="secondary"
+              text-color="amber"/>
           </div>
         </q-card-section>
       </q-card-section>
