@@ -21,7 +21,7 @@
         <!-- Additional information block -->
         <q-card-section horizontal class="row items-center justify-start">
           <!-- Project number and icon -->
-          <div class="col-auto q-pr-sm text-caption q-pa-none">
+          <div class="col-auto q-pr-sm q-pa-none">
             <q-icon
               v-if="getIssueTypeIcon"
               :name="getIssueTypeIcon.prefix"
@@ -42,7 +42,7 @@
               <img :src="assignee.avatar" :alt="`${assignee.first_name} ${assignee.last_name}`">
             </q-avatar>
             <q-chip
-              v-if="$q.screen.gt.md"
+              v-if="$q.screen.gt.md && assignee.username"
               dark
               square
               size="sm"
@@ -95,6 +95,7 @@ export default {
   },
   computed: {
     assignee () {
+      if (!this.issue.assignee) return false
       return this.$store.getters['auth/PERSON_BY_ID'](this.issue.assignee)
     },
     assigneeAvatar () {

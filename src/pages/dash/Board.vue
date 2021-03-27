@@ -1,27 +1,27 @@
 <template>
-  <q-page :class="`flex ${$q.screen.gt.sm ? 'q-layout-padding' : ''} overflow-hidden`">
-    <!-- If we have already started sprint -->
-    <div v-if="sprint" class="full-width row items-stretch">
-      <!-- Just sprint name + goal + remaining days and compete / edit buttons -->
-      <div class="full-width row q-pb-none q-pt-md q-px-md">
-        <div class="col">
-          <span class="text-h5 q-mr-md">
-            <!-- Sprint name -->
-            {{ sprint.title }}
-          </span>
-          <span class="xs-hide sm-hide md-hide text-subtitle1 text-amber q-mr-md">
-            <!-- Sprint goal -->
-            ( {{ sprint.goal }} )
-          </span>
+  <q-page class="q-layout-padding overflow-hidden">
+    <div v-if="startedSprint" class="full-height">
+      <!-- Row wrapper for block with Sprint information -->
+      <div class="row full-width justify-between items-center q-pa-sm">
+        <!-- Sprint name -->
+        <div class="col-auto text-h5">
+          {{ startedSprint.title }}
         </div>
-        <div class="col text-right">
-          <span class="text-h6 q-mr-md">
-            <!-- Days till the end of sprint remaining and dates on hover -->
-            <q-icon name="mdi-timer-sand"/>
-            <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
-          </span>
+        <!-- Sprint goal -->
+        <div
+          v-if="$q.screen.gt.md && startedSprint.goal"
+          class="col text-h6 text-amber q-pl-md">
+          [&nbsp;{{ startedSprint.goal }}&nbsp;]
+        </div>
+        <!-- Sprint remaining text -->
+        <div class="col text-h6 text-amber text-right q-pr-md">
+          <q-icon name="mdi-timer-sand"/>
+          <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
+        </div>
+        <!-- Sprint manage buttons -->
+        <div class="col-auto">
           <q-btn-group :outline="this.$q.screen.gt.sm">
-            <StartCompleteSprintButton :sprint="sprint" class="xs-hide sm-hide"/>
+            <StartCompleteSprintButton :sprint="startedSprint"/>
             <q-btn
               dark
               outline
@@ -29,86 +29,93 @@
               color="amber"
               label="Edit sprint"
               class="xs-hide sm-hide"
-              @click="editSprintDialog(sprint)"
+              @click="editSprintDialog(startedSprint)"
             />
           </q-btn-group>
         </div>
-        <!-- Sprint complete button -->
-        <!-- Edit sprint button -->
       </div>
-      <!-- Block with issue states columns -->
-      <div class="row full-height full-width">
-          <!-- Container for issue status columns -->
-          <div
-            v-for="issue_state in issueStates"
-            :key="issue_state.id"
-            class="col-xs-12 col-sm-12 col-md-grow bg-primary q-ma-xs q-my-md">
-            <!-- Column for head of column and state column -->
-
-            <div class="q-pa-xs text-center text-uppercase" style="border: 1px solid #343434">
+      <q-card
+        dark
+        bordered
+        class="q-mt-md q-pt-xs bg-primary">
+        <!-- Scroll for all columns -->
+        <q-scroll-area
+          visible
+          ref="scrollArea"
+          dark
+          :class="`${$q.screen.lt.md ? 'q-pl-sm q-pr-md': ''}`"
+          style="height: calc(100vh - 170px);">
+          <div :class="`fit ${ $q.screen.lt.md ? 'column' : 'row' }
+            justify-start items-stretch content-center issue_state_column_list q-px-xs`">
+            <!-- Issue state column -->
+            <div
+              v-for="state in issueStates"
+              :key="state.id"
+              class="col q-pa-sm full-width text-center">
               <!-- Printable HEAD of column -->
-              {{ issue_state.title }}
-              <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(issue_state.id) }}</span>
-              <q-icon v-if="issue_state.is_done"
-                      name="mdi-check"
-                      color="positive"
-                      class="q-ml-sm"
-              />
+              <div class="q-py-sm text-center text-uppercase">
+                {{ state.title }}
+                <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(state.id) }}</span>
+                <q-icon v-if="state.is_done"
+                        name="mdi-check"
+                        color="positive"
+                        class="q-ml-sm"/>
+              </div>
+              <!-- Issues block -->
+              <div class="full-width full-height">
+                <q-scroll-area
+                  :delay="1200"
+                  class="q-pl-xs q-pr-sm overflow-hidden"
+                  :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
+                  <draggable
+                    :value="issuesByState(state.id)"
+                    :handle="$q.screen.lt.sm ? '.handle' : false"
+                    v-bind="dragOptions"
+                    @change="handleIssueStateChanging($event, state.id)"
+                    class="fit overflow-hidden-y">
 
-            </div>
-
-            <!--  Block of main state info  -->
-            <div class="bg-secondary full-height">
-
-              <q-scroll-area visible v-scroll-fire class="full-height">
-
-                <draggable
-                  :value="issuesByState(issue_state.id)"
-                  :handle="$q.screen.lt.sm ? '.handle' : false"
-                  v-bind="dragOptions"
-                  @change="handleIssueStateChanging($event, issue_state.id)"
-                  class="full-height overflow-hidden-y">
-
-                  <transition-group
-                    type="transition"
-                    name="flip-list"
-                    tag="div"
-                    :class="`fit full-height q-pa-xs overflow-hidden ${$q.screen.lt.md ? 'vertical_issue_state_column' : 'horizontal_issue_state_column'}`"
-                    style="border: 1px dashed var(--q-color-accent)">
-
-                    <IssueBoard
-                      v-for="issue in issuesByState(issue_state.id)"
-                      :key="issue.id"
-                      :issue="issue"
-                      :assignee="getAssigneeById()"
-                    />
-                  </transition-group>
-                </draggable>
-              </q-scroll-area>
+                    <transition-group
+                      type="transition"
+                      name="flip-list"
+                      tag="div"
+                      class="fit"
+                      style="min-height: 38vh">
+                      <IssueBoard
+                        v-for="issue in issuesByState(state.id)"
+                        :key="issue.id"
+                        :issue="issue"/>
+                    </transition-group>
+                  </draggable>
+                </q-scroll-area>
+              </div>
             </div>
           </div>
-      </div>
+        </q-scroll-area>
+      </q-card>
     </div>
-    <!-- If there is no started sprint yet -->
     <NoStartedSprintNotification v-else/>
   </q-page>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-import { updateSprintMixin } from 'pages/mixins/updateSprint'
-import { date } from 'quasar'
-import { unWatch } from 'src/services/util'
-import IssueBoard from 'components/elements/IssueBoard.vue'
-import { DATE_MASK, SPRINT_REMAINING_UNIT } from 'src/services/masks'
-import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
-import StartCompleteSprintButton from 'components/buttons/StartCompleteSprintButton.vue'
-import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
-import { editIssueData } from 'pages/mixins/editIssueData'
 import NoStartedSprintNotification from 'components/elements/NoStartedSprintNotification.vue'
 
+import StartCompleteSprintButton from 'components/buttons/StartCompleteSprintButton.vue'
+import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
+import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+
+import { unWatch } from 'src/services/util'
+import { date } from 'quasar'
+import draggable from 'vuedraggable'
+import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
+
+import { editIssueData } from 'pages/mixins/editIssueData'
+import { updateSprintMixin } from 'pages/mixins/updateSprint'
+
+import IssueBoard from 'components/elements/IssueBoard.vue'
+
 export default {
-  name: 'BoardView',
+  name: 'BoardViewN',
   components: {
     NoStartedSprintNotification,
     StartCompleteSprintButton,
@@ -131,48 +138,49 @@ export default {
     }
   },
   computed: {
-    issueStates () {
-      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
-    },
-    issueTypes () {
-      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
-    },
-    issues () {
-      return this.$store.getters['core/SPRINTS_BY_CURRENT_PROJECT']
-    },
-    sprint () {
+    startedSprint () {
+      /** Return started sprint data is_started and not is_completed */
       return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
     },
+    sprintRange () {
+      /** Return text dates like 10.10.2022 - 10.20.2022 */
+      const startedAt = date.formatDate(this.startedSprint.started_at, DATE_MASK)
+      const finishedAt = date.formatDate(this.startedSprint.finished_at, DATE_MASK)
+      return `${startedAt} - ${finishedAt}`
+    },
     daysAmount () {
-      const startedAt = this.sprint.started_at
-      const finishedAt = this.sprint.finished_at
-
-      return date.getDateDiff(finishedAt, startedAt, SPRINT_REMAINING_UNIT)
+      /** We use it for calculating in daysRemainingText not yet directly */
+      return date.getDateDiff(
+        this.startedSprint.started_at,
+        this.startedSprint.finished_at,
+        SPRINT_REMAINING_UNIT
+      )
     },
     daysRemaining () {
-      const today = new Date()
-      const finishedAt = this.sprint.finished_at
-
-      return date.getDateDiff(finishedAt, today, SPRINT_REMAINING_UNIT)
+      /** We use it for calculating in daysRemainingText not yet directly */
+      return date.getDateDiff(
+        this.startedSprint.finished_at,
+        new Date(),
+        SPRINT_REMAINING_UNIT
+      )
     },
     daysRemainingText () {
-      if (this.daysRemaining > this.daysAmount) {
-        return 'Will start soon...'
-      } else {
-        return this.daysRemaining > 0 ? this.daysRemaining + ' days remaining' : '0 days remaining'
+      /** We use it to show ex: 10 days remaining */
+      switch (true) {
+        case this.daysRemaining > this.daysAmount:
+          return 'Will start soon...'
+        case this.daysRemaining > 0:
+          return `${this.daysRemaining} days`
+        case this.daysRemaining < 0:
+          return '0 days'
+        default:
+          throw new Error('Unexpected days remaining value')
       }
-    },
-    sprintRange () {
-      const startedAt = date.formatDate(this.sprint.started_at, DATE_MASK)
-      const finishedAt = date.formatDate(this.sprint.finished_at, DATE_MASK)
-      return `${startedAt} - ${finishedAt}`
     }
   },
   methods: {
-    getAssigneeById (assigneeId) {
-      return this.$store.getters['auth/PERSON_BY_ID'](assigneeId)
-    },
     issuesByState (stateId) {
+      console.log(stateId, 'GOT STATE')
       return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
     },
     issuesByStateAmount (stateId) {
@@ -241,33 +249,18 @@ export default {
         goal: item.goal,
         startedAt: item.started_at,
         finishedAt: item.finished_at
-      })
-        .onOk((data) => {
-          this.$store.dispatch('core/EDIT_SPRINT', data)
-        })
+      }).onOk((data) => this.$store.dispatch('core/EDIT_SPRINT', data))
     }
   }
 }
 </script>
 <style lang="scss">
-  .flip-list-move {
-    transition: transform 0.3s;
-  }
+.issue_state_column_list > div {
+  min-height: 10vh!important;
+}
 
-  .no-move {
-    transition: transform 0s;
-  }
-
-  .ghost {
-    opacity: 0.5;
-    background: rgba(255, 255, 255, 0.6);
-  }
-
-  .vertical_issue_state_column {
-    min-height: 15vh;
-  }
-
-  .horizontal_issue_state_column {
-    min-height: calc(100vh - 190px);
-  }
+.issue_state_column_list > div > div:first-child {
+  border-radius: 3px;
+  border: 1px dotted #767676;
+}
 </style>
