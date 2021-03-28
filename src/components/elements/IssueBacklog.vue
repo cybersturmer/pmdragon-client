@@ -10,7 +10,7 @@
       <q-card-section
         v-ripple
         @click="openEditDialog"
-        class="row full-width">
+        class="row full-width q-pa-sm items-center">
         <!-- ID + Icon + Title -->
         <div>
           <q-icon
@@ -25,9 +25,9 @@
           <span>{{ issue.title }}</span>
         </div>
       </q-card-section>
-      <q-card-section v-if="$q.screen.gt.sm && estimationTitle">
+      <q-card-section v-if="$q.screen.gt.sm && estimationTitle" class="q-pa-sm">
         <!-- Estimation data X, L, XL ... -->
-        <div class="xs-hide sm-hide float-right q-ml-sm">
+        <div class="xs-hide sm-hide float-right">
           <q-chip
             dark
             size="sm"
