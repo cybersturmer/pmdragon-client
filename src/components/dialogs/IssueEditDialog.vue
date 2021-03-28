@@ -14,7 +14,7 @@
           <q-scroll-area
             ref="scrollArea"
             dark
-            style="height: 69vh; border-bottom: 1px solid #686868;">
+            style="height: 65vh; border-bottom: 1px solid #686868;">
             <!-- Title block -->
             <q-card-section>
               <!-- Title editing section -->

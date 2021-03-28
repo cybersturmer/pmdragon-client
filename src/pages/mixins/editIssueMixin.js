@@ -42,7 +42,9 @@ export const editIssueMixin = {
       },
       isNewMessageEditing: false,
       editingMessageId: null,
-      mask: DATETIME_MASK
+      mask: DATETIME_MASK,
+      messages: unWatch(this.$store.getters['current/ISSUE_MESSAGES']),
+      history: unWatch(this.$store.getters['current/ISSUE_HISTORY'])
     }
   },
   watch: {
@@ -378,6 +380,7 @@ export const editIssueMixin = {
         )
 
       this.messages.push(response.data)
+      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
     },
     async _updateMessage () {
       /** Kind of private method - we use it in create - update method **/
@@ -401,6 +404,7 @@ export const editIssueMixin = {
         .indexOf(oldMessage)
 
       this.messages.splice(idx, 1, response.data)
+      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
     },
     async handleMessageEnter (e) {
       /** Handle Ctrl + Enter command in editor **/
@@ -512,12 +516,6 @@ export const editIssueMixin = {
     }
   },
   computed: {
-    messages () {
-      return this.$store.getters['current/ISSUE_MESSAGES']
-    },
-    history () {
-      return this.$store.getters['current/ISSUE_HISTORY']
-    },
     attachments () {
       try {
         const attachments = this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
