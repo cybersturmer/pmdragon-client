@@ -42,9 +42,7 @@ export const editIssueMixin = {
       },
       isNewMessageEditing: false,
       editingMessageId: null,
-      mask: DATETIME_MASK,
-      messages: unWatch(this.$store.getters['current/ISSUE_MESSAGES']),
-      history: unWatch(this.$store.getters['current/ISSUE_HISTORY'])
+      mask: DATETIME_MASK
     }
   },
   watch: {
@@ -513,9 +511,16 @@ export const editIssueMixin = {
       this.messages = this.messages.filter((value) => {
         return value.id !== id
       })
+      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
     }
   },
   computed: {
+    messages () {
+      return this.$store.getters['current/ISSUE_MESSAGES']
+    },
+    history () {
+      return this.$store.getters['current/ISSUE_HISTORY']
+    },
     attachments () {
       try {
         const attachments = this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
