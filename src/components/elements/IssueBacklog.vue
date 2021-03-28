@@ -19,7 +19,9 @@
             :color="getIssueTypeIconColor"
             size="sm"
             :title="getIssueTypeTitle"/>
-          <span class="text-weight-bold q-mx-xs">{{ issue.project_number }}</span>
+          &nbsp;
+          <span class="text-weight-bold">{{ issue.project_number }}</span>
+          &nbsp;
           <span>{{ issue.title }}</span>
         </div>
       </q-card-section>
