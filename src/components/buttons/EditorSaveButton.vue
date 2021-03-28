@@ -2,7 +2,6 @@
   <q-btn
     outline
     color="amber"
-    size="sm"
     label="Save"
     style="width: 80px"
   />

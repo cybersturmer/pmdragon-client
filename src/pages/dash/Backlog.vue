@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex q-layout-padding">
     <div class="column full-width">
-      <div class="row q-pt-sm q-pl-sm">
+      <div class="row q-pt-sm q-pt-none-md q-pl-sm">
         <div class="col-8">
           <BlockHeader title="Sprints"/>
         </div>
@@ -9,7 +9,6 @@
           <q-btn
             dark
             outline
-            size="sm"
             color="amber"
             label="Create Sprint"
             class="float-right"
@@ -21,8 +20,8 @@
         <q-scroll-area
           dark
           visible
-          class="rounded-borders"
-          style="height: 100%; padding: 1.25rem; border: 1px solid #606060;">
+          class="fit q-pa-md"
+          style="border: 1px solid #606060;">
             <div
               v-for="(sprint, index) in sprints"
               :key="sprint.id">
@@ -83,7 +82,7 @@
         <q-scroll-area
           dark
           visible
-          class="rounded-borders bg-primary q-pa-sm"
+          class="bg-primary q-pa-sm"
           style="height: calc(100% - 35px); border: 1px solid #606060;">
           <draggable
             :value="backlogIssues"
@@ -92,7 +91,7 @@
             @change="handleDraggableEvent($event, dragTypes.BACKLOG, backlog.id)"
             @start="dragging=true"
             @end="dragging=false"
-            style="padding: 10px; min-height: 67px;">
+            style="min-height: 67px;">
             <transition-group type="transition" name="flip-list" tag="div">
               <IssueBacklog
                 v-for="issue in backlogIssues"
@@ -105,9 +104,7 @@
         <q-card dark
                 bordered
                 square
-                class="my-card text-white shadow-3 absolute-bottom card-no-padding q-pa-none"
-                style="margin: 0.3em"
-        >
+                class="my-card q-ma-xs text-white shadow-3 absolute-bottom q-pa-none">
           <q-card-section style="padding: 0">
             <q-input
               v-model="formData.title"

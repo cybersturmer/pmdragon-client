@@ -14,18 +14,17 @@
           [&nbsp;{{ startedSprint.goal }}&nbsp;]
         </div>
         <!-- Sprint remaining text -->
-        <div class="col text-h6 text-amber text-right q-pr-md">
+        <div class="col text-h6 small text-amber text-right q-pr-md">
           <q-icon name="mdi-timer-sand"/>
           <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
         </div>
         <!-- Sprint manage buttons -->
         <div class="col-auto">
           <q-btn-group :outline="this.$q.screen.gt.sm">
-            <StartCompleteSprintButton :sprint="startedSprint"/>
+            <StartCompleteSprintButton :sprint="startedSprint" size="md"/>
             <q-btn
               dark
               outline
-              size="sm"
               color="amber"
               label="Edit sprint"
               class="xs-hide sm-hide"
@@ -36,26 +35,27 @@
       </div>
       <q-card
         dark
+        square
         bordered
-        class="q-mt-md q-pt-xs bg-primary">
+        class="q-mt-sm-none q-mt-md-md bg-primary">
         <!-- Scroll for all columns -->
         <q-scroll-area
           visible
           ref="scrollArea"
           dark
-          :class="`${$q.screen.lt.md ? 'q-pl-sm q-pr-md': ''}`"
-          style="height: calc(100vh - 170px);">
+          :class="`${$q.screen.lt.md ? 'q-pl-xs q-pr-sm': ''}`"
+          style="height: calc(100vh - 160px);">
           <div :class="`fit ${ $q.screen.lt.md ? 'column' : 'row' }
-            justify-start items-stretch content-center issue_state_column_list q-px-xs`">
+            justify-start items-stretch content-center issue_state_column_list`">
             <!-- Issue state column -->
             <div
               v-for="state in issueStates"
               :key="state.id"
-              class="col q-pa-sm full-width text-center">
+              class="col q-pa-xs full-width text-center">
               <!-- Printable HEAD of column -->
-              <div class="q-py-sm text-center text-uppercase">
+              <div class="q-py-xs text-center text-uppercase">
                 {{ state.title }}
-                <span v-if="$q.screen.gt.sm">&nbsp;&nbsp;{{ issuesByStateAmount(state.id) }}</span>
+                <span>&nbsp;&nbsp;{{ issuesByStateAmount(state.id) }}</span>
                 <q-icon v-if="state.is_done"
                         name="mdi-check"
                         color="positive"
@@ -79,7 +79,7 @@
                       name="flip-list"
                       tag="div"
                       class="fit"
-                      style="min-height: 38vh">
+                      style="min-height: 37vh">
                       <IssueBoard
                         v-for="issue in issuesByState(state.id)"
                         :key="issue.id"
@@ -180,7 +180,6 @@ export default {
   },
   methods: {
     issuesByState (stateId) {
-      console.log(stateId, 'GOT STATE')
       return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
     },
     issuesByStateAmount (stateId) {
@@ -260,7 +259,6 @@ export default {
 }
 
 .issue_state_column_list > div > div:first-child {
-  border-radius: 3px;
-  border: 1px dotted #767676;
+  border-bottom: 1px solid #606060;
 }
 </style>

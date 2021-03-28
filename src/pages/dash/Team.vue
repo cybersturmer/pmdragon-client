@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-lg">
+  <q-page class="q-pa-md">
     <q-table
       dark
       grid
@@ -12,7 +12,6 @@
         <q-btn-group outline>
           <q-btn
             outline
-            size="sm"
             label="Invite a teammate"
             color="amber"
             @click="inviteMembersDialog"
@@ -41,8 +40,8 @@
               <q-card-section class="col-8">
                 <div class="row items-center no-wrap full-width">
                   <div class="col-10 text-center">
-                    <p class="text-h6 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.first_name }}</p>
-                    <p class="text-h6 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.last_name }}</p>
+                    <p class="text-subtitle2 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.first_name }}</p>
+                    <p class="text-subtitle2 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.last_name }}</p>
                   </div>
                   <div class="col-2 items-center">
                     <q-btn

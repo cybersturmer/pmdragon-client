@@ -95,8 +95,6 @@ export class Api {
     if (failedRequest.config.url === '/auth/obtain/') {
       return Promise.reject(failedRequest)
     }
-    console.log('FAILED')
-    console.dir(failedRequest)
 
     return $store.dispatch('auth/REFRESH')
   }

@@ -118,7 +118,7 @@
             </q-badge>
             <img :src="avatarUrl">
           </q-avatar>
-          <div class="text-h6">{{ firstName }} {{ lastName }}</div>
+          <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
           <div><q-badge outline color="amber" :label="`@${username}`" /></div>
         </div>
       </q-card>
@@ -270,7 +270,7 @@ export default {
   }
 
   .text-h6 {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
   }
 
   .header-image {
