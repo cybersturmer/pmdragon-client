@@ -1,5 +1,5 @@
 <template>
-  <h5 class="text-amber">
+  <h5>
     {{ title }}
     <span>
       (&nbsp;{{ info }}&nbsp;)

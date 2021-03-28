@@ -4,7 +4,7 @@
       <!-- Row wrapper for block with Sprint information -->
       <div class="row full-width justify-between items-center q-pa-sm">
         <!-- Sprint name -->
-        <div class="col-auto text-amber text-h5">
+        <div class="col-auto text-h5">
           {{ startedSprint.title }}
         </div>
         <!-- Sprint goal -->
