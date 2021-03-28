@@ -47,7 +47,7 @@
                   </q-btn-group>
                 </div>
               </div>
-              <div class="q-card--bordered q-pa-sm"
+              <div class="q-pt-sm q-px-sm q-pb-none"
                    style="border: 1px dashed #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center text-amber q-pt-md">

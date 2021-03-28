@@ -119,7 +119,9 @@
             <img :src="avatarUrl">
           </q-avatar>
           <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
-          <div><q-badge outline color="amber" :label="`@${username}`" /></div>
+          <div>
+            <q-badge outline color="amber" :label="`@${username}`" />
+          </div>
         </div>
       </q-card>
     </q-drawer>
