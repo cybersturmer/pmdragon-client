@@ -21,7 +21,9 @@ export const editIssueMixin = {
     return {
       tab: 'messages',
       editorToolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
+        ['bold', 'italic', 'underline'],
+        ['unordered', 'ordered', 'outdent', 'indent'],
+        ['fullscreen', 'print'],
         ['viewsource'],
         ['undo', 'redo']
       ],

@@ -51,7 +51,7 @@
                     dense
                     flat
                     label="Upload file"
-                    class="q-pl-sm q-pr-sm"
+                    class="q-pl-sm q-pr-sm text-amber"
                     icon="mdi-upload">
                     <q-uploader-add-trigger />
                   </q-btn>
@@ -59,7 +59,7 @@
                     dense
                     flat
                     label="Link file"
-                    class="q-pl-sm q-pr-sm"
+                    class="q-pl-sm q-pr-sm text-amber"
                     icon="mdi-link-plus"
                     @click="showSelectAttachmentDialog"
                   />
@@ -98,18 +98,17 @@
           <!-- Description -->
           <q-card-section class="q-pt-xs">
             <!-- Block with issue description -->
-            <div class="q-mb-xs text-subtitle2 text-amber">
+            <div class="q-mb-xs text-subtitle2 text-uppercase text-amber">
               Description
             </div>
             <q-card
               v-show="!isDescriptionEditing"
               dark
               flat
-              bordered
-            >
+              bordered>
               <q-card-section
                 v-html="formData.issue.description || 'Add a description by clicking this area...'"
-                class="q-pa-md editable_block"
+                class="editable_block q-pb-xs"
                 @click="startEditingDescription"
               />
             </q-card>
@@ -143,8 +142,8 @@
                 v-model="tab"
                 dense
                 narrow-indicator>
-                <q-tab name="messages" label="Messages"/>
-                <q-tab name="history" label="History"/>
+                <q-tab name="messages" label="Messages" content-class="text-amber"/>
+                <q-tab name="history" label="History" content-class="text-amber"/>
               </q-tabs>
               <q-separator />
               <q-tab-panels
@@ -234,7 +233,7 @@
                             <span
                               v-if="entry.after_value"
                               v-html="entry.after_value"
-                              class="q-pa-sm q-ma-xs bg-blue-grey-10"
+                              class="q-pa-sm q-ma-xs bg-accent"
                               style="border: 1px solid gray; border-radius: 5px;"
                             />
                           </div>

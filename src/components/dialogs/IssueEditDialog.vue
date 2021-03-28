@@ -57,7 +57,7 @@
                       dense
                       flat
                       label="Upload file"
-                      class="q-pl-sm q-pr-sm"
+                      class="q-pl-sm q-pr-sm text-amber"
                       icon="mdi-upload">
                       <q-uploader-add-trigger />
                     </q-btn>
@@ -65,7 +65,7 @@
                       dense
                       flat
                       label="Link file"
-                      class="q-pl-sm q-pr-sm"
+                      class="q-pl-sm q-pr-sm text-amber"
                       icon="mdi-link-plus"
                       @click="showSelectAttachmentDialog"
                     />
@@ -111,13 +111,11 @@
                 v-show="!isDescriptionEditing"
                 dark
                 flat
-                bordered
-              >
+                bordered>
                 <q-card-section
                   v-html="formData.issue.description || 'Add a description by clicking this area...'"
-                  class="q-pa-md editable_block"
-                  @click="startEditingDescription"
-                />
+                  class="q-pb-sm editable_block"
+                  @click="startEditingDescription"/>
               </q-card>
               <q-editor
                 dark
@@ -149,8 +147,8 @@
                   v-model="tab"
                   dense
                   narrow-indicator>
-                  <q-tab name="messages" label="Messages"/>
-                  <q-tab name="history" label="History"/>
+                  <q-tab name="messages" label="Messages" content-class="text-amber"/>
+                  <q-tab name="history" label="History" content-class="text-amber"/>
                 </q-tabs>
                 <q-separator />
                 <q-tab-panels
