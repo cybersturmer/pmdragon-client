@@ -14,7 +14,9 @@
           [&nbsp;{{ startedSprint.goal }}&nbsp;]
         </div>
         <!-- Sprint remaining text -->
-        <div class="col text-h6 small text-amber text-right q-pr-md">
+        <div
+          v-if="$q.screen.gt.sm"
+          class="col text-h6 small text-amber text-right q-pr-md">
           <q-icon name="mdi-timer-sand"/>
           <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
         </div>
@@ -168,7 +170,7 @@ export default {
       /** We use it to show ex: 10 days remaining */
       switch (true) {
         case this.daysRemaining > this.daysAmount:
-          return 'Will start'
+          return 'Will start soon...'
         case this.daysRemaining > 0:
           return `${this.daysRemaining} days`
         case this.daysRemaining < 0:
