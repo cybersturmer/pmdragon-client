@@ -41,7 +41,7 @@
             <q-card dark bordered style="min-width: 350px">
               <q-card-section class="text-center">
                 <div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>
-                <div class="text-subtitle2">Participants</div>
+                <div class="text-subtitle2 text-amber">Participants</div>
                 <SmallParticipantChipElement
                   v-for="participant in props.row.participants"
                   v-bind:key="participant.id"
