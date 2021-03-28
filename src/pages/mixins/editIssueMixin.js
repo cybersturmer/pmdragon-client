@@ -377,8 +377,9 @@ export const editIssueMixin = {
           payload
         )
 
-      this.messages.push(response.data)
-      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
+      const messagesClone = unWatch(this.messages)
+      messagesClone.push(response.data)
+      this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
     },
     async _updateMessage () {
       /** Kind of private method - we use it in create - update method **/
@@ -401,8 +402,9 @@ export const editIssueMixin = {
       const idx = this.messages
         .indexOf(oldMessage)
 
-      this.messages.splice(idx, 1, response.data)
-      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
+      const messagesClone = unWatch(this.messages)
+      messagesClone.splice(idx, 1, response.data)
+      this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
     },
     async handleMessageEnter (e) {
       /** Handle Ctrl + Enter command in editor **/
@@ -508,10 +510,11 @@ export const editIssueMixin = {
           `/core/issue-messages/${id}/`
         )
 
-      this.messages = this.messages.filter((value) => {
+      const messagesClone = this.messages.filter((value) => {
         return value.id !== id
       })
-      this.$store.commit('SET_ISSUE_MESSAGES', this.messages)
+
+      this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
     }
   },
   computed: {
