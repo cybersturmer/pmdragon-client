@@ -114,7 +114,7 @@
                 bordered>
                 <q-card-section
                   v-html="formData.issue.description || 'Add a description by clicking this area...'"
-                  class="q-pb-sm editable_block"
+                  class="editable_block"
                   @click="startEditingDescription"/>
               </q-card>
               <q-editor
