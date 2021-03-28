@@ -168,7 +168,7 @@ export default {
       /** We use it to show ex: 10 days remaining */
       switch (true) {
         case this.daysRemaining > this.daysAmount:
-          return 'Will start soon...'
+          return 'Will start'
         case this.daysRemaining > 0:
           return `${this.daysRemaining} days`
         case this.daysRemaining < 0:
