@@ -242,7 +242,7 @@
                               <span
                                 v-if="entry.after_value"
                                 v-html="entry.after_value"
-                                class="q-pa-sm q-ma-xs bg-blue-grey-10"
+                                class="q-pa-sm q-ma-xs bg-accent"
                                 style="border: 1px solid gray; border-radius: 5px;"
                               />
                             </div>
