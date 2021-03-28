@@ -70,6 +70,7 @@
     <q-table
       dark
       grid
+      class="text-amber"
       :title="`Invited - ( ${invited.length} email )`"
       row-key="email"
       no-data-label="Invite your team members by adding them by email."

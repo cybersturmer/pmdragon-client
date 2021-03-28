@@ -3,17 +3,7 @@
     <div
       v-if="IsSprintStartedButNotCompleted"
       class="full-width text-center">
-      <q-circular-progress
-        show-value
-        size="50px"
-        :min="0"
-        :max="100"
-        :value="sprintDonePercentage"
-        center-color="primary"
-        color="accent">
-        {{ sprintDonePercentage }}%
-      </q-circular-progress>
-      <span class="q-ml-md text-h5">Sprint: {{ sprintTitle }}</span>
+      <span class="q-ml-md text-h5 text-amber">{{ sprintTitle }}</span>
       <p class="text-h6 text-amber">{{ this.startedAt }} - {{ this.finishedAt }}</p>
       <q-separator class="q-mt-md"/>
       <BurnDownChart/>
@@ -48,8 +38,7 @@ export default {
     },
     sprintTitle () {
       try {
-        const title = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
-        return `"${title}"`
+        return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
       } catch (e) {
         return ''
       }
