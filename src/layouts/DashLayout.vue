@@ -266,7 +266,7 @@ export default {
   }
 
   .q-drawer--left.q-drawer--bordered {
-    border-color: #0f0f0f;
+    border-color: #2f2f2f;
   }
 
   .text-h6 {
