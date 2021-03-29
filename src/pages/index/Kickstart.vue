@@ -8,14 +8,12 @@
       inactive-color="amber"
       active-color="amber"
       done-color="info"
-      animated
-    >
+      animated>
       <q-step
         :name="1"
         :done="isUserStepDone"
         title="Some bytes about you"
-        icon="mdi-face-recognition"
-      >
+        icon="mdi-face-recognition">
         <q-input
           v-model="userFormData.first_name"
           dark
@@ -27,8 +25,7 @@
           :error="isValid('userFormErrors', 'first_name')"
           :error-message="userFormErrors.first_name"
           class="q-mb-sm"
-          standout="text-white bg-primary"
-        />
+          standout="text-white bg-primary"/>
         <q-input
           v-model="userFormData.last_name"
           dark
@@ -40,8 +37,7 @@
           :error="isValid('userFormErrors', 'last_name')"
           :error-message="userFormErrors.last_name"
           class="q-mb-sm"
-          standout="text-white bg-primary"
-        />
+          standout="text-white bg-primary"/>
         <q-input
           v-model="userFormData.username"
           dark
@@ -52,9 +48,8 @@
           label="Username"
           :error="isValid('userFormErrors', 'username')"
           :error-message="userFormErrors.username"
-          hint="Better to use short username, not email"
-          standout="text-white bg-primary"
-        />
+          hint="Better to use short username, not email, less than 24 chars"
+          standout="text-white bg-primary"/>
       </q-step>
       <q-step
         :name="2"
@@ -127,7 +122,7 @@ export default {
         switch (this.step) {
           case 1:
             if (!this.isUsernameChanged) {
-              this.userFormErrors.username = 'Please change username'
+              this.userFormErrors.username = 'Please change username, not equal to email'
               return
             }
 
