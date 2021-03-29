@@ -62,8 +62,7 @@
                     color="red-14"
                     label="Remove project"
                     icon="mdi-delete"
-                    @click="deleteProject"
-                  />
+                    @click="deleteProject"/>
                 </q-btn-group>
                 <p class="text-amber q-pt-sm">* By clicking it you will delete this project with all its issues,
                   issue types, issue states, issue estimations</p>
@@ -160,8 +159,7 @@
                         icon="mdi-delete"
                         color="amber"
                         label="Remove"
-                        @click="deleteIssueType(props.row.id)"
-                      />
+                        @click="deleteIssueType(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -254,8 +252,7 @@
                         icon="mdi-delete"
                         color="amber"
                         label="Remove"
-                        @click="deleteIssueTypeIcon(props.row.id)"
-                      />
+                        @click="deleteIssueTypeIcon(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -344,8 +341,7 @@
                         icon="mdi-delete"
                         color="amber"
                         label="Remove"
-                        @click="deleteIssueState(props.row.id)"
-                      />
+                        @click="deleteIssueState(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -429,8 +425,7 @@
                         icon="mdi-delete"
                         color="amber"
                         label="Remove"
-                        @click="deleteIssueEstimation(props.row.id)"
-                      />
+                        @click="deleteIssueEstimation(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
