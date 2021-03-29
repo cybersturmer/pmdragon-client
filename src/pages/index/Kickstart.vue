@@ -13,7 +13,7 @@
         :name="1"
         :done="isUserStepDone"
         title="Some bytes about you"
-        icon="mdi-face-recognition">
+        active-icon="mdi-face-recognition">
         <q-input
           v-model="userFormData.first_name"
           dark
