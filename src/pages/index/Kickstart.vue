@@ -7,13 +7,12 @@
       dark
       inactive-color="amber"
       active-color="amber"
-      done-color="positive"
+      done-color="info"
       animated
     >
       <q-step
         :name="1"
         :done="isUserStepDone"
-        done-color="positive"
         title="Some bytes about you"
         icon="mdi-face-recognition"
       >
@@ -60,7 +59,7 @@
       <q-step
         :name="2"
         title="Congratulations"
-        done-color="positive"
+        done-color="accent"
         icon="mdi-thumb-up"
       >
         <q-card dark flat>
@@ -117,6 +116,9 @@ export default {
     },
     nextLabel () {
       return this.step === 2 ? 'Finish' : 'Continue'
+    },
+    isUsernameChanged () {
+      return this.userFormData.username !== this.$store.getters['auth/MY_EMAIL']
     }
   },
   methods: {
@@ -124,6 +126,12 @@ export default {
       try {
         switch (this.step) {
           case 1:
+            if (!this.isUsernameChanged) {
+              this.userFormErrors.username = 'Please change username'
+              return
+            }
+
+            this.resetFieldErrorMessage('userFormErrors', 'username')
             await this.updateUserData()
             break
           case 2:
