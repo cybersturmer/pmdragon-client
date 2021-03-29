@@ -108,7 +108,7 @@
               bordered>
               <q-card-section
                 v-html="formData.issue.description || 'Add a description by clicking this area...'"
-                class="editable_block"
+                class="editable_block text-amber"
                 @click="startEditingDescription"
               />
             </q-card>
@@ -219,6 +219,7 @@
                           :key="entry.id"
                           :title="buildTimeLineEntryTitle(entry)"
                           :subtitle="getRelativeDatetime(entry.updated_at)"
+                          class="text-amber"
                           color="secondary"
                           :icon="entry.entry_type ? entry.entry_type : 'mdi-radiobox-marked'">
                           <div
@@ -256,7 +257,8 @@
               dark
               bordered
               class="editable_block">
-              <q-card-section class="text-muted">
+              <q-card-section
+                class="text-muted text-amber">
                 Add new message...
               </q-card-section>
             </q-card>
