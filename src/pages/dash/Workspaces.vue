@@ -118,8 +118,34 @@ export default {
         })
     },
     selectSpace (prefixUrl, projectId) {
+      /** Let's unsubscribe from previously subscribed workspace */
+      const unsubscribePayload = {
+        action: 'unsubscribe_from_issues_in_workspace',
+        request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+        workspace_pk: this.$store.getters['current/WORKSPACE']
+      }
+
+      this.$socket.sendObj({
+        stream: 'workspace_issues',
+        payload: unsubscribePayload
+      })
+
+      /** Then select new Workspace and Project */
       this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
       this.$store.dispatch('current/SELECT_PROJECT', projectId)
+
+      /** And now let's subscribe issues from new Workspace */
+      const subscribePayload = {
+        action: 'subscribe_to_issues_in_workspace',
+        request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+        workspace_pk: this.$store.getters['current/WORKSPACE']
+      }
+
+      this.$socket.sendObj({
+        stream: 'workspace_issues',
+        payload: subscribePayload
+      })
+
       this.$router.push({ name: 'backlog' })
     },
     filterByString (rows, terms, cols, getCellValue) {

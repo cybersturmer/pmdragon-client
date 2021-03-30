@@ -1,5 +1,5 @@
 import { LocalStorage } from 'quasar'
-import { removeElement, removeElementById, syncPair } from 'src/services/util'
+import { removeElement, removeElementById, syncPair, updateElementById } from 'src/services/util'
 
 function findBacklogByProjectId (state, projectId) {
   return state.backlogs
@@ -120,10 +120,7 @@ export function ADD_ISSUE_TO_ISSUES (state, payload) {
 
 export function UPDATE_ISSUE (state, payload) {
   /** Update issue by full portion **/
-  const issue = state.issues
-    .find(issue => issue.id === payload.id)
-
-  syncPair(payload, issue)
+  updateElementById(state.issues, payload)
   saveIssuesStateToLocalStorage(state)
 }
 
@@ -347,12 +344,7 @@ export function UPDATE_ISSUE_ESTIMATIONS (state, payload) {
 }
 
 export function DELETE_ISSUE (state, payload) {
-  const issueIndex = state.issues
-    .findIndex((el, index, array) => {
-      return el.id === payload.id
-    })
-
-  state.issues.splice(issueIndex, 1)
+  removeElementById(state.issues, payload)
   LocalStorage.set('core.issues', state.issues)
 }
 

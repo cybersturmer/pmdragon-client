@@ -1,9 +1,11 @@
 import { IssueChat } from 'src/services/websockets/stream/IssueChat'
+import { IssueInWorkspace } from 'src/services/websockets/stream/IssueInWorkspace'
 
 export class WsController {
   constructor () {
     this.streamMapping = {
-      issue_chat: IssueChat
+      issue_chat: IssueChat,
+      workspace_issues: IssueInWorkspace
     }
   }
 
