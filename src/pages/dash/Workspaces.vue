@@ -122,7 +122,7 @@ export default {
       const unsubscribePayload = {
         action: 'unsubscribe_from_issues_in_workspace',
         request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-        workspace_pk: this.$store.getters['current/WORKSPACE']
+        workspace_pk: this.$store.getters['auth/WORKSPACE_ID']
       }
 
       this.$socket.sendObj({
@@ -138,7 +138,7 @@ export default {
       const subscribePayload = {
         action: 'subscribe_to_issues_in_workspace',
         request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-        workspace_pk: this.$store.getters['current/WORKSPACE']
+        workspace_pk: this.$store.getters['auth/WORKSPACE_ID']
       }
 
       this.$socket.sendObj({
