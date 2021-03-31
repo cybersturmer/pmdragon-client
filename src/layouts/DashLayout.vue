@@ -182,11 +182,6 @@ export default {
       const handler = new WsController()
       handler.processEvent(data)
     }
-
-    while (true) {
-      if (!this.$store.getters['connection/SOCKET_CONNECTED']) break
-      this.subscribeIssuesInWorkspace()
-    }
   },
   methods: {
     logout () {

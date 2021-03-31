@@ -36,9 +36,20 @@ export const websocket = {
       this.$store.commit('current/SET_ISSUE_IN_WORKSPACE_SUBSCRIBED', true)
     }
   },
+  watch: {
+    connected (newValue, oldValue) {
+      /** Let's subscribe issues only if we connected to server */
+      if (oldValue || !newValue) return null
+
+      this.subscribeIssuesInWorkspace()
+    }
+  },
   computed: {
     issuesInWorkspaceSubscribed () {
       return this.$store.getters['current/ISSUE_IN_WORKSPACE_SUBSCRIBED']
+    },
+    connected () {
+      return this.$store.getters['connection/SOCKET_CONNECTED']
     }
   }
 }
