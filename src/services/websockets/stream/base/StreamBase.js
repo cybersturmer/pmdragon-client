@@ -11,7 +11,7 @@ export class StreamBase {
         return ('created_by' in message) && (message.created_by === this.person)
       case 'update':
       case 'delete':
-        return ('updated_by' in message) && (message.updated_by)
+        return ('updated_by' in message) && (message.updated_by === this.person)
     }
   }
 
