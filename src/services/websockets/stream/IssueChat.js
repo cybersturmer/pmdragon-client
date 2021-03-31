@@ -1,32 +1,7 @@
 import $store from 'src/store'
+import { StreamBase } from 'src/services/websockets/stream/base/StreamBase'
 
-export class IssueChat {
-  constructor () {
-    this.person = $store.getters['auth/MY_PERSON_ID']
-  }
-
-  isMyEvent (payload) {
-    return ('created_by' in payload.message) && (payload.message.created_by === this.person)
-  }
-
-  processPayload (payload) {
-    if (this.isMyEvent(payload)) return false
-
-    switch (payload.action) {
-      case 'create':
-        this.onCreate(payload.message)
-        break
-      case 'update':
-        this.onUpdate(payload.message)
-        break
-      case 'delete':
-        this.onDelete(payload.message)
-        break
-      default:
-        console.info(`Unhandled websocket action: ${this.payload.action}`)
-    }
-  }
-
+export class IssueChat extends StreamBase {
   onCreate (message) {
     $store.commit('current/ADD_ISSUE_MESSAGE', message)
   }
