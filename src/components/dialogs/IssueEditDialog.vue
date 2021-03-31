@@ -416,6 +416,7 @@ export default {
     },
 
     hide () {
+      this.$store.dispatch('current/RESET_ISSUE_SELECTION')
       this.$refs.dialog.hide()
     },
 

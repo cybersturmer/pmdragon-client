@@ -39,3 +39,7 @@ export function ARE_ISSUE_MESSAGES (state) {
 export function ISSUE_HISTORY (state) {
   return state.issue_history
 }
+
+export function ISSUE_IN_WORKSPACE_SUBSCRIBED (state) {
+  return state.issue_in_workspace_subscribed
+}

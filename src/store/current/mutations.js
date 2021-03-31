@@ -61,6 +61,10 @@ export function SET_ISSUE_HISTORY (state, payload) {
   LocalStorage.set('current.issue_history', payload)
 }
 
+export function SET_ISSUE_IN_WORKSPACE_SUBSCRIBED (state, payload) {
+  state.issue_in_workspace_subscribed = payload
+}
+
 export function RESET () {
   /** loading and loading_module are not stored in LC
    * So we don't need to clean it **/

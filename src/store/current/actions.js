@@ -28,15 +28,9 @@ export function SET_ISSUE_HISTORY ({ commit }, payload) {
   commit('SET_ISSUE_HISTORY', payload)
 }
 
-export function RESET_ISSUE ({ commit }) {
+export function RESET_ISSUE_SELECTION ({ commit }) {
   commit('SET_ISSUE', null)
-}
-
-export function RESET_ISSUE_MESSAGES ({ commit }) {
   commit('SET_ISSUE_MESSAGES', null)
-}
-
-export function RESET_ISSUE_HISTORY ({ commit }) {
   commit('SET_ISSUE_HISTORY', null)
 }
 

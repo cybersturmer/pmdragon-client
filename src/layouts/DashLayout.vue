@@ -137,9 +137,11 @@
 <script>
 
 import { WsController } from 'src/services/websockets/WsController'
+import { websocket } from 'pages/mixins/websockets'
 
 export default {
   name: 'DashLayout',
+  mixins: [websocket],
   data () {
     return {
       leftDrawerOpen: false,
@@ -179,6 +181,11 @@ export default {
     this.$options.sockets.onmessage = (data) => {
       const handler = new WsController()
       handler.processEvent(data)
+    }
+
+    while (true) {
+      if (!this.$store.getters['connection/SOCKET_CONNECTED']) break
+      this.subscribeIssuesInWorkspace()
     }
   },
   methods: {
