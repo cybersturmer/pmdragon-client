@@ -242,7 +242,7 @@ export async function UPDATE_MY_PASSWORD ({ commit }, payload) {
       auth: true,
       expectedStatus: 200
     })
-      .post('/auth/password/', payload)
+      .post('/auth/password/change/', payload)
   } catch (e) {
     throw new ErrorHandler(e)
   }
