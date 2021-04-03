@@ -50,6 +50,15 @@ const routes = [
         component: () => import('pages/index/VerifyInvitation.vue')
       },
       {
+        name: 'verify-password-restore',
+        path: '/verify/password/restore/:key',
+        props: true,
+        meta: {
+          title: 'Get back to PmDragon' + PMDRAGON_STRING
+        },
+        component: () => import('pages/index/VerifyPasswordRestore.vue')
+      },
+      {
         name: 'loading',
         path: '/loading',
         meta: {
