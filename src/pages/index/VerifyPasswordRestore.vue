@@ -1,28 +1,28 @@
 <template>
   <q-page class="flex flex-center">
     <q-card
-      v-if="isRegistration"
+      v-if="isPasswordForgotRequestValid"
       dark
       flat
       bordered
       class="my-card" style="width: 320px">
       <q-card-section>
-        <div class="text-h6">Complete your registration</div>
-      </q-card-section>
-      <q-card-section>
         <PasswordField
-          v-model="formData.password"
-          :error-message="formErrors.password"
-          @keyup.enter.native="completeRegistration"
+          v-model="formData.new_password1"
+          :error-message="formErrors.new_password1"
+        />
+        <PasswordField
+          v-model="formData.new_password2"
+          :error-message="formErrors.new_password2"
         />
       </q-card-section>
       <q-card-actions vertical>
         <q-btn
           dark
           outline
-          @click="completeRegistration"
-        >
-          Complete
+          color="amber"
+          @click="passwordUpdate">
+          Confirm
         </q-btn>
       </q-card-actions>
     </q-card>
@@ -33,16 +33,18 @@
       bordered
       class="my-card">
       <q-card-section class="text-center">
-        <div class="text-h6">Your registration was not found.</div>
+        <div class="text-h6">This link is expired or have already been used.</div>
       </q-card-section>
     </q-card>
   </q-page>
 </template>
 
 <script>
+import { Api } from 'src/services/api'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import { ErrorHandler } from 'src/services/util'
 
 export default {
   name: 'VerifyPasswordRestore',
@@ -50,6 +52,7 @@ export default {
   components: { PasswordField },
   data () {
     return {
+      isPasswordForgotRequestValid: false,
       formData: {
         key: this.$attrs.key,
         new_password1: '',
@@ -63,13 +66,19 @@ export default {
     }
   },
   async mounted () {
-    /**
-     * @todo Let's implement this
-     * Let's get data from request
-     * like email and person id */
+    try {
+      await new Api({
+        expectedStatus: 200
+      })
+        .get(`/auth/person-password-forgot-requests/${this.$attrs.key}/`)
+
+      this.isPasswordForgotRequestValid = true
+    } catch (e) {
+      this.isPasswordForgotRequestValid = false
+    }
   },
   methods: {
-    async passwordRestore () {
+    async passwordUpdate () {
       /**
        * @todo Let's implement this
        * We have to send:
@@ -78,7 +87,31 @@ export default {
        * 3) One more time new password
        * As a result we have to change password for user
        * */
+      const payload = {
+        new_password1: this.formData.new_password1,
+        new_password2: this.formData.new_password2
+      }
 
+      try {
+        await new Api({
+          expectedStatus: 200
+        })
+          .patch(`/auth/person-password-forgot-requests/${this.$attrs.key}/`,
+            payload)
+
+        this.showOkDialog(
+          'Password successfully changed',
+          'Your password was successfully changed, now you can login using new password.'
+        )
+          .onOk(() => {
+            this.$router.push({ name: 'login' })
+          })
+      } catch (e) {
+        const error = new ErrorHandler(e)
+        error.setErrors(this.formErrors)
+
+        this.showError(error)
+      }
     }
   }
 }

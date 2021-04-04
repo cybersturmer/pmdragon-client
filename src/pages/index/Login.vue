@@ -27,7 +27,7 @@
               label="Sign In"
               @click="login"
             />
-            <router-link :to="{ path: '/register' }" class="float-right" style="text-decoration: none">
+            <router-link :to="{ name: 'register' }" class="float-right" style="text-decoration: none">
               <template>
               <q-btn
                 flat
@@ -37,6 +37,7 @@
                 style="margin-left: 30px"/>
               </template>
             </router-link>
+            <!-- @todo I think better to do here a dialog to restore password -->
           </q-card-section>
         </q-card>
   </q-page>
