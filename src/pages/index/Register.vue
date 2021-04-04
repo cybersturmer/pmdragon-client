@@ -28,7 +28,7 @@
               color="amber"
               outline
               label="Sign Up"/>
-            <router-link :to="{ path: '/' }" class="float-right"  style="text-decoration: none">
+            <router-link :to="{ name: 'login' }" class="float-right"  style="text-decoration: none">
               <template>
                 <q-btn
                   flat
