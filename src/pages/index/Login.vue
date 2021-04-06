@@ -45,7 +45,6 @@
 
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
-import { ErrorHandler } from 'src/services/util'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PasswordField from 'components/fields/PasswordField'
 import UsernameField from 'components/fields/UsernameField'
@@ -81,8 +80,14 @@ export default {
 
         await this.$router.push({ name: 'loading' })
       } catch (e) {
-        const error = new ErrorHandler(e)
-        this.showOkDialog('Login was not successful', error.message)
+        if (e.status === 401) {
+          /** Let's create here dialog with 2 option
+           * 1) OK, i will try one more time
+           * 2) Restore by resetting on email
+           **/
+        } else {
+          return this.showOkDialog('Login was not successful', e.message)
+        }
       }
     }
   }
