@@ -20,16 +20,16 @@
 import ConnectionEditDialog from 'components/dialogs/ConnectionEditDialog.vue'
 
 export default {
-  name: 'ChangeConnectionElement',
-  methods: {
-    showConnectionEditDialog () {
-      this.$q.dialog({
-        parent: this,
-        dark: true,
-        component: ConnectionEditDialog
-      })
-    }
-  }
+	name: 'ChangeConnectionElement',
+	methods: {
+		showConnectionEditDialog () {
+			this.$q.dialog({
+				parent: this,
+				dark: true,
+				component: ConnectionEditDialog
+			})
+		}
+	}
 }
 </script>
 

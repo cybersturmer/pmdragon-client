@@ -71,99 +71,99 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'SprintEditDialog',
-  mixins: [fieldValidationMixin, Dialogs],
-  components: { },
-  data () {
-    return {
-      teamTableData: {
-        columns: [
-          {
-            name: 'email',
-            required: true,
-            align: 'left',
-            field: row => row.email,
-            format: val => `${val}`,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        },
-        data: []
-      },
-      teamFormErrors: {},
-      teamFormEmail: null
-    }
-  },
-  methods: {
-    addTeamMember () {
-      /** Just add a team member to temp var **/
-      if (this.teamFormEmail === null) return false
+	name: 'SprintEditDialog',
+	mixins: [fieldValidationMixin, Dialogs],
+	components: { },
+	data () {
+		return {
+			teamTableData: {
+				columns: [
+					{
+						name: 'email',
+						required: true,
+						align: 'left',
+						field: row => row.email,
+						format: val => `${val}`,
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 0
+				},
+				data: []
+			},
+			teamFormErrors: {},
+			teamFormEmail: null
+		}
+	},
+	methods: {
+		addTeamMember () {
+			/** Just add a team member to temp var **/
+			if (this.teamFormEmail === null) return false
 
-      if (!this.isValidEmail(this.teamFormEmail)) {
-        this.showOkDialog(
-          'Not a correct email',
-          'Please input correct email address'
-        )
+			if (!this.isValidEmail(this.teamFormEmail)) {
+				this.showOkDialog(
+					'Not a correct email',
+					'Please input correct email address'
+				)
 
-        return false
-      }
+				return false
+			}
 
-      this.teamTableData.data.push({
-        email: this.teamFormEmail
-      })
+			this.teamTableData.data.push({
+				email: this.teamFormEmail
+			})
 
-      this.teamFormEmail = null
-    },
-    cancelInvitation (email) {
-      /**
+			this.teamFormEmail = null
+		},
+		cancelInvitation (email) {
+			/**
        * Just remove email from the payload that we gonna send to
        * create team members **/
 
-      this.teamTableData.data = this.teamTableData.data.filter((row) => row.email !== email)
-    },
-    show () {
-      this.$refs.dialog.show()
-    },
+			this.teamTableData.data = this.teamTableData.data.filter((row) => row.email !== email)
+		},
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    async onOKClick () {
-      /** Let's add already filled team member **/
+		async onOKClick () {
+			/** Let's add already filled team member **/
 
-      this.addTeamMember()
-      /** Create team by sending emails on server **/
-      const payload = {
-        invites: []
-      }
+			this.addTeamMember()
+			/** Create team by sending emails on server **/
+			const payload = {
+				invites: []
+			}
 
-      const teamData = this.teamTableData.data
+			const teamData = this.teamTableData.data
 
-      for (const emailElement in teamData) {
-        const dictPayload = {
-          email: teamData[emailElement].email,
-          workspace: this.$store.getters['auth/WORKSPACE_ID']
-        }
+			for (const emailElement in teamData) {
+				const dictPayload = {
+					email: teamData[emailElement].email,
+					workspace: this.$store.getters['auth/WORKSPACE_ID']
+				}
 
-        payload.invites.push(dictPayload)
-      }
+				payload.invites.push(dictPayload)
+			}
 
-      await this.$store.dispatch('auth/INVITE_TEAM', payload)
-      this.isTeamStepDone = true
-      this.$emit('ok', payload)
-      this.hide()
-    },
+			await this.$store.dispatch('auth/INVITE_TEAM', payload)
+			this.isTeamStepDone = true
+			this.$emit('ok', payload)
+			this.hide()
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	}
 }
 </script>

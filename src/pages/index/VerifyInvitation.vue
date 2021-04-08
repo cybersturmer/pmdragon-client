@@ -37,68 +37,68 @@ import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'VerifyInvitation',
-  mixins: [Dialogs],
-  components: { PasswordField },
-  data () {
-    return {
-      infoData: {
-        prefix_url: '',
-        email: ''
-      },
-      formData: {
-        key: this.$attrs.key,
-        password: '',
-        is_invited: true
-      },
-      formErrors: {
-        password: ''
-      }
-    }
-  },
-  computed: {
-    key () {
-      return this.$attrs.key
-    }
-  },
-  async mounted () {
-    const response = await new Api({
-      expectedStatus: 200
-    })
-      .get(`/auth/person-invitation-requests/${this.key}/`)
+	name: 'VerifyInvitation',
+	mixins: [Dialogs],
+	components: { PasswordField },
+	data () {
+		return {
+			infoData: {
+				prefix_url: '',
+				email: ''
+			},
+			formData: {
+				key: this.$attrs.key,
+				password: '',
+				is_invited: true
+			},
+			formErrors: {
+				password: ''
+			}
+		}
+	},
+	computed: {
+		key () {
+			return this.$attrs.key
+		}
+	},
+	async mounted () {
+		const response = await new Api({
+			expectedStatus: 200
+		})
+			.get(`/auth/person-invitation-requests/${this.key}/`)
 
-    this.infoData.prefix_url = response.data.workspace.prefix_url
-    this.infoData.email = response.data.email
-  },
-  methods: {
-    async completeRegistration () {
-      /**
+		this.infoData.prefix_url = response.data.workspace.prefix_url
+		this.infoData.email = response.data.email
+	},
+	methods: {
+		async completeRegistration () {
+			/**
        * We have to register user first and attach him
        * to workspace where we were invited. **/
 
-      try {
-        await new Api({
-          expectedStatus: 201
-        })
-          .post('/auth/persons/', this.formData)
+			try {
+				await new Api({
+					expectedStatus: 201
+				})
+					.post('/auth/persons/', this.formData)
 
-        const payload = {
-          is_accepted: true
-        }
+				const payload = {
+					is_accepted: true
+				}
 
-        await new Api({
-          expectedStatus: 200
-        })
-          .put(`/auth/person-invitation-requests/${this.key}/`, payload)
+				await new Api({
+					expectedStatus: 200
+				})
+					.put(`/auth/person-invitation-requests/${this.key}/`, payload)
 
-        await this.$router.push({ name: 'login' })
-      } catch (e) {
-        const error = new ErrorHandler(e)
-        error.setErrors(this.formErrors)
-        this.showError(error)
-      }
-    }
-  }
+				await this.$router.push({ name: 'login' })
+			} catch (e) {
+				const error = new ErrorHandler(e)
+				error.setErrors(this.formErrors)
+				this.showError(error)
+			}
+		}
+	}
 }
 </script>
 

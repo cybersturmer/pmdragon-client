@@ -73,82 +73,82 @@ import ProjectCreateDialog from 'components/dialogs/ProjectCreateDialog.vue'
 import { websocket } from 'pages/mixins/websockets'
 
 export default {
-  name: 'WorkspacesView',
-  mixins: [websocket],
-  components: { SmallParticipantChipElement },
-  data () {
-    return {
-      workspacesTable: {
-        filter: '',
-        columns: [
-          {
-            name: 'workspace',
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 6
-        }
-      }
-    }
-  },
-  methods: {
-    createWorkspaceDialog () {
-      const options = {
-        parent: this,
-        dark: true,
-        title: 'Create Workspace',
-        component: WorkspaceCreateDialog
-      }
+	name: 'WorkspacesView',
+	mixins: [websocket],
+	components: { SmallParticipantChipElement },
+	data () {
+		return {
+			workspacesTable: {
+				filter: '',
+				columns: [
+					{
+						name: 'workspace',
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 6
+				}
+			}
+		}
+	},
+	methods: {
+		createWorkspaceDialog () {
+			const options = {
+				parent: this,
+				dark: true,
+				title: 'Create Workspace',
+				component: WorkspaceCreateDialog
+			}
 
-      this.$q.dialog(options)
-        .onOk((data) => {
-          this.createProjectDialog(data.id)
-        })
-    },
-    createProjectDialog () {
-      const options = {
-        parent: this,
-        dark: true,
-        title: 'Create Project',
-        component: ProjectCreateDialog
-      }
+			this.$q.dialog(options)
+				.onOk((data) => {
+					this.createProjectDialog(data.id)
+				})
+		},
+		createProjectDialog () {
+			const options = {
+				parent: this,
+				dark: true,
+				title: 'Create Project',
+				component: ProjectCreateDialog
+			}
 
-      this.$q.dialog(options)
-        .onOk(() => {
-          this.$router.push({ name: 'loading' })
-        })
-    },
-    selectSpace (prefixUrl, projectId) {
-      this.unsubscribeIssuesInWorkspace()
+			this.$q.dialog(options)
+				.onOk(() => {
+					this.$router.push({ name: 'loading' })
+				})
+		},
+		selectSpace (prefixUrl, projectId) {
+			this.unsubscribeIssuesInWorkspace()
 
-      /** Then select new Workspace and Project */
-      this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
-      this.$store.dispatch('current/SELECT_PROJECT', projectId)
+			/** Then select new Workspace and Project */
+			this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
+			this.$store.dispatch('current/SELECT_PROJECT', projectId)
 
-      this.subscribeIssuesInWorkspace()
+			this.subscribeIssuesInWorkspace()
 
-      this.$router.push({ name: 'backlog' })
-    },
-    filterByString (rows, terms, cols, getCellValue) {
-      const regex = new RegExp(terms, 'i')
+			this.$router.push({ name: 'backlog' })
+		},
+		filterByString (rows, terms, cols, getCellValue) {
+			const regex = new RegExp(terms, 'i')
 
-      return rows
-        .filter((workspace) =>
-          workspace.prefix_url.match(regex) ||
+			return rows
+				.filter((workspace) =>
+					workspace.prefix_url.match(regex) ||
           workspace.projects.find(project => project.title.match(regex))
-        )
-    }
-  },
-  computed: {
-    workspaces () {
-      const workspaces = this.$store.getters['auth/WORKSPACES']
-      return workspaces.filter(workspace => workspace.projects.length > 0)
-    }
-  },
-  mounted () {
-    this.$store.dispatch('current/RESET_WORKSPACE')
-    this.$store.dispatch('current/RESET_PROJECT')
-  }
+				)
+		}
+	},
+	computed: {
+		workspaces () {
+			const workspaces = this.$store.getters['auth/WORKSPACES']
+			return workspaces.filter(workspace => workspace.projects.length > 0)
+		}
+	},
+	mounted () {
+		this.$store.dispatch('current/RESET_WORKSPACE')
+		this.$store.dispatch('current/RESET_PROJECT')
+	}
 }
 </script>

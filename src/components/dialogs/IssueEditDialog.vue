@@ -408,34 +408,34 @@
 import { editIssueMixin } from 'pages/mixins/editIssueMixin'
 
 export default {
-  name: 'IssueEditDialog',
-  mixins: [editIssueMixin],
-  methods: {
-    show () {
-      this.$refs.dialog.show()
-    },
+	name: 'IssueEditDialog',
+	mixins: [editIssueMixin],
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$store.dispatch('current/RESET_ISSUE_SELECTION')
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$store.dispatch('current/RESET_ISSUE_SELECTION')
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    onOKClick () {
-      const payload = {
-      }
+		onOKClick () {
+			const payload = {
+			}
 
-      this.$emit('ok', payload)
-      this.hide()
-    },
+			this.$emit('ok', payload)
+			this.hide()
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	}
 }
 </script>
 <style lang="scss">

@@ -187,81 +187,81 @@ import AvatarUploader from 'components/elements/AvatarUploader'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'AccountView',
-  components: { AvatarUploader, SettingPanelCard },
-  mixins: [Dialogs],
-  data () {
-    return {
-      tab: 'general',
-      defaultPreText: '* All changes will take effect after pressing update button.',
-      reUploadIntended: true,
-      justUploaded: false,
-      userFormData: {
-        firstName: this.$store.getters['auth/MY_FIRST_NAME'],
-        lastName: this.$store.getters['auth/MY_LAST_NAME'],
-        userName: this.$store.getters['auth/MY_USERNAME']
-      },
-      passwordFormData: {
-        oldPassword: '',
-        newPassword1: '',
-        newPassword2: ''
-      }
-    }
-  },
-  methods: {
-    saveUserData () {
-      // Snake case cuz of API
-      const payload = {
-        first_name: this.userFormData.firstName,
-        last_name: this.userFormData.lastName,
-        username: this.userFormData.userName
-      }
+	name: 'AccountView',
+	components: { AvatarUploader, SettingPanelCard },
+	mixins: [Dialogs],
+	data () {
+		return {
+			tab: 'general',
+			defaultPreText: '* All changes will take effect after pressing update button.',
+			reUploadIntended: true,
+			justUploaded: false,
+			userFormData: {
+				firstName: this.$store.getters['auth/MY_FIRST_NAME'],
+				lastName: this.$store.getters['auth/MY_LAST_NAME'],
+				userName: this.$store.getters['auth/MY_USERNAME']
+			},
+			passwordFormData: {
+				oldPassword: '',
+				newPassword1: '',
+				newPassword2: ''
+			}
+		}
+	},
+	methods: {
+		saveUserData () {
+			// Snake case cuz of API
+			const payload = {
+				first_name: this.userFormData.firstName,
+				last_name: this.userFormData.lastName,
+				username: this.userFormData.userName
+			}
 
-      this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
-    },
-    async savePassword () {
-      // Snake case cuz of API
-      const payload = {
-        old_password: this.passwordFormData.oldPassword,
-        new_password1: this.passwordFormData.newPassword1,
-        new_password2: this.passwordFormData.newPassword2
-      }
+			this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
+		},
+		async savePassword () {
+			// Snake case cuz of API
+			const payload = {
+				old_password: this.passwordFormData.oldPassword,
+				new_password1: this.passwordFormData.newPassword1,
+				new_password2: this.passwordFormData.newPassword2
+			}
 
-      try {
-        await this.$store.dispatch('auth/UPDATE_MY_PASSWORD', payload)
-        this.passwordFormData.oldPassword = ''
-        this.passwordFormData.newPassword1 = ''
-        this.passwordFormData.newPassword2 = ''
-      } catch (e) {
-        this.showError(e)
-      }
-    }
-  },
-  computed: {
-    arePasswords () {
-      return this.passwordFormData.newPassword1 &&
+			try {
+				await this.$store.dispatch('auth/UPDATE_MY_PASSWORD', payload)
+				this.passwordFormData.oldPassword = ''
+				this.passwordFormData.newPassword1 = ''
+				this.passwordFormData.newPassword2 = ''
+			} catch (e) {
+				this.showError(e)
+			}
+		}
+	},
+	computed: {
+		arePasswords () {
+			return this.passwordFormData.newPassword1 &&
         this.passwordFormData.newPassword2 &&
         this.passwordFormData.oldPassword
-    },
-    email () {
-      return this.$store.getters['auth/MY_EMAIL']
-    },
-    meCreatedAt () {
-      try {
-        const meCreatedAt = this.$store.getters['auth/ME_CREATED_AT']
-        return this.$moment(meCreatedAt).fromNow()
-      } catch (e) {
-        return ''
-      }
-    },
-    meLastLogin () {
-      try {
-        const meLastLogin = this.$store.getters['auth/ME_LAST_LOGIN']
-        return this.$moment(meLastLogin).fromNow()
-      } catch (e) {
-        return ''
-      }
-    }
-  }
+		},
+		email () {
+			return this.$store.getters['auth/MY_EMAIL']
+		},
+		meCreatedAt () {
+			try {
+				const meCreatedAt = this.$store.getters['auth/ME_CREATED_AT']
+				return this.$moment(meCreatedAt).fromNow()
+			} catch (e) {
+				return ''
+			}
+		},
+		meLastLogin () {
+			try {
+				const meLastLogin = this.$store.getters['auth/ME_LAST_LOGIN']
+				return this.$moment(meLastLogin).fromNow()
+			} catch (e) {
+				return ''
+			}
+		}
+	}
 }
 </script>

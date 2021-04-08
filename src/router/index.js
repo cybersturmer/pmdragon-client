@@ -9,14 +9,14 @@ import moment from 'moment-timezone'
 
 Vue.use(VueRouter)
 Vue.use(VueMoment, {
-  moment
+	moment
 })
 Vue.use(
-  VueNativeSock,
-  $store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN'],
-  {
-    connectManually: true
-  }
+	VueNativeSock,
+	$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN'],
+	{
+		connectManually: true
+	}
 )
 
 /*
@@ -29,16 +29,16 @@ Vue.use(
  */
 
 export default function (/* { store, ssrContext } */) {
-  const Router = new VueRouter({
-    scrollBehavior: () => ({ x: 0, y: 0 }),
-    routes,
+	const Router = new VueRouter({
+		scrollBehavior: () => ({ x: 0, y: 0 }),
+		routes,
 
-    // Leave these as they are and change in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE
-  })
+		// Leave these as they are and change in quasar.conf.js instead!
+		// quasar.conf.js -> build -> vueRouterMode
+		// quasar.conf.js -> build -> publicPath
+		mode: process.env.VUE_ROUTER_MODE,
+		base: process.env.VUE_ROUTER_BASE
+	})
 
-  return Router
+	return Router
 }

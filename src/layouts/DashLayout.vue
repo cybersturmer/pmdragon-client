@@ -140,124 +140,124 @@ import { WsController } from 'src/services/websockets/WsController'
 import { websocket } from 'pages/mixins/websockets'
 
 export default {
-  name: 'DashLayout',
-  mixins: [websocket],
-  data () {
-    return {
-      leftDrawerOpen: false,
-      websocketConfiguration: {
-        store: this.$store,
-        reconnection: true,
-        reconnectionDelay: 3000,
-        format: 'json',
-        passToStoreHandler (eventName, event) {
-          if (!eventName.startsWith('SOCKET_')) { return null }
+	name: 'DashLayout',
+	mixins: [websocket],
+	data () {
+		return {
+			leftDrawerOpen: false,
+			websocketConfiguration: {
+				store: this.$store,
+				reconnection: true,
+				reconnectionDelay: 3000,
+				format: 'json',
+				passToStoreHandler (eventName, event) {
+					if (!eventName.startsWith('SOCKET_')) { return null }
 
-          const namespace = 'connection'
-          let target = ['connection', eventName.toUpperCase()].join('/')
-          let method = 'commit'
-          let msg = event
+					const namespace = 'connection'
+					let target = ['connection', eventName.toUpperCase()].join('/')
+					let method = 'commit'
+					let msg = event
 
-          if (event.data) {
-            msg = JSON.parse(event.data)
-            if (msg.mutation) {
-              target = [namespace, msg.mutation].join('/')
-            } else if (msg.action) {
-              method = 'dispatch'
-              target = [namespace, msg.action].join('/')
-            }
-          }
+					if (event.data) {
+						msg = JSON.parse(event.data)
+						if (msg.mutation) {
+							target = [namespace, msg.mutation].join('/')
+						} else if (msg.action) {
+							method = 'dispatch'
+							target = [namespace, msg.action].join('/')
+						}
+					}
 
-          this.store[method](target, msg)
-        }
-      }
-    }
-  },
-  created () {
-    /** Socket manual connection **/
-    const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
-    this.$connect(target, this.websocketConfiguration)
+					this.store[method](target, msg)
+				}
+			}
+		}
+	},
+	created () {
+		/** Socket manual connection **/
+		const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
+		this.$connect(target, this.websocketConfiguration)
 
-    this.$options.sockets.onmessage = (data) => {
-      const handler = new WsController()
-      handler.processEvent(data)
-    }
-  },
-  methods: {
-    logout () {
-      // Disconnect from sockets first (we use auth credentials to connect websockets)
-      this.$disconnect()
+		this.$options.sockets.onmessage = (data) => {
+			const handler = new WsController()
+			handler.processEvent(data)
+		}
+	},
+	methods: {
+		logout () {
+			// Disconnect from sockets first (we use auth credentials to connect websockets)
+			this.$disconnect()
 
-      this.$store.dispatch('auth/RESET')
-      this.$store.dispatch('current/RESET')
-      this.$store.dispatch('core/RESET')
-      this.$router.push({ name: 'login' })
-    },
-    goToAccount () {
-      if (this.$router.currentRoute.name === 'me') return false
-      this.$router.push({ name: 'me' })
-    },
-    goToWorkspaces () {
-      if (this.$router.currentRoute.name === 'workspaces') return false
-      this.$store.dispatch('current/RESET_WORKSPACE')
-      this.$store.dispatch('current/RESET_PROJECT')
-      this.$router.push({ name: 'workspaces' })
-    },
-    goToSettingsOfProject () {
-      this.$router.push({ name: 'settings' })
-    }
-  },
-  computed: {
-    toolbarText () {
-      const workspaceName = this.$store.getters['current/WORKSPACE']
-      const project = this.$store.getters['current/PROJECT']
+			this.$store.dispatch('auth/RESET')
+			this.$store.dispatch('current/RESET')
+			this.$store.dispatch('core/RESET')
+			this.$router.push({ name: 'login' })
+		},
+		goToAccount () {
+			if (this.$router.currentRoute.name === 'me') return false
+			this.$router.push({ name: 'me' })
+		},
+		goToWorkspaces () {
+			if (this.$router.currentRoute.name === 'workspaces') return false
+			this.$store.dispatch('current/RESET_WORKSPACE')
+			this.$store.dispatch('current/RESET_PROJECT')
+			this.$router.push({ name: 'workspaces' })
+		},
+		goToSettingsOfProject () {
+			this.$router.push({ name: 'settings' })
+		}
+	},
+	computed: {
+		toolbarText () {
+			const workspaceName = this.$store.getters['current/WORKSPACE']
+			const project = this.$store.getters['current/PROJECT']
 
-      if (workspaceName && project) {
-        const projectTitle = this.$store.getters['auth/PROJECT_TITLE']
-        return `${workspaceName} [ ${projectTitle} ]`
-      }
+			if (workspaceName && project) {
+				const projectTitle = this.$store.getters['auth/PROJECT_TITLE']
+				return `${workspaceName} [ ${projectTitle} ]`
+			}
 
-      return '  PmDragon Community Edition'
-    },
-    firstName () {
-      return this.$store.getters['auth/MY_FIRST_NAME']
-    },
-    lastName () {
-      return this.$store.getters['auth/MY_LAST_NAME']
-    },
-    username () {
-      return this.$store.getters['auth/MY_USERNAME']
-    },
-    connected () {
-      return this.$store.getters['connection/SOCKET_CONNECTED']
-    },
-    connectionError () {
-      return this.$store.getters['connection/SOCKET_RECONNECT_ERROR']
-    },
-    connectedText () {
-      switch (!!this.connected) {
-        case true: return 'Connected'
-        case false:
-          return this.connectionError ? 'No connection' : 'Disconnected'
-      }
-      return ''
-    },
-    connectionColor () {
-      switch (this.connectedText) {
-        case 'Connected': return 'positive'
-        default: return 'negative'
-      }
-    },
-    avatarUrl () {
-      return this.$store.getters['auth/MY_AVATAR']
-    },
-    isMeOwnerOfCurrentProject () {
-      return this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
-    },
-    isWorkspaceSelected () {
-      return this.$store.getters['current/WORKSPACE']
-    }
-  }
+			return '  PmDragon Community Edition'
+		},
+		firstName () {
+			return this.$store.getters['auth/MY_FIRST_NAME']
+		},
+		lastName () {
+			return this.$store.getters['auth/MY_LAST_NAME']
+		},
+		username () {
+			return this.$store.getters['auth/MY_USERNAME']
+		},
+		connected () {
+			return this.$store.getters['connection/SOCKET_CONNECTED']
+		},
+		connectionError () {
+			return this.$store.getters['connection/SOCKET_RECONNECT_ERROR']
+		},
+		connectedText () {
+			switch (!!this.connected) {
+			case true: return 'Connected'
+			case false:
+				return this.connectionError ? 'No connection' : 'Disconnected'
+			}
+			return ''
+		},
+		connectionColor () {
+			switch (this.connectedText) {
+			case 'Connected': return 'positive'
+			default: return 'negative'
+			}
+		},
+		avatarUrl () {
+			return this.$store.getters['auth/MY_AVATAR']
+		},
+		isMeOwnerOfCurrentProject () {
+			return this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
+		},
+		isWorkspaceSelected () {
+			return this.$store.getters['current/WORKSPACE']
+		}
+	}
 }
 </script>
 

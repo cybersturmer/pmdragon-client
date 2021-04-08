@@ -15,31 +15,31 @@
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
 export default {
-  name: 'PasswordField',
-  mixins: [fieldValidationMixin],
-  props: {
-    value: String,
-    errorMessage: String
-  },
-  data () {
-    return {
-      password: this.value
-    }
-  },
-  methods: {
-    handleInput (value) {
-      this.password = value
-      this.$emit('input', value)
-    }
-  },
-  computed: {
-    isError () {
-      try {
-        return this.errorMessage.length > 0
-      } catch (e) {
-        return false
-      }
-    }
-  }
+	name: 'PasswordField',
+	mixins: [fieldValidationMixin],
+	props: {
+		value: String,
+		errorMessage: String
+	},
+	data () {
+		return {
+			password: this.value
+		}
+	},
+	methods: {
+		handleInput (value) {
+			this.password = value
+			this.$emit('input', value)
+		}
+	},
+	computed: {
+		isError () {
+			try {
+				return this.errorMessage.length > 0
+			} catch (e) {
+				return false
+			}
+		}
+	}
 }
 </script>

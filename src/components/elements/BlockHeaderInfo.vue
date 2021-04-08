@@ -9,17 +9,17 @@
 
 <script>
 export default {
-  name: 'BlockHeaderInfo',
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    info: {
-      type: String,
-      required: true
-    }
-  }
+	name: 'BlockHeaderInfo',
+	props: {
+		title: {
+			type: String,
+			required: true
+		},
+		info: {
+			type: String,
+			required: true
+		}
+	}
 }
 </script>
 

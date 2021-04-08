@@ -4,13 +4,13 @@
 
 <script>
 export default {
-  name: 'BlockHeader',
-  props: {
-    title: {
-      type: String,
-      required: true
-    }
-  }
+	name: 'BlockHeader',
+	props: {
+		title: {
+			type: String,
+			required: true
+		}
+	}
 }
 </script>
 

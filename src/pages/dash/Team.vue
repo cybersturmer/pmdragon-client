@@ -101,105 +101,105 @@
 import InviteMemberDialog from 'components/dialogs/InviteMemberDialog'
 
 export default {
-  name: 'Team',
-  data () {
-    return {
-      teamTable: {
-        columns: [
-          {
-            name: 'avatar'
-          },
-          {
-            name: 'username',
-            required: true,
-            label: 'Username',
-            align: 'left',
-            field: row => row.username,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            name: 'name',
-            required: true,
-            label: 'Name',
-            field: row => `${row.first_name} ${row.last_name}`,
-            sortable: true
-          }
-        ],
-        filter: ''
-      },
-      invitedTable: {
-        columns: [
-          {
-            name: 'email',
-            required: true,
-            label: 'Email',
-            align: 'left',
-            field: row => row.email,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            name: 'expired',
-            required: true,
-            label: 'Expired At',
-            field: row => this.$moment(row.expired_at).fromNow(),
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 8
-        },
-        filter: ''
-      }
-    }
-  },
-  computed: {
-    myAvatarUrl () {
-      return this.$store.getters['auth/MY_AVATAR']
-    },
-    participants () {
-      return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
-    },
-    invited () {
-      const workspaceId = this.$store.getters['auth/WORKSPACE_ID']
-      const invited = this.$store.getters['auth/INVITED']
+	name: 'Team',
+	data () {
+		return {
+			teamTable: {
+				columns: [
+					{
+						name: 'avatar'
+					},
+					{
+						name: 'username',
+						required: true,
+						label: 'Username',
+						align: 'left',
+						field: row => row.username,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						name: 'name',
+						required: true,
+						label: 'Name',
+						field: row => `${row.first_name} ${row.last_name}`,
+						sortable: true
+					}
+				],
+				filter: ''
+			},
+			invitedTable: {
+				columns: [
+					{
+						name: 'email',
+						required: true,
+						label: 'Email',
+						align: 'left',
+						field: row => row.email,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						name: 'expired',
+						required: true,
+						label: 'Expired At',
+						field: row => this.$moment(row.expired_at).fromNow(),
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 8
+				},
+				filter: ''
+			}
+		}
+	},
+	computed: {
+		myAvatarUrl () {
+			return this.$store.getters['auth/MY_AVATAR']
+		},
+		participants () {
+			return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
+		},
+		invited () {
+			const workspaceId = this.$store.getters['auth/WORKSPACE_ID']
+			const invited = this.$store.getters['auth/INVITED']
 
-      return invited.filter((invitation) => invitation.workspace === workspaceId)
-    },
-    myId () {
-      return this.$store.getters['auth/MY_PERSON_ID']
-    }
-  },
-  methods: {
-    isMe (personId) {
-      return this.$store.getters['auth/MY_PERSON_ID'] === personId
-    },
-    notOwner (personId) {
-      return this.$store.getters['auth/PROJECT_OWNED_BY'].id !== personId
-    },
-    inviteMembersDialog () {
-      this.$q.dialog({
-        parent: this,
-        dark: true,
-        title: 'Invite Members',
-        component: InviteMemberDialog
-      })
-    },
-    removeMemberDialog (personId) {
-      const participant = this.$store.getters['auth/PERSON_BY_ID'](personId)
-      this.$q.dialog({
-        dark: true,
-        title: 'Confirmation',
-        message: `Would you like to remove participant: ${participant.first_name} ${participant.last_name}`,
-        cancel: true,
-        persistent: true
-      })
-        .onOk(() => {
-          this.$store.dispatch('auth/REMOVE_TEAM_MEMBER', personId)
-        })
-    }
-  }
+			return invited.filter((invitation) => invitation.workspace === workspaceId)
+		},
+		myId () {
+			return this.$store.getters['auth/MY_PERSON_ID']
+		}
+	},
+	methods: {
+		isMe (personId) {
+			return this.$store.getters['auth/MY_PERSON_ID'] === personId
+		},
+		notOwner (personId) {
+			return this.$store.getters['auth/PROJECT_OWNED_BY'].id !== personId
+		},
+		inviteMembersDialog () {
+			this.$q.dialog({
+				parent: this,
+				dark: true,
+				title: 'Invite Members',
+				component: InviteMemberDialog
+			})
+		},
+		removeMemberDialog (personId) {
+			const participant = this.$store.getters['auth/PERSON_BY_ID'](personId)
+			this.$q.dialog({
+				dark: true,
+				title: 'Confirmation',
+				message: `Would you like to remove participant: ${participant.first_name} ${participant.last_name}`,
+				cancel: true,
+				persistent: true
+			})
+				.onOk(() => {
+					this.$store.dispatch('auth/REMOVE_TEAM_MEMBER', personId)
+				})
+		}
+	}
 }
 </script>
 

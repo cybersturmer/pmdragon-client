@@ -1,45 +1,45 @@
 export function WORKSPACE (state) {
-  return state.workspace
+	return state.workspace
 }
 
 export function IS_WORKSPACE (state) {
-  return Boolean(state.workspace)
+	return Boolean(state.workspace)
 }
 
 export function PROJECT (state) {
-  return state.project
+	return state.project
 }
 
 export function IS_SPACE_DEFINED (state) {
-  return Boolean(state.workspace && state.project)
+	return Boolean(state.workspace && state.project)
 }
 
 export function LOADING (state) {
-  return !!state.loading
+	return !!state.loading
 }
 
 export function LOADING_TEXT (state) {
-  if (!state.loading_module) return ''
+	if (!state.loading_module) return ''
 
-  return `Loading ${state.loading_module}...`
+	return `Loading ${state.loading_module}...`
 }
 
 export function ISSUE (state) {
-  return state.issue
+	return state.issue
 }
 
 export function ISSUE_MESSAGES (state) {
-  return state.issue_messages
+	return state.issue_messages
 }
 
 export function ARE_ISSUE_MESSAGES (state) {
-  return state.issue_messages.length > 0
+	return state.issue_messages.length > 0
 }
 
 export function ISSUE_HISTORY (state) {
-  return state.issue_history
+	return state.issue_history
 }
 
 export function ISSUE_IN_WORKSPACE_SUBSCRIBED (state) {
-  return state.issue_in_workspace_subscribed
+	return state.issue_in_workspace_subscribed
 }

@@ -10,6 +10,6 @@
 
 <script>
 export default {
-  name: 'NoStartedSprintNotification'
+	name: 'NoStartedSprintNotification'
 }
 </script>

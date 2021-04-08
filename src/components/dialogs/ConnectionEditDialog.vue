@@ -29,58 +29,58 @@
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
 export default {
-  name: 'ConnectionEditDialog',
-  mixins: [fieldValidationMixin],
-  data () {
-    return {
-      formData: {
-        host: this.$store.getters['connection/HOST']
-      },
-      formErrors: {
-        host: ''
-      }
-    }
-  },
-  methods: {
-    show () {
-      this.$refs.dialog.show()
-    },
+	name: 'ConnectionEditDialog',
+	mixins: [fieldValidationMixin],
+	data () {
+		return {
+			formData: {
+				host: this.$store.getters['connection/HOST']
+			},
+			formErrors: {
+				host: ''
+			}
+		}
+	},
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    onOKClick () {
-      try {
-        this.$store.dispatch('connection/UPDATE_HOST', this.formData.host)
-        this.$emit('ok', this.formData)
-        this.hide()
-      } catch (e) {
-        e.setErrors(this.formErrors)
-      }
-    },
+		onOKClick () {
+			try {
+				this.$store.dispatch('connection/UPDATE_HOST', this.formData.host)
+				this.$emit('ok', this.formData)
+				this.hide()
+			} catch (e) {
+				e.setErrors(this.formErrors)
+			}
+		},
 
-    inputHost ($event) {
-      this.dropErrors()
-      this.formData.host = $event
-    },
+		inputHost ($event) {
+			this.dropErrors()
+			this.formData.host = $event
+		},
 
-    dropErrors () {
-      this.formErrors.host = ''
-    },
+		dropErrors () {
+			this.formErrors.host = ''
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  },
-  computed: {
-    prefix () {
-      return !process.env.DEV ? 'https://' : 'http://'
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	},
+	computed: {
+		prefix () {
+			return !process.env.DEV ? 'https://' : 'http://'
+		}
+	}
 }
 </script>

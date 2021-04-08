@@ -65,35 +65,35 @@
 import { AVATAR_ALLOW_MIMES } from 'src/services/allow'
 
 export default {
-  name: 'AvatarUploader',
-  methods: {
-    uploadFileAvatar (files) {
-      files.forEach(file => {
-        return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
-      })
+	name: 'AvatarUploader',
+	methods: {
+		uploadFileAvatar (files) {
+			files.forEach(file => {
+				return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
+			})
 
-      this.justUploaded = true
-    },
-    async deleteAvatar () {
-      await this.$store.dispatch('auth/DELETE_MY_AVATAR')
-      this.justUploaded = false
-    }
-  },
-  computed: {
-    avatarUrl () {
-      return this.$store.getters['auth/MY_AVATAR']
-    }
-  },
-  data () {
-    return {
-      maxFiles: 1,
-      maxFileSize: 10485760,
-      maxTotalSize: 10485760,
-      avatarAllowMimes: AVATAR_ALLOW_MIMES,
-      justUploaded: false,
-      reUploadIntended: true
-    }
-  }
+			this.justUploaded = true
+		},
+		async deleteAvatar () {
+			await this.$store.dispatch('auth/DELETE_MY_AVATAR')
+			this.justUploaded = false
+		}
+	},
+	computed: {
+		avatarUrl () {
+			return this.$store.getters['auth/MY_AVATAR']
+		}
+	},
+	data () {
+		return {
+			maxFiles: 1,
+			maxFileSize: 10485760,
+			maxTotalSize: 10485760,
+			avatarAllowMimes: AVATAR_ALLOW_MIMES,
+			justUploaded: false,
+			reUploadIntended: true
+		}
+	}
 }
 </script>
 <style lang="scss">

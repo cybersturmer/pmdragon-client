@@ -51,46 +51,46 @@ import UsernameField from 'components/fields/UsernameField'
 import ChangeConnectionElement from 'components/elements/ChangeConnectionElement'
 
 export default {
-  name: 'Login',
-  components: { UsernameField, PasswordField, ChangeConnectionElement },
-  mixins: [Dialogs, fieldValidationMixin],
-  data () {
-    return {
-      formData: {
-        username: '',
-        password: ''
-      },
-      formErrors: {
-        username: '',
-        password: ''
-      }
-    }
-  },
-  methods: {
-    async login () {
-      try {
-        await this.$store.dispatch('current/RESET')
-        await this.$store.dispatch('auth/RESET')
-        await this.$store.dispatch('core/RESET')
+	name: 'Login',
+	components: { UsernameField, PasswordField, ChangeConnectionElement },
+	mixins: [Dialogs, fieldValidationMixin],
+	data () {
+		return {
+			formData: {
+				username: '',
+				password: ''
+			},
+			formErrors: {
+				username: '',
+				password: ''
+			}
+		}
+	},
+	methods: {
+		async login () {
+			try {
+				await this.$store.dispatch('current/RESET')
+				await this.$store.dispatch('auth/RESET')
+				await this.$store.dispatch('core/RESET')
 
-        await this.$store.dispatch('auth/LOGIN', this.formData)
+				await this.$store.dispatch('auth/LOGIN', this.formData)
 
-        this.$set(this.formData, 'username', '')
-        this.$set(this.formData, 'password', '')
+				this.$set(this.formData, 'username', '')
+				this.$set(this.formData, 'password', '')
 
-        await this.$router.push({ name: 'loading' })
-      } catch (e) {
-        if (e.status === 401) {
-          /** Let's create here dialog with 2 option
+				await this.$router.push({ name: 'loading' })
+			} catch (e) {
+				if (e.status === 401) {
+					/** Let's create here dialog with 2 option
            * 1) OK, i will try one more time
            * 2) Restore by resetting on email
            **/
-        } else {
-          return this.showOkDialog('Login was not successful', e.message)
-        }
-      }
-    }
-  }
+				} else {
+					return this.showOkDialog('Login was not successful', e.message)
+				}
+			}
+		}
+	}
 }
 </script>
 

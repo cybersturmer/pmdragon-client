@@ -117,142 +117,142 @@ import { updateSprintMixin } from 'pages/mixins/updateSprint'
 import IssueBoard from 'components/elements/IssueBoard.vue'
 
 export default {
-  name: 'BoardViewN',
-  components: {
-    NoStartedSprintNotification,
-    StartCompleteSprintButton,
-    // eslint-disable-next-line vue/no-unused-components
-    IssueEditDialog,
-    // eslint-disable-next-line vue/no-unused-components
-    SprintEditDialog,
-    IssueBoard,
-    draggable
-  },
-  mixins: [updateSprintMixin, editIssueData],
-  data () {
-    return {
-      dragOptions: {
-        animation: 200,
-        group: 'issues',
-        disabled: false,
-        ghostClass: 'ghost'
-      }
-    }
-  },
-  computed: {
-    startedSprint () {
-      /** Return started sprint data is_started and not is_completed */
-      return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-    },
-    sprintRange () {
-      /** Return text dates like 10.10.2022 - 10.20.2022 */
-      const startedAt = date.formatDate(this.startedSprint.started_at, DATE_MASK)
-      const finishedAt = date.formatDate(this.startedSprint.finished_at, DATE_MASK)
-      return `${startedAt} - ${finishedAt}`
-    },
-    daysAmount () {
-      /** We use it for calculating in daysRemainingText not yet directly */
-      return date.getDateDiff(
-        this.startedSprint.started_at,
-        this.startedSprint.finished_at,
-        SPRINT_REMAINING_UNIT
-      )
-    },
-    daysRemaining () {
-      /** We use it for calculating in daysRemainingText not yet directly */
-      return date.getDateDiff(
-        this.startedSprint.finished_at,
-        new Date(),
-        SPRINT_REMAINING_UNIT
-      )
-    },
-    daysRemainingText () {
-      /** We use it to show ex: 10 days remaining */
-      switch (true) {
-        case this.daysRemaining > this.daysAmount:
-          return 'Will start soon...'
-        case this.daysRemaining > 0:
-          return `${this.daysRemaining} days`
-        case this.daysRemaining < 0:
-          return '0 days'
-        default:
-          throw new Error('Unexpected days remaining value')
-      }
-    }
-  },
-  methods: {
-    issuesByState (stateId) {
-      return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
-    },
-    issuesByStateAmount (stateId) {
-      return this.issuesByState(stateId).length
-    },
-    handleIssueAdded (event, issueStateId) {
-      /** Handling added in Issues State **/
-      const updatedElement = unWatch(event.added.element)
-      updatedElement.state_category = issueStateId
+	name: 'BoardViewN',
+	components: {
+		NoStartedSprintNotification,
+		StartCompleteSprintButton,
+		// eslint-disable-next-line vue/no-unused-components
+		IssueEditDialog,
+		// eslint-disable-next-line vue/no-unused-components
+		SprintEditDialog,
+		IssueBoard,
+		draggable
+	},
+	mixins: [updateSprintMixin, editIssueData],
+	data () {
+		return {
+			dragOptions: {
+				animation: 200,
+				group: 'issues',
+				disabled: false,
+				ghostClass: 'ghost'
+			}
+		}
+	},
+	computed: {
+		startedSprint () {
+			/** Return started sprint data is_started and not is_completed */
+			return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+		},
+		sprintRange () {
+			/** Return text dates like 10.10.2022 - 10.20.2022 */
+			const startedAt = date.formatDate(this.startedSprint.started_at, DATE_MASK)
+			const finishedAt = date.formatDate(this.startedSprint.finished_at, DATE_MASK)
+			return `${startedAt} - ${finishedAt}`
+		},
+		daysAmount () {
+			/** We use it for calculating in daysRemainingText not yet directly */
+			return date.getDateDiff(
+				this.startedSprint.started_at,
+				this.startedSprint.finished_at,
+				SPRINT_REMAINING_UNIT
+			)
+		},
+		daysRemaining () {
+			/** We use it for calculating in daysRemainingText not yet directly */
+			return date.getDateDiff(
+				this.startedSprint.finished_at,
+				new Date(),
+				SPRINT_REMAINING_UNIT
+			)
+		},
+		daysRemainingText () {
+			/** We use it to show ex: 10 days remaining */
+			switch (true) {
+			case this.daysRemaining > this.daysAmount:
+				return 'Will start soon...'
+			case this.daysRemaining > 0:
+				return `${this.daysRemaining} days`
+			case this.daysRemaining < 0:
+				return '0 days'
+			default:
+				throw new Error('Unexpected days remaining value')
+			}
+		}
+	},
+	methods: {
+		issuesByState (stateId) {
+			return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
+		},
+		issuesByStateAmount (stateId) {
+			return this.issuesByState(stateId).length
+		},
+		handleIssueAdded (event, issueStateId) {
+			/** Handling added in Issues State **/
+			const updatedElement = unWatch(event.added.element)
+			updatedElement.state_category = issueStateId
 
-      this.$store.dispatch('core/UPDATE_ISSUE_STATE', updatedElement)
-    },
-    handleCommonMoved (issuesList, event) {
-      /** Handle moving - common function **/
+			this.$store.dispatch('core/UPDATE_ISSUE_STATE', updatedElement)
+		},
+		handleCommonMoved (issuesList, event) {
+			/** Handle moving - common function **/
 
-      const immutableList = unWatch(issuesList)
+			const immutableList = unWatch(issuesList)
 
-      immutableList
-        .splice(event.moved.newIndex, 0, immutableList
-          .splice(event.moved.oldIndex, 1)[0])
+			immutableList
+				.splice(event.moved.newIndex, 0, immutableList
+					.splice(event.moved.oldIndex, 1)[0])
 
-      const ordering = []
-      immutableList.forEach((issue, index) => {
-        ordering.push(
-          {
-            id: issue.id,
-            ordering: index
-          }
-        )
-      })
+			const ordering = []
+			immutableList.forEach((issue, index) => {
+				ordering.push(
+					{
+						id: issue.id,
+						ordering: index
+					}
+				)
+			})
 
-      return { list: immutableList, ordering }
-    },
-    handleStateMoved (event, stateId) {
-      /** Handling moving inside of state **/
-      const issuesList = this.issuesByState(stateId)
-      const handled = this.handleCommonMoved(issuesList, event)
+			return { list: immutableList, ordering }
+		},
+		handleStateMoved (event, stateId) {
+			/** Handling moving inside of state **/
+			const issuesList = this.issuesByState(stateId)
+			const handled = this.handleCommonMoved(issuesList, event)
 
-      this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
-    },
-    handleIssueStateChanging (event, issueStateId) {
-      /** Handling moving inside of states **/
-      const isAdded = ('added' in event)
-      const isRemoved = ('removed' in event)
-      const isMoved = ('moved' in event)
+			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
+		},
+		handleIssueStateChanging (event, issueStateId) {
+			/** Handling moving inside of states **/
+			const isAdded = ('added' in event)
+			const isRemoved = ('removed' in event)
+			const isMoved = ('moved' in event)
 
-      switch (true) {
-        case isAdded:
-          this.handleIssueAdded(event, issueStateId)
-          break
-        case isRemoved:
-          break
-        case isMoved:
-          this.handleStateMoved(event, issueStateId)
-          break
-        default:
-          throw new Error('This error should not occurred')
-      }
-    },
-    editSprintDialog (item) {
-      this.$q.dialog({
-        dark: true,
-        component: SprintEditDialog,
-        id: item.id,
-        title: item.title,
-        goal: item.goal,
-        startedAt: item.started_at,
-        finishedAt: item.finished_at
-      }).onOk((data) => this.$store.dispatch('core/EDIT_SPRINT', data))
-    }
-  }
+			switch (true) {
+			case isAdded:
+				this.handleIssueAdded(event, issueStateId)
+				break
+			case isRemoved:
+				break
+			case isMoved:
+				this.handleStateMoved(event, issueStateId)
+				break
+			default:
+				throw new Error('This error should not occurred')
+			}
+		},
+		editSprintDialog (item) {
+			this.$q.dialog({
+				dark: true,
+				component: SprintEditDialog,
+				id: item.id,
+				title: item.title,
+				goal: item.goal,
+				startedAt: item.started_at,
+				finishedAt: item.finished_at
+			}).onOk((data) => this.$store.dispatch('core/EDIT_SPRINT', data))
+		}
+	}
 }
 </script>
 <style lang="scss">

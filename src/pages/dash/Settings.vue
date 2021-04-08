@@ -467,406 +467,406 @@
 import SettingPanelCard from 'components/elements/SettingPanelCard'
 import { Dialogs } from 'pages/mixins/dialogs'
 export default {
-  name: 'SettingsView',
-  components: { SettingPanelCard },
-  mixins: [Dialogs],
-  data () {
-    return {
-      tab: 'general',
-      debounceDefault: 1000,
-      projectFormErrors: {
-        title: '',
-        key: '',
-        owned_by: ''
-      },
-      issueTypesTableData: {
-        columns: [
-          {
-            label: 'Title',
-            name: 'title',
-            required: true,
-            align: 'left',
-            field: row => row.title,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            label: 'Is Default',
-            name: 'default',
-            required: true,
-            align: 'left',
-            field: row => row.is_default,
-            format: val => val,
-            sortable: true
-          },
-          {
-            label: 'Icon',
-            name: 'icon',
-            required: true,
-            align: 'center',
-            field: row => row.icon
-          },
-          {
-            name: 'id',
-            required: true,
-            align: 'right',
-            field: row => row.id,
-            format: val => val,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        }
-      },
-      newIssueTypeFormData: {
-        title: ''
-      },
-      issueTypesIconsTableData: {
-        columns: [
-          {
-            name: 'icon',
-            required: true,
-            align: 'center',
-            field: row => row
-          },
-          {
-            label: 'Prefix',
-            name: 'prefix',
-            required: true,
-            align: 'left',
-            field: row => row.prefix,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            label: 'Color',
-            name: 'color',
-            required: true,
-            align: 'left',
-            field: row => row.color,
-            format: val => val,
-            sortable: true
-          },
-          {
-            name: 'id',
-            required: true,
-            align: 'right',
-            field: row => row.id,
-            format: val => val,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        }
-      },
-      newIssueTypeIconFormData: {
-        prefix: ''
-      },
-      issueStatesTableData: {
-        columns: [
-          {
-            label: 'Title',
-            name: 'title',
-            required: true,
-            align: 'left',
-            field: row => row.title,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            label: 'Is Default',
-            name: 'default',
-            required: true,
-            align: 'left',
-            field: row => row.is_default
-          },
-          {
-            label: 'Is Done',
-            name: 'done',
-            required: true,
-            align: 'left',
-            field: row => row.is_done
-          },
-          {
-            name: 'id',
-            required: true,
-            align: 'right',
-            field: row => row.id,
-            format: val => val,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        }
-      },
-      newIssueStateFormData: {},
-      issueEstimationsTableData: {
-        columns: [
-          {
-            label: 'Title',
-            name: 'title',
-            required: true,
-            align: 'left',
-            field: row => row.title,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
-            label: 'Value',
-            name: 'value',
-            required: true,
-            align: 'left',
-            field: row => row.value,
-            style: 'width: 100px;',
-            sortable: true
-          },
-          {
-            name: 'id',
-            required: true,
-            align: 'right',
-            field: row => row.id,
-            format: val => val,
-            sortable: true
-          }
-        ],
-        pagination: {
-          rowsPerPage: 0
-        }
-      },
-      newIssueEstimationFormData: {
-        title: ''
-      }
-    }
-  },
-  computed: {
-    projectTitle () {
-      return this.$store.getters['auth/PROJECT_TITLE']
-    },
-    projectKey () {
-      return this.$store.getters['auth/PROJECT_KEY']
-    },
-    projectOwnedBy () {
-      return this.$store.getters['auth/PROJECT_OWNED_BY']
-    },
-    participants () {
-      return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
-    },
-    issueTypes () {
-      return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
-    },
-    issueTypeIcons () {
-      return this.$store.getters['core/ISSUE_TYPES_ICONS_BY_CURRENT_PROJECT']
-    },
-    issueStates () {
-      return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
-    },
-    issueEstimations () {
-      return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
-    }
-  },
-  mounted () {
-    this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
-      .catch((e) => {
-        console.log(e)
-      })
-  },
-  methods: {
-    getIssueTypeIconById (iconId) {
-      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
-    },
-    async updateProject (event, attribute) {
-      const payload = {
-        id: this.$store.getters['current/PROJECT']
-      }
+	name: 'SettingsView',
+	components: { SettingPanelCard },
+	mixins: [Dialogs],
+	data () {
+		return {
+			tab: 'general',
+			debounceDefault: 1000,
+			projectFormErrors: {
+				title: '',
+				key: '',
+				owned_by: ''
+			},
+			issueTypesTableData: {
+				columns: [
+					{
+						label: 'Title',
+						name: 'title',
+						required: true,
+						align: 'left',
+						field: row => row.title,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						label: 'Is Default',
+						name: 'default',
+						required: true,
+						align: 'left',
+						field: row => row.is_default,
+						format: val => val,
+						sortable: true
+					},
+					{
+						label: 'Icon',
+						name: 'icon',
+						required: true,
+						align: 'center',
+						field: row => row.icon
+					},
+					{
+						name: 'id',
+						required: true,
+						align: 'right',
+						field: row => row.id,
+						format: val => val,
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 0
+				}
+			},
+			newIssueTypeFormData: {
+				title: ''
+			},
+			issueTypesIconsTableData: {
+				columns: [
+					{
+						name: 'icon',
+						required: true,
+						align: 'center',
+						field: row => row
+					},
+					{
+						label: 'Prefix',
+						name: 'prefix',
+						required: true,
+						align: 'left',
+						field: row => row.prefix,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						label: 'Color',
+						name: 'color',
+						required: true,
+						align: 'left',
+						field: row => row.color,
+						format: val => val,
+						sortable: true
+					},
+					{
+						name: 'id',
+						required: true,
+						align: 'right',
+						field: row => row.id,
+						format: val => val,
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 0
+				}
+			},
+			newIssueTypeIconFormData: {
+				prefix: ''
+			},
+			issueStatesTableData: {
+				columns: [
+					{
+						label: 'Title',
+						name: 'title',
+						required: true,
+						align: 'left',
+						field: row => row.title,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						label: 'Is Default',
+						name: 'default',
+						required: true,
+						align: 'left',
+						field: row => row.is_default
+					},
+					{
+						label: 'Is Done',
+						name: 'done',
+						required: true,
+						align: 'left',
+						field: row => row.is_done
+					},
+					{
+						name: 'id',
+						required: true,
+						align: 'right',
+						field: row => row.id,
+						format: val => val,
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 0
+				}
+			},
+			newIssueStateFormData: {},
+			issueEstimationsTableData: {
+				columns: [
+					{
+						label: 'Title',
+						name: 'title',
+						required: true,
+						align: 'left',
+						field: row => row.title,
+						format: val => `${val}`,
+						sortable: true
+					},
+					{
+						label: 'Value',
+						name: 'value',
+						required: true,
+						align: 'left',
+						field: row => row.value,
+						style: 'width: 100px;',
+						sortable: true
+					},
+					{
+						name: 'id',
+						required: true,
+						align: 'right',
+						field: row => row.id,
+						format: val => val,
+						sortable: true
+					}
+				],
+				pagination: {
+					rowsPerPage: 0
+				}
+			},
+			newIssueEstimationFormData: {
+				title: ''
+			}
+		}
+	},
+	computed: {
+		projectTitle () {
+			return this.$store.getters['auth/PROJECT_TITLE']
+		},
+		projectKey () {
+			return this.$store.getters['auth/PROJECT_KEY']
+		},
+		projectOwnedBy () {
+			return this.$store.getters['auth/PROJECT_OWNED_BY']
+		},
+		participants () {
+			return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
+		},
+		issueTypes () {
+			return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
+		},
+		issueTypeIcons () {
+			return this.$store.getters['core/ISSUE_TYPES_ICONS_BY_CURRENT_PROJECT']
+		},
+		issueStates () {
+			return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
+		},
+		issueEstimations () {
+			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
+		}
+	},
+	mounted () {
+		this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
+			.catch((e) => {
+				console.log(e)
+			})
+	},
+	methods: {
+		getIssueTypeIconById (iconId) {
+			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
+		},
+		async updateProject (event, attribute) {
+			const payload = {
+				id: this.$store.getters['current/PROJECT']
+			}
 
-      payload[attribute] = attribute === 'owned_by' ? event.id : event
-      try {
-        await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async deleteProject () {
-      const payload = {
-        id: this.$store.getters['current/PROJECT'],
-        workspace: this.$store.getters['auth/WORKSPACE_ID']
-      }
+			payload[attribute] = attribute === 'owned_by' ? event.id : event
+			try {
+				await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async deleteProject () {
+			const payload = {
+				id: this.$store.getters['current/PROJECT'],
+				workspace: this.$store.getters['auth/WORKSPACE_ID']
+			}
 
-      const dialog = [
-        'Do you want to remove project?',
-        'All information in project will be deleted',
-        'Remove',
-        'danger'
-      ]
+			const dialog = [
+				'Do you want to remove project?',
+				'All information in project will be deleted',
+				'Remove',
+				'danger'
+			]
 
-      try {
-        this.showOkCancelDialog(...dialog)
-          .onOk(r => {
-            this.$store.dispatch('auth/DELETE_PROJECT', payload)
-            this.$router.push({ name: 'loading' })
-          })
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async updateIssueType (id, attribute, value) {
-      const payload = {
-        id: id
-      }
+			try {
+				this.showOkCancelDialog(...dialog)
+					.onOk(r => {
+						this.$store.dispatch('auth/DELETE_PROJECT', payload)
+						this.$router.push({ name: 'loading' })
+					})
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async updateIssueType (id, attribute, value) {
+			const payload = {
+				id: id
+			}
 
-      payload[attribute] = attribute === 'icon' ? value.id : value
+			payload[attribute] = attribute === 'icon' ? value.id : value
 
-      try {
-        await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async createIssueType () {
-      const payload = {
-        workspace: this.$store.getters['auth/WORKSPACE_ID'],
-        project: this.$store.getters['current/PROJECT'],
-        title: this.newIssueTypeFormData.title,
-        icon: null
-      }
+			try {
+				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async createIssueType () {
+			const payload = {
+				workspace: this.$store.getters['auth/WORKSPACE_ID'],
+				project: this.$store.getters['current/PROJECT'],
+				title: this.newIssueTypeFormData.title,
+				icon: null
+			}
 
-      try {
-        await this.$store.dispatch('core/ADD_ISSUE_TYPE_CATEGORY', payload)
-        this.newIssueTypeFormData.title = ''
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async deleteIssueType (id) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/ADD_ISSUE_TYPE_CATEGORY', payload)
+				this.newIssueTypeFormData.title = ''
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async deleteIssueType (id) {
+			const payload = {
+				id: id
+			}
 
-      try {
-        await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async updateIssueTypeIcon (id, attribute, value) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async updateIssueTypeIcon (id, attribute, value) {
+			const payload = {
+				id: id
+			}
 
-      payload[attribute] = value
+			payload[attribute] = value
 
-      try {
-        await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async createIssueTypeIcon () {
-      const payload = {
-        workspace: this.$store.getters['auth/WORKSPACE_ID'],
-        project: this.$store.getters['current/PROJECT'],
-        prefix: `mdi-${this.newIssueTypeIconFormData.prefix}`,
-        color: 'grey-12'
-      }
+			try {
+				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async createIssueTypeIcon () {
+			const payload = {
+				workspace: this.$store.getters['auth/WORKSPACE_ID'],
+				project: this.$store.getters['current/PROJECT'],
+				prefix: `mdi-${this.newIssueTypeIconFormData.prefix}`,
+				color: 'grey-12'
+			}
 
-      try {
-        await this.$store.dispatch('core/ADD_ISSUE_TYPE_ICON_CATEGORY', payload)
-        this.newIssueTypeIconFormData.prefix = ''
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async deleteIssueTypeIcon (id) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/ADD_ISSUE_TYPE_ICON_CATEGORY', payload)
+				this.newIssueTypeIconFormData.prefix = ''
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async deleteIssueTypeIcon (id) {
+			const payload = {
+				id: id
+			}
 
-      try {
-        await this.$store.dispatch('core/DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async updateIssueState (id, attribute, value) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async updateIssueState (id, attribute, value) {
+			const payload = {
+				id: id
+			}
 
-      payload[attribute] = value
+			payload[attribute] = value
 
-      try {
-        await this.$store.dispatch('core/UPDATE_ISSUE_STATE_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async createIssueState () {
-      const payload = {
-        workspace: this.$store.getters['auth/WORKSPACE_ID'],
-        project: this.$store.getters['current/PROJECT'],
-        title: this.newIssueStateFormData.title
-      }
+			try {
+				await this.$store.dispatch('core/UPDATE_ISSUE_STATE_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async createIssueState () {
+			const payload = {
+				workspace: this.$store.getters['auth/WORKSPACE_ID'],
+				project: this.$store.getters['current/PROJECT'],
+				title: this.newIssueStateFormData.title
+			}
 
-      try {
-        await this.$store.dispatch('core/ADD_ISSUE_STATE_CATEGORY', payload)
-        this.newIssueStateFormData.title = ''
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async deleteIssueState (id) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/ADD_ISSUE_STATE_CATEGORY', payload)
+				this.newIssueStateFormData.title = ''
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async deleteIssueState (id) {
+			const payload = {
+				id: id
+			}
 
-      try {
-        await this.$store.dispatch('core/DELETE_ISSUE_STATE_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async updateIssueEstimation (id, attribute, value) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/DELETE_ISSUE_STATE_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async updateIssueEstimation (id, attribute, value) {
+			const payload = {
+				id: id
+			}
 
-      payload[attribute] = value
+			payload[attribute] = value
 
-      try {
-        await this.$store.dispatch('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async createIssueEstimation () {
-      const payload = {
-        workspace: this.$store.getters['auth/WORKSPACE_ID'],
-        project: this.$store.getters['current/PROJECT'],
-        title: this.newIssueEstimationFormData.title,
-        value: 0
-      }
+			try {
+				await this.$store.dispatch('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async createIssueEstimation () {
+			const payload = {
+				workspace: this.$store.getters['auth/WORKSPACE_ID'],
+				project: this.$store.getters['current/PROJECT'],
+				title: this.newIssueEstimationFormData.title,
+				value: 0
+			}
 
-      try {
-        await this.$store.dispatch('core/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
-        this.newIssueEstimationFormData.title = ''
-      } catch (e) {
-        this.showError(e)
-      }
-    },
-    async deleteIssueEstimation (id) {
-      const payload = {
-        id: id
-      }
+			try {
+				await this.$store.dispatch('core/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
+				this.newIssueEstimationFormData.title = ''
+			} catch (e) {
+				this.showError(e)
+			}
+		},
+		async deleteIssueEstimation (id) {
+			const payload = {
+				id: id
+			}
 
-      try {
-        await this.$store.dispatch('core/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
-      } catch (e) {
-        this.showError(e)
-      }
-    }
-  }
+			try {
+				await this.$store.dispatch('core/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
+			} catch (e) {
+				this.showError(e)
+			}
+		}
+	}
 }
 </script>

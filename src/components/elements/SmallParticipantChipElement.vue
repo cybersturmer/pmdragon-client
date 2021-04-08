@@ -18,12 +18,12 @@
 
 <script>
 export default {
-  name: 'SmallParticipantChipElement',
-  props: {
-    participant: {
-      type: Object,
-      required: true
-    }
-  }
+	name: 'SmallParticipantChipElement',
+	props: {
+		participant: {
+			type: Object,
+			required: true
+		}
+	}
 }
 </script>

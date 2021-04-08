@@ -30,57 +30,57 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'WorkspaceCreateDialog',
-  mixins: [fieldValidationMixin, Dialogs],
-  data () {
-    return {
-      formData: {
-        prefix_url: ''
-      },
-      formErrors: {
-        prefix_url: ''
-      }
-    }
-  },
-  methods: {
-    show () {
-      this.$refs.dialog.show()
-    },
+	name: 'WorkspaceCreateDialog',
+	mixins: [fieldValidationMixin, Dialogs],
+	data () {
+		return {
+			formData: {
+				prefix_url: ''
+			},
+			formErrors: {
+				prefix_url: ''
+			}
+		}
+	},
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    workspacePrefixUrlLength ($value) {
-      return ($value.length >= 3 && $value.length <= 20) || 'From 3 to 20 letters and numbers are allowed'
-    },
+		workspacePrefixUrlLength ($value) {
+			return ($value.length >= 3 && $value.length <= 20) || 'From 3 to 20 letters and numbers are allowed'
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    inputPrefixUrl ($event) {
-      this.dropErrors()
-      this.formData.prefix_url = $event.toUpperCase()
-    },
+		inputPrefixUrl ($event) {
+			this.dropErrors()
+			this.formData.prefix_url = $event.toUpperCase()
+		},
 
-    dropErrors () {
-      this.formErrors.prefix_url = ''
-    },
+		dropErrors () {
+			this.formErrors.prefix_url = ''
+		},
 
-    async onOKClick () {
-      try {
-        const payload = await this.$store.dispatch('auth/ADD_WORKSPACE', this.formData)
-        this.$emit('ok', payload)
-        this.hide()
-      } catch (e) {
-        e.setErrors(this.formErrors)
-      }
-    },
+		async onOKClick () {
+			try {
+				const payload = await this.$store.dispatch('auth/ADD_WORKSPACE', this.formData)
+				this.$emit('ok', payload)
+				this.hide()
+			} catch (e) {
+				e.setErrors(this.formErrors)
+			}
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	}
 }
 </script>

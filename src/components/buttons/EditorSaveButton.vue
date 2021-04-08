@@ -9,6 +9,6 @@
 
 <script>
 export default {
-  name: 'EditorSaveButton'
+	name: 'EditorSaveButton'
 }
 </script>

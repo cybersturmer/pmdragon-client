@@ -19,22 +19,22 @@ import { copyToClipboard } from 'quasar'
 import { Notifications } from 'pages/mixins/notifications'
 
 export default {
-  name: 'IssueSharePopupMenu',
-  mixins: [Notifications],
-  props: {
-    issue: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    copyLink () {
-      const host = this.$store.getters['connection/HOST']
-      const text = `${host}/dash/issue/${this.issue.id}/`
-      copyToClipboard(text)
-        .then(() => this.showInformalNotification('Link copied to clipboard'))
-    }
-  }
+	name: 'IssueSharePopupMenu',
+	mixins: [Notifications],
+	props: {
+		issue: {
+			type: Object,
+			required: true
+		}
+	},
+	methods: {
+		copyLink () {
+			const host = this.$store.getters['connection/HOST']
+			const text = `${host}/dash/issue/${this.issue.id}/`
+			copyToClipboard(text)
+				.then(() => this.showInformalNotification('Link copied to clipboard'))
+		}
+	}
 
 }
 </script>

@@ -17,38 +17,38 @@
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'IssueMorePopupMenu',
-  mixins: [Dialogs],
-  props: {
-    issue: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    removeIssue () {
-      const dialog = [
-        'Confirmation',
-        `Would you like to delete issue: "${this.issue.title}"`,
-        'Remove',
-        'danger'
-      ]
+	name: 'IssueMorePopupMenu',
+	mixins: [Dialogs],
+	props: {
+		issue: {
+			type: Object,
+			required: true
+		}
+	},
+	methods: {
+		removeIssue () {
+			const dialog = [
+				'Confirmation',
+				`Would you like to delete issue: "${this.issue.title}"`,
+				'Remove',
+				'danger'
+			]
 
-      this.showOkCancelDialog(...dialog)
-        .onOk(() => {
-          try {
-            this.$store.dispatch('core/DELETE_ISSUE', this.issue)
-            if (this.$route.name === 'issue') {
-              this.$router.push({ name: 'backlog' })
-            }
+			this.showOkCancelDialog(...dialog)
+				.onOk(() => {
+					try {
+						this.$store.dispatch('core/DELETE_ISSUE', this.issue)
+						if (this.$route.name === 'issue') {
+							this.$router.push({ name: 'backlog' })
+						}
 
-            this.$emit('remove', this.issue.id)
-          } catch (e) {
-            this.showError(e)
-          }
-        })
-    }
-  }
+						this.$emit('remove', this.issue.id)
+					} catch (e) {
+						this.showError(e)
+					}
+				})
+		}
+	}
 
 }
 </script>

@@ -394,8 +394,8 @@
 import { editIssueMixin } from 'pages/mixins/editIssueMixin'
 
 export default {
-  name: 'Issue',
-  mixins: [editIssueMixin]
+	name: 'Issue',
+	mixins: [editIssueMixin]
 }
 </script>
 <style lang="scss">

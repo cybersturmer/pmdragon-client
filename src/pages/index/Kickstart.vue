@@ -88,74 +88,74 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'Kickstart',
-  mixins: [fieldValidationMixin, Dialogs],
-  data () {
-    return {
-      steps: [1, 2],
-      step: this.getInitStep(),
-      isUserStepDone: false,
-      userFormData: {
-        first_name: this.$store.getters['auth/MY_FIRST_NAME'],
-        last_name: this.$store.getters['auth/MY_LAST_NAME'],
-        username: this.$store.getters['auth/MY_USERNAME']
-      },
-      userFormErrors: {
-        first_name: '',
-        last_name: '',
-        username: ''
-      }
-    }
-  },
-  computed: {
-    isUserDataFilled () {
-      /** If user data filled we return true **/
-      return this.$store.getters['auth/IS_MY_DATA_FILLED']
-    },
-    nextLabel () {
-      return this.step === 2 ? 'Finish' : 'Continue'
-    },
-    isUsernameChanged () {
-      return this.userFormData.username !== this.$store.getters['auth/MY_EMAIL']
-    }
-  },
-  methods: {
-    async continueClick ($refs) {
-      try {
-        switch (this.step) {
-          case 1:
-            if (!this.isUsernameChanged) {
-              this.userFormErrors.username = 'Please change username, not equal to email'
-              return
-            }
+	name: 'Kickstart',
+	mixins: [fieldValidationMixin, Dialogs],
+	data () {
+		return {
+			steps: [1, 2],
+			step: this.getInitStep(),
+			isUserStepDone: false,
+			userFormData: {
+				first_name: this.$store.getters['auth/MY_FIRST_NAME'],
+				last_name: this.$store.getters['auth/MY_LAST_NAME'],
+				username: this.$store.getters['auth/MY_USERNAME']
+			},
+			userFormErrors: {
+				first_name: '',
+				last_name: '',
+				username: ''
+			}
+		}
+	},
+	computed: {
+		isUserDataFilled () {
+			/** If user data filled we return true **/
+			return this.$store.getters['auth/IS_MY_DATA_FILLED']
+		},
+		nextLabel () {
+			return this.step === 2 ? 'Finish' : 'Continue'
+		},
+		isUsernameChanged () {
+			return this.userFormData.username !== this.$store.getters['auth/MY_EMAIL']
+		}
+	},
+	methods: {
+		async continueClick ($refs) {
+			try {
+				switch (this.step) {
+				case 1:
+					if (!this.isUsernameChanged) {
+						this.userFormErrors.username = 'Please change username, not equal to email'
+						return
+					}
 
-            this.resetFieldErrorMessage('userFormErrors', 'username')
-            await this.updateUserData()
-            break
-          case 2:
-            return this.$router.push({ name: 'loading' })
-        }
+					this.resetFieldErrorMessage('userFormErrors', 'username')
+					await this.updateUserData()
+					break
+				case 2:
+					return this.$router.push({ name: 'loading' })
+				}
 
-        /** If everything was fine - we move further **/
-        await $refs.stepper.next()
-      } catch (error) {
-        switch (this.step) {
-          case 1:
-            error.setErrors(this.userFormErrors)
-            break
-        }
+				/** If everything was fine - we move further **/
+				await $refs.stepper.next()
+			} catch (error) {
+				switch (this.step) {
+				case 1:
+					error.setErrors(this.userFormErrors)
+					break
+				}
 
-        this.showError(error)
-      }
-    },
-    async updateUserData () {
-      /** Update user data on server and mark step as done **/
-      await this.$store.dispatch('auth/UPDATE_MY_DATA', this.userFormData)
-      this.isUserStepDone = true
-    },
-    getInitStep () {
-      return 1
-    }
-  }
+				this.showError(error)
+			}
+		},
+		async updateUserData () {
+			/** Update user data on server and mark step as done **/
+			await this.$store.dispatch('auth/UPDATE_MY_DATA', this.userFormData)
+			this.isUserStepDone = true
+		},
+		getInitStep () {
+			return 1
+		}
+	}
 }
 </script>

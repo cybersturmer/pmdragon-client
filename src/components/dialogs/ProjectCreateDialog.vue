@@ -46,69 +46,69 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'ProjectCreateDialog',
-  mixins: [fieldValidationMixin, Dialogs],
-  data () {
-    return {
-      formData: {
-        workspace: this.$store.getters['auth/WORKSPACE_FIRST'],
-        title: '',
-        key: ''
-      },
-      formErrors: {
-        workspace: '',
-        title: '',
-        key: ''
-      }
-    }
-  },
-  methods: {
-    updateWorkspace ($event) {
-      this.formData.workspace = $event.id
-    },
+	name: 'ProjectCreateDialog',
+	mixins: [fieldValidationMixin, Dialogs],
+	data () {
+		return {
+			formData: {
+				workspace: this.$store.getters['auth/WORKSPACE_FIRST'],
+				title: '',
+				key: ''
+			},
+			formErrors: {
+				workspace: '',
+				title: '',
+				key: ''
+			}
+		}
+	},
+	methods: {
+		updateWorkspace ($event) {
+			this.formData.workspace = $event.id
+		},
 
-    show () {
-      this.$refs.dialog.show()
-    },
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    inputPrefixUrl ($event) {
-      this.resetFieldErrorMessage('formErrors', 'prefix_url')
-      this.formData.prefix_url = $event
-    },
+		inputPrefixUrl ($event) {
+			this.resetFieldErrorMessage('formErrors', 'prefix_url')
+			this.formData.prefix_url = $event
+		},
 
-    async onOKClick () {
-      const payload = {
-        workspace: this.formData.workspace.id,
-        title: this.formData.title,
-        key: this.formData.key
-      }
+		async onOKClick () {
+			const payload = {
+				workspace: this.formData.workspace.id,
+				title: this.formData.title,
+				key: this.formData.key
+			}
 
-      try {
-        const emitPayload = await this.$store.dispatch('auth/ADD_PROJECT', payload)
-        this.$emit('ok', emitPayload)
-        this.hide()
-      } catch (e) {
-        e.setErrors(this.formErrors)
-        this.showError(e)
-      }
-    },
+			try {
+				const emitPayload = await this.$store.dispatch('auth/ADD_PROJECT', payload)
+				this.$emit('ok', emitPayload)
+				this.hide()
+			} catch (e) {
+				e.setErrors(this.formErrors)
+				this.showError(e)
+			}
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  },
-  computed: {
-    workspaces () {
-      return this.$store.getters['auth/WORKSPACES']
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	},
+	computed: {
+		workspaces () {
+			return this.$store.getters['auth/WORKSPACES']
+		}
+	}
 }
 </script>

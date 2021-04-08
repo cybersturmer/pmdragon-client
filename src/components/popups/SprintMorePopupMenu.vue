@@ -27,21 +27,21 @@
 
 <script>
 export default {
-  name: 'SprintMorePopupMenu',
-  props: {
-    sprintId: {
-      type: Number,
-      required: true
-    }
-  },
-  methods: {
-    editSprintModal () {
-      this.$emit('edit', this.sprintId)
-    },
-    removeSprintModal () {
-      this.$emit('remove', this.sprintId)
-    }
-  }
+	name: 'SprintMorePopupMenu',
+	props: {
+		sprintId: {
+			type: Number,
+			required: true
+		}
+	},
+	methods: {
+		editSprintModal () {
+			this.$emit('edit', this.sprintId)
+		},
+		removeSprintModal () {
+			this.$emit('remove', this.sprintId)
+		}
+	}
 }
 </script>
 <style lang="scss">

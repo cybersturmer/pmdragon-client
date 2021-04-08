@@ -33,44 +33,44 @@ import { Api } from 'src/services/api'
 import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
-  name: 'VerifyCollaboration',
-  mixins: [Dialogs],
-  data () {
-    return {
-      isRequestSent: false,
-      isVerified: false
-    }
-  },
-  computed: {
-    key () {
-      return this.$attrs.key
-    },
-    is_error () {
-      return this.isRequestSent && !this.isVerified
-    },
-    is_success () {
-      return this.isRequestSent && this.isVerified
-    }
-  },
-  async mounted () {
-    await this.verifyCollaboration()
-  },
-  methods: {
-    async verifyCollaboration () {
-      const payload = {
-        is_accepted: true
-      }
+	name: 'VerifyCollaboration',
+	mixins: [Dialogs],
+	data () {
+		return {
+			isRequestSent: false,
+			isVerified: false
+		}
+	},
+	computed: {
+		key () {
+			return this.$attrs.key
+		},
+		is_error () {
+			return this.isRequestSent && !this.isVerified
+		},
+		is_success () {
+			return this.isRequestSent && this.isVerified
+		}
+	},
+	async mounted () {
+		await this.verifyCollaboration()
+	},
+	methods: {
+		async verifyCollaboration () {
+			const payload = {
+				is_accepted: true
+			}
 
-      try {
-        await new Api().put(`/auth/person-invitation-requests/${this.key}/`, payload)
-        this.isRequestSent = true
-        this.isVerified = true
-      } catch (e) {
-        this.isRequestSent = true
-        this.isVerified = false
-      }
-    }
-  }
+			try {
+				await new Api().put(`/auth/person-invitation-requests/${this.key}/`, payload)
+				this.isRequestSent = true
+				this.isVerified = true
+			} catch (e) {
+				this.isRequestSent = true
+				this.isVerified = false
+			}
+		}
+	}
 }
 </script>
 

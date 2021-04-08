@@ -1,11 +1,11 @@
 export function UPDATE_HOST ({ commit }, payload) {
-  commit('SET_HOST', payload)
+	commit('SET_HOST', payload)
 }
 
 export async function RESET ({ commit }) {
-  commit('RESET')
+	commit('RESET')
 }
 
 export async function UPDATE_REQUEST_ID ({ commit }) {
-  commit('UPDATE_SOCKET_REQUEST_ID')
+	commit('UPDATE_SOCKET_REQUEST_ID')
 }

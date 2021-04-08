@@ -40,29 +40,29 @@
 import { DATETIME_MASK } from 'src/services/masks'
 
 export default {
-  name: 'DateTimeField',
-  props: {
-    value: String,
-    label: String
-  },
-  data () {
-    return {
-      mask: DATETIME_MASK,
-      minuteOptions: [0, 15, 30, 45],
-      rawDatetime: this.value
-    }
-  },
-  computed: {
-    datetime () {
-      return this.rawDatetime
-    }
-  },
-  methods: {
-    handleInput (value) {
-      this.rawDatetime = value
-      this.$emit('input', value)
-    }
-  }
+	name: 'DateTimeField',
+	props: {
+		value: String,
+		label: String
+	},
+	data () {
+		return {
+			mask: DATETIME_MASK,
+			minuteOptions: [0, 15, 30, 45],
+			rawDatetime: this.value
+		}
+	},
+	computed: {
+		datetime () {
+			return this.rawDatetime
+		}
+	},
+	methods: {
+		handleInput (value) {
+			this.rawDatetime = value
+			this.$emit('input', value)
+		}
+	}
 }
 </script>
 

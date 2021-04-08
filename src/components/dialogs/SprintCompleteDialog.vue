@@ -17,43 +17,43 @@
 <script>
 
 export default {
-  name: 'SprintCompleteDialog',
-  props: {
-    sprint: {
-      type: Object,
-      required: true
-    }
-  },
-  data () {
-    return {
-      form: {
-      }
-    }
-  },
-  methods: {
-    show () {
-      this.$refs.dialog.show()
-    },
+	name: 'SprintCompleteDialog',
+	props: {
+		sprint: {
+			type: Object,
+			required: true
+		}
+	},
+	data () {
+		return {
+			form: {
+			}
+		}
+	},
+	methods: {
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    onOKClick () {
-      const payload = {
-      }
+		onOKClick () {
+			const payload = {
+			}
 
-      this.$emit('ok', payload)
-      this.hide()
-    },
+			this.$emit('ok', payload)
+			this.hide()
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	}
 }
 </script>

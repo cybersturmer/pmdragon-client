@@ -7,7 +7,8 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module' // Allows for the use of imports
+    sourceType: 'module', // Allows for the use of imports,
+    indent: ['tab', 2]
   },
 
   env: {
@@ -17,9 +18,7 @@ module.exports = {
   // Rules order is important, please avoid shuffling them
   extends: [
     // Base ESLint recommended rules
-    // 'eslint:recommended',
-
-
+    'eslint:recommended',
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
@@ -49,6 +48,8 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'indent': [2, 'tab'],
+    'no-tabs': 0,
     // allow async-await
     'generator-star-spacing': 'off',
     // allow paren-less arrow functions

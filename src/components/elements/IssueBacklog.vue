@@ -56,57 +56,57 @@
 import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
 
 export default {
-  name: 'IssueBacklog',
-  props: {
-    issue: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    isIssueTypeIcon () {
-      return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
-    },
-    getIssueTypeIcon () {
-      return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
-    },
-    getIssueTypeIconPrefix () {
-      try {
-        return this.getIssueTypeIcon.prefix
-      } catch (e) {
-        return ''
-      }
-    },
-    getIssueTypeIconColor () {
-      try {
-        return this.getIssueTypeIcon.color
-      } catch (e) {
-        return ''
-      }
-    },
-    getIssueTypeTitle () {
-      return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
-    },
-    estimationTitle () {
-      const estimation = this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
-      try {
-        return estimation.title
-      } catch (e) {
-        return ''
-      }
-    }
-  },
-  methods: {
-    openEditDialog () {
-      this.$q.dialog({
-        parent: this,
-        dark: true,
-        title: 'Issue ',
-        component: IssueEditDialog,
-        id: this.issue.id
-      })
-    }
-  }
+	name: 'IssueBacklog',
+	props: {
+		issue: {
+			type: Object,
+			required: true
+		}
+	},
+	computed: {
+		isIssueTypeIcon () {
+			return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.issue.type_category)
+		},
+		getIssueTypeIcon () {
+			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
+		},
+		getIssueTypeIconPrefix () {
+			try {
+				return this.getIssueTypeIcon.prefix
+			} catch (e) {
+				return ''
+			}
+		},
+		getIssueTypeIconColor () {
+			try {
+				return this.getIssueTypeIcon.color
+			} catch (e) {
+				return ''
+			}
+		},
+		getIssueTypeTitle () {
+			return this.$store.getters['core/ISSUE_TYPE_BY_ID'](this.issue.type_category).title
+		},
+		estimationTitle () {
+			const estimation = this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
+			try {
+				return estimation.title
+			} catch (e) {
+				return ''
+			}
+		}
+	},
+	methods: {
+		openEditDialog () {
+			this.$q.dialog({
+				parent: this,
+				dark: true,
+				title: 'Issue ',
+				component: IssueEditDialog,
+				id: this.issue.id
+			})
+		}
+	}
 }
 </script>
 <style lang="scss">

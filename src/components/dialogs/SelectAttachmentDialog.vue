@@ -41,56 +41,56 @@
 
 <script>
 export default {
-  name: 'SelectAttachmentDialog',
-  props: {
-    issueId: {
-      type: Number,
-      required: true
-    }
-  },
-  data () {
-    return {
-      selectedAttachment: null
-    }
-  },
-  computed: {
-    attachments () {
-      return this.$store.getters['core/ATTACHMENTS_BY_CURRENT_PROJECT']
-    },
-    workspace () {
-      return this.$store.getters['current/WORKSPACE']
-    }
-  },
-  methods: {
-    selectAttachment (attachment) {
-      this.$emit('ok', attachment)
-      this.hide()
-    },
-    getParticipantTitleById (id) {
-      /** return title with username, first name and last name as a String **/
-      const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
-      return participant.id ? `@${participant.username} (${participant.first_name} ${participant.last_name})` : ''
-    },
-    show () {
-      this.$refs.dialog.show()
-    },
+	name: 'SelectAttachmentDialog',
+	props: {
+		issueId: {
+			type: Number,
+			required: true
+		}
+	},
+	data () {
+		return {
+			selectedAttachment: null
+		}
+	},
+	computed: {
+		attachments () {
+			return this.$store.getters['core/ATTACHMENTS_BY_CURRENT_PROJECT']
+		},
+		workspace () {
+			return this.$store.getters['current/WORKSPACE']
+		}
+	},
+	methods: {
+		selectAttachment (attachment) {
+			this.$emit('ok', attachment)
+			this.hide()
+		},
+		getParticipantTitleById (id) {
+			/** return title with username, first name and last name as a String **/
+			const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
+			return participant.id ? `@${participant.username} (${participant.first_name} ${participant.last_name})` : ''
+		},
+		show () {
+			this.$refs.dialog.show()
+		},
 
-    hide () {
-      this.$refs.dialog.hide()
-    },
+		hide () {
+			this.$refs.dialog.hide()
+		},
 
-    onDialogHide () {
-      this.$emit('hide')
-    },
+		onDialogHide () {
+			this.$emit('hide')
+		},
 
-    async onOKClick () {
-      this.$emit('ok', null)
-      this.hide()
-    },
+		async onOKClick () {
+			this.$emit('ok', null)
+			this.hide()
+		},
 
-    onCancelClick () {
-      this.hide()
-    }
-  }
+		onCancelClick () {
+			this.hide()
+		}
+	}
 }
 </script>

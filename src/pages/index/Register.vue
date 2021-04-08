@@ -51,52 +51,52 @@ import EmailField from 'components/fields/EmailField.vue'
 import ChangeConnectionElement from 'components/elements/ChangeConnectionElement.vue'
 
 export default {
-  name: 'Register',
-  components: { EmailField, PrefixUrlField, ChangeConnectionElement },
-  mixins: [Dialogs, fieldValidationMixin],
-  data () {
-    return {
-      formData: {
-        prefix_url: '',
-        email: ''
-      },
-      formErrors: {
-        prefix_url: '',
-        email: ''
-      }
-    }
-  },
-  methods: {
-    async register () {
-      if (this.formData.prefix_url.length < 1 || this.formData.email.length < 1) {
-        this.showRaisedError('Please input workspace url and email')
-        return false
-      }
+	name: 'Register',
+	components: { EmailField, PrefixUrlField, ChangeConnectionElement },
+	mixins: [Dialogs, fieldValidationMixin],
+	data () {
+		return {
+			formData: {
+				prefix_url: '',
+				email: ''
+			},
+			formErrors: {
+				prefix_url: '',
+				email: ''
+			}
+		}
+	},
+	methods: {
+		async register () {
+			if (this.formData.prefix_url.length < 1 || this.formData.email.length < 1) {
+				this.showRaisedError('Please input workspace url and email')
+				return false
+			}
 
-      try {
-        await this.$store.dispatch('auth/REGISTER', this.formData)
-        const dialog = [
-          'Congratulations',
-          "We've sent you an email." +
+			try {
+				await this.$store.dispatch('auth/REGISTER', this.formData)
+				const dialog = [
+					'Congratulations',
+					"We've sent you an email." +
           '<br>Please follow the link inside of it. ' +
           '<br> Link is valid only 24 hours',
-          true
-        ]
+					true
+				]
 
-        this.formData.prefix_url = ''
-        this.formData.email = ''
+				this.formData.prefix_url = ''
+				this.formData.email = ''
 
-        this.resetFieldsErrorMessages('formErrors', [
-          'prefix_url',
-          'email'
-        ])
+				this.resetFieldsErrorMessages('formErrors', [
+					'prefix_url',
+					'email'
+				])
 
-        this.showOkDialog(...dialog)
-      } catch (e) {
-        e.setErrors(this.formErrors)
-      }
-    }
-  }
+				this.showOkDialog(...dialog)
+			} catch (e) {
+				e.setErrors(this.formErrors)
+			}
+		}
+	}
 }
 </script>
 

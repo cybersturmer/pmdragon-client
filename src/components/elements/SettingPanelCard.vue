@@ -27,21 +27,21 @@
 
 <script>
 export default {
-  name: 'SettingPanelCard',
-  props: {
-    areActions: {
-      type: Boolean,
-      default: false
-    },
-    isAdditionalSection: {
-      type: Boolean,
-      default: false
-    },
-    defaultPreText: {
-      type: String,
-      default: '* All changes will take effect 1 second after input value'
-    }
-  }
+	name: 'SettingPanelCard',
+	props: {
+		areActions: {
+			type: Boolean,
+			default: false
+		},
+		isAdditionalSection: {
+			type: Boolean,
+			default: false
+		},
+		defaultPreText: {
+			type: String,
+			default: '* All changes will take effect 1 second after input value'
+		}
+	}
 }
 </script>
 
