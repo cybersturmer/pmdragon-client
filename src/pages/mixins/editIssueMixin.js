@@ -24,8 +24,7 @@ export const editIssueMixin = {
 				['bold', 'italic', 'underline'],
 				['unordered', 'ordered', 'outdent', 'indent'],
 				['fullscreen', 'print'],
-				['viewsource'],
-				['undo', 'redo']
+				['viewsource']
 			],
 			isDescriptionEditing: false,
 			formData: {
