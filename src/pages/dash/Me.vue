@@ -60,6 +60,8 @@
                         color="amber"
                         v-model="userFormData.userName"
                         label="Username"
+                        maxlength="20"
+                        hint="20 chars maximum"
                         prefix="@"/>
                     </q-card-section>
                     <q-card-actions vertical>
