@@ -30,6 +30,15 @@ export async function LOGIN ({ commit }, credentials) {
 	}
 }
 
+export async function FORGOT_PASSWORD ({ commit }, payload) {
+	try {
+		await new Api({ expectedStatus: 201 })
+			.post('/auth/person-password-forgot-requests/', payload)
+	} catch (e) {
+		throw new ErrorHandler(e)
+	}
+}
+
 export async function REFRESH ({ commit, getters }) {
 	const payload = {
 		refresh: getters.REFRESH_TOKEN

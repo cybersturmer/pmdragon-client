@@ -22,6 +22,14 @@ const routes = [
 				component: () => import('pages/index/Login.vue')
 			},
 			{
+				name: 'forgot',
+				path: '/forgot',
+				meta: {
+					title: 'Forgot password' + PMDRAGON_STRING
+				},
+				component: () => import('pages/index/Forgot.vue')
+			},
+			{
 				name: 'verify-registration',
 				path: '/verify/registration/:key',
 				props: true,
@@ -36,7 +44,7 @@ const routes = [
 				props: true,
 				meta: {
 					title: 'Verify your participation in the new workspace' +
-            PMDRAGON_STRING
+			PMDRAGON_STRING
 				},
 				component: () => import('pages/index/VerifyCollaboration.vue')
 			},

@@ -48,6 +48,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     'indent': [2, 'tab'],
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     'no-tabs': 0,
     // allow async-await
     'generator-star-spacing': 'off',

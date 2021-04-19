@@ -4,7 +4,7 @@
     flat
     type="text"
     @input="handleInput"
-    :value="value"
+    :value="email"
     :error="isError"
     :error-message="errorMessage"
     :rules="[isValidEmail]"
@@ -23,8 +23,14 @@ export default {
 		value: String,
 		errorMessage: String
 	},
+	data () {
+		return {
+			email: this.value
+		}
+	},
 	methods: {
 		handleInput (value) {
+			this.email = value
 			this.$emit('input', value)
 		}
 	},

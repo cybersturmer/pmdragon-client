@@ -8,7 +8,15 @@
     :error="isError"
     :error-message="errorMessage"
     label-color="amber"
-    label="Password"/>
+    label="Password">
+		<template #append>
+			<q-btn
+					dark
+					flat
+					:to="{ name: 'forgot' }"
+					label="Forgot?"/>
+		</template>
+  </q-input>
 </template>
 
 <script>
