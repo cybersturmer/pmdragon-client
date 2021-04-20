@@ -33,7 +33,7 @@
               <q-card-section class="col-4">
                 <q-avatar
                   v-if="props.row.avatar">
-                  <img :src="isMe(props.row.id) ? myAvatarUrl : props.row.avatar" :alt="props.row.username">
+                  <img :src="getAvatarByPersonId(props.row.id)" :alt="props.row.username">
                 </q-avatar>
               </q-card-section>
               <!-- Name block -->
@@ -172,6 +172,13 @@ export default {
 		}
 	},
 	methods: {
+		getAvatarByPersonId (id) {
+			try {
+				return this.$store.getters['auth/PERSON_BY_ID'](id).avatar
+			} catch (e) {
+				return false
+			}
+		},
 		isMe (personId) {
 			return this.$store.getters['auth/MY_PERSON_ID'] === personId
 		},
