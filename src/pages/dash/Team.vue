@@ -155,9 +155,6 @@ export default {
 		}
 	},
 	computed: {
-		myAvatarUrl () {
-			return this.$store.getters['auth/MY_AVATAR']
-		},
 		participants () {
 			return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
 		},
@@ -166,9 +163,6 @@ export default {
 			const invited = this.$store.getters['auth/INVITED']
 
 			return invited.filter((invitation) => invitation.workspace === workspaceId)
-		},
-		myId () {
-			return this.$store.getters['auth/MY_PERSON_ID']
 		}
 	},
 	methods: {
