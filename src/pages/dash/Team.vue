@@ -32,7 +32,7 @@
               <!-- Avatar block -->
               <q-card-section class="col-4">
                 <q-avatar
-                  v-if="props.row.avatar">
+                  v-if="getAvatarByPersonId(props.row.id)">
                   <img :src="getAvatarByPersonId(props.row.id)" :alt="props.row.username">
                 </q-avatar>
               </q-card-section>
