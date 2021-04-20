@@ -11,7 +11,7 @@
     label="Password">
 		<template #append>
 			<q-btn
-					v-if="forgot"
+					v-if="canBeReset"
 					dark
 					flat
 					:to="{ name: 'forgot' }"

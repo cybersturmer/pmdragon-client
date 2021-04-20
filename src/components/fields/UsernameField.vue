@@ -8,7 +8,6 @@
     :error="isError"
     :error-message="errorMessage"
     label="Username"
-    hint="Can be your email or chosen username"
     label-color="amber"
   />
 </template>
