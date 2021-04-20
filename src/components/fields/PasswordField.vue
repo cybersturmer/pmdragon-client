@@ -11,6 +11,7 @@
     label="Password">
 		<template #append>
 			<q-btn
+					v-if="forgot"
 					dark
 					flat
 					:to="{ name: 'forgot' }"
@@ -27,7 +28,12 @@ export default {
 	mixins: [fieldValidationMixin],
 	props: {
 		value: String,
-		errorMessage: String
+		errorMessage: String,
+		canBeReset: {
+			type: Boolean,
+			required: false,
+			default: false
+		}
 	},
 	data () {
 		return {

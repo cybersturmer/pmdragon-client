@@ -12,6 +12,7 @@
               </div>
               <div class="col">
                 <PasswordField
+									can-be-reset
                   v-model="formData.password"
                   :error-message="formErrors.password"
                   @keyup.enter.native="login"
