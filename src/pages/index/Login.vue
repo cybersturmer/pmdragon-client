@@ -80,14 +80,7 @@ export default {
 
 				await this.$router.push({ name: 'loading' })
 			} catch (e) {
-				if (e.status === 401) {
-					/** Let's create here dialog with 2 option
-           * 1) OK, i will try one more time
-           * 2) Restore by resetting on email
-           **/
-				} else {
-					return this.showOkDialog('Login was not successful', e.message)
-				}
+				return this.showOkDialog('Login was not successful', e.message)
 			}
 		}
 	}
