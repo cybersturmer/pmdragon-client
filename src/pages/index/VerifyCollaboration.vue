@@ -15,7 +15,7 @@
                 dark
                 flat
                 label="To login page"
-                to="/login"
+                :to="{ name: 'login' }"
               />
             </q-card-actions>
           </q-card-section>

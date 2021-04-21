@@ -12,7 +12,7 @@
     <q-btn
       color="secondary"
       style="width:200px;"
-      to="/"
+      :to="{name: 'login'}"
       label="Go back"
     />
   </div>

@@ -63,7 +63,7 @@
     >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
         <q-list dark class="q-pa-md">
-          <q-item clickable v-ripple to="/dash/backlog">
+          <q-item clickable v-ripple :to="{ name: 'backlog' }">
             <q-item-section avatar>
               <q-icon name="mdi-view-list" />
             </q-item-section>
@@ -73,7 +73,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/dash/board">
+          <q-item clickable v-ripple :to="{ name: 'board' }">
             <q-item-section avatar>
               <q-icon name="mdi-view-dashboard" />
             </q-item-section>
@@ -83,7 +83,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/dash/team">
+          <q-item clickable v-ripple :to="{ name: 'team'}">
             <q-item-section avatar>
               <q-icon name="mdi-account-multiple" />
             </q-item-section>
@@ -93,7 +93,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/dash/overview">
+          <q-item clickable v-ripple :to="{ name: 'overview'}">
             <q-item-section avatar>
               <q-icon name="mdi-chart-bar" />
             </q-item-section>
