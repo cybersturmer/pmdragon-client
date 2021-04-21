@@ -352,3 +352,11 @@ export function BACKLOG_ISSUES_COUNT (state, getters) {
 		return 0
 	}
 }
+
+export function IS_BACKLOG_EMPTY (state, getters) {
+	try {
+		return getters.BACKLOG.issues.length < 1
+	} catch (e) {
+		return true
+	}
+}

@@ -78,13 +78,22 @@
           <BlockHeaderInfo title="Backlog" :info="backlogIssuesLength"/>
         </div>
       </div>
-      <div class="col" v-if="backlogIssues">
+	    <!-- Block of backlog -->
+      <div class="col">
         <q-scroll-area
           dark
           visible
           class="bg-primary q-pa-sm"
           style="height: calc(100% - 35px); border: 1px solid #606060;">
+	        <div v-if="isBacklogEmpty && !dragging"
+	             class="flex flex-center text-amber"
+	             style="height: calc(40vh - 60px)">
+		        <div>
+			        Your backlog is empty. Add your first issue right now in field below.
+		        </div>
+	        </div>
           <draggable
+		        v-else
             :value="backlogIssues"
             :handle="$q.screen.lt.sm ? '.handle' : false"
             v-bind="dragOptions"
@@ -92,7 +101,10 @@
             @start="dragging=true"
             @end="dragging=false"
             style="min-height: 67px;">
-            <transition-group type="transition" name="flip-list" tag="div">
+            <transition-group
+		            type="transition"
+		            name="flip-list"
+		            tag="div">
               <IssueBacklog
                 v-for="issue in backlogIssues"
                 :key="issue.id"
@@ -193,9 +205,15 @@ export default {
 			/** Getting current backlog core **/
 			return this.$store.getters['core/BACKLOG_ISSUES']
 		},
+		isBacklogEmpty () {
+			return this.$store.getters['core/IS_BACKLOG_EMPTY']
+		},
+		backlogIssuesCount () {
+			return this.$store.getters['core/BACKLOG_ISSUES_COUNT']
+		},
 		backlogIssuesLength () {
 			/** Getting core count **/
-			return this.$store.getters['core/BACKLOG_ISSUES_COUNT'] + ' issues'
+			return this.backlogIssuesCount + ' issues'
 		},
 		sprints () {
 			/** Getting all sprints **/
