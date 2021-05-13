@@ -12,7 +12,7 @@ API can be found in:
 [API repository](https://github.com/cybersturmer/pmdragon-core-api)
 
 ## Video Channel
-[YouTube](https://www.youtube.com/watch?v=ZlPRVjLoKqA&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0&index=1)
+[YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0)
 
 ## Live Demo
 https://pmdragon-client.herokuapp.com/
