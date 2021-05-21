@@ -1,7 +1,7 @@
 {
   "name": "web",
-  "version": "0.0.9",
-  "description": "PmDragon Community Edition Application",
+  "version": "1.0.0",
+  "description": "PmDragon Community",
   "productName": "PmdragonCE",
   "author": "Wladimir Sturmer <cybersturmer@ya.ru>",
   "private": true,

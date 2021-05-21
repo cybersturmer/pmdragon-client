@@ -124,9 +124,9 @@ module.exports = function (/* ctx */) {
 			workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
 			workboxOptions: {}, // only for GenerateSW
 			manifest: {
-				name: 'PmDragon App',
-				short_name: 'PmDragon App',
-				description: 'PmDragon Community Edition Application',
+				name: 'PmDragon',
+				short_name: 'PmDragon',
+				description: 'PmDragon Community Edition',
 				display: 'standalone',
 				orientation: 'portrait',
 				background_color: '#ffffff',
@@ -164,7 +164,7 @@ module.exports = function (/* ctx */) {
 		// Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
 		cordova: {
 			// noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-			id: 'com.cybersturmer.pmdragon'
+			id: 'com.cybersturmer.pmdragon.pmdragonce'
 		},
 
 		// Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
@@ -178,7 +178,7 @@ module.exports = function (/* ctx */) {
 			packager: {
 				appVersion: '1.0.0',
 				buildVersion: '1',
-				appCopyright: 'Wladimir Sturmer'
+				appCopyright: 'Vladimir Shturmer'
 				// https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
 				// OS X / Mac App Store
