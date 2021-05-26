@@ -73,11 +73,12 @@ module.exports = function (/* ctx */) {
 		},
 
 		// Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
+		// I created folder ssl with 2 certificates by this tool https://github.com/FiloSottile/mkcert
+		// Of course i didn't commit that :) So create it by yourself or set https: false
 		devServer: {
 			https: process.env.HEROKU ? false : {
-				key: fs.readFileSync('ssl/localhost-key.pem'),
-				cert: fs.readFileSync('ssl/localhost.pem'),
-				ca: fs.readFileSync('ssl/mkcert development CA 209615209350349705268104912190401250134.crt')
+				key: fs.readFileSync('ssl/localhost+2-key.pem'),
+				cert: fs.readFileSync('ssl/localhost+2.pem')
 			},
 			port: 8080,
 			open: false
