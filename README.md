@@ -48,6 +48,8 @@ quasar build --mode cordova --target ios
 ## Deploy Web version by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
 
+## Android
+<a href='https://play.google.com/store/apps/details?id=com.cybersturmer.pmdragon.pmdragonce&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 
 ## License
 
