@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "PmDragon Community",
   "productName": "PmdragonCE",
-  "author": "Wladimir Sturmer <cybersturmer@ya.ru>",
+  "author": "Vladimir Shturmer <cybersturmer@ya.ru>",
   "private": true,
   "scripts": {
     "web:dev": "quasar dev",
