@@ -170,7 +170,6 @@
                         <q-chat-message
                           v-for="message in messages"
                           v-bind:key="message.id"
-                          :name="getParticipantTitleById(message.created_by)"
                           :avatar="getParticipantById(message.created_by).avatar"
                           size="6"
                           :text-sanitize="false"
@@ -178,11 +177,14 @@
                           text-color="amber"
                           :sent="isItMe(message.created_by)"
                         >
+                          <template #name>
+                            {{ getParticipantTitleById(message.created_by) }}
+                          </template>
+                          <template #stamp>
+                            {{ getRelativeDatetime(message.updated_at) }}
+                          </template>
                           <template #default>
                             <div v-html="message.description"/>
-                            <div class="text-left q-message-stamp">
-                              {{ getRelativeDatetime(message.updated_at) }}
-                            </div>
                             <div
                               v-show="$q.screen.gt.sm"
                               class="text-right">
