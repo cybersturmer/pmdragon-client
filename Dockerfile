@@ -5,10 +5,10 @@ LABEL maintainer="cybersturmer@ya.ru" \
       version="2.0"
 
 WORKDIR /app
-COPY ./pmdragon-client/package*.json ./
+COPY package*.json ./
 RUN npm install -g @quasar/cli
 RUN npm install
-COPY ./pmdragon-client .
+COPY . .
 RUN quasar build
 
 FROM nginx:stable as production-stage
