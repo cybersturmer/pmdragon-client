@@ -173,6 +173,7 @@
                           :avatar="getParticipantById(message.created_by).avatar"
                           size="6"
                           :text-sanitize="false"
+                          :text="message.description"
                           bg-color="accent"
                           text-color="amber"
                           :sent="isItMe(message.created_by)"
