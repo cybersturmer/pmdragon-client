@@ -185,21 +185,25 @@
                           </template>
                           <template #default>
                             <div v-html="message.description"/>
-                            <q-btn-group
-                              v-show="$q.screen.gt.sm && isItMe(message.created_by)"
-                              outline
-                              class="bottom-right">
-                              <q-btn
-                                size="sm"
-                                label="edit"
-                                @click="startMessageEditing(message.id)"
-                              />
-                              <q-btn
-                                size="sm"
-                                label="delete"
-                                @click="removeMessage(message.id)"
-                              />
-                            </q-btn-group>
+                            <div
+                              v-show="$q.screen.gt.sm"
+                              class="text-right">
+                              <q-btn-group
+                                v-show="isItMe(message.created_by)"
+                                outline
+                                class="bottom-right">
+                                <q-btn
+                                  size="sm"
+                                  label="edit"
+                                  @click="startMessageEditing(message.id)"
+                                />
+                                <q-btn
+                                  size="sm"
+                                  label="delete"
+                                  @click="removeMessage(message.id)"
+                                />
+                              </q-btn-group>
+                            </div>
                           </template>
                         </q-chat-message>
                       </q-card-section>
