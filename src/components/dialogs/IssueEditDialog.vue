@@ -169,7 +169,7 @@
                       <q-card-section>
                         <q-chat-message
                           v-for="message in messages"
-                          v-bind:key="message.id"
+                          :key="message.id"
                           :avatar="getParticipantById(message.created_by).avatar"
                           size="6"
                           :text-sanitize="false"
