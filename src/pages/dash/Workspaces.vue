@@ -48,7 +48,7 @@
                   :participant="participant"
                 />
               </q-card-section>
-              <q-card-actions vertical>
+              <q-card-actions v-if="props.row.projects.length > 0" vertical>
                 <q-btn v-for="project in props.row.projects"
                        v-bind:key="project.id"
                        outline
@@ -58,6 +58,16 @@
                   {{ project.title }}
                 </q-btn>
               </q-card-actions>
+              <q-card-section class="text-center" style="border-top: 1px dashed #696969" v-else>
+                <div>
+                    <q-btn
+                      dark
+                      flat
+                      outline
+                      color="amber"
+                      @click="createProjectDialog">Create Project</q-btn>
+                </div>
+              </q-card-section>
             </q-card>
           </div>
         </template>
@@ -106,7 +116,7 @@ export default {
 					this.createProjectDialog(data.id)
 				})
 		},
-		createProjectDialog () {
+		createProjectDialog (project) {
 			const options = {
 				parent: this,
 				dark: true,
@@ -142,8 +152,7 @@ export default {
 	},
 	computed: {
 		workspaces () {
-			const workspaces = this.$store.getters['auth/WORKSPACES']
-			return workspaces.filter(workspace => workspace.projects.length > 0)
+			return this.$store.getters['auth/WORKSPACES']
 		}
 	},
 	mounted () {
