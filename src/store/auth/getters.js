@@ -61,6 +61,12 @@ export function WORKSPACE_ID (state, getters) {
 	}
 }
 
+export function WORKSPACE_BY_ID (state) {
+	return workspaceId => {
+		return state.workspaces.find(workspace => workspace.id === workspaceId)
+	}
+}
+
 export function WORKSPACE_FIRST (state) {
 	try {
 		return state.workspaces[0]

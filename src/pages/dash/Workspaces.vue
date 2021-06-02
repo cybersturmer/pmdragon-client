@@ -65,7 +65,7 @@
                       flat
                       outline
                       color="amber"
-                      @click="createProjectDialog">Create Project</q-btn>
+                      @click="createProjectDialog(props.row.id)">Create Project</q-btn>
                 </div>
               </q-card-section>
             </q-card>
@@ -116,12 +116,15 @@ export default {
 					this.createProjectDialog(data.id)
 				})
 		},
-		createProjectDialog (project) {
+		createProjectDialog (workspaceId) {
+		  console.log(workspaceId)
+
 			const options = {
 				parent: this,
 				dark: true,
 				title: 'Create Project',
-				component: ProjectCreateDialog
+				component: ProjectCreateDialog,
+				workspaceId: workspaceId
 			}
 
 			this.$q.dialog(options)
