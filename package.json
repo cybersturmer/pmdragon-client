@@ -24,13 +24,11 @@
     "express": "^4.17.1",
     "mime": "^1.6.0",
     "quasar": "^1.15.19",
-    "serve-static": "^1.14.1",
     "vue-chartjs": "^3.5.1",
     "vue-i18n": "^8.22.4",
     "vue-moment": "^4.1.0",
     "vue-native-websocket": "^2.0.14",
-    "vuedraggable": "^2.24.3",
-    "yarn": "^1.22.10"
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@quasar/app": "^2.2.8",
