@@ -7,3 +7,6 @@ test
 jest.config.json
 quasar.extensions.json
 quasar.testing.json
+icongenie-base.json
+icongenie.sh
+assets
