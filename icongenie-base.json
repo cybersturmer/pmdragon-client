@@ -1,7 +1,7 @@
 {
   "params": {
     "skipTrim": true,
-    "icon": "./assets/logo.png",
+    "icon": "../tools/docs/images/logo.png",
     "quality": "10",
     "themeColor": "393939",
     "svgColor": "393939",
