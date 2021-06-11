@@ -8,8 +8,11 @@
 /* eslint-env node */
 
 const fs = require('fs')
+const { configure } = require('quasar/wrappers')
 
-module.exports = function (/* ctx */) {
+const DEBUG = process.env.NODE_ENV === 'development'
+
+module.exports = configure(function (/* ctx */) {
 	return {
 		https: !process.env.HEROKU,
 		supportTS: false,
@@ -76,10 +79,10 @@ module.exports = function (/* ctx */) {
 		// I created folder ssl with 2 certificates by this tool https://github.com/FiloSottile/mkcert
 		// Of course i didn't commit that :) So create it by yourself or set https: false
 		devServer: {
-			https: process.env.HEROKU ? false : {
+			https: DEBUG ? {
 				key: fs.readFileSync('ssl/localhost+2-key.pem'),
 				cert: fs.readFileSync('ssl/localhost+2.pem')
-			},
+			} : false,
 			port: 8080,
 			open: false
 		},
@@ -207,4 +210,4 @@ module.exports = function (/* ctx */) {
 			}
 		}
 	}
-}
+})
