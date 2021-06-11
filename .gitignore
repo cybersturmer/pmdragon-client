@@ -7,3 +7,6 @@ npm-debug.log*
 src-cordova/node_modules
 src-cordova/platforms
 src-cordova/plugins
+
+# This section is for key. Of course i do not intend to commit it to VCS
+pmdragon.keystore
