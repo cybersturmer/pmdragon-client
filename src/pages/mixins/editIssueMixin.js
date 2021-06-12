@@ -236,6 +236,13 @@ export const editIssueMixin = {
 
 			return this.$q.screen.gt.sm ? `${username} ${name}` : username
 		},
+		getParticipantAvatarById (id) {
+		  /** return avatar path by given user id **/
+		  const participant = this.getParticipantById(id)
+			if (!participant.id) return false
+
+			return participant.avatar
+		},
 		async getMessages () {
 			/** get messages for current issue without paging
        * Now its not a problem, will think later **/
@@ -488,7 +495,9 @@ export const editIssueMixin = {
 			sel.removeAllRanges()
 			sel.addRange(range)
 		},
-		startMessageEditing (id) {
+		startMessageEditing (id, chat) {
+			chat.reset()
+
 			const message = this.messages.find(message => message.id === id)
 
 			this.formNewMessage.description = message.description
@@ -500,7 +509,9 @@ export const editIssueMixin = {
 			this.isNewMessageEditing = true
 			this.$nextTick(this.$refs.issueMessageEditor.focus)
 		},
-		async removeMessage (id) {
+		async removeMessage (id, chat) {
+			chat.reset()
+
 			await new Api({
 				auth: true,
 				expectedStatus: 204
