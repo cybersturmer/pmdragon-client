@@ -1,20 +1,24 @@
 <template>
   <q-dialog
     ref="dialog"
-    @hide="onDialogHide">
+    @hide="onDialogHide"
+    :maximized="$q.screen.lt.md">
     <q-card
       dark
       flat
       bordered
       class="q-dialog-plugin bg-secondary"
-      style="width: 90vw; height: 90vh; max-width: 90vw;">
-      <q-card-section horizontal>
-        <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''}`">
-          <!-- @todo Breadcrumbs for current issue -->
+      :style=" $q.screen.gt.sm ? 'width: 90vw; height: 90vh; max-width: 90vw;' : ''">
+      <q-card-section :horizontal="$q.screen.gt.md">
+        <!-- We show this block only on small screen size (copyLink, more, close) -->
+        <q-card-section v-if="$q.screen.lt.md" class="column items-end q-py-none">
+          <IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
+        </q-card-section>
+        <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''} overflow-hidden`">
           <q-scroll-area
             ref="scrollArea"
             dark
-            style="height: 65vh; border-bottom: 1px solid #686868;">
+            :style="`height: ${ $q.screen.gt.sm ? '65vh' : '70vh'}; border-bottom: 1px solid #686868;`">
             <!-- Title block -->
             <q-card-section>
               <!-- Title editing section -->
@@ -35,6 +39,9 @@
                   />
                 </template>
               </q-input>
+            </q-card-section>
+            <q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
+              <IssueManageSection :issue="formData.issue"/>
             </q-card-section>
             <!-- Attachments -->
             <q-card-section>
@@ -170,40 +177,45 @@
                         <q-chat-message
                           v-for="message in messages"
                           :key="message.id"
-                          :avatar="getParticipantById(message.created_by).avatar"
-                          size="6"
-                          :text-sanitize="false"
-                          bg-color="accent"
-                          text-color="amber"
+                          :name="getParticipantTitleById(message.created_by)"
                           :sent="isItMe(message.created_by)"
-                        >
-                          <template #name>
-                            {{ getParticipantTitleById(message.created_by) }}
+                          :size="$q.screen.lt.sm ? '9' : '6'"
+                          bg-color="accent"
+                          text-color="amber">
+                          <template #avatar>
+                            <q-avatar v-if="getParticipantAvatarById(message.created_by)">
+                              <img src="getParticipantAvatarById(message.created_by)"
+                                   class="q-message-avatar q-message-avatar--sent">
+                            </q-avatar>
+                          </template>
+                          <template #default>
+                            <q-list dense separator>
+                              <q-slide-item
+                                @right="startMessageEditing(message.id, $event)"
+                                @left="removeMessage(message.id, $event)"
+                                right-color="accent"
+                                left-color="red-14"
+                                class="text-amber bg-primary">
+                                <template v-slot:right>
+                                  <div class="row items-center">
+                                    Edit
+                                    <q-icon right name="mdi-comment-edit" />
+                                  </div>
+                                </template>
+                                <template v-slot:left>
+                                  <div class="row items-center">
+                                    <q-icon left name="mdi-comment-remove" />
+                                    Remove
+                                  </div>
+                                </template>
+                                <q-item>
+                                  <q-item-section v-html="message.description"/>
+                                </q-item>
+                              </q-slide-item>
+                            </q-list>
                           </template>
                           <template #stamp>
                             {{ getRelativeDatetime(message.updated_at) }}
-                          </template>
-                          <template #default>
-                            <div v-html="message.description"/>
-                            <div
-                              v-show="$q.screen.gt.sm"
-                              class="text-right">
-                              <q-btn-group
-                                v-show="isItMe(message.created_by)"
-                                outline
-                                class="bottom-right">
-                                <q-btn
-                                  size="sm"
-                                  label="edit"
-                                  @click="startMessageEditing(message.id)"
-                                />
-                                <q-btn
-                                  size="sm"
-                                  label="delete"
-                                  @click="removeMessage(message.id)"
-                                />
-                              </q-btn-group>
-                            </div>
                           </template>
                         </q-chat-message>
                       </q-card-section>
@@ -257,7 +269,7 @@
             </q-card-section>
           </q-scroll-area>
             <!-- New Message Block -->
-          <q-card-section style="padding: 0">
+          <q-card-section class="q-pa-none">
             <q-card-section>
               <!-- Section for save new message -->
                 <q-card
@@ -297,109 +309,15 @@
             </q-card-section>
           </q-card-section>
         </q-card-section>
-        <q-card-section class="col-md-4 xs-hide sm-hide">
+        <q-card-section
+          v-if="$q.screen.gt.md"
+          class="col-md-4">
         <!-- Right section, we can change issue data here -->
-          <q-card-section align="right">
-            <q-btn-group flat>
-              <!-- Share button -->
-              <q-btn
-                flat
-                dense
-                icon="mdi-link-variant"
-                @click="copyLink"/>
-              <!-- More button -->
-              <q-btn
-                flat
-                dense
-                icon="mdi-dots-vertical">
-                <IssueMorePopupMenu
-                  v-on:remove="hide"
-                  :issue="formData.issue"/>
-              </q-btn>
-              <q-btn
-                flat
-                dense
-                icon="mdi-close"
-                @click="hide"
-              ></q-btn>
-            </q-btn-group>
+          <q-card-section v-if="$q.screen.gt.sm" class="column items-end">
+            <IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
           </q-card-section>
-          <q-card-section>
-            <!-- Selection for issue state -->
-            <!-- Selection for issue state -->
-            <q-select
-              dark
-              flat
-              square
-              dense
-              :value="getIssueStateById(formData.issue.state_category)"
-              @input="updateIssueState($event)"
-              :options="states"
-              option-label="title"
-              option-value="id"
-            />
-            <!-- Selection for issue type -->
-            <q-select
-              dark
-              flat
-              square
-              dense
-              :value="getIssueTypeById(formData.issue.type_category)"
-              @input="updateIssueType($event)"
-              :options="types"
-              option-label="title"
-              option-value="id"
-            />
-            <!-- Selection for assignee -->
-            <q-select
-              dark
-              flat
-              square
-              dense
-              :value="getParticipantById(formData.issue.assignee)"
-              @input="updateIssueAssignee($event)"
-              :options="participants"
-              :option-label="(item) => `${item.first_name} ${item.last_name}`"
-              option-value="id"
-            />
-            <!-- Selection for story points -->
-            <q-select
-              dark
-              flat
-              square
-              dense
-              :value="estimation"
-              @input="updateIssueEstimation($event)"
-              :options="estimations"
-              :option-label="(item) => item ? `${item.title}`: 'None'"
-              option-value="id"
-            />
-          </q-card-section>
-          <q-card-section>
-            <!-- Readonly props such as created at and updated at -->
-            <q-input
-              dark
-              flat
-              square
-              readonly
-              :value="createdAt"
-              :mask="mask"
-              type="datetime"
-              label="Created at"
-              label-color="amber"
-            />
-            <q-input
-              dark
-              flat
-              square
-              readonly
-              :value="updatedAt"
-              :mask="mask"
-              type="datetime"
-              label="Updated at"
-              label-color="amber"
-            />
-          </q-card-section>
+          <IssueManageSection :issue="formData.issue"/>
+          <IssueCreateUpdateSection :issue="formData.issue"/>
         </q-card-section>
       </q-card-section>
     </q-card>
@@ -408,9 +326,13 @@
 
 <script>
 import { editIssueMixin } from 'pages/mixins/editIssueMixin'
+import IssueManageSection from '../elements/issue_dialog/IssueManageSection'
+import IssueCreateUpdateSection from '../elements/issue_dialog/IssueCreateUpdateSection'
+import IssueHeader from '../elements/issue_dialog/IssueHeader'
 
 export default {
 	name: 'IssueEditDialog',
+	components: { IssueHeader, IssueCreateUpdateSection, IssueManageSection },
 	mixins: [editIssueMixin],
 	methods: {
 		show () {

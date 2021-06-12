@@ -200,35 +200,13 @@ export const editIssueMixin = {
 			/** Get relative datetime for messages (example: "an hour ago") **/
 			return this.$moment(datetime).fromNow()
 		},
-		getIssueStateById (id) {
-			/** Get Issue state by Id, we got Issue State from props given to component **/
-			return this.$store.getters['core/ISSUE_STATE_BY_ID'](id)
-		},
-		getIssueTypeById (id) {
-			/** Get Issue Type by Id, we got Issue Types from props given to component **/
-			return this.$store.getters['core/ISSUE_TYPE_BY_ID'](id)
-		},
-		getParticipantById (id) {
-			/** Get participant object by given id from participants list given in props
-       * It also can return Unassigned if given person was not found **/
-
-			if (id === null) {
-				return {
-					id: null,
-					first_name: 'Unassigned',
-					last_name: ''
-				}
-			}
-
-			return this.$store.getters['auth/PERSON_BY_ID'](id)
-		},
 		isItMe (id) {
 			/** Return true if given id is current user id **/
 			return id === this.$store.getters['auth/MY_PERSON_ID']
 		},
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/
-			const participant = this.getParticipantById(id)
+			const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
 			if (!participant.id) return ''
 
 			const username = `@${participant.username}`
@@ -238,7 +216,7 @@ export const editIssueMixin = {
 		},
 		getParticipantAvatarById (id) {
 		  /** return avatar path by given user id **/
-		  const participant = this.getParticipantById(id)
+		  const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
 			if (!participant.id) return false
 
 			return participant.avatar
@@ -278,54 +256,6 @@ export const editIssueMixin = {
        * for make it editable **/
 			this.isDescriptionEditing = true
 			this.$nextTick(this.$refs.issueDescriptionEditor.focus)
-		},
-		async updateIssueState (state) {
-			/** update state for Issue
-       * We use it in selection field **/
-			this.formData.issue.state_category = state.id
-			const payload = {
-				id: this.formData.issue.id,
-				state_category: this.formData.issue.state_category
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.$emit('update_state', payload)
-		},
-		async updateIssueType (state) {
-			/** update Issue type
-       * we use it in selection field **/
-			this.formData.issue.type_category = state.id
-			const payload = {
-				id: this.formData.issue.id,
-				type_category: this.formData.issue.type_category
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.$emit('update_type', payload)
-		},
-		async updateIssueAssignee (assignee) {
-			/** update Issue assignee
-       * we use it in selection field **/
-			this.formData.issue.assignee = assignee.id
-
-			const payload = {
-				id: this.formData.issue.id,
-				assignee: assignee.id
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.$emit('update_assignee', payload)
-		},
-		async updateIssueEstimation (estimation) {
-			this.formData.issue.estimation_category = estimation.id
-
-			const payload = {
-				id: this.formData.issue.id,
-				estimation_category: estimation.id
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.$emit('update_estimation', payload)
 		},
 		async updateIssueTitle (title) {
 			/** update Issue Title
@@ -549,15 +479,19 @@ export const editIssueMixin = {
 			return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
 		},
 		estimations () {
+		  // Check usage
 			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
 		},
 		states () {
+		  // Check usage
 			return this.$store.getters['core/ISSUE_STATES_BY_CURRENT_PROJECT']
 		},
 		types () {
+			// Check usage
 			return this.$store.getters['core/ISSUE_TYPES_BY_CURRENT_PROJECT']
 		},
 		participants () {
+		  // Check usage
 			return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
 		},
 		estimation () {
@@ -571,9 +505,11 @@ export const editIssueMixin = {
 			}
 		},
 		createdAt () {
+		  // check usage
 			return date.formatDate(this.formData.issue.created_at, DATETIME_MASK)
 		},
 		updatedAt () {
+			// check usage
 			return date.formatDate(this.formData.issue.updated_at, DATETIME_MASK)
 		},
 		thereAreMessages () {
