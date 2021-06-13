@@ -516,12 +516,15 @@ export const editIssueMixin = {
 			return this.$store.getters['current/ARE_ISSUE_MESSAGES']
 		},
 		isIssueTypeIcon () {
+			// CHeck usages
 			return this.$store.getters['core/IS_ISSUE_TYPE_HAVE_ICON'](this.formData.issue.type_category)
 		},
 		getIssueTypeIcon () {
+		  // CHeck usages
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.formData.issue.type_category)
 		},
 		getIssueTypeIconColor () {
+		  // Check usages
 			try {
 				return this.getIssueTypeIcon.color
 			} catch (e) {
@@ -529,6 +532,7 @@ export const editIssueMixin = {
 			}
 		},
 		getIssueTypeIconPrefix () {
+		  // Check usages
 			try {
 				return this.getIssueTypeIcon.prefix
 			} catch (e) {
