@@ -9,37 +9,37 @@
       bordered
       class="q-dialog-plugin bg-secondary"
       :style=" $q.screen.gt.sm ? 'width: 90vw; height: 90vh; max-width: 90vw;' : ''">
-      <q-card-section :horizontal="$q.screen.gt.md">
+      <q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-pb-none">
         <!-- We show this block only on small screen size (copyLink, more, close) -->
         <q-card-section v-if="$q.screen.lt.md" class="column items-end q-py-none">
           <IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
+        </q-card-section>
+        <!-- Title block -->
+        <q-card-section class="q-py-none">
+          <!-- Title editing section -->
+          <q-input
+            dark
+            :value="formData.issue.title"
+            debounce="1000"
+            @input="updateIssueTitle($event)"
+            :label="issueTitleLabel"
+            label-color="amber">
+            <template v-slot:before>
+              <q-icon
+                v-if="isIssueTypeIcon"
+                :name="getIssueTypeIconPrefix"
+                :color="getIssueTypeIconColor"
+                :title="getIssueTypeTitle(formData.issue.type_category)"
+                size="md"
+              />
+            </template>
+          </q-input>
         </q-card-section>
         <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''} overflow-hidden`">
           <q-scroll-area
             ref="scrollArea"
             dark
             :style="`height: ${ $q.screen.gt.sm ? '65vh' : '70vh'}; border-bottom: 1px solid #686868;`">
-            <!-- Title block -->
-            <q-card-section>
-              <!-- Title editing section -->
-              <q-input
-                dark
-                :value="formData.issue.title"
-                debounce="1000"
-                @input="updateIssueTitle($event)"
-                :label="issueTitleLabel"
-                label-color="amber">
-                <template v-slot:before>
-                  <q-icon
-                    v-if="isIssueTypeIcon"
-                    :name="getIssueTypeIconPrefix"
-                    :color="getIssueTypeIconColor"
-                    :title="getIssueTypeTitle(formData.issue.type_category)"
-                    size="md"
-                  />
-                </template>
-              </q-input>
-            </q-card-section>
             <q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
               <IssueManageSection :issue="formData.issue"/>
             </q-card-section>
@@ -285,7 +285,7 @@
                 </q-card>
                 <q-card-section
                   v-show="isNewMessageEditing"
-                  style="padding: 0">
+                  class="q-pa-none">
                   <q-editor
                     dark
                     dense
