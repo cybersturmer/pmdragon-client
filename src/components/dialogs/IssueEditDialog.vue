@@ -15,27 +15,9 @@
           <IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
         </q-card-section>
         <!-- Title block -->
-        <q-card-section class="q-py-none">
-          <!-- Title editing section -->
-          <q-input
-            dark
-            :value="formData.issue.title"
-            debounce="1000"
-            @input="updateIssueTitle($event)"
-            :label="issueTitleLabel"
-            label-color="amber">
-            <template v-slot:before>
-              <q-icon
-                v-if="isIssueTypeIcon"
-                :name="getIssueTypeIconPrefix"
-                :color="getIssueTypeIconColor"
-                :title="getIssueTypeTitle(formData.issue.type_category)"
-                size="md"
-              />
-            </template>
-          </q-input>
-        </q-card-section>
+        <IssueTitleSection v-if="$q.screen.lt.md" :issue="formData.issue"/>
         <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''} overflow-hidden`">
+          <IssueTitleSection v-if="$q.screen.gt.sm" :issue="formData.issue"/>
           <q-scroll-area
             ref="scrollArea"
             dark
@@ -329,10 +311,11 @@ import { editIssueMixin } from 'pages/mixins/editIssueMixin'
 import IssueManageSection from '../elements/issue_dialog/IssueManageSection'
 import IssueCreateUpdateSection from '../elements/issue_dialog/IssueCreateUpdateSection'
 import IssueHeader from '../elements/issue_dialog/IssueHeader'
+import IssueTitleSection from '../elements/issue_dialog/IssueTitleSection'
 
 export default {
 	name: 'IssueEditDialog',
-	components: { IssueHeader, IssueCreateUpdateSection, IssueManageSection },
+	components: { IssueTitleSection, IssueHeader, IssueCreateUpdateSection, IssueManageSection },
 	mixins: [editIssueMixin],
 	methods: {
 		show () {
