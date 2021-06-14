@@ -18,6 +18,13 @@ export function ISSUE_BY_ID (state) {
 	}
 }
 
+export function ISSUE_BY_ID_PROJECT_NUMBER (state, getters) {
+	/** Getting project number by issue id **/
+	return issueId => {
+	  return getters.ISSUE_BY_ID(issueId).project_number
+	}
+}
+
 export function ISSUE_BY_ID_ATTACHMENTS (state, getters) {
 	return issueId => {
 		try {
@@ -285,6 +292,12 @@ export function ISSUE_TYPE_TITLE_BY_ID (state, getters) {
 		} catch (e) {
 			return 'None'
 		}
+	}
+}
+
+export function ISSUE_TYPE_LABEL_BY_ID (state, getters) {
+	return issueTypeId => {
+		return `#${this.issue.project_number} ${getters.ISSUE_TYPE_TITLE_BY_ID(issueTypeId)}`
 	}
 }
 
