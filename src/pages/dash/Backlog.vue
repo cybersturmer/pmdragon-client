@@ -1,16 +1,16 @@
 <template>
   <q-page class="flex q-layout-padding">
     <div class="column full-width">
-      <div class="row q-pt-sm q-pt-none-md q-pl-sm">
-        <div class="col-8">
+      <div class="row q-py-sm q-pl-sm q-pr-none">
+        <div class="col-6">
           <BlockHeader title="Sprints"/>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <q-btn
             dark
             outline
             color="amber"
-            label="Create Sprint"
+            label="Create"
             class="float-right"
             @click="createSprint"
           />
