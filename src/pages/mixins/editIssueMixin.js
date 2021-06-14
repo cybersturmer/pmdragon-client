@@ -1,13 +1,12 @@
 import { DATETIME_MASK } from 'src/services/masks'
-import { ErrorHandler, removeElement, unWatch } from 'src/services/util'
-import { copyToClipboard, date } from 'quasar'
+import { ErrorHandler, unWatch } from 'src/services/util'
+import { date } from 'quasar'
 import { Api } from 'src/services/api'
 import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
 import EditorSaveButton from 'components/buttons/EditorSaveButton'
 import EditorCancelButton from 'components/buttons/EditorCancelButton'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
-import SelectAttachmentDialog from 'components/dialogs/SelectAttachmentDialog'
 
 export const editIssueMixin = {
 	components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
@@ -90,73 +89,6 @@ export const editIssueMixin = {
 				this.$refs.scrollArea.setScrollPercentage(1.25, 300)
 			}
 		},
-		downloadFile (url) {
-			window.open(url)
-		},
-		async uploadFileAttachment (files) {
-			const payloadTemplate = {
-				workspace: this.$store.getters['auth/WORKSPACE_ID'],
-				project: this.$store.getters['current/PROJECT'],
-				title: '',
-				issue: this.formData.issue.id
-			}
-
-			for (const file of files) {
-				payloadTemplate.title = file.name
-
-				const payload = {
-					file: file,
-					data: payloadTemplate
-				}
-
-				try {
-					await this.$store.dispatch('core/ADD_ATTACHMENT', payload)
-				} catch (e) {
-					return Promise.reject('One of file was not uploaded')
-				}
-			}
-
-			this.$nextTick(this.$refs.uploader.removeQueuedFiles)
-			return Promise.resolve('Successfully uploaded')
-		},
-		async linkFileAttachment (attachment) {
-			const issueId = this.formData.issue.id
-			const attachments = unWatch(this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](issueId))
-
-			attachments.push(attachment.id)
-
-			const payload = {
-				id: issueId,
-				attachments: attachments
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-		},
-		async showSelectAttachmentDialog () {
-			this.$q.dialog({
-				parent: this,
-				dark: true,
-				title: 'Select attachment ',
-				component: SelectAttachmentDialog,
-				issueId: this.formData.issue.id
-			})
-				.onOk((attachment) => {
-					this.linkFileAttachment(attachment)
-				})
-		},
-		async deleteFileAttachmentFromIssue (attachment) {
-			const issueId = this.formData.issue.id
-			let patchedAttachments = unWatch(this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](issueId))
-
-			patchedAttachments = removeElement(patchedAttachments, attachment.id)
-
-			const payload = {
-				id: issueId,
-				attachments: patchedAttachments
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-		},
 		isTimelineShowValues (entry) {
 			if (entry.edited_field === 'Ordering') {
 				return false
@@ -188,13 +120,6 @@ export const editIssueMixin = {
 			default:
 				return `${participantTitle} did (${entry.entry_type})`
 			}
-		},
-		copyLink () {
-			/** Copy link to issue in buffer **/
-			const host = this.$store.getters['connection/HOST']
-			const text = `${host}/dash/issue/${this.formData.issue.id}`
-			copyToClipboard(text)
-				.then(() => this.showInformalNotification('Link copied to clipboard'))
 		},
 		getRelativeDatetime (datetime) {
 			/** Get relative datetime for messages (example: "an hour ago") **/
@@ -246,30 +171,12 @@ export const editIssueMixin = {
 
 			await this.$store.dispatch('current/SET_ISSUE_HISTORY', response.data)
 		},
-		getIssueTypeTitle (id) {
-			/** get Title for given issue type id **/
-			return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](id)
-		},
 		startEditingDescription () {
 			/** update description state
        * We use it by clicking on the block with description of Issue
        * for make it editable **/
 			this.isDescriptionEditing = true
 			this.$nextTick(this.$refs.issueDescriptionEditor.focus)
-		},
-		async updateIssueTitle (title) {
-			/** update Issue Title
-       * we use it as a handler after text in input was changed
-       * and user leave field by clicking outside **/
-			this.formData.issue.title = title
-
-			const payload = {
-				id: this.formData.issue.id,
-				title: title
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.$emit('update_title', payload)
 		},
 		async handleEnterDescription (e) {
 			/** Handle Ctrl + Enter command in editor **/
@@ -464,17 +371,6 @@ export const editIssueMixin = {
 		history () {
 			return this.$store.getters['current/ISSUE_HISTORY']
 		},
-		attachments () {
-			try {
-				const attachments = this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id)
-				return this.$store.getters['core/ATTACHMENTS_BY_IDS'](attachments)
-			} catch (e) {
-				return []
-			}
-		},
-		attachmentsAmount () {
-			return this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.formData.issue.id).length
-		},
 		timelineLayout () {
 			return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
 		},
@@ -553,11 +449,6 @@ export const editIssueMixin = {
 			}
 
 			return regexArray
-		},
-		issueTitleLabel () {
-			/** get Issue title with Type and id of Issue **/
-			const issueType = this.getIssueTypeTitle(this.formData.issue.type_category)
-			return `#${this.formData.issue.project_number} ${issueType}`
 		}
 	}
 }
