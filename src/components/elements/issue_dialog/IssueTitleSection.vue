@@ -49,7 +49,7 @@ export default {
 	computed: {
 		issueTitleLabel () {
 			/** get Issue title with Type and id of Issue **/
-			return `#${this.issue.project_number} ${this.issueTypeTitle}`
+			return `#${this.issueProjectNumber} ${this.issueTypeTitle}`
 		},
 		issueTypeIcon () {
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ISSUE_TYPE_CATEGORY_ID'](this.issue.type_category)
@@ -74,6 +74,9 @@ export default {
 		issueTypeTitle () {
 			/** get Title for given issue type id **/
 			return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](this.issue.id)
+		},
+		issueProjectNumber () {
+		  return this.$store.getters['core/ISSUE_BY_ID_PROJECT_NUMBER'](this.issue.id)
 		}
 	}
 }
