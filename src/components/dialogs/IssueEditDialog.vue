@@ -25,71 +25,7 @@
             <q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
               <IssueManageSection :issue="formData.issue"/>
             </q-card-section>
-            <!-- Attachments -->
-            <q-card-section>
-              <q-uploader
-                dark
-                flat
-                ref="uploader"
-                auto-upload
-                :factory="uploadFileAttachment"
-                :max-file-size="10485760"
-                class="full-width"
-              >
-                <template #header>
-                  <div>
-                    <span v-if="$q.screen.gt.sm"
-                      class="text-bold text-amber">
-                      ATTACHMENTS {{ attachmentsAmount }}
-                    </span>
-                    <q-btn
-                      dense
-                      flat
-                      label="Upload file"
-                      class="q-pl-sm q-pr-sm text-amber"
-                      icon="mdi-upload">
-                      <q-uploader-add-trigger />
-                    </q-btn>
-                    <q-btn
-                      dense
-                      flat
-                      label="Link file"
-                      class="q-pl-sm q-pr-sm text-amber"
-                      icon="mdi-link-plus"
-                      @click="showSelectAttachmentDialog"
-                    />
-                  </div>
-                </template>
-                <template #list>
-                  <q-scroll-area
-                    dark
-                    horizontal
-                    visible
-                    style="height: 55px;"
-                    class="bg-primary rounded-borders full-width"
-                  >
-                    <div class="row no-wrap">
-                      <div
-                        v-for="attachment in attachments"
-                        :key="attachment.id"
-                        class="q-pa-sm truncate-chip-labels">
-                        <q-chip
-                          dark
-                          square
-                          removable
-                          clickable
-                          color="primary"
-                          :icon="attachment.icon"
-                          :label="attachment.title"
-                          @remove="deleteFileAttachmentFromIssue(attachment)"
-                          @click="downloadFile(attachment.attachment)"
-                        />
-                      </div>
-                    </div>
-                  </q-scroll-area>
-                </template>
-              </q-uploader>
-            </q-card-section>
+            <IssueUploaderSection :issue="formData.issue" />
             <!-- Description -->
             <q-card-section class="q-pt-xs">
               <!-- Block with issue description -->
@@ -312,11 +248,20 @@ import IssueManageSection from '../elements/issue_dialog/IssueManageSection'
 import IssueCreateUpdateSection from '../elements/issue_dialog/IssueCreateUpdateSection'
 import IssueHeader from '../elements/issue_dialog/IssueHeader'
 import IssueTitleSection from '../elements/issue_dialog/IssueTitleSection'
+import IssueUploaderSection from '../elements/issue_dialog/IssueUploaderSection'
 
 export default {
 	name: 'IssueEditDialog',
-	components: { IssueTitleSection, IssueHeader, IssueCreateUpdateSection, IssueManageSection },
-	mixins: [editIssueMixin],
+	components: {
+	  IssueUploaderSection,
+		IssueTitleSection,
+		IssueHeader,
+		IssueCreateUpdateSection,
+		IssueManageSection
+	},
+	mixins: [
+	  editIssueMixin
+	],
 	methods: {
 		show () {
 			this.$refs.dialog.show()
