@@ -102,7 +102,7 @@
                           text-color="amber">
                           <template #avatar>
                             <q-avatar v-if="getParticipantAvatarById(message.created_by)">
-                              <img src="getParticipantAvatarById(message.created_by)"
+                              <img :src="getParticipantAvatarById(message.created_by)"
                                    class="q-message-avatar q-message-avatar--sent">
                             </q-avatar>
                           </template>
@@ -112,7 +112,7 @@
                                 @right="startMessageEditing(message.id, $event)"
                                 @left="removeMessage(message.id, $event)"
                                 right-color="accent"
-                                left-color="red-14"
+                                left-color="red-8"
                                 class="text-amber bg-primary">
                                 <template v-slot:right>
                                   <div class="row items-center">
