@@ -3,13 +3,11 @@ import { ErrorHandler, unWatch } from 'src/services/util'
 import { date } from 'quasar'
 import { Api } from 'src/services/api'
 import IssueMorePopupMenu from 'components/popups/IssueMorePopupMenu'
-import EditorSaveButton from 'components/buttons/EditorSaveButton'
-import EditorCancelButton from 'components/buttons/EditorCancelButton'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { Notifications } from 'pages/mixins/notifications'
 
 export const editIssueMixin = {
-	components: { IssueMorePopupMenu, EditorSaveButton, EditorCancelButton },
+	components: { IssueMorePopupMenu },
 	mixins: [Dialogs, Notifications],
 	props: {
 		id: {
@@ -19,12 +17,6 @@ export const editIssueMixin = {
 	data () {
 		return {
 			tab: 'messages',
-			editorToolbar: [
-				['bold', 'italic', 'underline'],
-				['unordered', 'ordered', 'outdent', 'indent'],
-				['fullscreen', 'print'],
-				['viewsource']
-			],
 			isDescriptionEditing: false,
 			formData: {
 				issue: {
@@ -38,8 +30,6 @@ export const editIssueMixin = {
 				issue: this.id,
 				description: ''
 			},
-			isNewMessageEditing: false,
-			editingMessageId: null,
 			mask: DATETIME_MASK
 		}
 	},
@@ -170,198 +160,6 @@ export const editIssueMixin = {
 				)
 
 			await this.$store.dispatch('current/SET_ISSUE_HISTORY', response.data)
-		},
-		startEditingDescription () {
-			/** update description state
-       * We use it by clicking on the block with description of Issue
-       * for make it editable **/
-			this.isDescriptionEditing = true
-			this.$nextTick(this.$refs.issueDescriptionEditor.focus)
-		},
-		async handleEnterDescription (e) {
-			/** Handle Ctrl + Enter command in editor **/
-			if (e.ctrlKey) {
-				return await this.updateIssueDescription()
-			}
-		},
-		async updateIssueDescription () {
-			/** update Issue description
-       * we use it as a handler for description field changing **/
-			const payload = {
-				id: this.formData.issue.id,
-				description: this.formData.issue.description
-			}
-
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
-			this.isDescriptionEditing = false
-
-			this.$emit('update_description', payload)
-		},
-		cancelDescriptionEditing () {
-			/** We use this handler if user wrote something in Issue description
-       * and clicked cancel then **/
-			this.isDescriptionEditing = false
-		},
-		cancelMessageEditing () {
-			/** We use it if user wrote a message and clicked cancel then **/
-			this.isNewMessageEditing = false
-			this.formNewMessage.description = ''
-			this.editingMessageId = null
-		},
-		async _createMessage () {
-			/** We use it for adding one more message **/
-			const payload = this.formNewMessage
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 201
-			})
-				.post(
-					'/core/issue-messages/',
-					payload
-				)
-
-			const messagesClone = unWatch(this.messages)
-			messagesClone.push(response.data)
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
-		},
-		async _updateMessage () {
-			/** Kind of private method - we use it in create - update method **/
-			const payload = {
-				description: this.formNewMessage.description
-			}
-
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 200
-			})
-				.patch(
-					`/core/issue-messages/${this.editingMessageId}/`,
-					payload
-				)
-
-			const oldMessage = this.messages
-				.find(message => message.id === this.editingMessageId)
-
-			const idx = this.messages
-				.indexOf(oldMessage)
-
-			const messagesClone = unWatch(this.messages)
-			messagesClone.splice(idx, 1, response.data)
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
-		},
-		async handleMessageEnter (e) {
-			/** Handle Ctrl + Enter command in editor **/
-			if (e.ctrlKey) {
-				return await this.createOrUpdateMessage()
-			}
-		},
-		async createOrUpdateMessage () {
-			/** We use it for adding one more message **/
-			if (this.editingMessageId !== null) {
-				await this._updateMessage()
-			} else {
-				await this._createMessage()
-			}
-
-			this.cancelMessageEditing()
-		},
-		checkMentioning (description) {
-			/** Check Mentioning by checking all RegExp, pre-built
-       * It also update participant object by defining index **/
-
-			for (const participant of this.mentioningRegex) {
-				const mentioned = description.match(participant.regex)
-				if (mentioned) {
-					participant.index = mentioned.index
-					return participant
-				}
-			}
-
-			return false
-		},
-		generateMentionedChip (participant) {
-			/** generate username snippet for mentioned username **/
-			return `&nbsp;<span class="editor_token" title="${participant.fullName}" data-mentioned-user-id="${participant.userId}" contenteditable="false">${participant.username}</span>&nbsp; `
-		},
-		async renderEditorMentioning (data, refsKey) {
-			/** Replace @username to snippet with firstName-lastName non-editable block **/
-
-			/** Firstly we have to check - do we have mentioning somewhere in the text **/
-			const person = this.checkMentioning(data)
-			if (!person) return false
-
-			const editor = this.$refs[refsKey]
-			const selection = editor.caret.selection
-
-			/** Getting initial position of caret **/
-			const currentPos = selection.focusOffset
-			const currentNode = selection.focusNode
-
-			/** Set selection for typed username and delete it from the document **/
-			this._setSelection(currentNode, currentPos - (person.textLength + 1), currentPos)
-			editor.caret.selection.deleteFromDocument()
-
-			/** Set caret to initial position that was before username deletion **/
-			this._setCaret(currentNode, currentPos)
-
-			/** We generate placeholder and insert it in editor **/
-			const placeholder = this.generateMentionedChip(person)
-			this.$nextTick(editor.runCmd('insertHTML', placeholder, true))
-			this.$nextTick(editor.focus)
-		},
-		_setSelection ($node, from, to) {
-			const range = document.createRange()
-			const sel = window.getSelection()
-
-			range.setStart($node, from)
-			range.setEnd($node, to)
-
-			sel.removeAllRanges()
-			sel.addRange(range)
-		},
-		_setCaret ($node, offset) {
-			const range = document.createRange()
-			const sel = window.getSelection()
-			const innerTextLength = $node.length
-
-			if (offset >= innerTextLength) return false
-
-			range.setStart($node, innerTextLength)
-			range.collapse(true)
-
-			sel.removeAllRanges()
-			sel.addRange(range)
-		},
-		startMessageEditing (id, chat) {
-			chat.reset()
-
-			const message = this.messages.find(message => message.id === id)
-
-			this.formNewMessage.description = message.description
-			this.editingMessageId = id
-			this.isNewMessageEditing = true
-			this.$nextTick(this.$refs.issueMessageEditor.focus)
-		},
-		startMessageCreating () {
-			this.isNewMessageEditing = true
-			this.$nextTick(this.$refs.issueMessageEditor.focus)
-		},
-		async removeMessage (id, chat) {
-			chat.reset()
-
-			await new Api({
-				auth: true,
-				expectedStatus: 204
-			})
-				.delete(
-					`/core/issue-messages/${id}/`
-				)
-
-			const messagesClone = this.messages.filter((value) => {
-				return value.id !== id
-			})
-
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
 		}
 	},
 	computed: {
@@ -436,19 +234,7 @@ export const editIssueMixin = {
 			}
 		},
 		mentioningRegex () {
-			const regexArray = []
-			for (const participant of this.participants) {
-				regexArray.push({
-					userId: participant.id,
-					username: participant.username,
-					fullName: `${participant.first_name} ${participant.last_name}`,
-					regex: new RegExp(`@${participant.username}`, 'i'),
-					index: null,
-					textLength: participant.username.length
-				})
-			}
-
-			return regexArray
+			return this.$store.getters['auth/MENTIONING_REGEX']
 		}
 	}
 }

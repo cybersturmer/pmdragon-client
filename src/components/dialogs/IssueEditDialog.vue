@@ -9,65 +9,33 @@
       bordered
       class="q-dialog-plugin bg-secondary"
       :style=" $q.screen.gt.sm ? 'width: 90vw; height: 90vh; max-width: 90vw;' : ''">
-      <q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-pb-none">
+      <q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-sm">
         <!-- We show this block only on small screen size (copyLink, more, close) -->
         <q-card-section v-if="$q.screen.lt.md" class="column items-end q-py-none">
-          <IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
+          <IssueHeader :issue="formData.issue"
+											 class="col"
+											 @hide="hide"/>
         </q-card-section>
         <!-- Title block -->
-        <IssueTitleSection v-if="$q.screen.lt.md" :issue="formData.issue"/>
+        <IssueTitleSection v-if="$q.screen.lt.md"
+													 :issue="formData.issue"/>
         <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''} overflow-hidden`">
-          <IssueTitleSection v-if="$q.screen.gt.sm" :issue="formData.issue"/>
+          <IssueTitleSection v-if="$q.screen.gt.sm"
+														 :issue="formData.issue"/>
           <q-scroll-area
             ref="scrollArea"
             dark
-            :style="`height: ${ $q.screen.gt.sm ? '65vh' : '70vh'}; border-bottom: 1px solid #686868;`">
+            :style="`height: ${ $q.screen.gt.sm ? '65vh' : '68vh'}; border-bottom: 1px solid #686868;`">
             <q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
               <IssueManageSection :issue="formData.issue"/>
             </q-card-section>
             <IssueUploaderSection :issue="formData.issue" />
-            <!-- Description -->
-            <q-card-section class="q-pt-xs">
-              <!-- Block with issue description -->
-              <div class="q-mb-xs text-subtitle2 text-amber text-uppercase">
-                Description
-              </div>
-              <q-card
-                v-show="!isDescriptionEditing"
-                dark
-                flat
-                bordered>
-                <q-card-section
-                  v-html="formData.issue.description || 'Add a description by clicking this area...'"
-                  class="editable_block text-amber"
-                  @click="startEditingDescription"/>
-              </q-card>
-              <q-editor
-                dark
-                dense
-                paragraph-tag="p"
-                toolbar-toggle-color="amber"
-                min-height="5rem"
-                :toolbar="editorToolbar"
-                ref="issueDescriptionEditor"
-                v-model.trim="formData.issue.description"
-                @keyup.enter="handleEnterDescription"
-                @input="renderEditorMentioning(formData.issue.description, 'issueDescriptionEditor')"
-                v-show="isDescriptionEditing"
-              />
-              <q-card-actions
-                v-show="isDescriptionEditing"
-                style="padding: 0"
-                class="q-mt-sm">
-                <EditorSaveButton @click.native="updateIssueDescription"/>
-                <EditorCancelButton @click.native="cancelDescriptionEditing"/>
-              </q-card-actions>
-            </q-card-section>
-            <!-- Messages -->
-            <q-card-section
-              style="padding: 0">
+            <!-- Description section -->
+						<IssueDescriptionSection :issue="formData.issue" />
+            <!-- Messages section -->
+            <q-card-section class="q-pa-none">
               <!-- Block with messages -->
-              <q-card-section>
+              <q-card-section class="q-pa-sm">
                 <q-tabs
                   v-model="tab"
                   dense
@@ -142,8 +110,7 @@
                   <q-tab-panel
                     dark
                     name="history"
-                    class="no-padding"
-                  >
+                    class="no-padding">
                     <q-card
                       dark
                       flat
@@ -188,43 +155,8 @@
           </q-scroll-area>
             <!-- New Message Block -->
           <q-card-section class="q-pa-none">
-            <q-card-section>
-              <!-- Section for save new message -->
-                <q-card
-                  v-show="!isNewMessageEditing"
-                  @click="startMessageCreating"
-                  dark
-                  bordered
-                  class="editable_block">
-                  <q-card-section
-                    class="text-muted text-amber">
-                    Add new message...
-                  </q-card-section>
-                </q-card>
-                <q-card-section
-                  v-show="isNewMessageEditing"
-                  class="q-pa-none">
-                  <q-editor
-                    dark
-                    dense
-                    paragraph-tag="p"
-                    toolbar-toggle-color="amber"
-                    min-height="5rem"
-                    max-height="15vh"
-                    :toolbar="editorToolbar"
-                    ref="issueMessageEditor"
-                    v-model.trim="formNewMessage.description"
-                    @keyup.enter="handleMessageEnter"
-                    @input="renderEditorMentioning(formNewMessage.description, 'issueMessageEditor')"
-                  />
-                </q-card-section>
-                <q-card-actions
-                  v-show="isNewMessageEditing"
-                  class="q-mt-sm">
-                  <EditorSaveButton @click.native="createOrUpdateMessage"/>
-                  <EditorCancelButton @click.native="cancelMessageEditing"/>
-                </q-card-actions>
-            </q-card-section>
+            <IssueMessageSection :description="formNewMessage.description"
+																 :editing-message-id="formNewMessage.issue.id"/>
           </q-card-section>
         </q-card-section>
         <q-card-section
@@ -249,10 +181,14 @@ import IssueCreateUpdateSection from '../elements/issue_dialog/IssueCreateUpdate
 import IssueHeader from '../elements/issue_dialog/IssueHeader'
 import IssueTitleSection from '../elements/issue_dialog/IssueTitleSection'
 import IssueUploaderSection from '../elements/issue_dialog/IssueUploaderSection'
+import IssueDescriptionSection from '../elements/issue_dialog/IssueDescriptionSection'
+import IssueMessageSection from '../elements/issue_dialog/IssueMessageSection'
 
 export default {
 	name: 'IssueEditDialog',
 	components: {
+		IssueDescriptionSection,
+		IssueMessageSection,
 	  IssueUploaderSection,
 		IssueTitleSection,
 		IssueHeader,

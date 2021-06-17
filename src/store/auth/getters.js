@@ -48,6 +48,23 @@ export function PERSON_BY_ID (state, getters) {
 	}
 }
 
+export function MENTIONING_REGEX (state) {
+	const regexArray = []
+
+	for (const participant of state.persons) {
+		regexArray.push({
+			userId: participant.id,
+			username: participant.username,
+			fullName: `${participant.first_name} ${participant.last_name}`,
+			regex: new RegExp(`@${participant.username}`, 'i'),
+			index: null,
+			textLength: participant.username.length
+		})
+	}
+
+	return regexArray
+}
+
 /** Workspace getters **/
 export function WORKSPACES (state) {
 	return state.workspaces
