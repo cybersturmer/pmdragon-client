@@ -1,5 +1,5 @@
 <template>
-  <q-card-section>
+  <q-card-section class="q-pt-none">
     <!-- Selection for issue state -->
     <q-select
       dark

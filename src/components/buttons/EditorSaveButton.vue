@@ -1,6 +1,7 @@
 <template>
   <q-btn
-    outline
+    dense
+		outline
     color="amber"
     label="Save"
     style="width: 80px"

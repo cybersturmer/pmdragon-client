@@ -1,5 +1,6 @@
 <template>
   <q-btn
+		dense
     flat
     color="amber"
     label="Cancel"

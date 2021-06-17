@@ -1,5 +1,5 @@
 <template>
-  <q-card-section>
+  <q-card-section class="q-py-sm">
     <!-- Title editing section -->
     <q-input
       dark
