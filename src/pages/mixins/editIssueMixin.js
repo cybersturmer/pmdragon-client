@@ -18,6 +18,7 @@ export const editIssueMixin = {
 		return {
 			tab: 'messages',
 			isDescriptionEditing: false,
+			editingMessageId: null,
 			formData: {
 				issue: {
 					title: '',
@@ -73,11 +74,39 @@ export const editIssueMixin = {
 	},
 	methods: {
 		_scrollToEnd () {
-			const scrollPercentage = this.$refs.scrollArea.scrollPercentage
+			const areaRefs = 'scrollArea'
+			if (areaRefs in this.$refs) return false
+
+			const scrollPercentage = this.$refs[areaRefs].scrollPercentage
 
 			if (scrollPercentage >= 0.90) {
-				this.$refs.scrollArea.setScrollPercentage(1.25, 300)
+				this.$refs[areaRefs].setScrollPercentage(1.25, 300)
 			}
+		},
+		async removeMessage (id, chat) {
+			chat.reset()
+
+			await new Api({
+				auth: true,
+				expectedStatus: 204
+			})
+				.delete(
+					`/core/issue-messages/${id}/`
+				)
+
+			const messagesClone = this.messages.filter((value) => {
+				return value.id !== id
+			})
+
+			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
+		},
+		startEditingMessage (id, chat) {
+			chat.reset()
+
+			this.editingMessageId = id
+			this.isNewMessageEditing = true
+
+			this.$nextTick(this.$refs.issueMessageSection.focus)
 		},
 		isTimelineShowValues (entry) {
 			if (entry.edited_field === 'Ordering') {

@@ -32,6 +32,15 @@ export function ISSUE_MESSAGES (state) {
 	return state.issue_messages
 }
 
+export function ISSUE_MESSAGE_BY_ID (state) {
+	/** Return issue message by id
+	 * Messages normally loaded to state only when we start to edit issue,
+	 * for example we can do it in separate modal window **/
+	return issueMessageId => {
+		return state.issue_messages.find(message => message.id === issueMessageId)
+	}
+}
+
 export function ARE_ISSUE_MESSAGES (state) {
 	return state.issue_messages.length > 0
 }

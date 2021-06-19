@@ -8,10 +8,10 @@
       flat
       bordered
       class="q-dialog-plugin bg-secondary"
-      :style=" $q.screen.gt.sm ? 'width: 90vw; height: 90vh; max-width: 90vw;' : ''">
-      <q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-sm">
+      :style=" $q.screen.gt.sm ? 'width: 95vw; height: 95vh; max-width: 90vw;' : ''">
+      <q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
         <!-- We show this block only on small screen size (copyLink, more, close) -->
-        <q-card-section v-if="$q.screen.lt.md" class="column items-end q-py-none">
+        <q-card-section v-if="$q.screen.lt.md" class="column items-end q-pb-none q-pt-sm">
           <IssueHeader :issue="formData.issue"
 											 class="col"
 											 @hide="hide"/>
@@ -19,23 +19,22 @@
         <!-- Title block -->
         <IssueTitleSection v-if="$q.screen.lt.md"
 													 :issue="formData.issue"/>
-        <q-card-section :class="`col-md-8 col-xs-12 col-sm-12 ${$q.screen.lt.md ? 'q-pa-xs': ''} overflow-hidden`">
+        <q-card-section class="col-md-8 col-xs-12 col-sm-12 q-pa-xs overflow-hidden">
           <IssueTitleSection v-if="$q.screen.gt.sm"
 														 :issue="formData.issue"/>
           <q-scroll-area
-            ref="scrollArea"
-            dark
+						dark
+						ref="scrollArea"
             :style="`height: ${ $q.screen.gt.sm ? '65vh' : '68vh'}; border-bottom: 1px solid #686868;`">
             <q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
               <IssueManageSection :issue="formData.issue"/>
             </q-card-section>
             <IssueUploaderSection :issue="formData.issue" />
-            <!-- Description section -->
 						<IssueDescriptionSection :issue="formData.issue" />
             <!-- Messages section -->
             <q-card-section class="q-pa-none">
               <!-- Block with messages -->
-              <q-card-section class="q-pa-sm">
+              <q-card-section class="q-py-none">
                 <q-tabs
                   v-model="tab"
                   dense
@@ -77,7 +76,7 @@
                           <template #default>
                             <q-list dense separator>
                               <q-slide-item
-                                @right="startMessageEditing(message.id, $event)"
+                                @right="startEditingMessage(message.id, $event)"
                                 @left="removeMessage(message.id, $event)"
                                 right-color="accent"
                                 left-color="red-8"
@@ -155,8 +154,9 @@
           </q-scroll-area>
             <!-- New Message Block -->
           <q-card-section class="q-pa-none">
-            <IssueMessageSection :description="formNewMessage.description"
-																 :editing-message-id="formNewMessage.issue.id"/>
+            <IssueMessageSection ref="issueMessageSection"
+																 :issue-id="formNewMessage.issue"
+																 :editing-message-id="editingMessageId"/>
           </q-card-section>
         </q-card-section>
         <q-card-section

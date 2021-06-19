@@ -1,6 +1,7 @@
 <template>
 	<q-card-section class="q-py-sm">
-		<!-- Section for save new message -->
+		<!-- Section for create new or updated yours messages -->
+		<!-- Section to show block "Add new message..." -->
 		<q-card
 			v-show="!isNewMessageEditing"
 			@click="startMessageCreating"
@@ -12,11 +13,12 @@
 				Add new message...
 			</q-card-section>
 		</q-card>
+		<!-- Section with editor -->
 		<q-card-section
 			v-show="isNewMessageEditing"
 			class="q-pa-none">
 			<Editor :ref="refsKey"
-							v-model="description"
+							v-model.trim="formMessage.description"
 							@keyup.enter.native="handleMessageEnter"/>
 		</q-card-section>
 		<q-card-actions
@@ -43,6 +45,10 @@ export default {
 		EditorCancelButton
 	},
 	props: {
+		issueId: {
+			type: Number,
+			required: true
+		},
 		editingMessageId: {
 			type: Number,
 			required: false,
@@ -50,16 +56,31 @@ export default {
 		},
 		description: {
 			type: String,
-			required: true
+			required: false,
+			default: ''
+		}
+	},
+	watch: {
+		editingMessageId (oldId, newId) {
+			if (oldId === null && newId !== null) {
+				this.formMessage.description = this.$store.getters['current/ISSUE_MESSAGE_BY_ID'](newId).description
+			}
 		}
 	},
 	data () {
 		return {
 			refsKey: 'issueMessageEditor',
-			isNewMessageEditing: false
+			isNewMessageEditing: false,
+			formMessage: {
+				issue: this.issueId,
+				description: ''
+			}
 		}
 	},
 	methods: {
+		focus () {
+			this.$nextTick(this.$refs.issueMessageEditor.focus)
+		},
 		async handleMessageEnter (e) {
 			/** Handle Ctrl + Enter command in editor **/
 			if (e.ctrlKey) {
@@ -70,27 +91,38 @@ export default {
 			this.isNewMessageEditing = true
 			this.$nextTick(this.messageEditor.focus)
 		},
-		startEditingMessage (id, chat) {
-			chat.reset()
-
-			const message = this.messages.find(message => message.id === id)
-
-			this.formNewMessage.description = message.description
-			this.editingMessageId = id
-			this.isNewMessageEditing = true
-
-			this.$nextTick(this.messageEditor.focus)
-		},
 		cancelEditingMessage () {
 			/** We use it if user wrote a message and clicked cancel then **/
 			this.isNewMessageEditing = false
-			this.formNewMessage.description = ''
+			this.formMessage.description = ''
 			this.editingMessageId = null
+		},
+		async _createMessage () {
+			/** We use it for adding one more message **/
+			if (!this.formMessage.description) return false
+
+			const payload = {
+				issue: this.issueId,
+				description: this.formMessage.description
+			}
+
+			const response = await new Api({
+				auth: true,
+				expectedStatus: 201
+			})
+				.post(
+					'/core/issue-messages/',
+					payload
+				)
+
+			const messagesClone = unWatch(this.messages)
+			messagesClone.push(response.data)
+			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
 		},
 		async _updateMessage () {
 			/** Kind of private method - we use it in create - update method **/
 			const payload = {
-				description: this.description
+				description: this.formMessage.description
 			}
 
 			const response = await new Api({
@@ -113,31 +145,14 @@ export default {
 			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
 		},
 		async createOrUpdateMessage () {
-			/** We use it for adding one more message **/
-			if (this.editingMessageId !== null) {
-				await this._updateMessage()
-			} else {
+			/** We use it for adding one more message or update the previous one **/
+			if (this.isNewMessage) {
 				await this._createMessage()
+			} else {
+				await this._updateMessage()
 			}
 
 			this.cancelEditingMessage()
-		},
-		async removeMessage (id, chat) {
-			chat.reset()
-
-			await new Api({
-				auth: true,
-				expectedStatus: 204
-			})
-				.delete(
-					`/core/issue-messages/${id}/`
-				)
-
-			const messagesClone = this.messages.filter((value) => {
-				return value.id !== id
-			})
-
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
 		}
 	},
 	computed: {
@@ -146,6 +161,9 @@ export default {
 		},
 		messages () {
 			return this.$store.getters['current/ISSUE_MESSAGES']
+		},
+		isNewMessage () {
+			return this.editingMessageId === null
 		}
 	}
 }
