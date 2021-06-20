@@ -93,9 +93,9 @@
                                     Remove
                                   </div>
                                 </template>
-                                <q-item>
+                                <q-item class="q-px-sm q-py-md">
                                   <div v-html="message.description"
-																			 class="justify-center q-pa-xs"/>
+																			 class="justify-center"/>
                                 </q-item>
                               </q-slide-item>
                             </q-list>
@@ -254,4 +254,12 @@ export default {
   .q-timeline__content {
     padding-bottom: 5px;
   }
+
+	.q-message-text {
+		padding: 5px;
+	}
+
+	.q-item {
+		min-height: auto;
+	}
 </style>
