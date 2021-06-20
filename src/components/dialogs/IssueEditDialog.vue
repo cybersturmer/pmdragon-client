@@ -76,11 +76,11 @@
                           <template #default>
                             <q-list dense separator>
                               <q-slide-item
-                                @right="startEditingMessage(message.id, $event)"
+                                @right="editMessage(message.id, $event)"
                                 @left="removeMessage(message.id, $event)"
                                 right-color="accent"
                                 left-color="red-8"
-                                class="text-amber bg-primary">
+                                class="text-amber bg-secondary">
                                 <template v-slot:right>
                                   <div class="row items-center">
                                     Edit
@@ -94,7 +94,8 @@
                                   </div>
                                 </template>
                                 <q-item>
-                                  <q-item-section v-html="message.description"/>
+                                  <div v-html="message.description"
+																			 class="justify-center q-pa-xs"/>
                                 </q-item>
                               </q-slide-item>
                             </q-list>
@@ -156,7 +157,8 @@
           <q-card-section class="q-pa-none">
             <IssueMessageSection ref="issueMessageSection"
 																 :issue-id="formNewMessage.issue"
-																 :editing-message-id="editingMessageId"/>
+																 :editing-message-id="editingMessageId"
+																 @cancelEditingMessage="cancelEditingMessage"/>
           </q-card-section>
         </q-card-section>
         <q-card-section
@@ -232,7 +234,7 @@ export default {
   }
 
   .editor_token {
-    display: inline-flex;
+    display: inline-block;
     font-weight: 700;
     background-color: #7a7a7a61;
     border-radius: 5px;

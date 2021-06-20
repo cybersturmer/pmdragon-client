@@ -3,8 +3,8 @@
 		<!-- Section for create new or updated yours messages -->
 		<!-- Section to show block "Add new message..." -->
 		<q-card
-			v-show="!isNewMessageEditing"
-			@click="startMessageCreating"
+			v-show="!isMessageEditable"
+			@click="startMessaging"
 			dark
 			bordered
 			class="editable_block">
@@ -15,14 +15,14 @@
 		</q-card>
 		<!-- Section with editor -->
 		<q-card-section
-			v-show="isNewMessageEditing"
+			v-show="isMessageEditable"
 			class="q-pa-none">
 			<Editor :ref="refsKey"
 							v-model.trim="formMessage.description"
-							@keyup.enter.native="handleMessageEnter"/>
+							@keyup.enter.native="handleEnter"/>
 		</q-card-section>
 		<q-card-actions
-			v-show="isNewMessageEditing"
+			v-show="isMessageEditable"
 			class="q-mt-sm q-pa-none">
 			<EditorSaveButton @click.native="createOrUpdateMessage"/>
 			<EditorCancelButton @click.native="cancelEditingMessage"/>
@@ -61,7 +61,7 @@ export default {
 		}
 	},
 	watch: {
-		editingMessageId (oldId, newId) {
+		editingMessageId (newId, oldId) {
 			if (oldId === null && newId !== null) {
 				this.formMessage.description = this.$store.getters['current/ISSUE_MESSAGE_BY_ID'](newId).description
 			}
@@ -70,7 +70,7 @@ export default {
 	data () {
 		return {
 			refsKey: 'issueMessageEditor',
-			isNewMessageEditing: false,
+			isMessageEditable: false,
 			formMessage: {
 				issue: this.issueId,
 				description: ''
@@ -79,23 +79,30 @@ export default {
 	},
 	methods: {
 		focus () {
-			this.$nextTick(this.$refs.issueMessageEditor.focus)
+			this.$nextTick(this.messageEditor.focus)
 		},
-		async handleMessageEnter (e) {
+		unlock () {
+			this.isMessageEditable = true
+		},
+		lock () {
+			this.isMessageEditable = false
+		},
+		async handleEnter (e) {
 			/** Handle Ctrl + Enter command in editor **/
 			if (e.ctrlKey) {
 				return await this.createOrUpdateMessage()
 			}
 		},
-		startMessageCreating () {
-			this.isNewMessageEditing = true
-			this.$nextTick(this.messageEditor.focus)
+		startMessaging () {
+			this.isMessageEditable = true
+			this.focus()
 		},
 		cancelEditingMessage () {
 			/** We use it if user wrote a message and clicked cancel then **/
-			this.isNewMessageEditing = false
+			this.lock()
+
 			this.formMessage.description = ''
-			this.editingMessageId = null
+			this.$emit('cancelEditingMessage')
 		},
 		async _createMessage () {
 			/** We use it for adding one more message **/

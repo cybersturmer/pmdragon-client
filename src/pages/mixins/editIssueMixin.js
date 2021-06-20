@@ -75,13 +75,12 @@ export const editIssueMixin = {
 	methods: {
 		_scrollToEnd () {
 			const areaRefs = 'scrollArea'
-			if (areaRefs in this.$refs) return false
+			if (!(areaRefs in this.$refs)) return false
 
-			const scrollPercentage = this.$refs[areaRefs].scrollPercentage
-
-			if (scrollPercentage >= 0.90) {
-				this.$refs[areaRefs].setScrollPercentage(1.25, 300)
-			}
+			this.$refs[areaRefs].setScrollPercentage(1.25, 300)
+		},
+		cancelEditingMessage () {
+			this.editingMessageId = null
 		},
 		async removeMessage (id, chat) {
 			chat.reset()
@@ -100,12 +99,11 @@ export const editIssueMixin = {
 
 			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
 		},
-		startEditingMessage (id, chat) {
+		editMessage (id, chat) {
 			chat.reset()
 
 			this.editingMessageId = id
-			this.isNewMessageEditing = true
-
+			this.$refs.issueMessageSection.unlock()
 			this.$nextTick(this.$refs.issueMessageSection.focus)
 		},
 		isTimelineShowValues (entry) {

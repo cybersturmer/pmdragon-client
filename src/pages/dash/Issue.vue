@@ -404,7 +404,7 @@ export default {
 }
 
 .editor_token {
-  display: inline-flex;
+  display: inline-block;
   font-weight: 700;
   background-color: #7a7a7a61;
   border-radius: 5px;
