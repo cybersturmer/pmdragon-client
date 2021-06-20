@@ -93,7 +93,7 @@
                                     Remove
                                   </div>
                                 </template>
-                                <q-item class="q-px-sm q-py-md">
+                                <q-item class="q-px-sm">
                                   <div v-html="message.description"
 																			 class="justify-center"/>
                                 </q-item>
