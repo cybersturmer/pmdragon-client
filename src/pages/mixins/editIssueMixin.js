@@ -84,20 +84,7 @@ export const editIssueMixin = {
 		},
 		async removeMessage (id, chat) {
 			chat.reset()
-
-			await new Api({
-				auth: true,
-				expectedStatus: 204
-			})
-				.delete(
-					`/core/issue-messages/${id}/`
-				)
-
-			const messagesClone = this.messages.filter((value) => {
-				return value.id !== id
-			})
-
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
+			await this.$store.dispatch('current/REMOVE_MESSAGE_BY_ID', id)
 		},
 		editMessage (id, chat) {
 			chat.reset()
@@ -144,17 +131,21 @@ export const editIssueMixin = {
 		},
 		isItMe (id) {
 			/** Return true if given id is current user id **/
-			return id === this.$store.getters['auth/MY_PERSON_ID']
+			return this.$store.getters['auth/IS_ME_BY_ID'](id)
 		},
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/
-			const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
-			if (!participant.id) return ''
 
-			const username = `@${participant.username}`
-			const name = `(${participant.first_name} ${participant.last_name})`
+			let username = ''
+			let name = ''
 
-			return this.$q.screen.gt.sm ? `${username} ${name}` : username
+			try {
+				username = this.$store.getters['auth/PERSON_USERNAME_BY_ID'](id)
+				name = `(${this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](id)})`
+				return this.$q.screen.gt.sm ? `${username} ${name}` : username
+			} catch (e) {
+				return ''
+			}
 		},
 		getParticipantAvatarById (id) {
 		  /** return avatar path by given user id **/

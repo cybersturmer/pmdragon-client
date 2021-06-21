@@ -1,5 +1,5 @@
 import { Api } from '../../services/api'
-import {ErrorHandler, removeElementById} from '../../services/util'
+import { ErrorHandler } from '../../services/util'
 
 export function SELECT_WORKSPACE ({ commit }, payload) {
 	commit('SELECT_WORKSPACE', payload)
