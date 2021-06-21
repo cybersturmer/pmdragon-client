@@ -1,3 +1,6 @@
+import { Api } from '../../services/api'
+import {ErrorHandler, removeElementById} from '../../services/util'
+
 export function SELECT_WORKSPACE ({ commit }, payload) {
 	commit('SELECT_WORKSPACE', payload)
 }
@@ -18,6 +21,22 @@ export function STOP_LOADING ({ commit }) {
 
 export function SET_ISSUE ({ commit }, payload) {
 	commit('SET_ISSUE', payload)
+}
+
+export async function REMOVE_MESSAGE_BY_ID ({ commit, getters }, payload) {
+	try {
+		await new Api({
+			auth: true,
+			expectedStatus: 204
+		})
+			.delete(
+				`/core/issue-messages/${payload.id}/`
+			)
+
+		commit('current/DELETE_ISSUE_MESSAGE', payload)
+	} catch (e) {
+		throw new ErrorHandler(e)
+	}
 }
 
 export function SET_ISSUE_MESSAGES ({ commit }, payload) {

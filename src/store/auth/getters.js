@@ -60,6 +60,12 @@ export function PERSON_USERNAME_BY_ID (state, getters) {
 	}
 }
 
+export function PERSON_AVATAR_BY_ID (state, getters) {
+	return personId => {
+		return getters.PERSON_BY_ID(personId).avatar
+	}
+}
+
 export function PERSON_FULL_NAME_BY_ID (state, getters) {
 	return personId => {
 		const person = getters.PERSON_BY_ID(personId)
