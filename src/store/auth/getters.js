@@ -48,6 +48,19 @@ export function PERSON_BY_ID (state, getters) {
 	}
 }
 
+export function PERSON_USERNAME_BY_ID (state, getters) {
+	return personId => {
+		return getters.PERSON_BY_ID(personId).username
+	}
+}
+
+export function PERSON_FULL_NAME_BY_ID (state, getters) {
+	return personId => {
+		const person = getters.PERSON_BY_ID(personId)
+		return `${person.first_name} ${person.last_name}`
+	}
+}
+
 export function MENTIONING_REGEX (state) {
 	const regexArray = []
 
