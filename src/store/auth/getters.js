@@ -41,6 +41,12 @@ export function PERSONS (state) {
 	return state.persons
 }
 
+export function IS_ME_BY_ID (state) {
+	return personId => {
+		return personId === state.person_id
+	}
+}
+
 export function PERSON_BY_ID (state, getters) {
 	/** Getting person by id from current workspace **/
 	return personId => {
