@@ -1,4 +1,4 @@
-# PmDragon Community Client
+# PmDragon Client
 Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
 Quasar (Vue.Js / JavaScript) based Cross-platform software.
 
