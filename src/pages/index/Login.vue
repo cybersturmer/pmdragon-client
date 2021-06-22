@@ -38,7 +38,6 @@
                 style="margin-left: 30px"/>
               </template>
             </router-link>
-            <!-- @todo I think better to do here a dialog to restore password -->
           </q-card-section>
         </q-card>
   </q-page>
@@ -65,6 +64,22 @@ export default {
 				username: '',
 				password: ''
 			}
+		}
+	},
+	mounted () {
+		/** If user is already logged in than
+		 * If we know workspace - let's move him on  Backlog page
+		 * If we don't know workspace - lets move on Workspaces page **/
+
+		const isLoggedIn = this.$store.getters['auth/IS_LOGGED_IN']
+		const isWorkspaceDefined = this.$store.getters['current/IS_WORKSPACE']
+
+		if (!isLoggedIn) return false
+
+		if (isWorkspaceDefined) {
+			this.$router.push({ name: 'backlog' })
+		} else {
+			this.$router.push({ name: 'workspaces' })
 		}
 	},
 	methods: {
