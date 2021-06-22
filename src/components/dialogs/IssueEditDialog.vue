@@ -59,51 +59,11 @@
                       bordered
                     >
                       <q-card-section>
-                        <q-chat-message
-                          v-for="message in messages"
-                          :key="message.id"
-                          :name="getParticipantTitleById(message.created_by)"
-                          :sent="isItMe(message.created_by)"
-                          :size="$q.screen.lt.sm ? '9' : '6'"
-                          bg-color="accent"
-                          text-color="amber">
-                          <template #avatar>
-                            <q-avatar v-if="getParticipantAvatarById(message.created_by)">
-                              <img :src="getParticipantAvatarById(message.created_by)"
-                                   class="q-message-avatar q-message-avatar--sent">
-                            </q-avatar>
-                          </template>
-                          <template #default>
-                            <q-list dense separator>
-                              <q-slide-item
-                                @right="editMessage(message.id, $event)"
-                                @left="removeMessage(message.id, $event)"
-                                right-color="accent"
-                                left-color="red-8"
-                                class="text-amber bg-secondary">
-                                <template v-slot:right>
-                                  <div class="row items-center">
-                                    Edit
-                                    <q-icon right name="mdi-comment-edit" />
-                                  </div>
-                                </template>
-                                <template v-slot:left>
-                                  <div class="row items-center">
-                                    <q-icon left name="mdi-comment-remove" />
-                                    Remove
-                                  </div>
-                                </template>
-                                <q-item class="q-px-sm">
-                                  <div v-html="message.description"
-																			 class="justify-center"/>
-                                </q-item>
-                              </q-slide-item>
-                            </q-list>
-                          </template>
-                          <template #stamp>
-                            {{ getRelativeDatetime(message.updated_at) }}
-                          </template>
-                        </q-chat-message>
+                        <IssueChatMobileMessage v-for="message in messages"
+																								:message="message"
+																								:key="message.id"
+																								@edit="editMessagePlaceholder"
+																								@remove="removeMessagePlaceholder"/>
                       </q-card-section>
                     </q-card>
                   </q-tab-panel>
@@ -185,10 +145,12 @@ import IssueTitleSection from '../elements/issue_dialog/IssueTitleSection'
 import IssueUploaderSection from '../elements/issue_dialog/IssueUploaderSection'
 import IssueDescriptionSection from '../elements/issue_dialog/IssueDescriptionSection'
 import IssueMessageSection from '../elements/issue_dialog/IssueMessageSection'
+import IssueChatMobileMessage from '../elements/issue_dialog/IssueChatMobileMessage'
 
 export default {
 	name: 'IssueEditDialog',
 	components: {
+		IssueChatMobileMessage,
 		IssueDescriptionSection,
 		IssueMessageSection,
 	  IssueUploaderSection,
