@@ -159,7 +159,7 @@ export function DELETE_PROJECT (state, payload) {
 	LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
-export function RESET () {
+export function RESET (state) {
 	const localStorageResetList = [
 		'person_id',
 		'workspaces',
@@ -180,4 +180,9 @@ export function RESET () {
 	for (const element of sessionStorageResetList) {
 		SessionStorage.remove(`auth.${element}`)
 	}
+
+	state.person_id = null
+	state.persons = []
+	state.workspaces = []
+	state.tokens = {}
 }
