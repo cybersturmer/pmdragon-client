@@ -10,6 +10,7 @@
         outline
         class="q-pa-sm"
         label="Set Host"
+				label-position="top"
         text-color="amber"
         icon="mdi-connection" />
 			<q-fab-action
@@ -17,6 +18,7 @@
 				outline
 				class="q-pa-sm"
 				label="About"
+				label-position="top"
 				text-color="amber"
 				icon="mdi-information" />
     </q-fab>
