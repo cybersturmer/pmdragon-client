@@ -156,6 +156,7 @@ import BlockHeader from 'components/elements/BlockHeader.vue'
 import BlockHeaderInfo from 'components/elements/BlockHeaderInfo.vue'
 import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
 import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+import { loading } from '../mixins/loading'
 
 export default {
 	name: 'BacklogView',
@@ -171,7 +172,12 @@ export default {
 		draggable,
 		IssueBacklog
 	},
-	mixins: [Dialogs, updateSprintMixin, editIssueData],
+	mixins: [
+		Dialogs,
+		updateSprintMixin,
+		editIssueData,
+		loading
+	],
 	data () {
 		return {
 			formData: {
@@ -236,6 +242,8 @@ export default {
 
 			this.formData.workspace = this.$store.getters['auth/WORKSPACE_ID']
 			this.formData.project = this.$store.getters['current/PROJECT']
+
+			this.showProgress()
 			this.$store.dispatch('core/ADD_ISSUE_TO_BACKLOG', this.formData)
 				.then(() => {
 					this.formData.title = ''
@@ -243,6 +251,7 @@ export default {
 				.catch((e) => {
 					this.showError(e)
 				})
+				.finally(() => this.hideProgress())
 		},
 		editSprintDialog (item) {
 			this.$q.dialog({
@@ -256,8 +265,10 @@ export default {
 				finishedAt: item.finished_at
 			})
 				.onOk((data) => {
+					this.showProgress()
 					this.$store.dispatch('core/EDIT_SPRINT', data)
 						.catch((e) => this.showError(e))
+						.finally(() => this.hideProgress())
 				})
 		},
 		removeSprintDialog (item) {
@@ -269,7 +280,9 @@ export default {
 			]
 			this.showOkCancelDialog(...dialog)
 				.onOk(() => {
+					this.showProgress()
 					this.$store.dispatch('core/DELETE_SPRINT', item.id)
+						.finally(() => this.hideProgress())
 				})
 		},
 		sprintIssues (sprintId) {
@@ -305,13 +318,16 @@ export default {
 
 			const handled = this.handleCommonMoved(currentSprintIssues, event)
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
 				.then(() => {
-					this.$store.commit('core/UPDATE_SPRINT_ISSUES', {
+					const payload = {
 						id: sprintId,
 						issues: handled.list
-					})
-				})
+					}
+
+					this.$store.commit('core/UPDATE_SPRINT_ISSUES', payload)
+				}).finally(() => this.hideProgress())
 		},
 		handleBacklogIssueMoved (event, backlogId) {
 			/** Handling moving inside of backlog **/
@@ -319,6 +335,7 @@ export default {
 
 			const handled = this.handleCommonMoved(currentBacklogIssues, event)
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
 				.then(() => {
 					this.$store.commit('core/UPDATE_BACKLOG_ISSUES', {
@@ -326,6 +343,7 @@ export default {
 						issues: handled.list
 					})
 				})
+				.finally(() => this.hideProgress())
 		},
 		handleCommonAdded (issuesList, event) {
 			const immutableList = unWatch(issuesList)
@@ -381,10 +399,10 @@ export default {
 				issues: handled.list
 			}
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIdsList)
-				.then(() => {
-					this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
-				})
+				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+				.finally(() => this.hideProgress())
 		},
 		handleBacklogIssueAdded (event, backlogId) {
 			/** Handling adding to Backlog **/
@@ -395,10 +413,11 @@ export default {
 				id: backlogId,
 				issues: handled.list
 			}
+
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIdsList)
-				.then(() => {
-					this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
-				})
+				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+				.finally(() => this.hideProgress())
 		},
 		handleCommonRemoved (issuesList, event) {
 			const list = unWatch(issuesList)
@@ -427,10 +446,10 @@ export default {
 				issues: handled.list
 			}
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIds)
-				.then(() => {
-					this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
-				})
+				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+				.finally(() => this.hideProgress())
 		},
 		handleBacklogIssueRemoved (event, backlogId) {
 			/** Handling removing from Backlog **/
@@ -442,10 +461,10 @@ export default {
 				issues: handled.list
 			}
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIds)
-				.then(() => {
-					this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
-				})
+				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+				.finally(() => this.hideProgress())
 		},
 		handleDraggableEvent (event, dragType, dragId) {
 			/** Handle dropping from Sprint/Backlog to Sprint/Backlog
@@ -514,7 +533,9 @@ export default {
 				finished_at: null
 			}
 
+			this.showProgress()
 			this.$store.dispatch('core/ADD_SPRINT_TO_PROJECT', payload)
+				.finally(() => this.hideProgress())
 		}
 	}
 }
