@@ -29,7 +29,7 @@
                 <div class="col-auto q-py-xs">
                   <div class="h6 text-amber">
                     {{ sprint.title }}
-                    {{ $q.screen.gt.sm ? `- ${sprint.goal} ( ${sprint.issues.length }) issues`: '' }}
+                    {{ $q.screen.gt.sm ? `- ${sprint.goal} (${sprint.issues.length }) issues`: '' }}
                   </div>
                 </div>
                 <q-space/>
