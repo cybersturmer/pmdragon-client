@@ -1,4 +1,4 @@
-import { QSpinnerTail } from 'quasar'
+import { QSpinnerOrbit } from 'quasar'
 
 export const loading = {
 	computed: {
@@ -10,7 +10,7 @@ export const loading = {
 		showProgress () {
 			this.$q.loading.show({
 				message: this.loadingText,
-				spinner: QSpinnerTail
+				spinner: QSpinnerOrbit
 			})
 		},
 		hideProgress () {
