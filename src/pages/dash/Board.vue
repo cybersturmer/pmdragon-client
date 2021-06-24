@@ -115,6 +115,7 @@ import { editIssueData } from 'pages/mixins/editIssueData'
 import { updateSprintMixin } from 'pages/mixins/updateSprint'
 
 import IssueBoard from 'components/elements/IssueBoard.vue'
+import { loading } from '../mixins/loading'
 
 export default {
 	name: 'BoardViewN',
@@ -128,7 +129,11 @@ export default {
 		IssueBoard,
 		draggable
 	},
-	mixins: [updateSprintMixin, editIssueData],
+	mixins: [
+		updateSprintMixin,
+		editIssueData,
+		loading
+	],
 	data () {
 		return {
 			dragOptions: {
@@ -192,7 +197,9 @@ export default {
 			const updatedElement = unWatch(event.added.element)
 			updatedElement.state_category = issueStateId
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUE_STATE', updatedElement)
+				.finally(() => this.hideProgress())
 		},
 		handleCommonMoved (issuesList, event) {
 			/** Handle moving - common function **/
@@ -220,7 +227,9 @@ export default {
 			const issuesList = this.issuesByState(stateId)
 			const handled = this.handleCommonMoved(issuesList, event)
 
+			this.showProgress()
 			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
+				.finally(() => this.hideProgress())
 		},
 		handleIssueStateChanging (event, issueStateId) {
 			/** Handling moving inside of states **/
@@ -250,7 +259,12 @@ export default {
 				goal: item.goal,
 				startedAt: item.started_at,
 				finishedAt: item.finished_at
-			}).onOk((data) => this.$store.dispatch('core/EDIT_SPRINT', data))
+			})
+				.onOk((data) => {
+					this.showProgress()
+					this.$store.dispatch('core/EDIT_SPRINT', data)
+						.finally(() => this.hideProgress())
+				})
 		}
 	}
 }
