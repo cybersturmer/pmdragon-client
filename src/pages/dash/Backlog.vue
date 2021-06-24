@@ -25,8 +25,8 @@
             <div
               v-for="(sprint, index) in sprints"
               :key="sprint.id">
-              <div class="row q-pa-sm">
-                <div class="col-auto">
+              <div class="row q-px-none q-py-sm">
+                <div class="col-auto q-py-xs">
                   <div class="h6 text-amber">
                     {{ sprint.title }}
                     {{ $q.screen.gt.sm ? `- ${sprint.goal} ( ${sprint.issues.length }) issues`: '' }}
@@ -47,8 +47,8 @@
                   </q-btn-group>
                 </div>
               </div>
-              <div class="q-pt-sm q-px-sm q-pb-none"
-                   style="border: 1px dashed #606060; min-height: 67px;">
+              <div class="q-pt-sm q-px-xs q-pb-none"
+                   style="border-top: 1px dashed #606060; border-bottom: 1px dashed #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center text-amber q-pt-md">
                   Plan sprint by dropping issues here.
