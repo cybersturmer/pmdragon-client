@@ -156,15 +156,17 @@ export default {
 			return `${startedAt} - ${finishedAt}`
 		},
 		daysAmount () {
-			/** We use it for calculating in daysRemainingText not yet directly */
+			/** Days amount for the current SPrint
+			 * We use it for calculating in daysRemainingText */
 			return date.getDateDiff(
-				this.startedSprint.started_at,
 				this.startedSprint.finished_at,
+				this.startedSprint.started_at,
 				SPRINT_REMAINING_UNIT
 			)
 		},
 		daysRemaining () {
-			/** We use it for calculating in daysRemainingText not yet directly */
+			/** Days remaining till the end of Sprint
+			 * We use it for calculating in daysRemainingText */
 			return date.getDateDiff(
 				this.startedSprint.finished_at,
 				new Date(),
