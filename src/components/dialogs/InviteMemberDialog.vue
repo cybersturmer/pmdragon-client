@@ -69,10 +69,15 @@
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { loading } from '../../pages/mixins/loading'
 
 export default {
 	name: 'SprintEditDialog',
-	mixins: [fieldValidationMixin, Dialogs],
+	mixins: [
+		fieldValidationMixin,
+		Dialogs,
+		loading
+	],
 	components: { },
 	data () {
 		return {
@@ -140,6 +145,8 @@ export default {
 
 			this.addTeamMember()
 			/** Create team by sending emails on server **/
+			this.showProgress()
+
 			const payload = {
 				invites: []
 			}
@@ -155,7 +162,9 @@ export default {
 				payload.invites.push(dictPayload)
 			}
 
-			await this.$store.dispatch('auth/INVITE_TEAM', payload)
+			this.$store.dispatch('auth/INVITE_TEAM', payload)
+				.finally(() => this.hideProgress())
+
 			this.isTeamStepDone = true
 			this.$emit('ok', payload)
 			this.hide()

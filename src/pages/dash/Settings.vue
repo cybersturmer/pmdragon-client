@@ -466,10 +466,15 @@
 <script>
 import SettingPanelCard from 'components/elements/SettingPanelCard'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { loading } from '../mixins/loading'
+
 export default {
 	name: 'SettingsView',
 	components: { SettingPanelCard },
-	mixins: [Dialogs],
+	mixins: [
+		Dialogs,
+		loading
+	],
 	data () {
 		return {
 			tab: 'general',
@@ -678,6 +683,8 @@ export default {
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
 		},
 		async updateProject (event, attribute) {
+			this.showProgress()
+
 			const payload = {
 				id: this.$store.getters['current/PROJECT']
 			}
@@ -687,9 +694,13 @@ export default {
 				await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async deleteProject () {
+			this.showProgress()
+
 			const payload = {
 				id: this.$store.getters['current/PROJECT'],
 				workspace: this.$store.getters['auth/WORKSPACE_ID']
@@ -710,9 +721,13 @@ export default {
 					})
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async updateIssueType (id, attribute, value) {
+			this.showProgress()
+
 			const payload = {
 				id: id
 			}
@@ -723,9 +738,13 @@ export default {
 				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async createIssueType () {
+			this.showProgress()
+
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],
 				project: this.$store.getters['current/PROJECT'],
@@ -738,9 +757,13 @@ export default {
 				this.newIssueTypeFormData.title = ''
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async deleteIssueType (id) {
+			this.showProgress()
+
 			const payload = {
 				id: id
 			}
@@ -749,9 +772,13 @@ export default {
 				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async updateIssueTypeIcon (id, attribute, value) {
+			this.showProgress()
+
 			const payload = {
 				id: id
 			}
@@ -762,9 +789,12 @@ export default {
 				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async createIssueTypeIcon () {
+			this.showProgress()
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],
 				project: this.$store.getters['current/PROJECT'],
@@ -777,9 +807,12 @@ export default {
 				this.newIssueTypeIconFormData.prefix = ''
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async deleteIssueTypeIcon (id) {
+			this.showProgress()
 			const payload = {
 				id: id
 			}
@@ -788,9 +821,12 @@ export default {
 				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async updateIssueState (id, attribute, value) {
+			this.showProgress()
 			const payload = {
 				id: id
 			}
@@ -801,6 +837,8 @@ export default {
 				await this.$store.dispatch('core/UPDATE_ISSUE_STATE_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async createIssueState () {
@@ -815,9 +853,12 @@ export default {
 				this.newIssueStateFormData.title = ''
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async deleteIssueState (id) {
+			this.showProgress()
 			const payload = {
 				id: id
 			}
@@ -826,9 +867,12 @@ export default {
 				await this.$store.dispatch('core/DELETE_ISSUE_STATE_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async updateIssueEstimation (id, attribute, value) {
+			this.showProgress()
 			const payload = {
 				id: id
 			}
@@ -839,9 +883,12 @@ export default {
 				await this.$store.dispatch('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async createIssueEstimation () {
+			this.showProgress()
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],
 				project: this.$store.getters['current/PROJECT'],
@@ -854,9 +901,12 @@ export default {
 				this.newIssueEstimationFormData.title = ''
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		},
 		async deleteIssueEstimation (id) {
+			this.showProgress()
 			const payload = {
 				id: id
 			}
@@ -865,6 +915,8 @@ export default {
 				await this.$store.dispatch('core/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		}
 	}

@@ -99,9 +99,11 @@
 
 <script>
 import InviteMemberDialog from 'components/dialogs/InviteMemberDialog'
+import { loading } from '../mixins/loading'
 
 export default {
 	name: 'Team',
+	mixins: [loading],
 	data () {
 		return {
 			teamTable: {
@@ -197,13 +199,11 @@ export default {
 				persistent: true
 			})
 				.onOk(() => {
+					this.showProgress()
 					this.$store.dispatch('auth/REMOVE_TEAM_MEMBER', personId)
+						.finally(() => this.hideProgress())
 				})
 		}
 	}
 }
 </script>
-
-<style scoped>
-
-</style>

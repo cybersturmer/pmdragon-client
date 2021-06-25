@@ -187,11 +187,15 @@
 import SettingPanelCard from 'components/elements/SettingPanelCard'
 import AvatarUploader from 'components/elements/AvatarUploader'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { loading } from '../mixins/loading'
 
 export default {
 	name: 'AccountView',
 	components: { AvatarUploader, SettingPanelCard },
-	mixins: [Dialogs],
+	mixins: [
+		Dialogs,
+		loading
+	],
 	data () {
 		return {
 			tab: 'general',
@@ -212,6 +216,8 @@ export default {
 	},
 	methods: {
 		saveUserData () {
+			this.showProgress()
+
 			// Snake case cuz of API
 			const payload = {
 				first_name: this.userFormData.firstName,
@@ -219,9 +225,17 @@ export default {
 				username: this.userFormData.userName
 			}
 
-			this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
+			try {
+				this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
+			} catch (e) {
+				this.showError(e)
+			} finally {
+				this.hideProgress()
+			}
 		},
 		async savePassword () {
+			this.showProgress()
+
 			// Snake case cuz of API
 			const payload = {
 				old_password: this.passwordFormData.oldPassword,
@@ -236,6 +250,8 @@ export default {
 				this.passwordFormData.newPassword2 = ''
 			} catch (e) {
 				this.showError(e)
+			} finally {
+				this.hideProgress()
 			}
 		}
 	},
