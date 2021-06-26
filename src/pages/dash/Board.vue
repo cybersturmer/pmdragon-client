@@ -118,7 +118,7 @@ import IssueBoard from 'components/elements/IssueBoard.vue'
 import { loading } from '../mixins/loading'
 
 export default {
-	name: 'BoardViewN',
+	name: 'BoardView',
 	components: {
 		NoStartedSprintNotification,
 		StartCompleteSprintButton,
@@ -177,11 +177,11 @@ export default {
 			/** We use it to show ex: 10 days remaining */
 			switch (true) {
 			case this.daysRemaining > this.daysAmount:
-				return 'Will start soon...'
+				return 'Will start...'
 			case this.daysRemaining > 0:
-				return `${this.daysRemaining} days`
+				return `${this.daysRemaining} days${this.$q.screen.gt.md ? ' remaining' : ''}`
 			case this.daysRemaining < 0:
-				return '0 days'
+				return `0 days${this.$q.screen.gt.md ? ' remaining' : ''}`
 			default:
 				throw new Error('Unexpected days remaining value')
 			}
