@@ -116,7 +116,7 @@
         <q-card dark
                 bordered
                 square
-                class="my-card q-ma-xs text-white shadow-3 absolute-bottom q-pa-none">
+                class="my-card q-ma-xs text-white absolute-bottom q-pa-none">
           <q-card-section style="padding: 0">
             <q-input
               v-model="formData.title"
