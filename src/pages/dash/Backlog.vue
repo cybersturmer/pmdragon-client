@@ -540,7 +540,7 @@ export default {
 	}
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .flip-list-move {
     transition: transform 0.3s;
   }
