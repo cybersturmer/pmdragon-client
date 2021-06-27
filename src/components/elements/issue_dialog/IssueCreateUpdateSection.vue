@@ -12,6 +12,15 @@
       label="Created at"
       label-color="amber"
     />
+		<q-input
+			dark
+			flat
+			square
+			readonly
+			:value="createdBy"
+			label="Created By"
+			label-color="amber"
+		/>
     <q-input
       dark
       flat
@@ -44,6 +53,9 @@ export default {
 		},
 		createdAt () {
 			return date.formatDate(this.issue.created_at, DATETIME_MASK)
+		},
+		createdBy () {
+			return this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](this.issue.created_by)
 		},
 		updatedAt () {
 			return date.formatDate(this.issue.updated_at, DATETIME_MASK)
