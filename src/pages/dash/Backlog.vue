@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div class="q-pt-sm q-px-xs q-pb-none"
-                   style="border-top: 1px dashed #606060; border-bottom: 1px dashed #606060; min-height: 67px;">
+                   style="border-top: 1px solid #606060; border-bottom: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center text-amber q-pt-md">
                   Plan sprint by dropping issues here.
