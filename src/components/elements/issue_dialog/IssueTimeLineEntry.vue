@@ -5,6 +5,9 @@
 										class="text-amber"
 										color="accent"
 										:icon="icon">
+		<template #subtitle>
+			<span :title="getFormattedDatetime">{{ getRelativeDatetime }}</span>
+		</template>
 		<template #default>
 			<div
 				class="row items-center">
@@ -90,6 +93,9 @@ export default {
 		getRelativeDatetime () {
 			/** Get relative datetime for messages (example: "an hour ago") **/
 			return this.$moment(this.entry.updated_at).fromNow()
+		},
+		getFormattedDatetime () {
+			return this.$moment(this.entry.updated_at).format('MMMM Do YYYY, h:mm:ss a')
 		},
 		valueClasses () {
 			return 'border: 1px solid gray; border-radius: 5px;'
