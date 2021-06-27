@@ -39,8 +39,8 @@
                   v-model="tab"
                   dense
                   narrow-indicator>
-                  <q-tab name="messages" label="Messages" content-class="text-amber"/>
-                  <q-tab name="history" label="History" content-class="text-amber"/>
+                  <q-tab name="messages" label="Messages" icon="mdi-android-messages" content-class="text-amber"/>
+                  <q-tab name="history" label="History" icon="mdi-history" content-class="text-amber"/>
                 </q-tabs>
                 <q-separator />
                 <q-tab-panels
