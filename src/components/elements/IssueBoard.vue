@@ -25,7 +25,7 @@
             <q-icon
               v-if="getIssueTypeIcon"
               :name="getIssueTypeIcon.prefix"
-              :color="getIssueTypeIcon.color"
+							:style="`color: ${getIssueTypeIcon.color}`"
               size="xs"
               :title="getIssueTypeTitle"/>
             <!-- Project number -->

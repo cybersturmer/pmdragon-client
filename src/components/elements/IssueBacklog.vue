@@ -16,7 +16,7 @@
           <q-icon
             v-if="isIssueTypeIcon"
             :name="getIssueTypeIconPrefix"
-            :color="getIssueTypeIconColor"
+						:style="`color: ${getIssueTypeIcon.color}`"
             size="sm"
             :title="getIssueTypeTitle"/>
           &nbsp;

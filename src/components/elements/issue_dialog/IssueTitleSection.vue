@@ -12,7 +12,7 @@
         <q-icon
           v-if="isIssueTypeIcon"
           :name="issueTypeIconPrefix"
-          :color="issueTypeIconColor"
+					:style="`color: ${issueTypeIconColor}`"
           :title="issueTypeTitle"
           size="md"
         />

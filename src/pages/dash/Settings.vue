@@ -210,9 +210,9 @@
                   <template #body-cell-icon="props">
                     <q-td>
                       <q-icon
-                        size="sm"
+                        size="md"
+												:style="`color: ${props.row.color}`"
                         :name="props.row.prefix"
-                        :color="props.row.color"
                       />
                     </q-td>
                   </template>
@@ -231,7 +231,7 @@
                     </q-td>
                   </template>
                   <template #body-cell-color="props">
-                    <q-td :props="props">
+                    <q-td :props="props" class="col-4">
                       <q-input
                         dark
                         flat
@@ -240,8 +240,19 @@
                         color="amber"
                         :value="props.row.color"
                         :debounce="debounceDefault"
-                        @input="updateIssueTypeIcon(props.row.id, 'color', $event)"
-                      />
+                        @input="updateIssueTypeIcon(props.row.id, 'color', $event)">
+												<template #prepend>
+													<q-icon name="mdi-palette" class="cursor-pointer">
+														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
+															<q-color dark
+																			 format-model="hex"
+																			 :value="props.row.color"
+																			 :debounce="debounceDefault"
+																			 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
                     </q-td>
                   </template>
                   <template #body-cell-id="props">
