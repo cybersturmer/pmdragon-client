@@ -30,7 +30,7 @@ export default {
 			default: () => [
 				['bold', 'italic', 'underline'],
 				['unordered', 'ordered'],
-				['fullscreen', 'print'],
+				['fullscreen'],
 				['viewsource']
 			]
 		},
