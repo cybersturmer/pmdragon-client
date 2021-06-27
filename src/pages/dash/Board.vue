@@ -74,7 +74,7 @@
                     :handle="$q.screen.lt.sm ? '.handle' : false"
                     v-bind="dragOptions"
                     @change="handleIssueStateChanging($event, state.id)"
-                    class="fit overflow-hidden-y">
+                    class="fit overflow-hidden-y no-scroll">
 
                     <transition-group
                       type="transition"
