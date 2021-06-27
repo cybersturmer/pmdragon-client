@@ -15,14 +15,14 @@
           <q-btn-group outline>
             <q-btn
               outline
-              size="sm"
+              size="md"
               color="amber"
               label="Create Workspace"
               @click="createWorkspaceDialog"
             />
             <q-btn
               outline
-              size="sm"
+              size="md"
               color="amber"
               label="Create Project"
               @click="createProjectDialog"
