@@ -34,7 +34,7 @@
             <!-- Messages section -->
             <q-card-section class="q-pa-none">
               <!-- Block with messages -->
-              <q-card-section class="q-py-none">
+              <q-card-section class="q-py-sm">
                 <q-tabs
                   v-model="tab"
                   dense
