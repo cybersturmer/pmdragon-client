@@ -62,7 +62,10 @@
       bordered
     >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
-        <q-list dark class="q-pa-md">
+        <q-list dark
+								separator
+								padding
+								class="q-pa-md">
           <q-item clickable v-ripple :to="{ name: 'backlog' }">
             <q-item-section avatar>
               <q-icon name="mdi-view-list" />
