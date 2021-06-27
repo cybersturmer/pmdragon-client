@@ -56,15 +56,21 @@
                     <q-card
                       dark
                       flat
-                      bordered
-                    >
-                      <q-card-section>
+                      bordered>
+                      <q-card-section v-if="isMobileApplication">
                         <IssueChatMobileMessage v-for="message in messages"
 																								:message="message"
 																								:key="message.id"
-																								@edit="editMessagePlaceholder"
-																								@remove="removeMessagePlaceholder"/>
+																								@edit="editMessage"
+																								@remove="removeMessage"/>
                       </q-card-section>
+											<q-card-section v-else>
+												<IssueChatDesktopMessage v-for="message in messages"
+																								 :message="message"
+																								 :key="message.id"
+																								 @edit="editMessage"
+																								 @remove="removeMessage"/>
+											</q-card-section>
                     </q-card>
                   </q-tab-panel>
                   <q-tab-panel
@@ -116,10 +122,12 @@ import IssueDescriptionSection from '../elements/issue_dialog/IssueDescriptionSe
 import IssueMessageSection from '../elements/issue_dialog/IssueMessageSection'
 import IssueChatMobileMessage from '../elements/issue_dialog/IssueChatMobileMessage'
 import IssueTimeLineSection from '../elements/issue_dialog/IssueTimeLineSection'
+import IssueChatDesktopMessage from '../elements/issue_dialog/IssueChatDesktopMessage'
 
 export default {
 	name: 'IssueEditDialog',
 	components: {
+		IssueChatDesktopMessage,
 		IssueTimeLineSection,
 		IssueChatMobileMessage,
 		IssueDescriptionSection,
@@ -133,6 +141,11 @@ export default {
 	mixins: [
 	  editIssueMixin
 	],
+	computed: {
+		isMobileApplication () {
+			return this.$q.platform.is.cordova
+		}
+	},
 	methods: {
 		show () {
 			this.$refs.dialog.show()

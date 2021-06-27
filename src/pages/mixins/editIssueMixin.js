@@ -82,14 +82,14 @@ export const editIssueMixin = {
 		cancelEditingMessage () {
 			this.editingMessageId = null
 		},
-		async removeMessagePlaceholder (id) {
+		async removeMessage (id) {
 			const payload = {
 				id
 			}
 
 			await this.$store.dispatch('current/REMOVE_MESSAGE_BY_ID', payload)
 		},
-		editMessagePlaceholder (id) {
+		editMessage (id) {
 			this.editingMessageId = id
 			this.$refs.issueMessageSection.unlock()
 			this.$nextTick(this.$refs.issueMessageSection.focus)

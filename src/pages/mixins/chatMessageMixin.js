@@ -35,11 +35,17 @@ export const ChatMessageMixin = {
 	},
 	methods: {
 		edit (chat) {
-			chat.reset()
+			if ('reset' in chat) {
+				chat.reset()
+			}
+
 			this.$emit('edit', this.message.id)
 		},
 		remove (chat) {
-			chat.reset()
+			if ('reset' in chat) {
+				chat.reset()
+			}
+
 			this.$emit('remove', this.message.id)
 		}
 	}
