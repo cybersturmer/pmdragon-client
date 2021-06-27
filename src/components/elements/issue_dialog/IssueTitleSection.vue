@@ -73,7 +73,7 @@ export default {
 		},
 		issueTypeTitle () {
 			/** get Title for given issue type id **/
-			return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](this.issue.id)
+			return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](this.issue.type_category)
 		},
 		issueProjectNumber () {
 		  return this.$store.getters['core/ISSUE_BY_ID_PROJECT_NUMBER'](this.issue.id)
