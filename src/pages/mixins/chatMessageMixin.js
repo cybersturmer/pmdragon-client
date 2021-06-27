@@ -10,9 +10,13 @@ export const ChatMessageMixin = {
 			return this.$store.getters['auth/PERSON_BY_ID'](this.message.created_by)
 		},
 		title () {
-			return this.$q.screen.gt.sm
-				? `${this.person.username} (${this.person.first_name} ${this.person.last_name})`
-				: this.person.username
+			try {
+				return this.$q.screen.gt.sm
+					? `${this.person.username} (${this.person.first_name} ${this.person.last_name})`
+					: this.person.username
+			} catch (e) {
+				return ''
+			}
 		},
 		avatar () {
 			return this.person.avatar

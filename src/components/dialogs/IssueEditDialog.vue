@@ -75,40 +75,7 @@
                       dark
                       flat
                       bordered>
-                      <q-card-section class="q-pt-xs q-pb-xs">
-                        <q-timeline
-                          :layout="timelineLayout"
-                          color="amber"
-                          dark>
-                          <q-timeline-entry
-                            v-for="entry in history"
-                            :key="entry.id"
-                            :title="buildTimeLineEntryTitle(entry)"
-														side="right"
-                            class="text-amber"
-                            :subtitle="getRelativeDatetime(entry.updated_at)"
-                            color="accent"
-                            :icon="entry.entry_type ? entry.entry_type : 'mdi-radiobox-marked'">
-														<template #default>
-															<div
-																v-if="isTimelineShowValues(entry)"
-																class="row items-center">
-                              <span
-																v-if="entry.before_value"
-																v-html="entry.before_value"
-																class="q-pa-sm q-ma-xs bg-grey-10"
-																style="border: 1px solid gray; border-radius: 5px;">
-                              </span>
-																<span
-																	v-if="entry.after_value"
-																	v-html="entry.after_value"
-																	class="q-pa-sm q-ma-xs bg-accent"
-																	style="border: 1px solid gray; border-radius: 5px;"/>
-															</div>
-														</template>
-                          </q-timeline-entry>
-                    </q-timeline>
-                      </q-card-section>
+                      <IssueTimeLineSection :history="history"/>
                     </q-card>
                   </q-tab-panel>
                 </q-tab-panels>
@@ -148,10 +115,12 @@ import IssueUploaderSection from '../elements/issue_dialog/IssueUploaderSection'
 import IssueDescriptionSection from '../elements/issue_dialog/IssueDescriptionSection'
 import IssueMessageSection from '../elements/issue_dialog/IssueMessageSection'
 import IssueChatMobileMessage from '../elements/issue_dialog/IssueChatMobileMessage'
+import IssueTimeLineSection from '../elements/issue_dialog/IssueTimeLineSection'
 
 export default {
 	name: 'IssueEditDialog',
 	components: {
+		IssueTimeLineSection,
 		IssueChatMobileMessage,
 		IssueDescriptionSection,
 		IssueMessageSection,

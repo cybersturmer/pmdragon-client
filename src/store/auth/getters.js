@@ -73,6 +73,14 @@ export function PERSON_FULL_NAME_BY_ID (state, getters) {
 	}
 }
 
+export function PERSON_FULL_REPRESENTATION_BY_ID (state, getters) {
+	return personId => {
+		const personFullName = getters.PERSON_FULL_NAME_BY_ID(personId)
+		const personUsername = getters.PERSON_USERNAME_BY_ID(personId)
+		return `@${personUsername} (${personFullName})`
+	}
+}
+
 export function MENTIONING_REGEX (state) {
 	const regexArray = []
 

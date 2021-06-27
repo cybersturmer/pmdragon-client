@@ -94,38 +94,6 @@ export const editIssueMixin = {
 			this.$refs.issueMessageSection.unlock()
 			this.$nextTick(this.$refs.issueMessageSection.focus)
 		},
-		isTimelineShowValues (entry) {
-			if (entry.edited_field === 'Ordering') {
-				return false
-			}
-
-			return entry.before_value || entry.after_value
-		},
-		buildTimeLineEntryTitle (entry) {
-			/** Here we can make a title for issue event **/
-			const participantTitle = this.getParticipantTitleById(entry.changed_by)
-
-			let action = ''
-			switch (entry.edited_field) {
-			case 'Ordering':
-				action = parseInt(entry.before_value) > parseInt(entry.after_value)
-					? 'increased'
-					: 'decreased'
-				action += ' priority'
-				break
-			default:
-				action = `updated ${entry.edited_field}`
-			}
-
-			switch (entry.entry_type) {
-			case 'mdi-playlist-edit':
-				return `${participantTitle} ${action}`
-			case 'mdi-playlist-plus':
-				return `${participantTitle} created this Issue`
-			default:
-				return `${participantTitle} did (${entry.entry_type})`
-			}
-		},
 		getRelativeDatetime (datetime) {
 			/** Get relative datetime for messages (example: "an hour ago") **/
 			return this.$moment(datetime).fromNow()
@@ -136,14 +104,9 @@ export const editIssueMixin = {
 		},
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/
-
-			let username = ''
-			let name = ''
-
 			try {
-				username = this.$store.getters['auth/PERSON_USERNAME_BY_ID'](id)
-				name = `(${this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](id)})`
-				return this.$q.screen.gt.sm ? `@${username} ${name}` : username
+				return this.$q.screen.gt.sm ? this.$store.getters['auth/PERSON_FULL_REPRESENTATION_BY_ID'](id)
+					: this.$store.getters['auth/PERSON_USERNAME_BY_ID'](id)
 			} catch (e) {
 				return ''
 			}
