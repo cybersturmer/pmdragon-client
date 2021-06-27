@@ -143,7 +143,7 @@ export const editIssueMixin = {
 			try {
 				username = this.$store.getters['auth/PERSON_USERNAME_BY_ID'](id)
 				name = `(${this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](id)})`
-				return this.$q.screen.gt.sm ? `${username} ${name}` : username
+				return this.$q.screen.gt.sm ? `@${username} ${name}` : username
 			} catch (e) {
 				return ''
 			}
