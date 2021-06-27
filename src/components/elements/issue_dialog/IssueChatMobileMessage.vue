@@ -35,7 +35,7 @@
 							Remove
 						</div>
 					</template>
-					<q-item class="q-px-sm">
+					<q-item class="q-px-sm q-py-md">
 						<div v-html="message.description"
 								 class="justify-center"/>
 					</q-item>
