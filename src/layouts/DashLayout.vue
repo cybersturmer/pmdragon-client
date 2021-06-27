@@ -58,14 +58,15 @@
       show-if-above
       :width="175"
       :breakpoint="600"
-      content-class="bg-grey-8"
+      content-class="bg-grey-9"
       bordered
     >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
         <q-list dark
 								separator
 								padding
-								class="q-pa-md">
+								class="q-pa-md bg-primary"
+				style="border-top: 1px solid #5f5f5f; border-bottom: 1px solid #5f5f5f">
           <q-item clickable v-ripple :to="{ name: 'backlog' }">
             <q-item-section avatar>
               <q-icon name="mdi-view-list" />
@@ -109,8 +110,8 @@
         </q-list>
       </q-scroll-area>
 
-      <q-card square flat class="absolute-top bg-grey-8" style="height: 150px;">
-        <div class="absolute-bottom text-center bg-grey-8" style="margin-bottom: 1em;">
+      <q-card square flat class="absolute-top bg-grey-9" style="height: 150px;">
+        <div class="absolute-bottom text-center bg-grey-9" style="margin-bottom: 1em;">
           <q-avatar v-if="avatarUrl" size="65px" class="q-mb-sm">
             <q-badge
               rounded
