@@ -181,6 +181,8 @@ export function RESET (state) {
 		SessionStorage.remove(`auth.${element}`)
 	}
 
+	LocalStorage.remove('auth.person_id')
+
 	state.person_id = null
 	state.persons = []
 	state.workspaces = []

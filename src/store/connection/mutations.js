@@ -8,6 +8,7 @@ export function SET_HOST (state, payload) {
 export function RESET () {
 	const localStorageResetList = [
 		'host',
+		'socketRequestId',
 		'socketConnected',
 		'socketReconnectError',
 		'socketMessage'

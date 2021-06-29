@@ -356,6 +356,7 @@ export function RESET () {
 		'issue_types',
 		'issue_type_icons',
 		'issue_states',
+		'issue_attachments',
 		'issue_estimations',
 		'sprint_durations'
 	]
