@@ -155,10 +155,10 @@
                     <q-td :props="props">
                       <q-btn
                         flat
-                        size="sm"
                         icon="mdi-delete"
                         color="amber"
-                        label="Remove"
+												:size="$q.screen.gt.sm ? 'sm' : 'md' "
+												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         @click="deleteIssueType(props.row.id)"/>
                     </q-td>
                   </template>
@@ -218,18 +218,7 @@
                   </template>
                   <template #body-cell-prefix="props">
                     <q-td :props="props">
-                      <q-input
-                        dark
-                        flat
-                        borderless
-                        type="text"
-                        color="amber"
-                        readonly
-                        :value="props.row.prefix"
-                        :debounce="debounceDefault"
-                      >
-												<template #prepend>
-													<q-icon name="mdi-tooltip-image" class="cursor-pointer">
+											<q-btn flat icon="mdi-tooltip-image">
 														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
 															<div style="max-width: 800px; width: 100%;">
 																<q-input v-model="iconPickerFilter"
@@ -258,14 +247,14 @@
 																</q-icon-picker>
 															</div>
 														</q-popup-proxy>
-													</q-icon>
-												</template>
-											</q-input>
+													</q-btn>
                     </q-td>
                   </template>
                   <template #body-cell-color="props">
                     <q-td :props="props" class="col-4">
                       <q-input
+												v-if="$q.screen.gt.md"
+												readonly
                         dark
                         flat
                         borderless
@@ -286,16 +275,28 @@
 													</q-icon>
 												</template>
 											</q-input>
+											<q-btn
+												v-else
+												flat
+												icon="mdi-palette">
+												<q-popup-proxy dark transition-show="scale" transition-hide="scale">
+													<q-color dark
+																	 format-model="hex"
+																	 :value="props.row.color"
+																	 :debounce="debounceDefault"
+																	 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
+												</q-popup-proxy>
+											</q-btn>
                     </q-td>
                   </template>
                   <template #body-cell-id="props">
                     <q-td :props="props">
                       <q-btn
                         flat
-                        size="sm"
-                        icon="mdi-delete"
-                        color="amber"
-                        label="Remove"
+                        :size="$q.screen.gt.sm ? 'sm' : 'md' "
+												:label="$q.screen.gt.sm ? 'Remove' :  '' "
+												icon="mdi-delete"
+												color="amber"
                         @click="deleteIssueTypeIcon(props.row.id)"/>
                     </q-td>
                   </template>
@@ -381,10 +382,10 @@
                     <q-td :props="props">
                       <q-btn
                         flat
-                        size="sm"
+												:size="$q.screen.gt.sm ? 'sm' : 'md' "
+												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
                         color="amber"
-                        label="Remove"
                         @click="deleteIssueState(props.row.id)"/>
                     </q-td>
                   </template>
@@ -465,10 +466,10 @@
                     <q-td :props="props">
                       <q-btn
                         flat
-                        size="sm"
+												:size="$q.screen.gt.sm ? 'sm' : 'md' "
+												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
                         color="amber"
-                        label="Remove"
                         @click="deleteIssueEstimation(props.row.id)"/>
                     </q-td>
                   </template>
@@ -590,7 +591,7 @@ export default {
 						field: row => row
 					},
 					{
-						label: 'Prefix',
+						label: 'Icon',
 						name: 'prefix',
 						required: true,
 						align: 'left',
