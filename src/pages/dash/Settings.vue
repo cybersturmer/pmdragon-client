@@ -239,7 +239,7 @@
 																				 label="Filter"
 																				 label-color="amber"
 																				 clearable
-																				 class="q-pa-md" />
+																				 class="q-pa-sm" />
 																<q-icon-picker
 																	dark
 																	:value="props.row.prefix"
