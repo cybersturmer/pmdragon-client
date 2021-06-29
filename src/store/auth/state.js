@@ -1,9 +1,8 @@
-import { LocalStorage, SessionStorage } from 'quasar'
+import { LocalStorage } from 'quasar'
 
 export default function () {
 	return {
 		person_id: LocalStorage.getItem('auth.person_id') ||
-      SessionStorage.getItem('auth.person_id') ||
       null,
 		workspaces: LocalStorage.getItem('auth.workspaces') || [],
 		persons: LocalStorage.getItem('auth.persons') || [],
@@ -13,7 +12,7 @@ export default function () {
 				data: null,
 				expired_at: null
 			},
-			refresh: SessionStorage.getItem('auth.tokens.refresh') || {
+			refresh: LocalStorage.getItem('auth.tokens.refresh') || {
 				data: null,
 				expired_at: null
 			}

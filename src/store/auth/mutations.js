@@ -1,4 +1,4 @@
-import { LocalStorage, SessionStorage } from 'quasar'
+import { LocalStorage } from 'quasar'
 import { removeElement, syncPair } from 'src/services/util'
 
 function _parseTokenDetails (token) {
@@ -35,7 +35,6 @@ export function SET_ACCESS_TOKEN (state, payload) {
 	state.person_id = tokenDetails.person_id
 
 	LocalStorage.set('auth.tokens.access', access)
-	LocalStorage.set('auth.person_id', tokenDetails.person_id)
 }
 
 export function SET_REFRESH_TOKEN (state, payload) {
@@ -52,8 +51,8 @@ export function SET_REFRESH_TOKEN (state, payload) {
 	state.tokens.refresh = refresh
 	state.person_id = tokenDetails.person_id
 
-	SessionStorage.set('auth.tokens.refresh', refresh)
-	SessionStorage.set('auth.person_id', tokenDetails.person_id)
+	LocalStorage.set('auth.tokens.refresh', refresh)
+	LocalStorage.set('auth.person_id', tokenDetails.person_id)
 }
 
 export function SET_MY_FIRST_NAME (state, payload) {
@@ -159,32 +158,17 @@ export function DELETE_PROJECT (state, payload) {
 	LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
-export function RESET (state) {
+export function RESET () {
 	const localStorageResetList = [
 		'person_id',
 		'workspaces',
 		'persons',
 		'invited',
-		'tokens.access'
+		'tokens.access',
+		'tokens.refresh'
 	]
 
 	for (const element of localStorageResetList) {
 		LocalStorage.remove(`auth.${element}`)
 	}
-
-	const sessionStorageResetList = [
-		'tokens.refresh',
-		'person_id'
-	]
-
-	for (const element of sessionStorageResetList) {
-		SessionStorage.remove(`auth.${element}`)
-	}
-
-	LocalStorage.remove('auth.person_id')
-
-	state.person_id = null
-	state.persons = []
-	state.workspaces = []
-	state.tokens = {}
 }
