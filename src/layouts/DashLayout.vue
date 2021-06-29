@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="bg-grey-9 text-white">
+  <q-layout view="lHh Lpr lFf" class="bg-secondary text-white">
     <q-header elevated class="bg-primary">
       <q-toolbar>
         <q-btn
@@ -11,7 +11,7 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <q-toolbar-title :shrink="true" class="q-pa-xs">
+        <q-toolbar-title shrink class="q-pa-xs">
           {{ toolbarText }}
         </q-toolbar-title>
         <q-btn
@@ -21,8 +21,7 @@
           round
           icon="mdi-tune"
           @click="goToSettingsOfProject"
-          title="Manage project"
-        />
+          title="Manage project"/>
         <q-space/>
         <q-btn
           flat
@@ -30,8 +29,7 @@
           dense
           icon="mdi-swap-horizontal"
           class="q-mr-xs"
-          @click="goToWorkspaces"
-        />
+          @click="goToWorkspaces"/>
         <q-btn
           v-if="isWorkspaceSelected"
           flat
@@ -39,16 +37,14 @@
           dense
           icon="mdi-account"
           class="q-mr-xs"
-          @click="goToAccount"
-        />
+          @click="goToAccount"/>
         <q-btn
           flat
           round
           dense
           icon="mdi-exit-to-app"
           class="q-mr-xs"
-          @click="logout"
-        />
+          @click="logout"/>
       </q-toolbar>
     </q-header>
 
@@ -58,9 +54,8 @@
       show-if-above
       :width="175"
       :breakpoint="600"
-      content-class="bg-grey-9"
-      bordered
-    >
+      content-class="bg-secondary"
+      bordered>
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
         <q-list dark
 								separator
@@ -221,7 +216,7 @@ export default {
 				return `${workspaceName} [ ${projectTitle} ]`
 			}
 
-			return '  PmDragon Community Edition'
+			return '  PmDragon'
 		},
 		firstName () {
 			return this.$store.getters['auth/MY_FIRST_NAME']
