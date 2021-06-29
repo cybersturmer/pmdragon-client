@@ -17,14 +17,14 @@
               outline
               size="md"
               color="amber"
-              label="Create Workspace"
+              label="NEW Workspace"
               @click="createWorkspaceDialog"
             />
             <q-btn
               outline
               size="md"
               color="amber"
-              label="Create Project"
+              label="NEW Project"
               @click="createProjectDialog"
             />
           </q-btn-group>
