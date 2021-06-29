@@ -126,7 +126,7 @@
                           <q-icon
                             size="sm"
                             :name="getIssueTypeIconById(scope.opt.id).prefix"
-                            :color="getIssueTypeIconById(scope.opt.id).color"
+														:style="`color: ${scope.opt.color}`"
                           />
                         </template>
                         <template #option="scope">
@@ -140,7 +140,7 @@
                               <q-icon
                                 size="sm"
                                 :name="scope.opt.prefix"
-                                :color="scope.opt.color"
+																:style="`color: ${scope.opt.color}`"
                               />
                             </q-item-section>
                             <q-item-section>
