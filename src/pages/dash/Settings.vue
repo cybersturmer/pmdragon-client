@@ -212,8 +212,7 @@
                       <q-icon
                         size="md"
 												:style="`color: ${props.row.color}`"
-                        :name="props.row.prefix"
-                      />
+                        :name="props.row.prefix"/>
                     </q-td>
                   </template>
                   <template #body-cell-prefix="props">
