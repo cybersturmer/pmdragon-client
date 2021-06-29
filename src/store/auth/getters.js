@@ -8,15 +8,23 @@ export function IS_LOGGED_IN (state, getters) {
 
 /** Auth tokens **/
 export function IS_ACCESS_TOKEN_VALID (state) {
-	const now = Date.now()
-	return state.tokens.access.expired_at !== null &&
-    now < Date.parse(state.tokens.access.expired_at)
+	try {
+		const now = Date.now()
+		return state.tokens.access.expired_at !== null &&
+			now < Date.parse(state.tokens.access.expired_at)
+	} catch (e) {
+		return false
+	}
 }
 
 export function IS_REFRESH_TOKEN_VALID (state) {
-	const now = Date.now()
-	return state.tokens.refresh.expired_at !== null &&
-    now < Date.parse(state.tokens.refresh.expired_at)
+	try {
+		const now = Date.now()
+		return state.tokens.refresh.expired_at !== null &&
+			now < Date.parse(state.tokens.refresh.expired_at)
+	} catch (e) {
+		return false
+	}
 }
 
 export function ACCESS_TOKEN (state) {
