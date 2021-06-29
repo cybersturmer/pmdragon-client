@@ -220,7 +220,8 @@
 											<q-btn flat icon="mdi-tooltip-image">
 														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
 															<div style="max-width: 800px; width: 100%;">
-																<q-input v-model="iconPickerFilter"
+																<q-input :value="iconPickerFilter"
+																				 @input="inputIconPickerFilter"
 																				 dark
 																				 flat
 																				 type="text"
@@ -733,6 +734,9 @@ export default {
 			})
 	},
 	methods: {
+		inputIconPickerFilter (value) {
+			this.iconPickerFilter = value.toLowerCase()
+		},
 		getIssueTypeIconById (iconId) {
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
 		},
