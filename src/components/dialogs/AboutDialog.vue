@@ -78,6 +78,7 @@ export default {
 		},
 
 		onOKClick () {
+			this.hide()
 		},
 
 		onCancelClick () {
