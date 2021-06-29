@@ -227,7 +227,40 @@
                         readonly
                         :value="props.row.prefix"
                         :debounce="debounceDefault"
-                      />
+                      >
+												<template #prepend>
+													<q-icon name="mdi-tooltip-image" class="cursor-pointer">
+														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
+															<div style="max-width: 800px; width: 100%;">
+																<q-input v-model="iconPickerFilter"
+																				 dark
+																				 flat
+																				 type="text"
+																				 label="Filter"
+																				 label-color="amber"
+																				 clearable
+																				 class="q-pa-md" />
+																<q-icon-picker
+																	dark
+																	:value="props.row.prefix"
+																	@input="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
+																	icon-set="mdi-v5"
+																	:filter="iconPickerFilter"
+																	:pagination.sync="iconPickerPagination"
+																	:pagination-props="{
+																		maxPages: 5,
+																		input: true,
+																		color: iconPickerPaginationColor,
+																		'input-class': 'text-white text-weight-bold'
+																	}"
+																	font-size="16px"
+																	style="height: 300px; width: 300px">
+																</q-icon-picker>
+															</div>
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
                     </q-td>
                   </template>
                   <template #body-cell-color="props">
@@ -478,10 +511,14 @@
 import SettingPanelCard from 'components/elements/SettingPanelCard'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { loading } from '../mixins/loading'
+import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 
 export default {
 	name: 'SettingsView',
-	components: { SettingPanelCard },
+	components: {
+		QIconPicker,
+		SettingPanelCard
+	},
 	mixins: [
 		Dialogs,
 		loading
@@ -490,6 +527,12 @@ export default {
 		return {
 			tab: 'general',
 			debounceDefault: 1000,
+			iconPickerFilter: '',
+			iconPickerPagination: {
+				itemsPerPage: 60,
+				page: 0
+			},
+			iconPickerPaginationColor: 'white',
 			projectFormErrors: {
 				title: '',
 				key: '',
@@ -788,6 +831,10 @@ export default {
 			}
 		},
 		async updateIssueTypeIcon (id, attribute, value) {
+			if (attribute === 'prefix') {
+				this.iconPickerFilter = ''
+			}
+
 			this.showProgress()
 
 			const payload = {
