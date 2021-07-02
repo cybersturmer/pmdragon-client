@@ -1,11 +1,17 @@
 import { LocalStorage } from 'quasar'
+import { empty } from './presets'
+
+export function ACTIVATE (state) {
+	state.enabled = true
+	LocalStorage.set('connection.enabled', true)
+}
 
 export function SET_HOST (state, payload) {
 	state.host = payload
 	LocalStorage.set('connection.host', payload)
 }
 
-export function RESET () {
+export function RESET (state) {
 	const localStorageResetList = [
 		'host',
 		'socketRequestId',
@@ -17,6 +23,8 @@ export function RESET () {
 	for (const element of localStorageResetList) {
 		LocalStorage.remove(`connection.${element}`)
 	}
+
+	Object.assign(state, empty())
 }
 
 export function SOCKET_ONOPEN (state, event) {

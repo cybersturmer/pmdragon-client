@@ -1,5 +1,6 @@
 import { LocalStorage } from 'quasar'
 import { removeElement, removeElementById, syncPair, updateElementById } from 'src/services/util'
+import { empty } from './presets'
 
 function findBacklogByProjectId (state, projectId) {
 	return state.backlogs
@@ -21,6 +22,11 @@ function findBacklogIndexById (state, backlogId) {
 		.findIndex((el, index, array) => {
 			return el.id === backlogId
 		})
+}
+
+export function ACTIVATE (state) {
+	state.enabled = true
+	LocalStorage.set('core.enabled', true)
 }
 
 export function INIT_BACKLOGS (state, payload) {
@@ -348,7 +354,7 @@ export function DELETE_ISSUE (state, payload) {
 	LocalStorage.set('core.issues', state.issues)
 }
 
-export function RESET () {
+export function RESET (state) {
 	const localStorageResetList = [
 		'backlogs',
 		'sprints',
@@ -364,4 +370,6 @@ export function RESET () {
 	for (const element of localStorageResetList) {
 		LocalStorage.remove(`core.${element}`)
 	}
+
+	Object.assign(state, empty())
 }

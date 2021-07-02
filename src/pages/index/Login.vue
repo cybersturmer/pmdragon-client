@@ -94,6 +94,11 @@ export default {
 				this.$set(this.formData, 'username', '')
 				this.$set(this.formData, 'password', '')
 
+				this.$store.commit('connection/ACTIVATE')
+				this.$store.commit('current/ACTIVATE')
+				this.$store.commit('auth/ACTIVATE')
+				this.$store.commit('core/ACTIVATE')
+
 				await this.$router.push({ name: 'loading' })
 			} catch (e) {
 				return this.showOkDialog('Login was not successful', e.message)

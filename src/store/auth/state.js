@@ -1,21 +1,6 @@
 import { LocalStorage } from 'quasar'
+import { empty, restored } from './presets'
 
 export default function () {
-	return {
-		person_id: LocalStorage.getItem('auth.person_id') ||
-      null,
-		workspaces: LocalStorage.getItem('auth.workspaces') || [],
-		persons: LocalStorage.getItem('auth.persons') || [],
-		invited: LocalStorage.getItem('auth.invited') || [],
-		tokens: {
-			access: LocalStorage.getItem('auth.tokens.access') || {
-				data: null,
-				expired_at: null
-			},
-			refresh: LocalStorage.getItem('auth.tokens.refresh') || {
-				data: null,
-				expired_at: null
-			}
-		}
-	}
+	return LocalStorage.getItem('auth.enabled') ? restored() : empty()
 }

@@ -1,5 +1,11 @@
 import { LocalStorage } from 'quasar'
 import { removeElementById, updateElementById } from 'src/services/util'
+import { empty } from './presets'
+
+export function ACTIVATE (state) {
+	state.enabled = true
+	LocalStorage.set('current.enabled', true)
+}
 
 // Workspaces managing
 export function SELECT_WORKSPACE (state, payload) {
@@ -65,7 +71,7 @@ export function SET_ISSUE_IN_WORKSPACE_SUBSCRIBED (state, payload) {
 	state.issue_in_workspace_subscribed = payload
 }
 
-export function RESET () {
+export function RESET (state) {
 	/** loading and loading_module are not stored in LC
    * So we don't need to clean it **/
 	const localStorageResetList = [
@@ -79,4 +85,6 @@ export function RESET () {
 	for (const element of localStorageResetList) {
 		LocalStorage.remove(`current.${element}`)
 	}
+
+	Object.assign(state, empty())
 }

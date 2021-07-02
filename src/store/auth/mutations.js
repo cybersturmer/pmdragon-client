@@ -1,5 +1,6 @@
 import { LocalStorage } from 'quasar'
 import { removeElement, syncPair } from 'src/services/util'
+import { empty } from 'src/store/auth/presets'
 
 function _parseTokenDetails (token) {
 	const base64Url = token.split('.')[1]
@@ -18,6 +19,11 @@ function _parseTokenDetails (token) {
 	)
 
 	return JSON.parse(jsonPayload)
+}
+
+export function ACTIVATE (state) {
+	state.enabled = true
+	LocalStorage.set('auth.enabled', true)
 }
 
 export function SET_ACCESS_TOKEN (state, payload) {
@@ -158,7 +164,7 @@ export function DELETE_PROJECT (state, payload) {
 	LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
-export function RESET () {
+export function RESET (state) {
 	const localStorageResetList = [
 		'person_id',
 		'workspaces',
@@ -171,4 +177,6 @@ export function RESET () {
 	for (const element of localStorageResetList) {
 		LocalStorage.remove(`auth.${element}`)
 	}
+
+	Object.assign(state, empty())
 }
