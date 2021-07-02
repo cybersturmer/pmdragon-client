@@ -9,18 +9,20 @@
 			<span :title="getFormattedDatetime">{{ getRelativeDatetime }}</span>
 		</template>
 		<template #default>
-			<div
-				class="row items-center">
-				<span
+			<div class="row items-center">
+				<div v-if="!isOrderingAction"
+						 class="q-pa-none">
+				<div
 					v-if="beforeValue"
 					v-html="beforeValue"
 					class="q-pa-sm q-ma-xs bg-grey-10"
 					:style="valueClasses"/>
-				<span
+				<div
 					v-if="afterValue"
 					v-html="afterValue"
 					class="q-pa-sm q-ma-xs bg-accent"
 					:style="valueClasses"/>
+				</div>
 			</div>
 		</template>
 	</q-timeline-entry>
@@ -42,6 +44,9 @@ export default {
 		}
 	},
 	computed: {
+		isOrderingAction () {
+			return this.entry.edited_field === 'Ordering'
+		},
 		entryType () {
 			return this.entry && 'entry_type' in this.entry ? this.entry.entry_type : 'mdi-radiobox-marked'
 		},
