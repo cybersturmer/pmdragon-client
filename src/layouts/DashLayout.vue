@@ -29,12 +29,22 @@
           dense
           icon="mdi-swap-horizontal"
           class="q-mr-xs"
+					title="Workspaces and projects"
           @click="goToWorkspaces"/>
+				<q-btn
+					flat
+					round
+					dense
+					icon="mdi-cloud-refresh"
+					title="Manually refresh data"
+					class="q-mr-xs"
+					@click="refreshManually"/>
         <q-btn
           flat
           round
           dense
           icon="mdi-account"
+					title="Account and Settings"
           class="q-mr-xs"
           @click="goToAccount"/>
         <q-btn
@@ -136,10 +146,14 @@
 
 import { WsController } from 'src/services/websockets/WsController'
 import { websocket } from 'pages/mixins/websockets'
+import { loading } from '../pages/mixins/loading'
 
 export default {
 	name: 'DashLayout',
-	mixins: [websocket],
+	mixins: [
+		websocket,
+		loading
+	],
 	data () {
 		return {
 			leftDrawerOpen: false,
@@ -194,6 +208,9 @@ export default {
 		goToAccount () {
 			if (this.$router.currentRoute.name === 'me') return false
 			this.$router.push({ name: 'me' })
+		},
+		refreshManually () {
+			this.reloadData()
 		},
 		goToWorkspaces () {
 			if (this.$router.currentRoute.name === 'workspaces') return false
