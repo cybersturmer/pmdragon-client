@@ -2,7 +2,7 @@
   "name": "web",
   "version": "1.0.9",
   "description": "PmDragon Community Edition",
-  "productName": "Pm Dragon",
+  "productName": "PmDragon",
   "author": "Vladimir Shturmer <cybersturmer@ya.ru>",
   "private": true,
   "scripts": {
