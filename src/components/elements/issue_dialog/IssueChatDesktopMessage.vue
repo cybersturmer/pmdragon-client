@@ -37,7 +37,7 @@
 							 size="sm">
 					<q-menu @mouseover="showMenu"
 									@mouseleave="hideMenu"
-									dark persistent auto-close>
+									dark auto-close>
 						<q-list>
 							<q-item clickable @click="edit">
 								<q-item-section>Edit</q-item-section>
