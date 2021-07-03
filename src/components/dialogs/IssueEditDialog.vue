@@ -8,7 +8,7 @@
 				flat
 				bordered
 				class="q-dialog-plugin bg-secondary"
-				:style=" $q.screen.gt.sm ? 'width: 95vw; height: 95vh; max-width: 90vw;' : ''">
+				:style="mainCardStyles">
 				<q-pull-to-refresh
 					bg-color="secondary"
 					color="amber"
@@ -146,6 +146,11 @@ export default {
 	mixins: [
 	  editIssueMixin
 	],
+	data () {
+		return {
+			mainCardStyles: this.$q.screen.gt.sm ? 'width: 95vw; height: 95vh; max-width: 95vw' : ''
+		}
+	},
 	computed: {
 		isMobileApplication () {
 			return this.$q.platform.is.cordova
