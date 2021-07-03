@@ -31,7 +31,6 @@
           class="q-mr-xs"
           @click="goToWorkspaces"/>
         <q-btn
-          v-if="isWorkspaceSelected"
           flat
           round
           dense
