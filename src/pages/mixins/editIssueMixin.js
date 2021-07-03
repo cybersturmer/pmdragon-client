@@ -8,7 +8,10 @@ import { Notifications } from 'pages/mixins/notifications'
 
 export const editIssueMixin = {
 	components: { IssueMorePopupMenu },
-	mixins: [Dialogs, Notifications],
+	mixins: [
+		Dialogs,
+		Notifications
+	],
 	props: {
 		id: {
 			required: true
@@ -73,6 +76,20 @@ export const editIssueMixin = {
 		this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
 	},
 	methods: {
+		async refresh (done) {
+			try {
+				await this.$store.dispatch('core/INIT_ISSUES')
+
+				this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
+
+				await this.getMessages()
+				await this.getHistory()
+			} catch (e) {
+				this.showError(new ErrorHandler(e))
+			} finally {
+				done()
+			}
+		},
 		_scrollToEnd () {
 			const areaRefs = 'scrollArea'
 			if (!(areaRefs in this.$refs)) return false
