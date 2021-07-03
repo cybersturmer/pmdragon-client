@@ -2,17 +2,10 @@
 Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
 Quasar (Vue.Js / JavaScript) based Cross-platform software.
 
-## Links
-You can find deployment tool, documentation, licensing in:
-
-[Main repository](https://github.com/cybersturmer/pmdragon)
-
-API can be found in:
-
-[API repository](https://github.com/cybersturmer/pmdragon-core-api)
-
-## Video Channel
-[YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0)
+## Useful links
+| Backlog | Video | API | Tools |
+| ------- | ----- | --- | ------ |
+| [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
 ## Live Demo
 https://pmdragon-client.herokuapp.com/
