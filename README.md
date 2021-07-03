@@ -7,6 +7,9 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 | ------- | ----- | --- | ------ |
 | [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
+## Android application
+<a href='https://play.google.com/store/apps/details?id=com.cybersturmer.pmdragon.pmdragonce&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height='60'/></a>
+
 ## Live Demo
 https://pmdragon-client.herokuapp.com/
 
@@ -41,8 +44,6 @@ quasar build --mode cordova --target ios
 ## Deploy Web version by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
 
-## Android
-<a href='https://play.google.com/store/apps/details?id=com.cybersturmer.pmdragon.pmdragonce&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height='60'/></a>
 
 ## License
 
