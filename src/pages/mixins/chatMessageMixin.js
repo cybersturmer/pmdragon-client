@@ -19,7 +19,11 @@ export const ChatMessageMixin = {
 			}
 		},
 		avatar () {
-			return this.person.avatar
+			try {
+				return this.person.avatar
+			} catch (e) {
+				return ''
+			}
 		},
 		isItMe () {
 			/** Return true if given id is current user id **/
