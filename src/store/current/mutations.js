@@ -7,6 +7,10 @@ export function ACTIVATE (state) {
 	LocalStorage.set('current.enabled', true)
 }
 
+export function APPEND_LOG (state, payload) {
+	state.log.push(payload)
+}
+
 // Workspaces managing
 export function SELECT_WORKSPACE (state, payload) {
 	state.workspace = payload

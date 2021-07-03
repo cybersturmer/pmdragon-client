@@ -3,6 +3,7 @@ import { LocalStorage } from 'quasar'
 export const empty = () => {
 	return {
 		enabled: false,
+		log: [],
 		workspace: null,
 		project: null,
 		loading: false,
@@ -17,6 +18,7 @@ export const empty = () => {
 export const restored = () => {
 	return {
 		enabled: LocalStorage.getItem('current.enabled'),
+		log: [],
 		workspace: LocalStorage.getItem('current.workspace'),
 		project: LocalStorage.getItem('current.project'),
 		loading: false, // We don't need to store it in LocalStorage

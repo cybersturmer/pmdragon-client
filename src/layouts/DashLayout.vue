@@ -185,6 +185,19 @@ export default {
 			}
 		}
 	},
+	watch: {
+		isVisible (newState, oldState) {
+			const payload = {
+				event: 'visibility',
+				timestamp: Date.now(),
+				value: newState
+			}
+
+			this.$store.commit('current/APPEND_LOG', payload)
+
+			if (newState && !oldState) { this.reloadData() }
+		}
+	},
 	created () {
 		/** Socket manual connection **/
 		const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
@@ -223,6 +236,9 @@ export default {
 		}
 	},
 	computed: {
+		isVisible () {
+			return this.$q.appVisible
+		},
 		toolbarText () {
 			const workspaceName = this.$store.getters['current/WORKSPACE']
 			const project = this.$store.getters['current/PROJECT']
