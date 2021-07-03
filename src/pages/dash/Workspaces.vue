@@ -90,8 +90,12 @@ import { ErrorHandler } from 'src/services/util'
 
 export default {
 	name: 'WorkspacesView',
-	mixins: [websocket],
-	components: { SmallParticipantChipElement },
+	mixins: [
+		websocket
+	],
+	components: {
+		SmallParticipantChipElement
+	},
 	data () {
 		return {
 			workspacesTable: {
