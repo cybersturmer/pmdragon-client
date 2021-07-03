@@ -1,82 +1,84 @@
 <template>
-  <q-page class="q-pa-lg">
-		<q-pull-to-refresh @refresh="refresh"
-											 bg-color="secondary" color="amber">
-			<div class="row">
-      <q-table
-        dark
-        grid
-        class="full-width items-center"
-        :data="workspaces"
-        no-data-label="You are not participating in any workspace"
-        :filter="workspacesTable.filter"
-        :filter-method="filterByString"
-        :pagination="workspacesTable.pagination"
-      >
-        <template #top-left>
-          <q-btn-group outline>
-            <q-btn
-              outline
-              size="md"
-              color="amber"
-              label="NEW Workspace"
-              @click="createWorkspaceDialog"
-            />
-            <q-btn
-              outline
-              size="md"
-              color="amber"
-              label="NEW Project"
-              @click="createProjectDialog"
-            />
-          </q-btn-group>
-        </template>
-        <template #top-right>
-          <q-input dark dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
-            <template #append>
-              <q-icon name="mdi-cloud-search" />
-            </template>
-          </q-input>
-        </template>
-        <template #item="props">
-          <div class="q-pa-xs col-xs-12 col-sm-12 col-md-6">
-            <q-card dark bordered style="min-width: 350px">
-              <q-card-section class="text-center">
-                <div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>
-                <div class="text-subtitle2 text-amber">Participants</div>
-                <SmallParticipantChipElement
-                  v-for="participant in props.row.participants"
-                  v-bind:key="participant.id"
-                  :participant="participant"
-                />
-              </q-card-section>
-              <q-card-actions v-if="props.row.projects.length > 0" vertical>
-                <q-btn v-for="project in props.row.projects"
-                       v-bind:key="project.id"
-                       outline
-                       color="amber"
-                       @click="selectSpace(props.row.prefix_url, project.id)"
-                >
-                  {{ project.title }}
-                </q-btn>
-              </q-card-actions>
-              <q-card-section class="text-center" style="border-top: 1px dashed #696969" v-else>
-                <div>
-                    <q-btn
-                      dark
-                      flat
-                      outline
-                      color="amber"
-                      @click="createProjectDialog(props.row.id)">Create Project</q-btn>
-                </div>
-              </q-card-section>
-            </q-card>
-          </div>
-        </template>
-      </q-table>
-    </div>
-		</q-pull-to-refresh>
-  </q-page>
+	<q-pull-to-refresh @refresh="refresh"
+										 bg-color="secondary"
+										 color="amber"
+										 class="fit">
+		<q-page class="q-pa-lg">
+				<div class="row">
+				<q-table
+					dark
+					grid
+					class="full-width items-center"
+					:data="workspaces"
+					no-data-label="You are not participating in any workspace"
+					:filter="workspacesTable.filter"
+					:filter-method="filterByString"
+					:pagination="workspacesTable.pagination"
+				>
+					<template #top-left>
+						<q-btn-group outline>
+							<q-btn
+								outline
+								size="md"
+								color="amber"
+								label="NEW Workspace"
+								@click="createWorkspaceDialog"
+							/>
+							<q-btn
+								outline
+								size="md"
+								color="amber"
+								label="NEW Project"
+								@click="createProjectDialog"
+							/>
+						</q-btn-group>
+					</template>
+					<template #top-right>
+						<q-input dark dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
+							<template #append>
+								<q-icon name="mdi-cloud-search" />
+							</template>
+						</q-input>
+					</template>
+					<template #item="props">
+						<div class="q-pa-xs col-xs-12 col-sm-12 col-md-6">
+							<q-card dark bordered style="min-width: 350px">
+								<q-card-section class="text-center">
+									<div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>
+									<div class="text-subtitle2 text-amber">Participants</div>
+									<SmallParticipantChipElement
+										v-for="participant in props.row.participants"
+										v-bind:key="participant.id"
+										:participant="participant"
+									/>
+								</q-card-section>
+								<q-card-actions v-if="props.row.projects.length > 0" vertical>
+									<q-btn v-for="project in props.row.projects"
+												 v-bind:key="project.id"
+												 outline
+												 color="amber"
+												 @click="selectSpace(props.row.prefix_url, project.id)"
+									>
+										{{ project.title }}
+									</q-btn>
+								</q-card-actions>
+								<q-card-section class="text-center" style="border-top: 1px dashed #696969" v-else>
+									<div>
+											<q-btn
+												dark
+												flat
+												outline
+												color="amber"
+												@click="createProjectDialog(props.row.id)">Create Project</q-btn>
+									</div>
+								</q-card-section>
+							</q-card>
+						</div>
+					</template>
+				</q-table>
+			</div>
+		</q-page>
+	</q-pull-to-refresh>
 </template>
 
 <script>
