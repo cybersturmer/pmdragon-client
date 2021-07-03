@@ -9,6 +9,13 @@ export const loading = {
 	methods: {
 		loadData () {
 			this.showProgress()
+
+			this.$store.commit('current/APPEND_LOG', {
+				event: 'load_data',
+				timestamp: Date.now(),
+				value: 'started'
+			})
+
 			this.$store.dispatch('current/START_LOADING', 'Loading data...')
 				.then(() =>
 					Promise.all([
@@ -27,10 +34,22 @@ export const loading = {
 					]))
 				.catch((e) => {
 					this.showError(e)
+
+					this.$store.commit('current/APPEND_LOG', {
+						event: 'load_data',
+						timestamp: Date.now(),
+						value: 'failed'
+					})
 				})
 				.finally(() => {
 					// Hide preloader
 					this.hideProgress()
+
+					this.$store.commit('current/APPEND_LOG', {
+						event: 'load_data',
+						timestamp: Date.now(),
+						value: 'success'
+					})
 
 					// If UserData is incomplete -> let's route him on kickstart page
 					if (this.$store.getters['auth/IS_MY_DATA_INCOMPLETE']) {
