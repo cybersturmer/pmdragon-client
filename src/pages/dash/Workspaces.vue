@@ -1,6 +1,8 @@
 <template>
   <q-page class="q-pa-lg">
-    <div class="row">
+		<q-pull-to-refresh @refresh="refresh"
+											 bg-color="secondary" color="amber">
+			<div class="row">
       <q-table
         dark
         grid
@@ -73,6 +75,7 @@
         </template>
       </q-table>
     </div>
+		</q-pull-to-refresh>
   </q-page>
 </template>
 
@@ -81,6 +84,7 @@ import SmallParticipantChipElement from 'components/elements/SmallParticipantChi
 import WorkspaceCreateDialog from 'components/dialogs/WorkspaceCreateDialog.vue'
 import ProjectCreateDialog from 'components/dialogs/ProjectCreateDialog.vue'
 import { websocket } from 'pages/mixins/websockets'
+import { ErrorHandler } from 'src/services/util'
 
 export default {
 	name: 'WorkspacesView',
@@ -103,6 +107,16 @@ export default {
 		}
 	},
 	methods: {
+		async refresh (done) {
+			try {
+				await this.$store.dispatch('auth/INIT_PERSONS')
+				await this.$store.dispatch('auth/INIT_WORKSPACES')
+			} catch (e) {
+				this.showError(new ErrorHandler(e))
+			} finally {
+				done()
+			}
+		},
 		createWorkspaceDialog () {
 			const options = {
 				parent: this,
