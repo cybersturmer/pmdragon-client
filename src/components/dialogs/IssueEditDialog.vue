@@ -9,11 +9,7 @@
 				bordered
 				class="q-dialog-plugin bg-secondary"
 				:style="mainCardStyles">
-				<q-pull-to-refresh
-					bg-color="secondary"
-					color="amber"
-					@refresh="refresh">
-					<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
+				<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
 							<!-- We show this block only on small screen size (copyLink, more, close) -->
 							<q-card-section v-if="$q.screen.lt.lg" class="column items-end q-pb-none q-pt-sm">
 								<IssueHeader :issue="formData.issue"
@@ -112,7 +108,6 @@
 								<IssueCreateUpdateSection :issue="formData.issue"/>
 							</q-card-section>
 					</q-card-section>
-				</q-pull-to-refresh>
 			</q-card>
   </q-dialog>
 </template>
