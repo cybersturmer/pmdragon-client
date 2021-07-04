@@ -87,7 +87,9 @@ export const editIssueMixin = {
 			} catch (e) {
 				this.showError(new ErrorHandler(e))
 			} finally {
-				done()
+				if (done) {
+					done()
+				}
 			}
 		},
 		_scrollToEnd () {

@@ -15,22 +15,23 @@
 					@refresh="refresh">
 					<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
 							<!-- We show this block only on small screen size (copyLink, more, close) -->
-							<q-card-section v-if="$q.screen.lt.md" class="column items-end q-pb-none q-pt-sm">
+							<q-card-section v-if="$q.screen.lt.lg" class="column items-end q-pb-none q-pt-sm">
 								<IssueHeader :issue="formData.issue"
 														 class="col"
-														 @hide="hide"/>
+														 @hide="hide"
+														 @refresh="refresh"/>
 							</q-card-section>
 							<!-- Title block -->
-							<IssueTitleSection v-if="$q.screen.lt.md"
+							<IssueTitleSection v-if="$q.screen.lt.lg"
 																 :issue="formData.issue"/>
 							<q-card-section class="col-md-8 col-xs-12 col-sm-12 q-pa-xs overflow-hidden">
-								<IssueTitleSection v-if="$q.screen.gt.sm"
+								<IssueTitleSection v-if="$q.screen.gt.md"
 																	 :issue="formData.issue"/>
 								<q-scroll-area
 									dark
 									ref="scrollArea"
 									:style="`height: ${ $q.screen.gt.sm ? '65vh' : '68vh'}; border-bottom: 1px solid #686868;`">
-									<q-card-section v-if="$q.screen.lt.md" class="q-pa-none">
+									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />

@@ -6,6 +6,11 @@
       dense
       icon="mdi-link-variant"
       @click="copyLink"/>
+		<q-btn
+			flat
+			dense
+			icon="mdi-cloud-refresh"
+			@click="refresh"/>
     <!-- More button -->
     <q-btn
       flat
@@ -46,6 +51,9 @@ export default {
 			const text = `${host}/dash/issue/${this.issue.id}`
 			copyToClipboard(text)
 				.then(() => this.showInformalNotification('Link copied to clipboard'))
+		},
+		refresh () {
+			this.$emit('refresh')
 		},
 		hide () {
 		  this.$emit('hide')
