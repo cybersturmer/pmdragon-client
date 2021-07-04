@@ -59,7 +59,7 @@
               <template #actions>
                 <q-btn-group>
                   <q-btn
-                    color="red-14"
+                    color="negative"
                     label="Remove project"
                     icon="mdi-delete"
                     @click="deleteProject"/>
@@ -124,10 +124,10 @@
                       >
                         <template #selected-item="scope">
                           <q-icon
-                            size="sm"
-                            :name="getIssueTypeIconById(scope.opt.id).prefix"
+														size="md"
+														:name="getIssueTypeIconById(scope.opt.id).prefix"
 														:style="`color: ${scope.opt.color}`"
-                          />
+													/>
                         </template>
                         <template #option="scope">
                           <q-item
@@ -154,10 +154,8 @@
                   <template #body-cell-id="props">
                     <q-td :props="props">
                       <q-btn
-                        flat
                         icon="mdi-delete"
-                        color="amber"
-												:size="$q.screen.gt.sm ? 'sm' : 'md' "
+                        color="negative"
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         @click="deleteIssueType(props.row.id)"/>
                     </q-td>
@@ -210,7 +208,7 @@
                   <template #body-cell-icon="props">
                     <q-td>
                       <q-icon
-                        size="md"
+												size="md"
 												:style="`color: ${props.row.color}`"
                         :name="props.row.prefix"/>
                     </q-td>
@@ -292,11 +290,9 @@
                   <template #body-cell-id="props">
                     <q-td :props="props">
                       <q-btn
-                        flat
-                        :size="$q.screen.gt.sm ? 'sm' : 'md' "
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
 												icon="mdi-delete"
-												color="amber"
+												color="negative"
                         @click="deleteIssueTypeIcon(props.row.id)"/>
                     </q-td>
                   </template>
@@ -378,14 +374,26 @@
                       />
                     </q-td>
                   </template>
+									<template #body-cell-ordering="props">
+										<q-td :props="props">
+											<q-input
+												dark
+												flat
+												borderless
+												type="text"
+												color="amber"
+												:value="props.row.ordering"
+												:debounce="debounceDefault"
+												@input="updateIssueState(props.row.id, 'ordering', $event)"
+											/>
+										</q-td>
+									</template>
                   <template #body-cell-id="props">
                     <q-td :props="props">
                       <q-btn
-                        flat
-												:size="$q.screen.gt.sm ? 'sm' : 'md' "
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
-                        color="amber"
+                        color="negative"
                         @click="deleteIssueState(props.row.id)"/>
                     </q-td>
                   </template>
@@ -465,11 +473,9 @@
                   <template #body-cell-id="props">
                     <q-td :props="props">
                       <q-btn
-                        flat
-												:size="$q.screen.gt.sm ? 'sm' : 'md' "
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
-                        color="amber"
+                        color="negative"
                         @click="deleteIssueEstimation(props.row.id)"/>
                     </q-td>
                   </template>
@@ -585,9 +591,10 @@ export default {
 			issueTypesIconsTableData: {
 				columns: [
 					{
+						label: 'Preview',
 						name: 'icon',
 						required: true,
-						align: 'center',
+						align: 'left',
 						field: row => row
 					},
 					{
@@ -650,6 +657,12 @@ export default {
 						field: row => row.is_done
 					},
 					{
+						name: 'ordering',
+						required: true,
+						field: row => row.ordering,
+						sortable: true
+					},
+					{
 						name: 'id',
 						required: true,
 						align: 'right',
@@ -680,7 +693,6 @@ export default {
 						required: true,
 						align: 'left',
 						field: row => row.value,
-						style: 'width: 100px;',
 						sortable: true
 					},
 					{
