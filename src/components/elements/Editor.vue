@@ -42,7 +42,7 @@ export default {
 		maxHeight: {
 			type: String,
 			required: false,
-			default: () => '15vh'
+			default: () => '15rem'
 		},
 		isMentionable: {
 			type: Boolean,

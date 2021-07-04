@@ -8,10 +8,12 @@
 			v-show="isDescriptionReadOnly"
 			dark
 			flat
-			bordered>
+			bordered
+			class="q-pa-xs"
+		>
 			<q-card-section
 				v-html="issue.description || 'Add a description by clicking this area...'"
-				class="editable_block text-amber"
+				class="editable_block text-amber overflow-hidden q-pa-sm"
 				@click="startEditingDescription"/>
 		</q-card>
 		<Editor v-show="isDescriptionEditing"

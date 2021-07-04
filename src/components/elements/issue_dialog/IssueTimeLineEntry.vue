@@ -10,17 +10,17 @@
 		</template>
 		<template #default>
 			<div class="row items-center">
-				<div v-if="!isOrderingAction"
+				<div v-if="!isOrderingAction && !isDescription"
 						 class="q-pa-none">
 				<div
 					v-if="beforeValue"
 					v-html="beforeValue"
-					class="q-pa-sm q-ma-xs bg-grey-10"
+					class="q-pa-sm q-mb-sm bg-grey-10 overflow-hidden"
 					:style="valueClasses"/>
 				<div
 					v-if="afterValue"
 					v-html="afterValue"
-					class="q-pa-sm q-ma-xs bg-accent"
+					class="q-pa-sm bg-accent overflow-hidden"
 					:style="valueClasses"/>
 				</div>
 			</div>
@@ -46,6 +46,9 @@ export default {
 	computed: {
 		isOrderingAction () {
 			return this.entry.edited_field === 'Ordering'
+		},
+		isDescription () {
+			return this.entry.edited_field === 'Description'
 		},
 		entryType () {
 			return this.entry && 'entry_type' in this.entry ? this.entry.entry_type : 'mdi-radiobox-marked'
@@ -103,7 +106,7 @@ export default {
 			return this.$moment(this.entry.updated_at).format('MMMM Do YYYY, h:mm:ss a')
 		},
 		valueClasses () {
-			return 'border: 1px solid gray; border-radius: 5px;'
+			return 'border: 1px solid gray; border-radius: 5px; max-width: 95%'
 		}
 	}
 }
