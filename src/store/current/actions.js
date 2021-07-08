@@ -49,7 +49,7 @@ export function SET_ISSUE_HISTORY ({ commit }, payload) {
 }
 
 export function RESET_ISSUE_SELECTION ({ commit }) {
-	commit('SET_ISSUE', null)
+	commit('SET_ISSUE_ID', null)
 	commit('SET_ISSUE_MESSAGES', null)
 	commit('SET_ISSUE_HISTORY', null)
 }

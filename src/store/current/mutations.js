@@ -42,7 +42,7 @@ export function SET_LOADING_MODULE (state, payload) {
 }
 
 export function SET_ISSUE_ID (state, payload) {
-	state.issue = payload
+	state.issue_id = payload
 	LocalStorage.set('current.issue_id', payload)
 }
 

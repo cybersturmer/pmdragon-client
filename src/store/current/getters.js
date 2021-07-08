@@ -29,7 +29,11 @@ export function ISSUE_ID (state) {
 }
 
 export function ISSUE (state, getters, rootState, rootGetters) {
-	return rootGetters['core/ISSUE_BY_ID'](getters.ISSUE_ID)
+	try {
+		return rootGetters['core/ISSUE_BY_ID'](getters.ISSUE_ID)
+	} catch (e) {
+		return null
+	}
 }
 
 export function ISSUE_MESSAGES (state) {

@@ -40,13 +40,21 @@ export const editIssueMixin = {
 	watch: {
 		messages (newArray, oldArray) {
 			this._scrollToEnd()
+		},
+		issue (newObject, oldObject) {
+			this.formData.issue = unWatch(newObject)
 		}
+	},
+	async beforeMount () {
+		/** Let's set issue Id first **/
+		await this.$store.dispatch('current/SET_ISSUE_ID', this.id)
 	},
 	async mounted () {
 		/** Let's take a local copy of vuex issue object **/
-		this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
+		this.formData.issue = unWatch(this.$store.getters['current/ISSUE'])
 
 		/** Now we can increment request id, we need it for socket connection **/
+		// @todo do we really need it?
 		await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 
 		const currentIssue = this.$store.getters['current/ISSUE_ID']
@@ -63,7 +71,6 @@ export const editIssueMixin = {
 		}
 
 		try {
-			await this.$store.dispatch('current/SET_ISSUE', this.id)
 			await this.getMessages()
 			await this.getHistory()
 		} catch (e) {
@@ -73,7 +80,7 @@ export const editIssueMixin = {
 		const payload = {
 			action: 'subscribe_to_messages_in_issue',
 			request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-			issue_pk: this.id
+			issue_pk: currentIssue
 		}
 
 		this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
@@ -167,8 +174,8 @@ export const editIssueMixin = {
 		}
 	},
 	computed: {
-		issueId () {
-			return this.$store.getters['current/ISSUE_ID']
+		issue () {
+			return this.$store.getters['current/ISSUE']
 		},
 		messages () {
 			return this.$store.getters['current/ISSUE_MESSAGES']
