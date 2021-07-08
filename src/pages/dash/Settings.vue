@@ -383,7 +383,7 @@
 												type="text"
 												color="amber"
 												class="text-center"
-												input-style="width: 60px; text-align: center"
+												input-style="width: 30px; text-align: center"
 												:value="props.row.ordering"
 												:debounce="debounceDefault"
 												@input="updateIssueState(props.row.id, 'ordering', $event)"
@@ -660,7 +660,7 @@ export default {
 						field: row => row.is_done
 					},
 					{
-						label: 'Ordering',
+						label: '#',
 						name: 'ordering',
 						align: 'left',
 						required: true,
