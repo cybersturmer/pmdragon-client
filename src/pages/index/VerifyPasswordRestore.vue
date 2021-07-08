@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+		<ChangeConnectionElement/>
     <q-card
       v-if="isPasswordForgotRequestValid"
       dark
@@ -45,11 +46,15 @@ import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { ErrorHandler } from 'src/services/util'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'VerifyPasswordRestore',
 	mixins: [Dialogs, fieldValidationMixin],
-	components: { PasswordField },
+	components: {
+		PasswordField,
+		ChangeConnectionElement
+	},
 	data () {
 		return {
 			isPasswordForgotRequestValid: false,

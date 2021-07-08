@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+		<ChangeConnectionElement/>
     <q-card
       v-if="isRegistration"
       dark
@@ -51,11 +52,15 @@ import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'VerifyRegistration',
 	mixins: [Dialogs, fieldValidationMixin],
-	components: { PasswordField },
+	components: {
+		PasswordField,
+		ChangeConnectionElement
+	},
 	data () {
 		return {
 			isRegistration: false,

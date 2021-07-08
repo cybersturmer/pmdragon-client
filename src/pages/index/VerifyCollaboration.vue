@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+		<ChangeConnectionElement/>
     <q-card dark flat bordered class="my-card" style="width: 320px">
       <q-card-section class="text-center">
         <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
@@ -31,10 +32,12 @@
 <script>
 import { Api } from 'src/services/api'
 import { Dialogs } from 'pages/mixins/dialogs'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'VerifyCollaboration',
 	mixins: [Dialogs],
+	components: { ChangeConnectionElement },
 	data () {
 		return {
 			isRequestSent: false,

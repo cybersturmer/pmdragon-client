@@ -20,7 +20,7 @@
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
-import ChangeConnectionElement from 'components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 import EmailField from 'components/fields/EmailField'
 
 export default {

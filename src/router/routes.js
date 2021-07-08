@@ -43,8 +43,7 @@ const routes = [
 				path: '/verify/collaboration/:key',
 				props: true,
 				meta: {
-					title: 'Verify your participation in the new workspace' +
-			PMDRAGON_STRING
+					title: 'Verify your participation in the new workspace' + PMDRAGON_STRING
 				},
 				component: () => import('pages/index/VerifyCollaboration.vue')
 			},
@@ -111,7 +110,7 @@ const routes = [
 				path: 'me',
 				meta: {
 					title: 'My Account' + PMDRAGON_STRING,
-					requireSpace: true
+					requireSpace: false
 				},
 				component: () => import('pages/dash/Me.vue')
 			},

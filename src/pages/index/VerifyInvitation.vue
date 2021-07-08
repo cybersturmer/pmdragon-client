@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+		<ChangeConnectionElement/>
     <q-card dark flat bordered class="my-card" style="width: 320px">
       <q-card-section>
         <div class="text-h6">Complete your registration</div>
@@ -35,11 +36,15 @@ import { Api } from 'src/services/api'
 import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'VerifyInvitation',
 	mixins: [Dialogs],
-	components: { PasswordField },
+	components: {
+		PasswordField,
+		ChangeConnectionElement
+	},
 	data () {
 		return {
 			infoData: {

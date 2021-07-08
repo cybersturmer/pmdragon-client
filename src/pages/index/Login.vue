@@ -48,7 +48,7 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PasswordField from 'components/fields/PasswordField'
 import UsernameField from 'components/fields/UsernameField'
-import ChangeConnectionElement from 'components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'Login',
