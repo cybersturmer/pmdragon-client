@@ -24,8 +24,12 @@ export function LOADING_TEXT (state) {
 	return `Loading ${state.loading_module}...`
 }
 
-export function ISSUE (state) {
-	return state.issue
+export function ISSUE_ID (state) {
+	return state.issue_id
+}
+
+export function ISSUE (state, getters, rootState, rootGetters) {
+	return rootGetters['core/ISSUE_BY_ID'](getters.ISSUE_ID)
 }
 
 export function ISSUE_MESSAGES (state) {

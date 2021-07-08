@@ -19,8 +19,8 @@ export function STOP_LOADING ({ commit }) {
 	commit('SET_LOADING_MODULE', null)
 }
 
-export function SET_ISSUE ({ commit }, payload) {
-	commit('SET_ISSUE', payload)
+export function SET_ISSUE_ID ({ commit }, payload) {
+	commit('SET_ISSUE_ID', payload)
 }
 
 export async function REMOVE_MESSAGE_BY_ID ({ commit, getters }, payload) {

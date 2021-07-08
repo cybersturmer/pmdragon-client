@@ -41,9 +41,9 @@ export function SET_LOADING_MODULE (state, payload) {
 	state.loading_module = payload
 }
 
-export function SET_ISSUE (state, payload) {
+export function SET_ISSUE_ID (state, payload) {
 	state.issue = payload
-	LocalStorage.set('current.issue', payload)
+	LocalStorage.set('current.issue_id', payload)
 }
 
 export function SET_ISSUE_MESSAGES (state, payload) {

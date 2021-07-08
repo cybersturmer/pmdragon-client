@@ -43,10 +43,13 @@ export const editIssueMixin = {
 		}
 	},
 	async mounted () {
+		/** Let's take a local copy of vuex issue object **/
 		this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
+
+		/** Now we can increment request id, we need it for socket connection **/
 		await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 
-		const currentIssue = this.$store.getters['current/ISSUE']
+		const currentIssue = this.$store.getters['current/ISSUE_ID']
 
 		/** Let's unsubscribe from previously opened issue if that exist **/
 		if (currentIssue) {
@@ -164,6 +167,9 @@ export const editIssueMixin = {
 		}
 	},
 	computed: {
+		issueId () {
+			return this.$store.getters['current/ISSUE_ID']
+		},
 		messages () {
 			return this.$store.getters['current/ISSUE_MESSAGES']
 		},
