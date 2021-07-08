@@ -58,7 +58,7 @@
 														dark
 														flat
 														bordered>
-														<q-card-section v-if="isMobileApplication">
+														<q-card-section v-if="true">
 															<IssueChatMobileMessage v-for="message in messages"
 																											:message="message"
 																											:key="message.id"

@@ -18,18 +18,19 @@
 		<template #default>
 			<q-list dense separator>
 				<q-slide-item
+					dark
 					@right="edit"
 					@left="remove"
 					right-color="accent"
-					left-color="red-8"
+					left-color="negative"
 					class="text-amber bg-secondary">
-					<template v-slot:right>
+					<template v-if="isItMe" v-slot:right>
 						<div class="row items-center">
 							Edit
 							<q-icon right name="mdi-comment-edit" />
 						</div>
 					</template>
-					<template v-slot:left>
+					<template v-if="isItMe" v-slot:left>
 						<div class="row items-center">
 							<q-icon left name="mdi-comment-remove" />
 							Remove
