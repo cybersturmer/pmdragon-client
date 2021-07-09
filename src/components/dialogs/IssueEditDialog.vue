@@ -32,6 +32,7 @@
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />
 									<IssueDescriptionSection :issue="formData.issue" />
+									<q-separator dark class="q-mt-md"/>
 									<!-- Messages section -->
 									<q-card-section class="q-pa-none">
 										<!-- Block with messages -->
@@ -43,7 +44,6 @@
 												<q-tab name="messages" label="Messages" icon="mdi-android-messages" content-class="text-amber"/>
 												<q-tab name="history" label="History" icon="mdi-history" content-class="text-amber"/>
 											</q-tabs>
-											<q-separator />
 											<q-tab-panels
 												v-model="tab"
 												class="bg-primary"
@@ -58,7 +58,7 @@
 														dark
 														flat
 														bordered>
-														<q-card-section v-if="true">
+														<q-card-section v-if="isMobileApplication">
 															<IssueChatMobileMessage v-for="message in messages"
 																											:message="message"
 																											:key="message.id"
@@ -97,6 +97,7 @@
 																			 @cancelEditingMessage="cancelEditingMessage"/>
 								</q-card-section>
 							</q-card-section>
+							<!-- Right section on desktop manage section / created or updated section -->
 							<q-card-section
 								v-if="$q.screen.gt.md"
 								class="col-md-4">
