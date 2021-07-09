@@ -106,7 +106,7 @@ export default {
 			return this.$moment(this.entry.updated_at).format('MMMM Do YYYY, h:mm:ss a')
 		},
 		valueClasses () {
-			return 'border: 1px solid gray; border-radius: 5px; max-width: 95%'
+			return 'border: 1px solid gray; border-radius: 5px; max-width: 100%'
 		}
 	}
 }
