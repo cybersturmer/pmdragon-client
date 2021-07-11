@@ -61,7 +61,7 @@
       v-if="isWorkspaceSelected"
       v-model="leftDrawerOpen"
       show-if-above
-      :width="175"
+      :width="200"
       :breakpoint="600"
       content-class="bg-secondary"
       bordered>
