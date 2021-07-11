@@ -13,7 +13,7 @@ export const ChatMessageMixin = {
 			try {
 				return this.$q.screen.gt.sm
 					? `${this.person.username} (${this.person.first_name} ${this.person.last_name})`
-					: this.person.username
+					: `@${this.person.username}`
 			} catch (e) {
 				return ''
 			}
