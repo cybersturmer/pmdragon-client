@@ -34,6 +34,86 @@ export const websocket = {
 			})
 
 			this.$store.commit('current/SET_ISSUE_IN_WORKSPACE_SUBSCRIBED', true)
+		},
+		subscribeSettings () {
+			const workspaceId = this.$store.getters['auth/WORKSPACE_ID']
+			const isMeOwner = this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
+
+			if (!workspaceId || isMeOwner) return false
+
+			const list = [
+				{
+					action: 'subscribe_to_issue_type_categories_in_workspace',
+					stream: 'workspace_issue_types'
+				},
+				{
+					action: 'subscribe_to_issue_type_categories_icons_in_workspace',
+					stream: 'workspace_issue_type_icons'
+				},
+				{
+					action: 'subscribe_to_issue_state_categories_in_workspace',
+					stream: 'workspace_issue_states'
+				},
+				{
+					action: 'subscribe_to_issue_estimation_categories_in_workspace',
+					stream: 'workspace_issue_estimations'
+				}
+			]
+
+			for (const entry of list) {
+				this.$store.dispatch('connection/UPDATE_REQUEST_ID').then(() => {})
+
+				const payload = {
+					action: entry.action,
+					request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+					workspace_pk: this.$store.getters['auth/WORKSPACE_ID']
+				}
+
+				this.$socket.sendObj({
+					stream: entry.stream,
+					payload: payload
+				})
+			}
+		},
+		unsubscribeSettings () {
+			const workspaceId = this.$store.getters['auth/WORKSPACE_ID']
+			const isMeOwner = this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
+
+			if (!workspaceId || isMeOwner) return false
+
+			const list = [
+				{
+					action: 'unsubscribe_from_issue_type_categories_in_workspace',
+					stream: 'workspace_issue_types'
+				},
+				{
+					action: 'unsubscribe_from_issue_type_categories_icons_in_workspace',
+					stream: 'workspace_issue_type_icons'
+				},
+				{
+					action: 'unsubscribe_from_issue_state_categories_in_workspace',
+					stream: 'workspace_issue_states'
+				},
+				{
+					action: 'unsubscribe_from_issue_estimation_categories_in_workspace',
+					stream: 'workspace_issue_estimations'
+				}
+			]
+
+			for (const entry of list) {
+				this.$store.dispatch('connection/UPDATE_REQUEST_ID').then(() => {})
+
+				const payload = {
+					action: entry.action,
+					request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+					workspace_pk: this.$store.getters['auth/WORKSPACE_ID']
+				}
+
+				this.$socket.sendObj({
+					stream: entry.stream,
+					payload: payload
+				})
+			}
 		}
 	},
 	watch: {
@@ -42,6 +122,7 @@ export const websocket = {
 			if (oldValue || !newValue) return null
 
 			this.subscribeIssuesInWorkspace()
+			this.subscribeSettings()
 		}
 	},
 	computed: {

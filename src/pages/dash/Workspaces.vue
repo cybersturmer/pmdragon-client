@@ -154,12 +154,14 @@ export default {
 		},
 		selectSpace (prefixUrl, projectId) {
 			this.unsubscribeIssuesInWorkspace()
+			this.unsubscribeSettings()
 
 			/** Then select new Workspace and Project */
 			this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
 			this.$store.dispatch('current/SELECT_PROJECT', projectId)
 
 			this.subscribeIssuesInWorkspace()
+			this.subscribeSettings()
 
 			this.$router.push({ name: 'backlog' })
 		},

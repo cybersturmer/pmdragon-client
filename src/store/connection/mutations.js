@@ -53,5 +53,4 @@ export function SOCKET_RECONNECT_ERROR (state) {
 
 export function UPDATE_SOCKET_REQUEST_ID (state) {
 	state.socketRequestId++
-	LocalStorage.set('connection.socketRequestId', state.socketRequestId)
 }
