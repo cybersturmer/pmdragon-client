@@ -23,7 +23,9 @@
           transition-next="fade"
           transition-prev="fade">
           <q-tab-panel name="general">
-            <SettingPanelCard are-actions>
+            <SettingPanelCard
+							are-actions
+							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-input
                   dark
@@ -71,7 +73,9 @@
           </q-tab-panel>
 
           <q-tab-panel name="issue_types">
-            <SettingPanelCard are-actions>
+            <SettingPanelCard
+							are-actions
+							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-table
                   flat
@@ -190,7 +194,9 @@
 
           <!-- Issue types' icons -->
           <q-tab-panel name="issue_types_icons">
-            <SettingPanelCard are-actions>
+            <SettingPanelCard
+							are-actions
+							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-table
                   flat
@@ -325,7 +331,9 @@
           </q-tab-panel>
 
           <q-tab-panel name="issue_states">
-            <SettingPanelCard are-actions>
+            <SettingPanelCard
+							are-actions
+							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-table
                   flat
@@ -429,7 +437,9 @@
           </q-tab-panel>
 
           <q-tab-panel name="issue_estimations">
-            <SettingPanelCard are-actions>
+            <SettingPanelCard
+							are-actions
+							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-table
                   flat
@@ -518,9 +528,9 @@
 </template>
 
 <script>
-import SettingPanelCard from 'components/elements/SettingPanelCard'
-import { Dialogs } from 'pages/mixins/dialogs'
-import { loading } from '../mixins/loading'
+import SettingPanelCard from 'src/components/elements/SettingPanelCard'
+import { Dialogs } from 'src/pages/mixins/dialogs'
+import { loading } from 'src/pages/mixins/loading'
 import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 import { isEmptyString } from 'src/services/util'
 
@@ -743,6 +753,9 @@ export default {
 		},
 		issueEstimations () {
 			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
+		},
+		debounceInSeconds () {
+			return Math.trunc(this.debounceDefault)
 		}
 	},
 	mounted () {
