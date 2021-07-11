@@ -522,6 +522,7 @@ import SettingPanelCard from 'components/elements/SettingPanelCard'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { loading } from '../mixins/loading'
 import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
+import { isEmptyString } from 'src/services/util'
 
 export default {
 	name: 'SettingsView',
@@ -801,6 +802,8 @@ export default {
 			}
 		},
 		async updateIssueType (id, attribute, value) {
+			if (isEmptyString(value)) return false
+
 			this.showProgress()
 
 			const payload = {
@@ -818,6 +821,8 @@ export default {
 			}
 		},
 		async createIssueType () {
+			if (isEmptyString(this.newIssueTypeFormData.title)) return false
+
 			this.showProgress()
 
 			const payload = {
@@ -852,6 +857,8 @@ export default {
 			}
 		},
 		async updateIssueTypeIcon (id, attribute, value) {
+			if (isEmptyString(value)) return false
+
 			if (attribute === 'prefix') {
 				this.iconPickerFilter = ''
 			}
@@ -873,6 +880,8 @@ export default {
 			}
 		},
 		async createIssueTypeIcon () {
+			if (isEmptyString(this.newIssueTypeIconFormData.prefix)) return false
+
 			this.showProgress()
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],
@@ -905,6 +914,8 @@ export default {
 			}
 		},
 		async updateIssueState (id, attribute, value) {
+			if (isEmptyString(value)) return false
+
 			this.showProgress()
 			const payload = {
 				id: id
@@ -921,6 +932,8 @@ export default {
 			}
 		},
 		async createIssueState () {
+			if (isEmptyString(this.newIssueStateFormData.title)) return false
+
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],
 				project: this.$store.getters['current/PROJECT'],
@@ -951,6 +964,8 @@ export default {
 			}
 		},
 		async updateIssueEstimation (id, attribute, value) {
+			if (isEmptyString(value)) return false
+
 			this.showProgress()
 			const payload = {
 				id: id
@@ -967,6 +982,8 @@ export default {
 			}
 		},
 		async createIssueEstimation () {
+			if (isEmptyString(this.newIssueEstimationFormData.title)) return false
+
 			this.showProgress()
 			const payload = {
 				workspace: this.$store.getters['auth/WORKSPACE_ID'],

@@ -79,6 +79,10 @@ export function unWatch (value) {
 	return JSON.parse(JSON.stringify(value))
 }
 
+export function isEmptyString (value) {
+	return value === ''
+}
+
 export function syncPair (copyFrom, copyTo) {
 	const attrs = Object.keys(copyFrom)
 	for (const attr of attrs) {
