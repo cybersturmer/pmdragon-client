@@ -208,7 +208,9 @@ export default {
 
 			const isIssueExists = this.$store.getters['core/IS_ISSUE_EXISTS_BY_ID'](issueId)
 
-			if (!!issueId && isIssueExists) {
+			if (!issueId) return false
+
+			if (isIssueExists) {
 				this.$q.dialog({
 					parent: this,
 					dark: true,
@@ -223,7 +225,7 @@ export default {
 					})
 			}
 		} catch (e) {
-			this.$router.push({ name: 'backlog' })
+			console.log(e)
 		}
 	},
 	computed: {
