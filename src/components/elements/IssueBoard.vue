@@ -55,7 +55,6 @@
           </div>
           <!-- Estimation title like XXL -->
           <div
-            v-if="$q.screen.gt.md"
             class="col-auto q-pa-none">
             <q-chip
               v-show="estimationTitle"
