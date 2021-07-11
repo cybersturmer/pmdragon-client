@@ -531,6 +531,7 @@
 import SettingPanelCard from 'src/components/elements/SettingPanelCard'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { loading } from 'src/pages/mixins/loading'
+import { debounce } from 'quasar'
 import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 import { isEmptyString } from 'src/services/util'
 
@@ -757,6 +758,10 @@ export default {
 		debounceInSeconds () {
 			return Math.trunc(this.debounceDefault)
 		}
+	},
+	created () {
+		// Let's debounce choosing color or icon
+		this.updateIssueTypeIcon = debounce(this.updateIssueTypeIcon, this.debounceDefault)
 	},
 	mounted () {
 		this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
