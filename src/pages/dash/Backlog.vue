@@ -202,6 +202,30 @@ export default {
 			isIssueDialogOpened: false
 		}
 	},
+	mounted () {
+		try {
+			const issueId = parseInt(this.$route.params.id)
+
+			const isIssueExists = this.$store.getters['core/IS_ISSUE_EXISTS_BY_ID'](issueId)
+
+			if (!!issueId && isIssueExists) {
+				this.$q.dialog({
+					parent: this,
+					dark: true,
+					title: 'Issue ',
+					component: IssueEditDialog,
+					id: issueId
+				})
+			} else {
+				this.showRaisedError('Issue is not exist or was removed.')
+					.onOk(() => {
+						this.$router.push({ name: 'backlog' })
+					})
+			}
+		} catch (e) {
+			this.$router.push({ name: 'backlog' })
+		}
+	},
 	computed: {
 		backlog () {
 			/** Getting current backlog by chosen workspace and project **/

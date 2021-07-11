@@ -55,7 +55,11 @@ export default {
 			return date.formatDate(this.issue.created_at, DATETIME_MASK)
 		},
 		createdBy () {
-			return this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](this.issue.created_by)
+			if ('created_by' in this.issue) {
+				return this.$store.getters['auth/PERSON_FULL_NAME_BY_ID'](this.issue.created_by)
+			} else {
+				return ''
+			}
 		},
 		updatedAt () {
 			return date.formatDate(this.issue.updated_at, DATETIME_MASK)

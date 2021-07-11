@@ -67,9 +67,11 @@ export default {
 	},
 	methods: {
 		showMenu () {
+			if (!this.isItMe) return false
 			this.visible = true
 		},
 		hideMenu () {
+			if (!this.isItMe) return false
 			this.visible = false
 		}
 	}

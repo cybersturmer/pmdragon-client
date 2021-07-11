@@ -18,6 +18,16 @@ export function ISSUE_BY_ID (state) {
 	}
 }
 
+export function IS_ISSUE_EXISTS_BY_ID (state, getters) {
+	return issueId => {
+		try {
+			return !!getters.ISSUE_BY_ID(issueId)
+		} catch (e) {
+			return false
+		}
+	}
+}
+
 export function ISSUE_BY_ID_PROJECT_NUMBER (state, getters) {
 	/** Getting project number by issue id **/
 	return issueId => {

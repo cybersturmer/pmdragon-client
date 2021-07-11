@@ -14,7 +14,8 @@ export const editIssueMixin = {
 	],
 	props: {
 		id: {
-			required: true
+			required: true,
+			type: Number
 		}
 	},
 	data () {
@@ -42,6 +43,7 @@ export const editIssueMixin = {
 			this._scrollToEnd()
 		},
 		issue (newObject, oldObject) {
+			if (!newObject) return false
 			this.formData.issue = unWatch(newObject)
 		}
 	},

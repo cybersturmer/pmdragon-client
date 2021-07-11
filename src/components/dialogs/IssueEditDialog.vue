@@ -58,19 +58,22 @@
 														dark
 														flat
 														bordered>
-														<q-card-section v-if="isMobileApplication">
-															<IssueChatMobileMessage v-for="message in messages"
-																											:message="message"
-																											:key="message.id"
-																											@edit="editMessage"
-																											@remove="removeMessage"/>
-														</q-card-section>
-														<q-card-section v-else>
-															<IssueChatDesktopMessage v-for="message in messages"
-																											 :message="message"
-																											 :key="message.id"
-																											 @edit="editMessage"
-																											 @remove="removeMessage"/>
+														<!-- Wrapper for messages to show / hide block if there are no messages -->
+														<q-card-section v-if="messages">
+															<q-card-section v-if="isMobileApplication">
+																<IssueChatMobileMessage v-for="message in messages"
+																												:message="message"
+																												:key="message.id"
+																												@edit="editMessage"
+																												@remove="removeMessage"/>
+															</q-card-section>
+															<q-card-section v-else>
+																<IssueChatDesktopMessage v-for="message in messages"
+																												 :message="message"
+																												 :key="message.id"
+																												 @edit="editMessage"
+																												 @remove="removeMessage"/>
+															</q-card-section>
 														</q-card-section>
 													</q-card>
 												</q-tab-panel>

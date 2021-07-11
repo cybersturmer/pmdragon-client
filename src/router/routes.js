@@ -140,7 +140,7 @@ const routes = [
 					title: 'Issue' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('src/pages/dash/Issue.vue')
+				component: () => import('src/pages/dash/Backlog.vue')
 			},
 			{
 				name: 'team',
