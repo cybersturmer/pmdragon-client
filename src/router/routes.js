@@ -3,7 +3,7 @@ const PMDRAGON_STRING = '  |  PmDragon'
 const routes = [
 	{
 		path: '/',
-		component: () => import('layouts/IndexLayout.vue'),
+		component: () => import('src/layouts/IndexLayout.vue'),
 		children: [
 			{
 				name: 'register',
@@ -11,7 +11,7 @@ const routes = [
 				meta: {
 					title: 'Register' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/Register.vue')
+				component: () => import('src/pages/index/Register.vue')
 			},
 			{
 				name: 'login',
@@ -19,7 +19,7 @@ const routes = [
 				meta: {
 					title: 'Sign In' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/Login.vue')
+				component: () => import('src/pages/index/Login.vue')
 			},
 			{
 				name: 'forgot',
@@ -27,7 +27,7 @@ const routes = [
 				meta: {
 					title: 'Forgot password' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/Forgot.vue')
+				component: () => import('src/pages/index/Forgot.vue')
 			},
 			{
 				name: 'verify-registration',
@@ -36,7 +36,7 @@ const routes = [
 				meta: {
 					title: 'Verify your registration' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/VerifyRegistration.vue')
+				component: () => import('src/pages/index/VerifyRegistration.vue')
 			},
 			{
 				name: 'verify-collaboration',
@@ -45,7 +45,7 @@ const routes = [
 				meta: {
 					title: 'Verify your participation in the new workspace' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/VerifyCollaboration.vue')
+				component: () => import('src/pages/index/VerifyCollaboration.vue')
 			},
 			{
 				name: 'verify-invitation',
@@ -54,7 +54,7 @@ const routes = [
 				meta: {
 					title: 'Accept invitation to new workspace' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/VerifyInvitation.vue')
+				component: () => import('src/pages/index/VerifyInvitation.vue')
 			},
 			{
 				name: 'verify-password-restore',
@@ -63,7 +63,7 @@ const routes = [
 				meta: {
 					title: 'Get back to PmDragon' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/VerifyPasswordRestore.vue')
+				component: () => import('src/pages/index/VerifyPasswordRestore.vue')
 			},
 			{
 				name: 'loading',
@@ -71,7 +71,7 @@ const routes = [
 				meta: {
 					title: 'Loading workspaces...' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/Loading.vue')
+				component: () => import('src/pages/index/Loading.vue')
 			},
 			{
 				name: 'kickstart',
@@ -79,13 +79,13 @@ const routes = [
 				meta: {
 					title: 'Welcome' + PMDRAGON_STRING
 				},
-				component: () => import('pages/index/Kickstart.vue')
+				component: () => import('src/pages/index/Kickstart.vue')
 			}
 		]
 	},
 	{
 		path: '/dash',
-		component: () => import('layouts/DashLayout.vue'),
+		component: () => import('src/layouts/DashLayout.vue'),
 		children: [
 			{
 				name: 'workspaces',
@@ -94,7 +94,7 @@ const routes = [
 					title: 'Choose Workspace' + PMDRAGON_STRING,
 					requireSpace: false
 				},
-				component: () => import('pages/dash/Workspaces.vue')
+				component: () => import('src/pages/dash/Workspaces.vue')
 			},
 			{
 				name: 'settings',
@@ -103,7 +103,7 @@ const routes = [
 					title: 'Settings' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Settings.vue')
+				component: () => import('src/pages/dash/Settings.vue')
 			},
 			{
 				name: 'me',
@@ -112,7 +112,7 @@ const routes = [
 					title: 'My Account' + PMDRAGON_STRING,
 					requireSpace: false
 				},
-				component: () => import('pages/dash/Me.vue')
+				component: () => import('src/pages/dash/Me.vue')
 			},
 			{
 				name: 'backlog',
@@ -121,7 +121,7 @@ const routes = [
 					title: 'Backlog' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Backlog.vue')
+				component: () => import('src/pages/dash/Backlog.vue')
 			},
 			{
 				name: 'board',
@@ -130,7 +130,7 @@ const routes = [
 					title: 'Board' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Board.vue')
+				component: () => import('src/pages/dash/Board.vue')
 			},
 			{
 				name: 'issue',
@@ -140,7 +140,7 @@ const routes = [
 					title: 'Issue' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Issue.vue')
+				component: () => import('src/pages/dash/Issue.vue')
 			},
 			{
 				name: 'team',
@@ -149,7 +149,7 @@ const routes = [
 					title: 'Team' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Team.vue')
+				component: () => import('src/pages/dash/Team.vue')
 			},
 			{
 				name: 'overview',
@@ -158,7 +158,7 @@ const routes = [
 					title: 'Overview' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('pages/dash/Overview.vue')
+				component: () => import('src/pages/dash/Overview.vue')
 			}
 		],
 		meta: {
@@ -171,7 +171,7 @@ const routes = [
 if (process.env.MODE !== 'ssr') {
 	routes.push({
 		path: '*',
-		component: () => import('pages/Error404.vue')
+		component: () => import('src/pages/Error404.vue')
 	})
 }
 
