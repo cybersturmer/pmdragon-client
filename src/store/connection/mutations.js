@@ -6,9 +6,9 @@ export function ACTIVATE (state) {
 	LocalStorage.set('connection.enabled', true)
 }
 
-export function SET_HOST (state, payload) {
-	state.host = payload
-	LocalStorage.set('connection.host', payload)
+export function SET_API_HOST (state, payload) {
+	state.api_host = payload
+	LocalStorage.set('connection.api_host', payload)
 }
 
 export function RESET (state) {

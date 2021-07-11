@@ -5,13 +5,13 @@
         <q-input
           dark
           @input="inputHost($event)"
-          :value="formData.host"
+          :value="formData.api_host"
           :rules="[isValidHost]"
           label="Host"
           label-color="amber"
           :prefix="prefix"
-          :error="isValid('formErrors', 'host')"
-          :error-message="formErrors.host"
+          :error="isValid('formErrors', 'api_host')"
+          :error-message="formErrors.api_host"
         />
       </q-card-section>
       <q-card-actions vertical>
@@ -34,10 +34,10 @@ export default {
 	data () {
 		return {
 			formData: {
-				host: this.$store.getters['connection/HOST']
+				api_host: this.$store.getters['connection/API_HOST']
 			},
 			formErrors: {
-				host: ''
+				api_host: ''
 			}
 		}
 	},
@@ -56,7 +56,7 @@ export default {
 
 		onOKClick () {
 			try {
-				this.$store.dispatch('connection/UPDATE_HOST', this.formData.host)
+				this.$store.dispatch('connection/UPDATE_API_HOST', this.formData.api_host)
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
@@ -66,11 +66,11 @@ export default {
 
 		inputHost ($event) {
 			this.dropErrors()
-			this.formData.host = $event
+			this.formData.api_host = $event
 		},
 
 		dropErrors () {
-			this.formErrors.host = ''
+			this.formErrors.api_host = ''
 		},
 
 		onCancelClick () {

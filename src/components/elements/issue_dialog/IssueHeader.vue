@@ -47,8 +47,8 @@ export default {
 	methods: {
 		copyLink () {
 			/** Copy link to issue in buffer **/
-			const host = this.$store.getters['connection/HOST']
-			const text = `${host}/dash/issue/${this.issue.id}`
+			const frontendHost = this.$store.getters['connection/FRONTEND_HOST']
+			const text = `${frontendHost.origin}/dash/issue/${this.issue.id}`
 			copyToClipboard(text)
 				.then(() => this.showInformalNotification('Link copied to clipboard'))
 		},

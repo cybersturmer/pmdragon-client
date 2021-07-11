@@ -1,5 +1,5 @@
-export function UPDATE_HOST ({ commit }, payload) {
-	commit('SET_HOST', payload)
+export function UPDATE_API_HOST ({ commit }, payload) {
+	commit('SET_API_HOST', payload)
 }
 
 export async function RESET ({ commit }) {

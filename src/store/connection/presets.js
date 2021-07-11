@@ -8,7 +8,7 @@ function getDefaultEnv () {
 export const empty = () => {
 	return {
 		enabled: false,
-		host: LocalStorage.getItem('connection.host') || getDefaultEnv(),
+		api_host: LocalStorage.getItem('connection.api_host') || getDefaultEnv(),
 		socketConnected: false,
 		socketReconnectError: false,
 		socketMessage: '',
@@ -19,7 +19,7 @@ export const empty = () => {
 export const restored = () => {
 	return {
 		enabled: LocalStorage.getItem('connection.enabled'),
-		host: LocalStorage.getItem('connection.host'),
+		api_host: LocalStorage.getItem('connection.api_host'),
 		socketConnected: false,
 		socketReconnectError: false,
 		socketMessage: '',
