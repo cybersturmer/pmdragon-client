@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <ChangeConnectionElement/>
-    <q-card dark bordered flat class="my-card" style="width: 320px">
+    <q-card bordered flat class="my-card" style="width: 320px">
       <q-card-section class="q-pa-md">
         <div class="column">
           <div class="col">
@@ -21,7 +21,7 @@
           </div>
         </div>
         </q-card-section>
-        <q-separator dark inset/>
+        <q-separator inset/>
         <q-card-section>
             <q-btn
               @click="register"

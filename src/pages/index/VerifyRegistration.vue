@@ -3,19 +3,18 @@
 		<ChangeConnectionElement/>
     <q-card
       v-if="isRegistration"
-      dark
       flat
       bordered
       class="my-card" style="width: 320px">
       <q-card-section>
         <div class="text-h6">Complete your registration</div>
       </q-card-section>
-      <q-separator dark inset/>
+      <q-separator inset/>
       <q-card-section>
         <div class="text-subtitle2">Workspace: {{ infoData.prefix_url }}</div>
         <div class="text-subtitle2">Email: {{ infoData.email }}</div>
       </q-card-section>
-      <q-separator dark inset/>
+      <q-separator inset/>
       <q-card-section>
         <PasswordField
           v-model="formData.password"
@@ -25,7 +24,6 @@
       </q-card-section>
       <q-card-actions vertical>
         <q-btn
-          dark
           outline
           @click="completeRegistration"
         >
@@ -35,7 +33,6 @@
     </q-card>
     <q-card
       v-else
-      dark
       flat
       bordered
       class="my-card">

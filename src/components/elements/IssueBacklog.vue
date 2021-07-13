@@ -2,7 +2,6 @@
   <q-card
     clickable
     dense
-    dark
     bordered
     class="q-mb-sm issue-backlog"
     @click="$q.screen.lt.sm ? false : openEditDialog">
@@ -29,7 +28,6 @@
         <!-- Estimation data X, L, XL ... -->
         <div class="xs-hide sm-hide float-right">
           <q-chip
-            dark
             size="sm"
             :label="estimationTitle"
             color="secondary"
@@ -100,7 +98,7 @@ export default {
 		openEditDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Issue ',
 				component: IssueEditDialog,
 				id: this.issue.id

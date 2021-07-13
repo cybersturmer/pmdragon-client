@@ -1,6 +1,5 @@
 <template>
   <q-card
-    dark
     class="bg-primary"
     style="border: 1px solid #606060;"
   >

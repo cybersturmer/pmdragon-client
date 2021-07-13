@@ -6,7 +6,6 @@
 		</div>
 		<q-card
 			v-show="isDescriptionReadOnly"
-			dark
 			flat
 			bordered
 			class="q-pa-xs"

@@ -1,7 +1,6 @@
 <template>
   <q-chip
     v-bind:key="participant.id"
-    dark
     size="md"
     color="secondary"
     text-color="amber"

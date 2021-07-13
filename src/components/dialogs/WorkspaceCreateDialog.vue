@@ -1,9 +1,8 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <q-input
-          dark
           @input="inputPrefixUrl($event)"
           :value="formData.prefix_url"
           :rules="[workspacePrefixUrlLength]"

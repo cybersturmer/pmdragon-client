@@ -1,9 +1,8 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <q-select
-          dark
           flat
           square
           dense
@@ -14,14 +13,12 @@
           option-value="id"
         />
         <q-input
-          dark
           v-model="formData.title"
           label="Project title"
           :error="isFieldValid('formErrors','title')"
           :error-message="formErrors.title"
           label-color="amber"/>
         <q-input
-          dark
           v-model="formData.key"
           label="Project key"
           :error="isFieldValid('formErrors','key')"
@@ -30,7 +27,6 @@
       </q-card-section>
       <q-card-actions vertical class="text-center">
         <q-btn
-          dark
           outline
           color="amber"
           label="Create"

@@ -1,6 +1,5 @@
 <template>
   <q-btn
-    dark
     outline
     color="amber"
     :size="size"
@@ -34,7 +33,7 @@ export default {
 			/** Start not empty sprint **/
 			if (!this.sprint.started_at || !this.sprint.finished_at) {
 				this.$q.dialog({
-					dark: true,
+					dark: this.$q.dark.isActive,
 					title: 'Unable to start sprint',
 					message: 'Cant start sprint without start and end date. Set started at and finished at dates first.',
 					ok: {
@@ -53,7 +52,7 @@ export default {
 		completeSprint (sprintId) {
 			/** Complete started sprint **/
 			this.$q.dialog({
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Complete sprint?',
 				message: 'Would you like to complete Sprint',
 				ok: {

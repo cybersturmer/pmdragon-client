@@ -1,7 +1,6 @@
 <template>
 	<q-card-section class="q-py-xs">
-		<q-timeline dark
-								:layout="timelineLayout"
+		<q-timeline :layout="timelineLayout"
 								color="amber">
 			<IssueTimeLineEntry v-for="entry in history"
 													:entry="entry"

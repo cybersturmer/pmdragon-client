@@ -3,7 +3,6 @@
 		<ChangeConnectionElement/>
     <q-card
       v-if="isPasswordForgotRequestValid"
-      dark
       flat
       bordered
       class="my-card" style="width: 320px">
@@ -19,7 +18,6 @@
       </q-card-section>
       <q-card-actions vertical>
         <q-btn
-          dark
           outline
           color="amber"
           @click="passwordUpdate">
@@ -29,7 +27,6 @@
     </q-card>
     <q-card
       v-else
-      dark
       flat
       bordered
       class="my-card">

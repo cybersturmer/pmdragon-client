@@ -25,7 +25,6 @@
           <q-btn-group :outline="this.$q.screen.gt.sm">
             <StartCompleteSprintButton :sprint="startedSprint" size="md"/>
             <q-btn
-              dark
               outline
               color="amber"
               label="Edit sprint"
@@ -36,7 +35,6 @@
         </div>
       </div>
       <q-card
-        dark
         square
         bordered
         class="q-mt-sm-none q-mt-md-md bg-primary">
@@ -44,7 +42,6 @@
         <q-scroll-area
           visible
           ref="scrollArea"
-          dark
           :class="`${$q.screen.lt.md ? 'q-pl-xs q-pr-sm': ''}`"
           style="height: calc(100vh - 160px);">
           <div :class="`fit ${ $q.screen.lt.md ? 'column' : 'row' }
@@ -254,7 +251,7 @@ export default {
 		},
 		editSprintDialog (item) {
 			this.$q.dialog({
-				dark: true,
+				dark: this.$q.dark.isActive,
 				component: SprintEditDialog,
 				id: item.id,
 				title: item.title,

@@ -2,7 +2,6 @@
   <!-- Attachments -->
   <q-card-section>
     <q-uploader
-      dark
       flat
       ref="uploader"
       auto-upload
@@ -35,7 +34,6 @@
       </template>
       <template #list>
         <q-scroll-area
-          dark
           horizontal
           visible
           style="height: 55px;"
@@ -47,7 +45,6 @@
               :key="attachment.id"
               class="q-pa-sm truncate-chip-labels">
               <q-chip
-                dark
                 square
                 removable
                 clickable

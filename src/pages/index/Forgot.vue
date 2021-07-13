@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <ChangeConnectionElement/>
-        <q-card dark flat bordered class="my-card" style="width: 320px">
+        <q-card flat bordered class="my-card" style="width: 320px">
           <q-card-section class="q-pa-md">
               <EmailField v-model="formData.email" :error-message="formErrors.email"/>
           </q-card-section>

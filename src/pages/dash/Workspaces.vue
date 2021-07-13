@@ -6,7 +6,6 @@
 		<q-page class="q-pa-lg">
 				<div class="row">
 				<q-table
-					dark
 					grid
 					class="full-width items-center"
 					:data="workspaces"
@@ -34,7 +33,7 @@
 						</q-btn-group>
 					</template>
 					<template #top-right>
-						<q-input dark dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
+						<q-input dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
 							<template #append>
 								<q-icon name="mdi-cloud-search" />
 							</template>
@@ -42,7 +41,7 @@
 					</template>
 					<template #item="props">
 						<div class="q-pa-xs col-xs-12 col-sm-12 col-md-6">
-							<q-card dark bordered style="min-width: 350px">
+							<q-card bordered style="min-width: 350px">
 								<q-card-section class="text-center">
 									<div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>
 									<div class="text-subtitle2 text-amber">Participants</div>
@@ -65,7 +64,6 @@
 								<q-card-section class="text-center" style="border-top: 1px dashed #696969" v-else>
 									<div>
 											<q-btn
-												dark
 												flat
 												outline
 												color="amber"
@@ -126,7 +124,7 @@ export default {
 		createWorkspaceDialog () {
 			const options = {
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Create Workspace',
 				component: WorkspaceCreateDialog
 			}
@@ -141,7 +139,7 @@ export default {
 
 			const options = {
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Create Project',
 				component: ProjectCreateDialog,
 				workspaceId: workspaceId

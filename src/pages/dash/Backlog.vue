@@ -7,7 +7,6 @@
         </div>
         <div class="col-6">
           <q-btn
-            dark
             outline
             color="amber"
             label="Create"
@@ -18,7 +17,6 @@
       </div>
       <div class="col bg-primary">
         <q-scroll-area
-          dark
           visible
           class="fit q-pa-md"
           style="border: 1px solid #606060;">
@@ -81,7 +79,6 @@
 	    <!-- Block of backlog -->
       <div class="col">
         <q-scroll-area
-          dark
           visible
           class="bg-primary q-pa-sm"
           style="height: calc(100% - 35px); border: 1px solid #606060;">
@@ -113,8 +110,7 @@
             </transition-group>
           </draggable>
         </q-scroll-area>
-        <q-card dark
-                bordered
+        <q-card bordered
                 square
                 class="my-card q-ma-xs text-white absolute-bottom q-pa-none">
           <q-card-section style="padding: 0">
@@ -123,7 +119,6 @@
               @keyup.enter="createIssue"
               square
               dense
-              dark
               filled
               placeholder="Add Issue"
             >
@@ -213,7 +208,7 @@ export default {
 			if (isIssueExists) {
 				this.$q.dialog({
 					parent: this,
-					dark: true,
+					dark: this.$q.dark.isActive,
 					title: 'Issue ',
 					component: IssueEditDialog,
 					id: issueId
@@ -282,7 +277,7 @@ export default {
 		editSprintDialog (item) {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				component: SprintEditDialog,
 				id: item.id,
 				title: item.title,

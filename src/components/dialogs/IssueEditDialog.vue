@@ -4,7 +4,6 @@
     @hide="onDialogHide"
     :maximized="$q.screen.lt.md">
 			<q-card
-				dark
 				flat
 				bordered
 				class="q-dialog-plugin bg-secondary"
@@ -24,7 +23,6 @@
 								<IssueTitleSection v-if="$q.screen.gt.md"
 																	 :issue="formData.issue"/>
 								<q-scroll-area
-									dark
 									ref="scrollArea"
 									:style="`height: ${ $q.screen.gt.sm ? '65vh' : '68vh'}; border-bottom: 1px solid #686868;`">
 									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
@@ -32,7 +30,7 @@
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />
 									<IssueDescriptionSection :issue="formData.issue" />
-									<q-separator dark class="q-mt-md"/>
+									<q-separator class="q-mt-md"/>
 									<!-- Messages section -->
 									<q-card-section class="q-pa-none">
 										<!-- Block with messages -->
@@ -51,11 +49,9 @@
 												transition-next="fade"
 												transition-prev="fade">
 												<q-tab-panel
-													dark
 													class="no-padding"
 													name="messages">
 													<q-card
-														dark
 														flat
 														bordered>
 														<!-- Wrapper for messages to show / hide block if there are no messages -->
@@ -78,11 +74,9 @@
 													</q-card>
 												</q-tab-panel>
 												<q-tab-panel
-													dark
 													name="history"
 													class="no-padding">
 													<q-card
-														dark
 														flat
 														bordered>
 														<IssueTimeLineSection :history="history"/>

@@ -1,6 +1,5 @@
 <template>
   <q-input
-    dark
     flat
     color="amber"
     :value="rawDatetime"
@@ -10,7 +9,6 @@
       <q-icon name="mdi-calendar" class="cursor-pointer">
         <q-popup-proxy transition-show="scale" transition-hide="scale">
           <q-date
-            dark
             :value="rawDatetime"
             @input="handleInput($event)"
             color="amber"
@@ -23,7 +21,6 @@
       <q-icon name="mdi-clock-outline" class="cursor-pointer">
         <q-popup-proxy transition-show="scale" transition-hide="scale">
           <q-time
-            dark
             :value="rawDatetime"
             @input="handleInput($event)"
             :mask="mask"

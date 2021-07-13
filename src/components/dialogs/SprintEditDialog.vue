@@ -1,10 +1,9 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <q-input
           v-model="form.title"
-          dark
           flat
           type="text"
           label="Sprint title"
@@ -13,7 +12,6 @@
         />
         <q-input
           v-model="form.goal"
-          dark
           flat
           type="text"
           label="Sprint Goal"

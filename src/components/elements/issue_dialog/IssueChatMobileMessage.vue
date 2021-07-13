@@ -18,7 +18,6 @@
 		<template #default>
 			<q-list dense separator>
 				<q-slide-item
-					dark
 					@right="edit"
 					@left="remove"
 					right-color="accent"

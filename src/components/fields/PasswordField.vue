@@ -1,6 +1,5 @@
 <template>
   <q-input
-    dark
     flat
     type="password"
     @input="handleInput"
@@ -12,7 +11,6 @@
 		<template #append>
 			<q-btn
 					v-if="canBeReset"
-					dark
 					flat
 					:to="{ name: 'forgot' }"
 					label="Forgot?"/>

@@ -1,6 +1,5 @@
 <template>
   <q-uploader
-    dark
     flat
     bordered
     ref="uploader"

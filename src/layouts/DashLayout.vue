@@ -66,8 +66,7 @@
       content-class="bg-secondary"
       bordered>
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
-        <q-list dark
-								separator
+        <q-list separator
 								padding
 								class="q-pa-md bg-primary"
 				style="border-top: 1px solid #5f5f5f; border-bottom: 1px solid #5f5f5f">

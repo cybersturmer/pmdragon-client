@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
 		<ChangeConnectionElement/>
-    <q-card dark flat bordered class="my-card" style="width: 320px">
+    <q-card flat bordered class="my-card" style="width: 320px">
       <q-card-section class="text-center">
         <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
           <q-card-section>
@@ -13,7 +13,6 @@
             </q-card-section>
             <q-card-actions align="center">
               <q-btn
-                dark
                 flat
                 label="To login page"
                 :to="{ name: 'login' }"

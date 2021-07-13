@@ -9,7 +9,7 @@ export const Dialogs = {
 			unsafe = false
 		) {
 			return this.$q.dialog({
-				dark: true,
+				dark: this.$q.dark.isActive,
 				html: unsafe,
 				title: title,
 				message: message,
@@ -32,7 +32,7 @@ export const Dialogs = {
 			}
 
 			return this.$q.dialog({
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: title,
 				message: message,
 				html: unsafe,

@@ -1,6 +1,5 @@
 <template>
   <q-btn
-    dark
     outline
     size="sm"
     color="amber"

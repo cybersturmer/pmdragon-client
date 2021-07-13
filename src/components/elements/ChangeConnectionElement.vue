@@ -14,6 +14,14 @@
         text-color="amber"
         icon="mdi-connection" />
 			<q-fab-action
+				@click="toggleLightOrDarkMode"
+				outline
+				class="q-pa-sm"
+				:label="lightOrDarkModeLabel"
+				label-position="top"
+				text-color="amber"
+				icon="mdi-theme-light-dark" />
+			<q-fab-action
 				@click="showAboutDialog"
 				outline
 				class="q-pa-sm"
@@ -35,16 +43,28 @@ export default {
 		showConnectionEditDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				component: ConnectionEditDialog
 			})
 		},
 		showAboutDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				component: AboutDialog
 			})
+		},
+		toggleLightOrDarkMode () {
+			this.$store.commit('current/TOGGLE_LIGHT_DARK_MODE')
+			this.$q.dark.toggle()
+		}
+	},
+	computed: {
+		isDark () {
+			return this.$q.dark.isActive
+		},
+		lightOrDarkModeLabel () {
+			return this.$q.dark.isActive ? 'To Light Mode' : 'To Dark Mode'
 		}
 	}
 }

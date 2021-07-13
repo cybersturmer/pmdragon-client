@@ -1,5 +1,5 @@
 <template>
-  <q-menu dark fit anchor="bottom start" self="top start" auto-close>
+  <q-menu fit anchor="bottom start" self="top start" auto-close>
     <q-list dense style="min-width: 150px">
       <q-item
         clickable

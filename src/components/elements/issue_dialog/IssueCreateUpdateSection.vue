@@ -2,7 +2,6 @@
   <q-card-section>
     <!-- Readonly props such as created at and updated at -->
     <q-input
-      dark
       flat
       square
       readonly
@@ -13,7 +12,6 @@
       label-color="amber"
     />
 		<q-input
-			dark
 			flat
 			square
 			readonly
@@ -22,7 +20,6 @@
 			label-color="amber"
 		/>
     <q-input
-      dark
       flat
       square
       readonly

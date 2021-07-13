@@ -14,7 +14,7 @@
           <q-tab name="issue_states" icon="mdi-transit-connection-horizontal" label="Issue States" />
           <q-tab name="issue_estimations" icon="mdi-vote" label="Issue Estimations" />
         </q-tabs>
-        <q-separator dark/>
+        <q-separator />
         <q-tab-panels
           class="bg-primary"
           style="border: 1px solid #777"
@@ -28,7 +28,6 @@
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
               <template #section>
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="Project name"
@@ -38,7 +37,6 @@
                   @input="updateProject($event, 'title')"
                 />
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="Project key"
@@ -48,7 +46,6 @@
                   @input="updateProject($event, 'key')"
                 />
                 <q-select
-                  dark
                   flat
                   label="Project owner"
                   :value="projectOwnedBy"
@@ -80,7 +77,6 @@
                 <q-table
                   flat
                   square
-                  dark
                   bordered
                   ref="issue_types_table"
                   row-key="title"
@@ -93,7 +89,6 @@
                   <template #body-cell-title="props">
                     <q-td :props="props">
                       <q-input
-                        dark
                         flat
                         borderless
                         type="text"
@@ -116,7 +111,6 @@
                   <template #body-cell-icon="props">
                     <q-td :props="props">
                       <q-select
-                        dark
                         flat
                         borderless
                         color="amber"
@@ -168,7 +162,6 @@
               </template>
               <template #actions>
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="New Issue Type"
@@ -201,7 +194,6 @@
                 <q-table
                   flat
                   square
-                  dark
                   bordered
                   ref="issue_types_icons_table"
                   row-key="prefix"
@@ -222,11 +214,10 @@
                   <template #body-cell-prefix="props">
                     <q-td :props="props">
 											<q-btn flat icon="mdi-tooltip-image">
-														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
+														<q-popup-proxy transition-show="scale" transition-hide="scale">
 															<div style="max-width: 800px; width: 100%;">
 																<q-input :value="iconPickerFilter"
 																				 @input="inputIconPickerFilter"
-																				 dark
 																				 flat
 																				 type="text"
 																				 label="Filter"
@@ -234,7 +225,6 @@
 																				 clearable
 																				 class="q-pa-sm" />
 																<q-icon-picker
-																	dark
 																	:value="props.row.prefix"
 																	@input="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
 																	icon-set="mdi-v5"
@@ -259,7 +249,6 @@
                       <q-input
 												v-if="$q.screen.gt.md"
 												readonly
-                        dark
                         flat
                         borderless
                         type="text"
@@ -269,9 +258,8 @@
                         @input="updateIssueTypeIcon(props.row.id, 'color', $event)">
 												<template #prepend>
 													<q-icon name="mdi-palette" class="cursor-pointer">
-														<q-popup-proxy dark transition-show="scale" transition-hide="scale">
-															<q-color dark
-																			 format-model="hex"
+														<q-popup-proxy transition-show="scale" transition-hide="scale">
+															<q-color format-model="hex"
 																			 :value="props.row.color"
 																			 :debounce="debounceDefault"
 																			 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
@@ -283,9 +271,8 @@
 												v-else
 												flat
 												icon="mdi-palette">
-												<q-popup-proxy dark transition-show="scale" transition-hide="scale">
-													<q-color dark
-																	 format-model="hex"
+												<q-popup-proxy transition-show="scale" transition-hide="scale">
+													<q-color format-model="hex"
 																	 :value="props.row.color"
 																	 :debounce="debounceDefault"
 																	 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
@@ -306,7 +293,6 @@
               </template>
               <template #actions>
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="New Issue Types' Icon"
@@ -338,7 +324,6 @@
                 <q-table
                   flat
                   square
-                  dark
                   bordered
                   ref="issue_states_table"
                   row-key="title"
@@ -351,7 +336,6 @@
                   <template #body-cell-title="props">
                     <q-td :props="props">
                       <q-input
-                        dark
                         flat
                         borderless
                         type="text"
@@ -385,7 +369,6 @@
 									<template #body-cell-ordering="props">
 										<q-td :props="props">
 											<q-input
-												dark
 												flat
 												borderless
 												type="text"
@@ -411,7 +394,6 @@
               </template>
               <template #actions>
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="New Issue State"
@@ -444,7 +426,6 @@
                 <q-table
                   flat
                   square
-                  dark
                   bordered
                   ref="issue_types_estimations"
                   row-key="title"
@@ -457,7 +438,6 @@
                   <template #body-cell-title="props">
                     <q-td :props="props">
                       <q-input
-                        dark
                         flat
                         borderless
                         type="text"
@@ -471,7 +451,6 @@
                   <template #body-cell-value="props">
                     <q-td :props="props">
                       <q-input
-                        dark
                         flat
                         borderless
                         type="number"
@@ -498,7 +477,6 @@
               </template>
               <template #actions>
                 <q-input
-                  dark
                   flat
                   type="text"
                   label="New Issue Estimation"

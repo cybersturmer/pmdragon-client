@@ -1,6 +1,5 @@
 <template>
   <q-card
-    dark
     dense
     bordered
     class="my-card q-ma-sm overflow-hidden issue-backlog"
@@ -43,7 +42,6 @@
             </q-avatar>
             <q-chip
               v-if="$q.screen.gt.md && assignee.username"
-              dark
               square
               size="sm"
               color="secondary"
@@ -58,7 +56,6 @@
             class="col-auto q-pa-none">
             <q-chip
               v-show="estimationTitle"
-              dark
               square
               size="sm"
               :label="estimationTitle"
@@ -126,7 +123,7 @@ export default {
 		openEditDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Issue ',
 				component: IssueEditDialog,
 				id: this.issue.id

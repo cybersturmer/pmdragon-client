@@ -1,6 +1,5 @@
 <template>
   <q-input
-    dark
     flat
     type="text"
     @input="handleInput"

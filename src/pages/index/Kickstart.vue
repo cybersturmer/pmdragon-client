@@ -4,7 +4,6 @@
       v-model="step"
       vertical
       ref="stepper"
-      dark
       inactive-color="amber"
       active-color="amber"
       done-color="amber"
@@ -16,7 +15,6 @@
         active-icon="mdi-face-recognition">
         <q-input
           v-model="userFormData.first_name"
-          dark
           dense
           square
           filled
@@ -28,7 +26,6 @@
           standout="text-white bg-primary"/>
         <q-input
           v-model="userFormData.last_name"
-          dark
           dense
           square
           filled
@@ -40,7 +37,6 @@
           standout="text-white bg-primary"/>
         <q-input
           v-model="userFormData.username"
-          dark
           dense
           square
           filled
@@ -58,7 +54,7 @@
         icon="mdi-thumb-up"
         active-icon="mdi-thumb-up"
       >
-        <q-card dark flat class="text-amber">
+        <q-card flat class="text-amber">
           Congratulations, now you can work in you workspace.
         </q-card>
       </q-step>

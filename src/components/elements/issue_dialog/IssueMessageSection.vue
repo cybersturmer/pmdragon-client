@@ -5,7 +5,6 @@
 		<q-card
 			v-show="!isMessageEditable"
 			@click="startMessaging"
-			dark
 			bordered
 			class="editable_block">
 			<q-card-section

@@ -1,6 +1,5 @@
 <template>
 	<q-editor
-		:dark="dark"
 		dense
 		paragraph-tag="p"
 		toolbar-toggle-color="amber"
@@ -18,11 +17,6 @@
 export default {
 	name: 'Editor',
 	props: {
-		dark: {
-			type: Boolean,
-			required: false,
-			default: () => true
-		},
 		// Type of the default value for 'editorToolbar' prop must be a function
 		editorToolbar: {
 			type: Array,

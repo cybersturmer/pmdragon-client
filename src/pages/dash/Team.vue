@@ -1,7 +1,6 @@
 <template>
   <q-page class="q-pa-md">
     <q-table
-      dark
       grid
       row-key="username"
       no-data-label="Invite your team members by adding them by email."
@@ -19,7 +18,7 @@
         </q-btn-group>
       </template>
       <template #top-right>
-        <q-input dark dense debounce="300" v-model="teamTable.filter" placeholder="Search">
+        <q-input dense debounce="300" v-model="teamTable.filter" placeholder="Search">
           <template #append>
             <q-icon name="mdi-account-search" />
           </template>
@@ -27,7 +26,7 @@
       </template>
       <template #item="props">
         <div class="q-pa-xs col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" >
-          <q-card dark bordered>
+          <q-card bordered>
             <q-card-section horizontal>
               <!-- Avatar block -->
               <q-card-section class="col-4">
@@ -50,7 +49,7 @@
                       dense
                       color="amber"
                       icon="mdi-dots-vertical">
-                      <q-menu dark fit anchor="top left" self="top left" auto-close>
+                      <q-menu fit anchor="top left" self="top left" auto-close>
                         <q-list>
                           <q-item clickable
                                   @click="removeMemberDialog(props.row.id)">
@@ -68,7 +67,6 @@
       </template>
     </q-table>
     <q-table
-      dark
       grid
       class="text-amber"
       :title="`Invited - ( ${invited.length} email )`"
@@ -80,7 +78,7 @@
       :pagination="invitedTable.pagination">
       <template #item="props">
         <div class="q-pa-xs col-xs-12 col-sm-5 col-md-6 col-lg-3 col-xl-2">
-          <q-card dark bordered>
+          <q-card bordered>
             <q-card-section style="height: 90px">
               <p class="q-ma-sm q-pa-none">
                 <strong>Email:</strong>
@@ -184,7 +182,7 @@ export default {
 		inviteMembersDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Invite Members',
 				component: InviteMemberDialog
 			})
@@ -192,7 +190,7 @@ export default {
 		removeMemberDialog (personId) {
 			const participant = this.$store.getters['auth/PERSON_BY_ID'](personId)
 			this.$q.dialog({
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Confirmation',
 				message: `Would you like to remove participant: ${participant.first_name} ${participant.last_name}`,
 				cancel: true,

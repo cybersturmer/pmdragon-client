@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section class="q-pb-none">
 				<p class="text-justify">
 					<a href="https://en.wikipedia.org/wiki/MIT_License" class="text-amber text-weight-bold">
@@ -12,7 +12,7 @@
 					<q-icon name="mdi-github" size="md"/>
 					GitHub
 				</div>
-				<q-list dark bordered separator>
+				<q-list bordered separator>
 					<q-item clickable v-ripple>
 						<q-item-section>
 							<a href="https://github.com/cybersturmer/pmdragon" class="q-btn q-btn--flat">

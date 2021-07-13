@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark class="q-dialog-plugin bg-secondary">
+    <q-card class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <div class="text-h5 text-center">
           Complete Sprint: {{ sprint.title }}

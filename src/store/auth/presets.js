@@ -22,14 +22,14 @@ export const empty = () => {
 
 export const restored = () => {
 	return {
-		enabled: LocalStorage.getItem('auth.enabled'),
+		enabled: LocalStorage.getItem('auth.enabled') || false,
 		person_id: LocalStorage.getItem('auth.person_id'),
 		workspaces: LocalStorage.getItem('auth.workspaces'),
 		persons: LocalStorage.getItem('auth.persons'),
 		invited: LocalStorage.getItem('auth.invited'),
 		tokens: {
-			access: LocalStorage.getItem('auth.tokens.access'),
-			refresh: LocalStorage.getItem('auth.tokens.refresh')
+			access: LocalStorage.getItem('auth.tokens.access') || empty().tokens.access,
+			refresh: LocalStorage.getItem('auth.tokens.refresh') || empty().tokens.refresh
 		}
 	}
 }

@@ -1,11 +1,10 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <q-table
           flat
           square
-          dark
           dense
           bordered
           ref="table"
@@ -21,7 +20,6 @@
             <q-td :props="props">
               {{ props.row.email }}
               <q-btn
-                dark
                 flat
                 dense
                 icon="mdi-account-minus"
@@ -39,7 +37,6 @@
           type="email"
           square
           dense
-          dark
           filled
           label-color="amber"
           placeholder="user@mail.com"

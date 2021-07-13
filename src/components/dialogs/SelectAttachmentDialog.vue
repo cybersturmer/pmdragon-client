@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary overflow-hidden" >
+    <q-card flat bordered class="q-dialog-plugin bg-secondary overflow-hidden" >
       <q-card-section>
         <div class="text-h6 text-center text-uppercase">
           <q-icon
@@ -10,8 +10,8 @@
         </div>
       </q-card-section>
       <q-card-section style="max-height: 50vh" class="q-pa-xs">
-        <q-scroll-area dark visible style="height: 30vw; border: 2px solid #606060;">
-          <q-list dark>
+        <q-scroll-area visible style="height: 30vw; border: 2px solid #606060;">
+          <q-list>
             <q-item
               v-for="attachment in attachments" :key="attachment.id"
               clickable

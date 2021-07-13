@@ -2,7 +2,6 @@
   <q-card-section class="q-pt-none">
     <!-- Selection for issue state -->
     <q-select
-      dark
       flat
       square
       dense
@@ -14,7 +13,6 @@
     />
     <!-- Selection for issue type -->
     <q-select
-      dark
       flat
       square
       dense
@@ -26,7 +24,6 @@
     />
     <!-- Selection for assignee -->
     <q-select
-      dark
       flat
       square
       dense
@@ -38,7 +35,6 @@
     />
     <!-- Selection for story points -->
     <q-select
-      dark
       flat
       square
       dense

@@ -21,7 +21,7 @@
           icon="mdi-security"
           label="Security"/>
       </q-tabs>
-      <q-separator dark/>
+      <q-separator />
       <q-tab-panels
         class="bg-primary"
         style="border: 1px solid #777"
@@ -38,7 +38,6 @@
                   <q-card-section class="col-xs-12 col-sm-6 col-md-6">
                     <q-card-section class="q-pa-sm">
                       <q-input
-                        dark
                         flat
                         type="text"
                         color="amber"
@@ -46,7 +45,6 @@
                         label="First name"
                       />
                       <q-input
-                        dark
                         flat
                         type="text"
                         color="amber"
@@ -54,7 +52,6 @@
                         label="Last name"
                       />
                       <q-input
-                        dark
                         flat
                         type="text"
                         color="amber"
@@ -67,7 +64,6 @@
                     <q-card-actions vertical>
                       <q-btn-group>
                         <q-btn
-                          dark
                           outline
                           color="amber"
                           label="Update data"
@@ -77,7 +73,6 @@
                   </q-card-section>
                   <q-separator
                     v-show="$q.screen.gt.xs"
-                    dark
                     vertical />
                   <q-card-section
                     v-show="$q.screen.gt.xs"
@@ -89,7 +84,7 @@
             </SettingPanelCard>
         </q-tab-panel>
         <q-tab-panel name="avatar">
-          <q-card dark flat class="bg-primary">
+          <q-card flat class="bg-primary">
             <q-card-section class="items-center">
               <AvatarUploader/>
             </q-card-section>
@@ -104,7 +99,6 @@
                 <q-card-section class="col-xs-12 col-sm-6">
                   <q-card-section>
                     <q-input
-                      dark
                       flat
                       color="amber"
                       type="password"
@@ -113,7 +107,6 @@
                       class="q-mb-sm"
                     />
                     <q-input
-                      dark
                       flat
                       color="amber"
                       type="password"
@@ -122,7 +115,6 @@
                       class="q-mb-sm"
                     />
                     <q-input
-                      dark
                       flat
                       color="amber"
                       type="password"
@@ -134,7 +126,6 @@
                     <q-btn-group>
                       <q-btn
                         :disable="!arePasswords"
-                        dark
                         outline
                         color="amber"
                         label="Update password"
@@ -145,28 +136,24 @@
                 </q-card-section>
                 <q-separator
                   v-show="$q.screen.gt.xs"
-                  dark
                   vertical />
                 <q-card-section
                   v-show="$q.screen.gt.xs"
                   class="col-5">
                   <q-card-section>
                     <q-input
-                      dark
                       readonly
                       label="Email"
                       color="amber"
                       :value="email"
                     />
                     <q-input
-                      dark
                       readonly
                       label="Last Login"
                       color="amber"
                       :value="meLastLogin"
                     />
                     <q-input
-                      dark
                       readonly
                       label="Joined"
                       color="amber"

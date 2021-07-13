@@ -1,9 +1,8 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card dark flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin bg-secondary">
       <q-card-section>
         <q-input
-          dark
           @input="inputHost($event)"
           :value="formData.api_host"
           :rules="[isValidHost]"
