@@ -55,8 +55,9 @@ export default {
 			})
 		},
 		toggleLightOrDarkMode () {
-			this.$store.commit('current/TOGGLE_LIGHT_DARK_MODE')
-			this.$q.dark.toggle()
+			const payload = this.$q.dark.isActive
+			this.$store.commit('current/SET_DARK_MODE', !payload)
+			this.$q.dark.set(!payload)
 		}
 	},
 	computed: {
