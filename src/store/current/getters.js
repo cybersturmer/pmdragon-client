@@ -50,7 +50,7 @@ export function ISSUE_MESSAGE_BY_ID (state) {
 }
 
 export function ARE_ISSUE_MESSAGES (state) {
-	return state.issue_messages.length > 0
+	return state.issue_messages ? state.issue_messages.length > 0 : false
 }
 
 export function ISSUE_HISTORY (state) {
