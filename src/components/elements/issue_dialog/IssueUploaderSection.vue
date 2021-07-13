@@ -120,7 +120,7 @@ export default {
 		async showSelectAttachmentDialog () {
 			this.$q.dialog({
 				parent: this,
-				dark: true,
+				dark: this.$q.dark.isActive,
 				title: 'Select attachment ',
 				component: SelectAttachmentDialog,
 				issueId: this.issue.id
