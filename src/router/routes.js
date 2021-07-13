@@ -140,7 +140,7 @@ const routes = [
 					title: 'Issue' + PMDRAGON_STRING,
 					requireSpace: true
 				},
-				component: () => import('src/pages/dash/Backlog.vue')
+				component: () => import('src/pages/dash/Backlog.vue') // Yes, we open dialog on entering page, still Backlog.
 			},
 			{
 				name: 'team',
