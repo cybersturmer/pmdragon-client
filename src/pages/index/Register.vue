@@ -30,7 +30,7 @@
               <template>
                 <q-btn
                   flat
-                  color="primary"
+                  color="secondary"
                   label="Already a member?"/>
               </template>
             </router-link>
