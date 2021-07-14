@@ -37,7 +37,7 @@
       <q-card
         square
         bordered
-        class="q-mt-sm-none q-mt-md-md">
+        :class="`q-mt-sm-none q-mt-md-md ${ $q.dark.isActive ? 'bg-grey-10' : '' }`">
         <!-- Scroll for all columns -->
         <q-scroll-area
           visible
@@ -97,22 +97,22 @@
 </template>
 
 <script>
-import NoStartedSprintNotification from 'components/elements/NoStartedSprintNotification.vue'
+import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification.vue'
 
-import StartCompleteSprintButton from 'components/buttons/StartCompleteSprintButton.vue'
-import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
-import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton.vue'
+import SprintEditDialog from 'src/components/dialogs/SprintEditDialog.vue'
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog.vue'
 
 import { unWatch } from 'src/services/util'
 import { date } from 'quasar'
 import draggable from 'vuedraggable'
 import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
 
-import { editIssueData } from 'pages/mixins/editIssueData'
-import { updateSprintMixin } from 'pages/mixins/updateSprint'
+import { editIssueData } from 'src/pages/mixins/editIssueData'
+import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
 
-import IssueBoard from 'components/elements/IssueBoard.vue'
-import { loading } from '../mixins/loading'
+import IssueBoard from 'src/components/elements/IssueBoard.vue'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'BoardView',
