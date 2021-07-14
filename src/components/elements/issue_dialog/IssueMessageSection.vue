@@ -1,30 +1,16 @@
 <template>
 	<q-card-section class="q-py-sm">
 		<!-- Section for create new or updated yours messages -->
-		<!-- Section to show block "Add new message..." -->
-		<q-card
-			v-show="!isMessageEditable"
-			@click="startMessaging"
-			bordered
-			:class="`q-pa-xs ${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`">
-			<q-card-section
-				:class="`editable_block ${ $q.dark.isActive ? 'text-white' : 'text-dark'}`">
-				Add new message...
-			</q-card-section>
-		</q-card>
 		<!-- Section with editor -->
 		<q-card-section
-			v-show="isMessageEditable"
 			class="q-pa-none">
 			<Editor :ref="refsKey"
 							v-model.trim="formMessage.description"
 							@keyup.enter.native="handleEnter"/>
 		</q-card-section>
 		<q-card-actions
-			v-show="isMessageEditable"
 			class="q-mt-sm q-pa-none">
-			<EditorSaveButton @click.native="createOrUpdateMessage"/>
-			<EditorCancelButton @click.native="cancelEditingMessage"/>
+			<EditorSaveButton icon="mdi-send" :label="isNewMessage ? 'Send' : 'Update'" @click.native="createOrUpdateMessage"/>
 		</q-card-actions>
 	</q-card-section>
 </template>
@@ -32,7 +18,6 @@
 <script>
 import Editor from '../Editor.vue'
 import EditorSaveButton from '../../buttons/EditorSaveButton.vue'
-import EditorCancelButton from '../../buttons/EditorCancelButton.vue'
 import { Api } from '../../../services/api'
 import { unWatch } from '../../../services/util'
 
@@ -40,8 +25,7 @@ export default {
 	name: 'IssueDescriptionSection',
 	components: {
 		Editor,
-		EditorSaveButton,
-		EditorCancelButton
+		EditorSaveButton
 	},
 	props: {
 		issueId: {
@@ -80,12 +64,6 @@ export default {
 		focus () {
 			this.$nextTick(this.messageEditor.focus)
 		},
-		unlock () {
-			this.isMessageEditable = true
-		},
-		lock () {
-			this.isMessageEditable = false
-		},
 		async handleEnter (e) {
 			/** Handle Ctrl + Enter command in editor **/
 			if (e.ctrlKey) {
@@ -98,8 +76,6 @@ export default {
 		},
 		cancelEditingMessage () {
 			/** We use it if user wrote a message and clicked cancel then **/
-			this.lock()
-
 			this.formMessage.description = ''
 			this.$emit('cancelEditingMessage')
 		},

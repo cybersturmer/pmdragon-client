@@ -1,11 +1,10 @@
 <template>
 	<q-chat-message
 		:name="title"
-		:sent="isItMe"
+		:sent="isMe"
 		:size="size"
-		:bg-color="isItMe ? 'secondary' : 'primary'"
-		text-color="dark"
-	>
+		:bg-color="color"
+		text-color="accent">
 		<!-- Block with avatar for participant -->
 		<template #avatar>
 			<q-avatar v-if="avatar">
@@ -20,9 +19,9 @@
 				<q-slide-item
 					@right="edit"
 					@left="remove"
-					right-color="secondary"
+					:right-color="color"
 					left-color="negative"
-					class="text-accent bg-secondary">
+					:class="`text-accent bg-${color}`">
 					<template v-if="isItMe" v-slot:right>
 						<div class="row items-center">
 							Edit
@@ -35,7 +34,7 @@
 							Remove
 						</div>
 					</template>
-					<q-item class="q-px-sm q-py-md">
+					<q-item class="q-px-sm q-py-sm">
 						<div v-html="message.description"
 								 class="justify-center"/>
 					</q-item>
@@ -44,7 +43,7 @@
 		</template>
 		<!-- Message updated stamp -->
 		<template #stamp>
-			{{ getRelativeDatetime }}
+			<div class="col q-px-sm text-accent">{{ getRelativeDatetime }}</div>
 		</template>
 	</q-chat-message>
 </template>
@@ -54,6 +53,8 @@ import { ChatMessageMixin } from 'src/pages/mixins/chatMessageMixin'
 
 export default {
 	name: 'IssueChatMobileMessage',
-	mixins: [ChatMessageMixin]
+	mixins: [
+		ChatMessageMixin
+	]
 }
 </script>

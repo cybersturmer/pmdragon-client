@@ -9,7 +9,7 @@
       :max-file-size="10485760"
       class="full-width">
       <template #header>
-        <div :class="`${$q.dark.isActive ? 'bg-dark text-secondary' : 'bg-accent text-secondary' } q-px-md`">
+        <div :class="`${$q.dark.isActive ? 'bg-dark text-secondary' : 'bg-secondary text-secondary' } q-px-md`">
           <span v-if="$q.screen.gt.sm"
                 class="text-bold">
             ATTACHMENTS {{ attachmentsAmount }}

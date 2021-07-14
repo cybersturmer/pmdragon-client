@@ -2,13 +2,20 @@
   <q-btn
     dense
 		outline
-    label="Save"
+    :label="label"
     style="width: 80px"
   />
 </template>
 
 <script>
 export default {
-	name: 'EditorSaveButton'
+	name: 'EditorSaveButton',
+	props: {
+		label: {
+			type: String,
+			required: false,
+			default: 'Save'
+		}
+	}
 }
 </script>

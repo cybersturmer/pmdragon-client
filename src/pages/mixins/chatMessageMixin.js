@@ -5,6 +5,11 @@ export const ChatMessageMixin = {
 			required: true
 		}
 	},
+	data () {
+		return {
+			isMe: this.$store.getters['auth/IS_ME_BY_ID'](this.message.created_by)
+		}
+	},
 	computed: {
 		person () {
 			return this.$store.getters['auth/PERSON_BY_ID'](this.message.created_by)
@@ -29,12 +34,18 @@ export const ChatMessageMixin = {
 			/** Return true if given id is current user id **/
 			return this.$store.getters['auth/IS_ME_BY_ID'](this.message.created_by)
 		},
+		sent () {
+			return this.isItMe
+		},
 		size () {
 			return this.$q.screen.lt.sm ? '9' : '6'
 		},
 		getRelativeDatetime () {
 			/** Get relative datetime for messages (example: "an hour ago") **/
 			return this.$moment(this.message.updated_at).fromNow()
+		},
+		color () {
+			return this.isMe ? 'info' : 'primary'
 		}
 	},
 	methods: {

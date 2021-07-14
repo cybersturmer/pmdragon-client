@@ -1,10 +1,9 @@
 <template>
 	<q-chat-message
-		:name="title"
-		:sent="isItMe"
+		:sent="isMe"
 		:size="size"
-		:bg-color="isItMe ? 'secondary' : 'primary'"
-		text-color="dark"
+		:bg-color="color"
+		text-color="accent"
 		@mouseover="showMenu"
 		@mouseleave="hideMenu">
 		<!-- Block with avatar for participant -->
@@ -15,25 +14,31 @@
 						 class="q-message-avatar q-message-avatar--sent">
 			</q-avatar>
 		</template>
+		<template #name>
+			<span class="text-grey-4">{{ title }}</span>
+		</template>
 		<!-- Message body - Desktop version -->
 		<template #default>
 			<q-list dense separator>
 				<div v-html="message.description"
-						 class="justify-center text-accent q-pa-sm"/>
+						 class="justify-center text-accent q-pt-sm q-pl-sm q-pb-none"/>
 			</q-list>
 		</template>
 		<!-- Message updated stamp -->
 		<template #stamp>
 			<div class="row items-center" style="height: 28px">
-				<div class="col q-px-sm text-accent">{{ getRelativeDatetime }}</div>
-				<div class="col text-right">
+				<div class="col q-px-sm text-accent">
+					{{ getRelativeDatetime }}
+				</div>
+				<div
+					v-show="visible"
+					class="col text-right">
 					<q-btn
-							 v-show="visible"
 							 flat
 							 dense
-							 color="accent"
 							 icon="mdi-dots-vertical"
 							 class="q-pr-xs"
+							 text-color="white"
 							 label="more"
 							 size="sm">
 					<q-menu @mouseover="showMenu"
@@ -60,7 +65,9 @@ import { ChatMessageMixin } from 'src/pages/mixins/chatMessageMixin'
 
 export default {
 	name: 'IssueChatDesktopMessage',
-	mixins: [ChatMessageMixin],
+	mixins: [
+		ChatMessageMixin
+	],
 	data () {
 		return {
 			visible: false
@@ -68,13 +75,19 @@ export default {
 	},
 	methods: {
 		showMenu () {
-			if (!this.isItMe) return false
+			if (!this.isMe) return false
 			this.visible = true
 		},
 		hideMenu () {
-			if (!this.isItMe) return false
+			if (!this.isMe) return false
 			this.visible = false
 		}
 	}
 }
 </script>
+
+<style lang="scss" scoped>
+	.q-message-name {
+		color: $secondary!important;
+	}
+</style>

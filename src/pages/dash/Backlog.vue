@@ -82,7 +82,7 @@
       <div class="col">
         <q-scroll-area
           visible
-          class="q-pa-sm"
+          class="q-py-sm q-pl-sm q-pr-md"
           style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060;">
 	        <div v-if="isBacklogEmpty && !dragging"
 	             class="flex flex-center text-secondary"
