@@ -4,9 +4,9 @@
       v-model="step"
       vertical
       ref="stepper"
-      inactive-color="amber"
-      active-color="amber"
-      done-color="amber"
+      inactive-color="secondary"
+      active-color="secondary"
+      done-color="secondary"
       animated>
       <q-step
         :name="1"
@@ -54,7 +54,7 @@
         icon="mdi-thumb-up"
         active-icon="mdi-thumb-up"
       >
-        <q-card flat class="text-amber">
+        <q-card flat class="text-secondary">
           Congratulations, now you can work in you workspace.
         </q-card>
       </q-step>
@@ -64,13 +64,13 @@
             @click="continueClick($refs)"
             outline
             :label="nextLabel"
-            color="amber"
+            color="secondary"
           />
           <q-btn
             v-if="step > 1"
             flat
             @click="$refs.stepper.previous()"
-            color="amber"
+            color="secondary"
             label="Back" />
         </q-stepper-navigation>
       </template>

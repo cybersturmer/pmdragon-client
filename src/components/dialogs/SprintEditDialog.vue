@@ -1,21 +1,20 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
           v-model="form.title"
           flat
           type="text"
           label="Sprint title"
-          color="amber"
-          label-color="amber"
+          label-color="secondary"
         />
         <q-input
           v-model="form.goal"
           flat
           type="text"
           label="Sprint Goal"
-          color="amber"
+					label-color="secondary"
         />
         <DateTimeField
           v-model="form.startedAt"
@@ -29,7 +28,7 @@
       <q-card-actions vertical>
         <q-btn
           outline
-          color="amber"
+          color="secondary"
           label="Update"
           @click="onOKClick" />
       </q-card-actions>

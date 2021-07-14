@@ -1,10 +1,10 @@
 <template>
   <q-btn
     outline
+		color="secondary"
     size="sm"
-    color="amber"
     icon="mdi-dots-horizontal">
-    <q-menu content-class="bg-secondary text-white" fit anchor="top left" self="top right" auto-close>
+    <q-menu fit anchor="top left" self="top right" auto-close>
       <q-list dense style="min-width: 150px">
         <q-item
           clickable

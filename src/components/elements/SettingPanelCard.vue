@@ -1,8 +1,8 @@
 <template>
-  <q-card flat class="bg-primary">
+  <q-card flat>
     <q-card-section class="q-pa-xs">
       <slot name="default_pre_text">
-        <p class="text-amber">{{ defaultPreText }}</p>
+        <p class="text-secondary">{{ defaultPreText }}</p>
       </slot>
     </q-card-section>
     <q-card-section class="q-pa-xs">

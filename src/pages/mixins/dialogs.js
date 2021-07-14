@@ -15,6 +15,7 @@ export const Dialogs = {
 				message: message,
 				ok: {
 					label: 'OK',
+					color: 'secondary',
 					outline: true
 				}
 			})
@@ -27,8 +28,8 @@ export const Dialogs = {
 			unsafe = false
 		) {
 			const colorOptions = {
-				normal: 'amber',
-				danger: 'red-14'
+				normal: 'secondary',
+				danger: 'negative'
 			}
 
 			return this.$q.dialog({

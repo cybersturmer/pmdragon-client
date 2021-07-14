@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-table
           flat
@@ -38,7 +38,6 @@
           square
           dense
           filled
-          label-color="amber"
           placeholder="user@mail.com"
           @keyup.enter="addTeamMember"
         >
@@ -55,7 +54,7 @@
         <q-btn
           outline
           label="Invite"
-          color="amber"
+          color="secondary"
           @click="onOKClick"
         />
       </q-card-actions>

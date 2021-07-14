@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <ChangeConnectionElement/>
-        <q-card flat bordered class="my-card" style="width: 320px">
+        <q-card flat bordered style="width: 320px">
           <q-card-section class="q-pa-md">
             <div class="column">
               <div class="col">
@@ -20,11 +20,9 @@
               </div>
             </div>
           </q-card-section>
-          <q-separator inset/>
-          <q-card-section>
+          <q-card-section class="q-pt-none">
             <q-btn
               outline
-              color="amber"
               label="Sign In"
               @click="login"
             />
@@ -32,8 +30,7 @@
               <template>
               <q-btn
                 flat
-                size='md'
-                color="amber"
+                color="secondary"
                 label="Want to register?"
                 style="margin-left: 30px"/>
               </template>
@@ -107,12 +104,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-  .q-field__messages {
-    line-height: 1.25;
-  }
-  .q-field__bottom {
-    padding: 5px 0;
-  }
-</style>

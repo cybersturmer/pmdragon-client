@@ -3,8 +3,8 @@
 		:name="title"
 		:sent="isItMe"
 		:size="size"
-		bg-color="accent"
-		text-color="amber"
+		:bg-color="isItMe ? 'secondary' : 'primary'"
+		text-color="dark"
 		@mouseover="showMenu"
 		@mouseleave="hideMenu">
 		<!-- Block with avatar for participant -->
@@ -19,18 +19,19 @@
 		<template #default>
 			<q-list dense separator>
 				<div v-html="message.description"
-						 class="justify-center q-pa-sm"/>
+						 class="justify-center text-accent q-pa-sm"/>
 			</q-list>
 		</template>
 		<!-- Message updated stamp -->
 		<template #stamp>
 			<div class="row items-center" style="height: 28px">
-				<div class="col q-px-sm">{{ getRelativeDatetime }}</div>
+				<div class="col q-px-sm text-accent">{{ getRelativeDatetime }}</div>
 				<div class="col text-right">
-					<q-btn v-show="visible"
+					<q-btn
+							 v-show="visible"
 							 flat
 							 dense
-							 color="amber"
+							 color="accent"
 							 icon="mdi-dots-vertical"
 							 class="q-pr-xs"
 							 label="more"

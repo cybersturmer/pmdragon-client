@@ -21,19 +21,16 @@
           </div>
         </div>
         </q-card-section>
-        <q-separator inset/>
-        <q-card-section>
+        <q-card-section class="q-pt-none">
             <q-btn
               @click="register"
-              color="amber"
               outline
               label="Sign Up"/>
             <router-link :to="{ name: 'login' }" class="float-right"  style="text-decoration: none">
               <template>
                 <q-btn
                   flat
-                  size="md"
-                  color="amber"
+                  color="primary"
                   label="Already a member?"/>
               </template>
             </router-link>

@@ -1,11 +1,8 @@
 <template>
   <q-chip
-    v-bind:key="participant.id"
-    size="md"
-    color="secondary"
-    text-color="amber"
-    style="border-radius: 15px"
-  >
+		:color="`${$q.dark.isActive ? 'secondary' : 'accent'}`"
+		square
+    :key="participant.id">
     <q-avatar v-if="participant.avatar">
       <img
         :src="participant.avatar"

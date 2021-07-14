@@ -2,8 +2,8 @@
 	<q-timeline-entry :title="title"
 										:subtitle="getRelativeDatetime"
 										side="right"
-										class="text-amber"
-										color="accent"
+										:class="$q.dark.isActive ? 'text-accent' : 'text-dark'"
+										color="secondary"
 										:icon="icon">
 		<template #subtitle>
 			<span :title="getFormattedDatetime">{{ getRelativeDatetime }}</span>
@@ -15,12 +15,12 @@
 				<div
 					v-if="beforeValue"
 					v-html="beforeValue"
-					class="q-pa-sm q-mb-sm bg-grey-10 overflow-hidden"
+					class="q-pa-sm q-mb-sm bg-secondary text-accent overflow-hidden"
 					:style="valueClasses"/>
 				<div
 					v-if="afterValue"
 					v-html="afterValue"
-					class="q-pa-sm bg-accent overflow-hidden"
+					class="q-pa-sm bg-accent text-dark overflow-hidden"
 					:style="valueClasses"/>
 				</div>
 			</div>

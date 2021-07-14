@@ -2,7 +2,6 @@
   <q-btn
     dense
 		outline
-    color="amber"
     label="Save"
     style="width: 80px"
   />

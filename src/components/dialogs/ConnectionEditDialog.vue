@@ -1,13 +1,13 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
           @input="inputHost($event)"
           :value="formData.api_host"
           :rules="[isValidHost]"
           label="Host"
-          label-color="amber"
+          label-color="secondary"
           :prefix="prefix"
           :error="isValid('formErrors', 'api_host')"
           :error-message="formErrors.api_host"
@@ -16,7 +16,6 @@
       <q-card-actions vertical>
         <q-btn
           outline
-          color="amber"
           label="Update connection"
           @click="onOKClick"/>
       </q-card-actions>
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'ConnectionEditDialog',

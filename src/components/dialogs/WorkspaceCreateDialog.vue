@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
           @input="inputPrefixUrl($event)"
@@ -8,7 +8,6 @@
           :rules="[workspacePrefixUrlLength]"
           maxlength="20"
           label="Prefix Url"
-          label-color="amber"
           :error="isValid('formErrors', 'prefix_url')"
           :error-message="formErrors.prefix_url"
         />
@@ -16,7 +15,6 @@
       <q-card-actions vertical>
         <q-btn
           outline
-          color="amber"
           label="Create Workspace"
           @click="onOKClick"/>
       </q-card-actions>

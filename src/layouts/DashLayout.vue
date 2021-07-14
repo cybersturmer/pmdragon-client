@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="bg-secondary text-white">
-    <q-header elevated class="bg-primary">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
       <q-toolbar>
         <q-btn
           v-if="isWorkspaceSelected"
@@ -63,13 +63,11 @@
       show-if-above
       :width="200"
       :breakpoint="600"
-      content-class="bg-secondary"
       bordered>
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
         <q-list separator
-								padding
-								class="q-pa-md bg-primary"
-				style="border-top: 1px solid #5f5f5f; border-bottom: 1px solid #5f5f5f">
+								class="q-pa-md"
+								style="border-top: 1px solid #5f5f5f; border-bottom: 1px solid #5f5f5f">
           <q-item clickable v-ripple :to="{ name: 'backlog' }">
             <q-item-section avatar>
               <q-icon name="mdi-view-list" />
@@ -113,8 +111,8 @@
         </q-list>
       </q-scroll-area>
 
-      <q-card square flat class="absolute-top bg-grey-9" style="height: 150px;">
-        <div class="absolute-bottom text-center bg-grey-9" style="margin-bottom: 1em;">
+      <q-card square flat class="absolute-top" style="height: 150px;">
+        <div class="absolute-bottom text-center" style="margin-bottom: 1em;">
           <q-avatar v-if="avatarUrl" size="65px" class="q-mb-sm">
             <q-badge
               rounded
@@ -127,7 +125,7 @@
           </q-avatar>
           <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
           <div>
-            <q-badge outline color="amber" :label="`@${username}`" />
+            <q-badge outline color="grey-6" :label="`@${username}`" />
           </div>
         </div>
       </q-card>
@@ -291,16 +289,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	.q-layout__section--marginal {
+		background-color: var(--q-color-dark);
+	}
+
+	.q-drawer {
+		background-color: var(--q-color-dark)!important;
+	}
+
   .q-toolbar__title {
     font-size: 18px;
   }
   .q-toolbar__title:first-child {
     padding-left: 1em;
-  }
-
-  .q-drawer--left.q-drawer--bordered {
-    border-color: #2f2f2f;
   }
 
   .text-h6 {

@@ -2,7 +2,6 @@
   <q-page class="flex q-layout-padding">
     <div class="full-width">
         <q-tabs
-          class="bg-secondary"
           v-model="tab"
           dense
           align="justify"
@@ -16,7 +15,6 @@
         </q-tabs>
         <q-separator />
         <q-tab-panels
-          class="bg-primary"
           style="border: 1px solid #777"
           v-model="tab"
           animated
@@ -31,7 +29,6 @@
                   flat
                   type="text"
                   label="Project name"
-                  color="amber"
                   :value="projectTitle"
                   :debounce="debounceDefault"
                   @input="updateProject($event, 'title')"
@@ -40,7 +37,6 @@
                   flat
                   type="text"
                   label="Project key"
-                  color="amber"
                   :value="projectKey"
                   :debounce="debounceDefault"
                   @input="updateProject($event, 'key')"
@@ -63,7 +59,7 @@
                     icon="mdi-delete"
                     @click="deleteProject"/>
                 </q-btn-group>
-                <p class="text-amber q-pt-sm">* By clicking it you will delete this project with all its issues,
+                <p class="text-secondary q-pt-sm">* By clicking it you will delete this project with all its issues,
                   issue types, issue states, issue estimations</p>
               </template>
             </SettingPanelCard>
@@ -92,7 +88,7 @@
                         flat
                         borderless
                         type="text"
-                        color="amber"
+                        color="secondary"
                         :value="props.row.title"
                         :debounce="debounceDefault"
                         @input="updateIssueType(props.row.id, 'title', $event)"
@@ -113,7 +109,7 @@
                       <q-select
                         flat
                         borderless
-                        color="amber"
+                        color="secondary"
                         :options="issueTypeIcons"
                         :option-label="(item) => item.prefix"
                         :value="getIssueTypeIconById(props.row.icon)"
@@ -165,7 +161,7 @@
                   flat
                   type="text"
                   label="New Issue Type"
-                  color="amber"
+                  color="secondary"
                   v-model="newIssueTypeFormData.title"
                   @keyup.enter.native="createIssueType"
                 >
@@ -179,7 +175,7 @@
                    />
                  </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue type by typing Title and pressing Enter.
+                <p class="text-secondary q-pt-sm">* Create new Issue type by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -221,7 +217,7 @@
 																				 flat
 																				 type="text"
 																				 label="Filter"
-																				 label-color="amber"
+																				 label-color="secondary"
 																				 clearable
 																				 class="q-pa-sm" />
 																<q-icon-picker
@@ -252,7 +248,7 @@
                         flat
                         borderless
                         type="text"
-                        color="amber"
+                        color="secondary"
                         :value="props.row.color"
                         :debounce="debounceDefault"
                         @input="updateIssueTypeIcon(props.row.id, 'color', $event)">
@@ -296,7 +292,7 @@
                   flat
                   type="text"
                   label="New Issue Types' Icon"
-                  color="amber"
+                  color="secondary"
                   v-model="newIssueTypeIconFormData.prefix"
                   @keyup.enter.native="createIssueTypeIcon"
                 >
@@ -310,7 +306,7 @@
                     />
                   </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue type icon by typing prefix and pressing Enter.
+                <p class="text-secondary q-pt-sm">* Create new Issue type icon by typing prefix and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -339,7 +335,7 @@
                         flat
                         borderless
                         type="text"
-                        color="amber"
+                        color="secondary"
                         :value="props.row.title"
                         :debounce="debounceDefault"
                         @input="updateIssueState(props.row.id, 'title', $event)"
@@ -372,7 +368,7 @@
 												flat
 												borderless
 												type="text"
-												color="amber"
+												color="secondary"
 												class="text-center"
 												input-style="width: 30px; text-align: center"
 												:value="props.row.ordering"
@@ -397,7 +393,7 @@
                   flat
                   type="text"
                   label="New Issue State"
-                  color="amber"
+                  color="secondary"
                   v-model="newIssueStateFormData.title"
                   :debounce="debounceDefault"
                   @keyup.enter.native="createIssueState"
@@ -412,7 +408,7 @@
                     />
                   </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue State by typing Title and pressing Enter.
+                <p class="text-secondary q-pt-sm">* Create new Issue State by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>
@@ -441,7 +437,7 @@
                         flat
                         borderless
                         type="text"
-                        color="amber"
+                        color="secondary"
                         :value="props.row.title"
                         :debounce="debounceDefault"
                         @input="updateIssueEstimation(props.row.id, 'title', $event)"
@@ -454,7 +450,7 @@
                         flat
                         borderless
                         type="number"
-                        color="amber"
+                        color="secondary"
 												input-style="width: 60px; text-align: center"
                         :value="props.row.value"
                         :debounce="debounceDefault"
@@ -472,7 +468,7 @@
                     </q-td>
                   </template>
                 </q-table>
-                <p class="text-amber q-pt-sm">** By changing values you will not affect already calculated
+                <p class="text-secondary q-pt-sm">** By changing values you will not affect already calculated
                   Sprint Actual Efforts ( for example: BurnDown Chart)</p>
               </template>
               <template #actions>
@@ -480,7 +476,7 @@
                   flat
                   type="text"
                   label="New Issue Estimation"
-                  color="amber"
+                  color="secondary"
                   v-model="newIssueEstimationFormData.title"
                   :debounce="debounceDefault"
                   @keyup.enter.native="createIssueEstimation"
@@ -495,7 +491,7 @@
                     />
                   </template>
                 </q-input>
-                <p class="text-amber q-pt-sm">* Create new Issue Estimation by typing Title and pressing Enter.
+                <p class="text-secondary q-pt-sm">* Create new Issue Estimation by typing Title and pressing Enter.
                   You can configure other options after creating</p>
               </template>
             </SettingPanelCard>

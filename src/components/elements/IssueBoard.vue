@@ -44,8 +44,7 @@
               v-if="$q.screen.gt.md && assignee.username"
               square
               size="sm"
-              color="secondary"
-              text-color="amber">
+              color="secondary">
               <span class="overflow-dotted">
                 @{{ assignee.username }}
               </span>
@@ -59,8 +58,7 @@
               square
               size="sm"
               :label="estimationTitle"
-              color="secondary"
-              text-color="amber"/>
+              color="secondary"/>
           </div>
         </q-card-section>
       </q-card-section>
@@ -142,7 +140,7 @@ export default {
 }
 
 .issue-backlog:hover {
-  background-color: $primary!important;
+	filter: brightness(120%);
   cursor: pointer;
 }
 

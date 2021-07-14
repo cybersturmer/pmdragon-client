@@ -6,9 +6,9 @@
 			v-show="!isMessageEditable"
 			@click="startMessaging"
 			bordered
-			class="editable_block">
+			:class="`q-pa-xs ${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`">
 			<q-card-section
-				class="text-muted text-amber">
+				:class="`editable_block ${ $q.dark.isActive ? 'text-white' : 'text-dark'}`">
 				Add new message...
 			</q-card-section>
 		</q-card>

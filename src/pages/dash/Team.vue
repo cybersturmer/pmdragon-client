@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-layout-padding">
     <q-table
       grid
       row-key="username"
@@ -12,7 +12,7 @@
           <q-btn
             outline
             label="Invite a teammate"
-            color="amber"
+            color="secondary"
             @click="inviteMembersDialog"
           />
         </q-btn-group>
@@ -47,7 +47,7 @@
                       v-show="!isMe(props.row.id) && notOwner(props.row.id)"
                       flat
                       dense
-                      color="amber"
+                      color="secondary"
                       icon="mdi-dots-vertical">
                       <q-menu fit anchor="top left" self="top left" auto-close>
                         <q-list>
@@ -68,7 +68,7 @@
     </q-table>
     <q-table
       grid
-      class="text-amber"
+      class="text-secondary"
       :title="`Invited - ( ${invited.length} email )`"
       row-key="email"
       no-data-label="Invite your team members by adding them by email."

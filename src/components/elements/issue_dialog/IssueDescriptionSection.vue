@@ -1,18 +1,17 @@
 <template>
 	<q-card-section class="q-py-none">
 		<!-- Block with issue description -->
-		<div class="q-mb-xs text-subtitle2 text-amber text-uppercase">
+		<div class="q-mb-xs text-subtitle2 text-secondary text-uppercase">
 			Description
 		</div>
 		<q-card
 			v-show="isDescriptionReadOnly"
 			flat
 			bordered
-			class="q-pa-xs"
-		>
+			:class="`q-pa-xs ${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`">
 			<q-card-section
 				v-html="issue.description || 'Add a description by clicking this area...'"
-				class="editable_block text-amber overflow-hidden q-pa-sm"
+				:class="`editable_block ${ $q.dark.isActive ? 'text-white' : 'text-dark'} overflow-hidden q-pa-sm`"
 				@click="startEditingDescription"/>
 		</q-card>
 		<Editor v-show="isDescriptionEditing"

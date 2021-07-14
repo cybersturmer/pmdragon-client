@@ -1,9 +1,5 @@
 <template>
-	<q-pull-to-refresh @refresh="refresh"
-										 bg-color="secondary"
-										 color="amber"
-										 class="fit">
-		<q-page class="q-pa-lg">
+	<q-page class="q-pa-lg">
 				<div class="row">
 				<q-table
 					grid
@@ -18,15 +14,12 @@
 						<q-btn-group outline>
 							<q-btn
 								outline
-								size="md"
-								color="amber"
 								label="NEW Workspace"
 								@click="createWorkspaceDialog"
 							/>
 							<q-btn
 								outline
 								size="md"
-								color="amber"
 								label="NEW Project"
 								@click="createProjectDialog"
 							/>
@@ -44,7 +37,7 @@
 							<q-card bordered style="min-width: 350px">
 								<q-card-section class="text-center">
 									<div class="text-h6 text-uppercase">{{ props.row.prefix_url }}</div>
-									<div class="text-subtitle2 text-amber">Participants</div>
+									<div class="text-subtitle2">Participants</div>
 									<SmallParticipantChipElement
 										v-for="participant in props.row.participants"
 										v-bind:key="participant.id"
@@ -55,9 +48,7 @@
 									<q-btn v-for="project in props.row.projects"
 												 v-bind:key="project.id"
 												 outline
-												 color="amber"
-												 @click="selectSpace(props.row.prefix_url, project.id)"
-									>
+												 @click="selectSpace(props.row.prefix_url, project.id)">
 										{{ project.title }}
 									</q-btn>
 								</q-card-actions>
@@ -66,7 +57,7 @@
 											<q-btn
 												flat
 												outline
-												color="amber"
+												color="secondary"
 												@click="createProjectDialog(props.row.id)">Create Project</q-btn>
 									</div>
 								</q-card-section>
@@ -76,7 +67,6 @@
 				</q-table>
 			</div>
 		</q-page>
-	</q-pull-to-refresh>
 </template>
 
 <script>

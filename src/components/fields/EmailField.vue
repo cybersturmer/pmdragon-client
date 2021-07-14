@@ -8,12 +8,11 @@
     :error-message="errorMessage"
     :rules="[isValidEmail]"
     label="Email"
-    label-color="amber"
   />
 </template>
 
 <script>
-import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'EmailField',

@@ -6,7 +6,6 @@
     :value="password"
     :error="isError"
     :error-message="errorMessage"
-    label-color="amber"
     label="Password">
 		<template #append>
 			<q-btn
@@ -19,7 +18,7 @@
 </template>
 
 <script>
-import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'PasswordField',

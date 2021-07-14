@@ -8,7 +8,7 @@
           <q-card-actions vertical>
             <q-btn
               outline
-              color="amber"
+              color="secondary"
               label="Send reset email"
               @click="reset"
             />

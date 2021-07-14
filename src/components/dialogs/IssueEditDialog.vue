@@ -6,7 +6,7 @@
 			<q-card
 				flat
 				bordered
-				class="q-dialog-plugin bg-secondary"
+				class="q-dialog-plugin"
 				:style="mainCardStyles">
 				<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
 							<!-- We show this block only on small screen size (copyLink, more, close) -->
@@ -39,12 +39,11 @@
 												v-model="tab"
 												dense
 												narrow-indicator>
-												<q-tab name="messages" label="Messages" icon="mdi-android-messages" content-class="text-amber"/>
-												<q-tab name="history" label="History" icon="mdi-history" content-class="text-amber"/>
+												<q-tab name="messages" label="Messages" icon="mdi-android-messages"/>
+												<q-tab name="history" label="History" icon="mdi-history"/>
 											</q-tabs>
 											<q-tab-panels
 												v-model="tab"
-												class="bg-primary"
 												animated
 												transition-next="fade"
 												transition-prev="fade">
@@ -53,7 +52,9 @@
 													name="messages">
 													<q-card
 														flat
-														bordered>
+														bordered
+														:class="`${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`"
+													>
 														<!-- Wrapper for messages to show / hide block if there are no messages -->
 														<q-card-section v-if="messages">
 															<q-card-section v-if="isMobileApplication">
@@ -78,7 +79,9 @@
 													class="no-padding">
 													<q-card
 														flat
-														bordered>
+														bordered
+														:class="`${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`"
+													>
 														<IssueTimeLineSection :history="history"/>
 													</q-card>
 												</q-tab-panel>
@@ -180,13 +183,14 @@ export default {
 </script>
 <style lang="scss">
   .editable_block:hover {
-    background-color: $primary!important;
+		background-color: var(--q-color-secondary)!important;
+		color: var(--q-color-dark)!important;
   }
 
   .editor_token {
     display: inline-block;
     font-weight: 700;
-    background-color: #7a7a7a61;
+    background-color: $secondary;
     border-radius: 5px;
     color: white;
     padding: 3px 6px;

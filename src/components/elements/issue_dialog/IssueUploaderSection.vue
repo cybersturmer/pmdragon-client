@@ -9,16 +9,16 @@
       :max-file-size="10485760"
       class="full-width">
       <template #header>
-        <div>
+        <div :class="`${$q.dark.isActive ? 'bg-dark text-secondary' : 'bg-accent text-secondary' } q-px-md`">
           <span v-if="$q.screen.gt.sm"
-                class="text-bold text-amber">
+                class="text-bold">
             ATTACHMENTS {{ attachmentsAmount }}
           </span>
           <q-btn
             dense
             flat
             label="Upload file"
-            class="q-pl-sm q-pr-sm text-amber"
+            class="q-pl-sm q-pr-sm"
             icon="mdi-upload">
             <q-uploader-add-trigger />
           </q-btn>
@@ -26,7 +26,7 @@
             dense
             flat
             label="Link file"
-            class="q-pl-sm q-pr-sm text-amber"
+            class="q-pl-sm q-pr-sm"
             icon="mdi-link-plus"
             @click="showSelectAttachmentDialog"
           />
@@ -36,8 +36,8 @@
         <q-scroll-area
           horizontal
           visible
-          style="height: 55px;"
-          class="bg-primary rounded-borders full-width"
+          style="height: 55px; border: 1px solid var(--q-color-secondary)"
+          class="rounded-borders full-width"
         >
           <div class="row no-wrap">
             <div
@@ -48,7 +48,6 @@
                 square
                 removable
                 clickable
-                color="primary"
                 :icon="attachment.icon"
                 :label="attachment.title"
                 @remove="deleteFileAttachmentFromIssue(attachment)"

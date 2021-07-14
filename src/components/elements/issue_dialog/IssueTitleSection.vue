@@ -6,7 +6,7 @@
       debounce="1000"
       @input="updateIssueTitle($event)"
       :label="issueTitleLabel"
-      label-color="amber">
+      label-color="secondary">
       <template v-slot:before>
         <q-icon
           v-if="isIssueTypeIcon"

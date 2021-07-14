@@ -9,7 +9,7 @@
       :mask="mask"
       type="datetime"
       label="Created at"
-      label-color="amber"
+      label-color="secondary"
     />
 		<q-input
 			flat
@@ -17,7 +17,7 @@
 			readonly
 			:value="createdBy"
 			label="Created By"
-			label-color="amber"
+			label-color="secondary"
 		/>
     <q-input
       flat
@@ -27,7 +27,7 @@
       :mask="mask"
       type="datetime"
       label="Updated at"
-      label-color="amber"
+      label-color="secondary"
     />
   </q-card-section>
 </template>

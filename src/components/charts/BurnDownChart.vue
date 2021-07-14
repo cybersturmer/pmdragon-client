@@ -1,8 +1,5 @@
 <template>
-  <q-card
-    class="bg-primary"
-    style="border: 1px solid #606060;"
-  >
+  <q-card>
     <q-card-section>
       <div class="small_chart">
       <LineChart
@@ -16,8 +13,8 @@
 </template>
 
 <script>
-import LineChart from 'components/charts/LineChart.vue'
-import { date } from 'quasar'
+import LineChart from 'src/components/charts/LineChart.vue'
+import { date, Dark } from 'quasar'
 import { Api } from 'src/services/api'
 
 export default {
@@ -39,7 +36,7 @@ export default {
 			legend: {
 				display: true,
 				labels: {
-					fontColor: 'rgba(255,255,255,0.85)',
+					fontColor: Dark.isActive ? 'white' : 'black',
 					fontSize: 16,
 					padding: 16
 				}
@@ -64,7 +61,7 @@ export default {
 						tooltipFormat: 'll'
 					},
 					ticks: {
-						fontColor: 'white',
+						fontColor: Dark.isActive ? 'white' : 'black',
 						autoSkip: true
 					}
 				}],
@@ -76,11 +73,11 @@ export default {
 					scaleLabel: {
 						display: true,
 						labelString: 'Efforts',
-						fontColor: 'rgba(255,255,255,0.85)',
+						fontColor: Dark.isActive ? 'white' : 'black',
 						fontSize: 14
 					},
 					ticks: {
-						fontColor: 'white',
+						fontColor: Dark.isActive ? 'white' : 'black',
 						autoSkip: true
 					}
 				}]
@@ -155,7 +152,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .small_chart {
     position: relative;
     max-width: 700px;

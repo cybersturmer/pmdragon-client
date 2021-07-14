@@ -3,15 +3,13 @@
     <q-fab
       outline
       icon="mdi-cog"
-      direction="left"
-      color="amber">
+      direction="left">
       <q-fab-action
         @click="showConnectionEditDialog"
         outline
         class="q-pa-sm"
         label="Set Host"
 				label-position="top"
-        text-color="amber"
         icon="mdi-connection" />
 			<q-fab-action
 				@click="toggleLightOrDarkMode"
@@ -19,7 +17,6 @@
 				class="q-pa-sm"
 				:label="lightOrDarkModeLabel"
 				label-position="top"
-				text-color="amber"
 				icon="mdi-theme-light-dark" />
 			<q-fab-action
 				@click="showAboutDialog"
@@ -27,7 +24,6 @@
 				class="q-pa-sm"
 				label="About"
 				label-position="top"
-				text-color="amber"
 				icon="mdi-information" />
     </q-fab>
   </q-page-sticky>
@@ -55,9 +51,7 @@ export default {
 			})
 		},
 		toggleLightOrDarkMode () {
-			const payload = this.$q.dark.isActive
-			this.$store.commit('current/SET_DARK_MODE', !payload)
-			this.$q.dark.set(!payload)
+			this.$q.dark.toggle()
 		}
 	},
 	computed: {
@@ -65,7 +59,7 @@ export default {
 			return this.$q.dark.isActive
 		},
 		lightOrDarkModeLabel () {
-			return this.$q.dark.isActive ? 'To Light Mode' : 'To Dark Mode'
+			return `${this.$q.dark.isActive ? 'Light' : 'Dark'} Mode`
 		}
 	}
 }

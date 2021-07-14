@@ -1,22 +1,22 @@
 <template>
   <q-page class="q-layout-padding overflow-hidden">
-    <div v-if="startedSprint" class="full-height">
+    <div v-if="startedSprint" class="fit">
       <!-- Row wrapper for block with Sprint information -->
       <div class="row full-width justify-between items-center q-pa-sm">
         <!-- Sprint name -->
-        <div class="col-auto text-h5 text-amber">
+        <div class="col-auto text-h5 text-accent">
           {{ startedSprint.title }}
         </div>
         <!-- Sprint goal -->
         <div
           v-if="$q.screen.gt.md && startedSprint.goal"
-          class="col text-h6 text-amber q-pl-md">
+          class="col text-h6 text-secondary q-pl-md">
           [&nbsp;{{ startedSprint.goal }}&nbsp;]
         </div>
         <!-- Sprint remaining text -->
         <div
           v-if="$q.screen.gt.sm"
-          class="col text-h6 small text-amber text-right q-pr-md">
+          class="col text-h6 small text-secondary text-right q-pr-md">
           <q-icon name="mdi-timer-sand"/>
           <span :title="sprintRange">&nbsp;{{ daysRemainingText }} </span>
         </div>
@@ -26,7 +26,7 @@
             <StartCompleteSprintButton :sprint="startedSprint" size="md"/>
             <q-btn
               outline
-              color="amber"
+							color="secondary"
               label="Edit sprint"
               class="xs-hide sm-hide"
               @click="editSprintDialog(startedSprint)"
@@ -37,7 +37,7 @@
       <q-card
         square
         bordered
-        class="q-mt-sm-none q-mt-md-md bg-primary">
+        class="q-mt-sm-none q-mt-md-md">
         <!-- Scroll for all columns -->
         <q-scroll-area
           visible
@@ -52,7 +52,7 @@
               :key="state.id"
               class="col q-pa-xs full-width text-center">
               <!-- Printable HEAD of column -->
-              <div class="q-py-xs text-amber text-center text-uppercase">
+              <div class="q-py-xs text-accent text-center text-uppercase">
                 {{ state.title }}
                 <span>&nbsp;&nbsp;{{ issuesByStateAmount(state.id) }}</span>
                 <q-icon v-if="state.is_done"

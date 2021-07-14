@@ -1,9 +1,9 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary">
+    <q-card flat bordered class="q-dialog-plugin">
       <q-card-section class="q-pb-none">
 				<p class="text-justify">
-					<a href="https://en.wikipedia.org/wiki/MIT_License" class="text-amber text-weight-bold">
+					<a href="https://en.wikipedia.org/wiki/MIT_License" class="text-secondary text-weight-bold">
 						MIT Licensed
 					</a> open-source project management tool to track tasks, epics, bugs, and manage it with agile boards and sprints.</p>
       </q-card-section>
@@ -47,7 +47,7 @@
 			<q-card-actions vertical>
 				<q-btn
 					outline
-					color="amber"
+					color="secondary"
 					label="Okay"
 					@click="onOKClick"/>
 			</q-card-actions>

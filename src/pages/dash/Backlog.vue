@@ -1,31 +1,33 @@
 <template>
   <q-page class="flex q-layout-padding">
     <div class="column full-width">
-      <div class="row q-py-sm q-pl-sm q-pr-none">
+			<!-- Sprint header and Create Sprint button -->
+      <div class="row q-pb-sm q-pt-none q-pl-sm q-pr-none">
         <div class="col-6">
           <BlockHeader title="Sprints"/>
         </div>
         <div class="col-6">
           <q-btn
             outline
-            color="amber"
             label="Create"
+						color="secondary"
             class="float-right"
             @click="createSprint"
           />
         </div>
       </div>
-      <div class="col bg-primary">
+			<!-- Block with Sprints -->
+      <div class="col">
         <q-scroll-area
           visible
-          class="fit q-pa-md"
-          style="border: 1px solid #606060;">
+          class="fit q-py-sm q-pl-sm q-pr-md"
+          style="border-radius: 5px; border: 1px solid var(--q-color-secondary);">
             <div
               v-for="(sprint, index) in sprints"
               :key="sprint.id">
               <div class="row q-px-none q-py-sm">
-                <div class="col-auto q-py-xs">
-                  <div class="h6 text-amber">
+                <div class="col-auto q-py-xs q-pl-xs">
+                  <div class="h6 text-secondary">
                     {{ sprint.title }}
                     {{ $q.screen.gt.sm ? `- ${sprint.goal} (${sprint.issues.length }) issues`: '' }}
                   </div>
@@ -48,7 +50,7 @@
               <div class="q-pt-sm q-px-xs q-pb-none"
                    style="border-top: 1px solid #606060; border-bottom: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
-                     class="text-center text-amber q-pt-md">
+                     class="text-center q-pt-md">
                   Plan sprint by dropping issues here.
                 </div>
                 <draggable
@@ -80,13 +82,13 @@
       <div class="col">
         <q-scroll-area
           visible
-          class="bg-primary q-pa-sm"
-          style="height: calc(100% - 35px); border: 1px solid #606060;">
+          class="q-pa-sm"
+          style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060;">
 	        <div v-if="isBacklogEmpty && !dragging"
-	             class="flex flex-center text-amber"
+	             class="flex flex-center text-secondary"
 	             style="height: calc(40vh - 60px)">
 		        <div>
-			        Your backlog is empty. Add your first issue right now in field below.
+			        Your backlog is empty.
 		        </div>
 	        </div>
           <draggable
@@ -97,7 +99,8 @@
             @change="handleDraggableEvent($event, dragTypes.BACKLOG, backlog.id)"
             @start="dragging=true"
             @end="dragging=false"
-            style="min-height: 67px;">
+						class="full-height full-width"
+            :style="`min-height: 30vh; ${dragging ? 'border: 1px dashed #424242' : ''}`">
             <transition-group
 		            type="transition"
 		            name="flip-list"
@@ -112,8 +115,8 @@
         </q-scroll-area>
         <q-card bordered
                 square
-                class="my-card q-ma-xs text-white absolute-bottom q-pa-none">
-          <q-card-section style="padding: 0">
+                class="my-card q-ma-xs absolute-bottom q-pa-none">
+          <q-card-section class="q-pa-none">
             <q-input
               v-model="formData.title"
               @keyup.enter="createIssue"

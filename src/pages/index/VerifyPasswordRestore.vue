@@ -19,7 +19,7 @@
       <q-card-actions vertical>
         <q-btn
           outline
-          color="amber"
+          color="secondary"
           @click="passwordUpdate">
           Confirm
         </q-btn>

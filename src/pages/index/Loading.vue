@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { loading } from 'pages/mixins/loading'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'LoadingView',

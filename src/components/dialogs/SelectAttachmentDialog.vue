@@ -24,7 +24,7 @@
               </q-item-section>
               <q-item-section>
                 {{ attachment.title }}
-                <span class="text-amber" style="font-size: 0.75rem">
+                <span class="text-secondary" style="font-size: 0.75rem">
                   {{ attachment.created_by ? `${getParticipantTitleById(attachment.created_by)} -` : '' }}
                   ({{ attachment.updated_at | moment("from", "now") }})
                 </span>

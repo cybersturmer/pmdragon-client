@@ -2,7 +2,7 @@
   <q-btn
 		dense
     flat
-    color="amber"
+    color="secondary"
     label="Cancel"
     style="width: 80px"
   />

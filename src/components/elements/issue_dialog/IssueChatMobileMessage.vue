@@ -3,8 +3,8 @@
 		:name="title"
 		:sent="isItMe"
 		:size="size"
-		bg-color="accent"
-		text-color="amber"
+		:bg-color="isItMe ? 'secondary' : 'primary'"
+		text-color="dark"
 	>
 		<!-- Block with avatar for participant -->
 		<template #avatar>
@@ -20,9 +20,9 @@
 				<q-slide-item
 					@right="edit"
 					@left="remove"
-					right-color="accent"
+					right-color="secondary"
 					left-color="negative"
-					class="text-amber bg-secondary">
+					class="text-accent bg-secondary">
 					<template v-if="isItMe" v-slot:right>
 						<div class="row items-center">
 							Edit

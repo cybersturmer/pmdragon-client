@@ -3,9 +3,8 @@
     <div
       v-if="IsSprintStartedButNotCompleted"
       class="full-width text-center">
-      <span class="q-ml-md text-h5 text-amber">{{ sprintTitle }}</span>
-      <p class="text-h6 text-amber">{{ this.startedAt }} - {{ this.finishedAt }}</p>
-      <q-separator class="q-mt-md"/>
+      <span class="q-ml-md text-h5 text-secondary">{{ sprintTitle }}</span>
+      <p class="text-h6 text-secondary">{{ this.startedAt }} - {{ this.finishedAt }}</p>
       <BurnDownChart/>
     </div>
     <NoStartedSprintNotification v-else />

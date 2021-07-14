@@ -7,8 +7,7 @@ export function ACTIVATE (state) {
 	LocalStorage.set('current.enabled', true)
 }
 
-export function TOGGLE_LIGHT_DARK_MODE (state) {
-	const payload = !state.dark
+export function SET_DARK_MODE (state, payload) {
 	state.dark = payload
 	LocalStorage.set('current.dark', payload)
 }
@@ -85,7 +84,6 @@ export function RESET (state) {
 	/** loading and loading_module are not stored in LC
    * So we don't need to clean it **/
 	const localStorageResetList = [
-		'dark',
 		'workspace',
 		'project',
 		'issue',

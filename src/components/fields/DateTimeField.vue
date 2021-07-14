@@ -1,7 +1,7 @@
 <template>
   <q-input
     flat
-    color="amber"
+    color="secondary"
     :value="rawDatetime"
     :label="label"
     @input="handleInput">
@@ -11,7 +11,6 @@
           <q-date
             :value="rawDatetime"
             @input="handleInput($event)"
-            color="amber"
             :mask="mask" />
         </q-popup-proxy>
       </q-icon>
@@ -25,7 +24,6 @@
             @input="handleInput($event)"
             :mask="mask"
             :minute-options="minuteOptions"
-            color="amber"
             format24h />
         </q-popup-proxy>
       </q-icon>

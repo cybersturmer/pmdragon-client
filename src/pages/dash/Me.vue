@@ -2,7 +2,6 @@
   <q-page class="flex q-layout-padding">
     <div class="full-width">
       <q-tabs
-        class="bg-secondary"
         v-model="tab"
         dense
         align="justify"
@@ -23,7 +22,6 @@
       </q-tabs>
       <q-separator />
       <q-tab-panels
-        class="bg-primary"
         style="border: 1px solid #777"
         v-model="tab"
         animated
@@ -40,21 +38,18 @@
                       <q-input
                         flat
                         type="text"
-                        color="amber"
                         v-model="userFormData.firstName"
                         label="First name"
                       />
                       <q-input
                         flat
                         type="text"
-                        color="amber"
                         v-model="userFormData.lastName"
                         label="Last name"
                       />
                       <q-input
                         flat
                         type="text"
-                        color="amber"
                         v-model="userFormData.userName"
                         label="Username"
                         maxlength="20"
@@ -65,7 +60,6 @@
                       <q-btn-group>
                         <q-btn
                           outline
-                          color="amber"
                           label="Update data"
                           @click="saveUserData"/>
                       </q-btn-group>
@@ -84,7 +78,7 @@
             </SettingPanelCard>
         </q-tab-panel>
         <q-tab-panel name="avatar">
-          <q-card flat class="bg-primary">
+          <q-card flat>
             <q-card-section class="items-center">
               <AvatarUploader/>
             </q-card-section>
@@ -100,7 +94,6 @@
                   <q-card-section>
                     <q-input
                       flat
-                      color="amber"
                       type="password"
                       label="Old password"
                       v-model="passwordFormData.oldPassword"
@@ -108,7 +101,6 @@
                     />
                     <q-input
                       flat
-                      color="amber"
                       type="password"
                       label="Password"
                       v-model="passwordFormData.newPassword1"
@@ -116,7 +108,6 @@
                     />
                     <q-input
                       flat
-                      color="amber"
                       type="password"
                       label="Password confirmation"
                       v-model="passwordFormData.newPassword2"
@@ -127,7 +118,6 @@
                       <q-btn
                         :disable="!arePasswords"
                         outline
-                        color="amber"
                         label="Update password"
                         @click="savePassword"
                       />
@@ -144,19 +134,16 @@
                     <q-input
                       readonly
                       label="Email"
-                      color="amber"
                       :value="email"
                     />
                     <q-input
                       readonly
                       label="Last Login"
-                      color="amber"
                       :value="meLastLogin"
                     />
                     <q-input
                       readonly
                       label="Joined"
-                      color="amber"
                       :value="meCreatedAt"
                     />
                   </q-card-section>

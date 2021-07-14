@@ -8,7 +8,6 @@
     :error="isError"
     :error-message="errorMessage"
     label="Workspace prefix"
-    label-color="amber"
   />
 </template>
 

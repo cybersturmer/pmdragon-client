@@ -2,7 +2,7 @@
 	<q-editor
 		dense
 		paragraph-tag="p"
-		toolbar-toggle-color="amber"
+		toolbar-toggle-color="secondary"
 		:min-height="minHeight"
 		:max-height="maxHeight"
 		:toolbar="editorToolbar"

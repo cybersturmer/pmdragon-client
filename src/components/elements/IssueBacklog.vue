@@ -28,11 +28,10 @@
         <!-- Estimation data X, L, XL ... -->
         <div class="xs-hide sm-hide float-right">
           <q-chip
+						square
             size="sm"
             :label="estimationTitle"
-            color="secondary"
-            text-color="amber"
-            style="border-radius: 15px"/>
+            color="primary"/>
         </div>
       </q-card-section>
       <q-card-section
@@ -117,7 +116,7 @@ export default {
   }
 
   .issue-backlog:hover {
-    background-color: $primary!important;
+    filter: brightness(120%);
     cursor: pointer;
   }
 

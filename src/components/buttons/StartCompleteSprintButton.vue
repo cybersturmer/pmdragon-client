@@ -1,9 +1,9 @@
 <template>
   <q-btn
     outline
-    color="amber"
     :size="size"
     :label="label"
+		color="secondary"
     @click="recognizeAction">
   </q-btn>
 </template>
@@ -57,12 +57,12 @@ export default {
 				message: 'Would you like to complete Sprint',
 				ok: {
 					label: 'Complete',
-					color: 'amber',
+					color: 'secondary',
 					outline: true
 				},
 				cancel: {
 					label: 'Cancel',
-					color: 'amber',
+					color: 'secondary',
 					flat: true
 				}
 			})

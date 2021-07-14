@@ -1,3 +1,7 @@
+export function IS_DARK (state) {
+	return state.dark
+}
+
 export function WORKSPACE (state) {
 	return state.workspace
 }
@@ -50,7 +54,11 @@ export function ISSUE_MESSAGE_BY_ID (state) {
 }
 
 export function ARE_ISSUE_MESSAGES (state) {
-	return state.issue_messages ? state.issue_messages.length > 0 : false
+	try {
+		return state.issue_messages.length > 0
+	} catch (e) {
+		return false
+	}
 }
 
 export function ISSUE_HISTORY (state) {
