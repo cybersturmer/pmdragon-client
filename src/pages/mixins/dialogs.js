@@ -15,7 +15,7 @@ export const Dialogs = {
 				message: message,
 				ok: {
 					label: 'OK',
-					color: 'secondary',
+					color: 'currentColor',
 					outline: true
 				}
 			})

@@ -12,21 +12,17 @@
         <div :class="`${$q.dark.isActive ? 'bg-dark text-secondary' : 'bg-secondary text-secondary' } q-px-md`">
           <span v-if="$q.screen.gt.sm"
                 class="text-bold">
-            ATTACHMENTS {{ attachmentsAmount }}
+            ATTACHMENTS [{{ attachmentsAmount }}]&nbsp;
           </span>
           <q-btn
-            dense
             flat
             label="Upload file"
-            class="q-pl-sm q-pr-sm"
             icon="mdi-upload">
             <q-uploader-add-trigger />
           </q-btn>
           <q-btn
-            dense
             flat
             label="Link file"
-            class="q-pl-sm q-pr-sm"
             icon="mdi-link-plus"
             @click="showSelectAttachmentDialog"
           />
@@ -36,9 +32,8 @@
         <q-scroll-area
           horizontal
           visible
-          style="height: 55px; border: 1px solid var(--q-color-secondary)"
-          class="rounded-borders full-width"
-        >
+          style="height: 55px; border: 1px solid #727272"
+          :class="`rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
           <div class="row no-wrap">
             <div
               v-for="attachment in attachments"

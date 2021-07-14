@@ -1,5 +1,5 @@
 <template>
-  <q-page-sticky position="top-right" :offset="[50, 50]">
+  <q-page-sticky position="top-right" :offset="[45, 45]">
     <q-fab
       outline
       icon="mdi-cog"
@@ -7,23 +7,23 @@
       <q-fab-action
         @click="showConnectionEditDialog"
         outline
-        class="q-pa-sm"
-        label="Set Host"
-				label-position="top"
+				padding="md"
+        label="Host"
+				label-position="bottom"
         icon="mdi-connection" />
 			<q-fab-action
 				@click="toggleLightOrDarkMode"
 				outline
-				class="q-pa-sm"
+				padding="md"
 				:label="lightOrDarkModeLabel"
-				label-position="top"
+				label-position="bottom"
 				icon="mdi-theme-light-dark" />
 			<q-fab-action
 				@click="showAboutDialog"
 				outline
-				class="q-pa-sm"
+				padding="md"
 				label="About"
-				label-position="top"
+				label-position="bottom"
 				icon="mdi-information" />
     </q-fab>
   </q-page-sticky>
@@ -59,7 +59,7 @@ export default {
 			return this.$q.dark.isActive
 		},
 		lightOrDarkModeLabel () {
-			return `${this.$q.dark.isActive ? 'Light' : 'Dark'} Mode`
+			return `${this.$q.dark.isActive ? 'Light' : 'Dark'}`
 		}
 	}
 }
