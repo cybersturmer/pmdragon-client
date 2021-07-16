@@ -1,6 +1,10 @@
 import { QSpinnerOrbit } from 'quasar'
+import { Dialogs } from './dialogs'
 
 export const loading = {
+	mixins: [
+		Dialogs
+	],
 	computed: {
 		loadingText () {
 			return this.$store.getters['current/LOADING_TEXT']

@@ -9,23 +9,26 @@
 							@keyup.enter.native="handleEnter"/>
 		</q-card-section>
 		<q-card-actions
+			align="right"
 			class="q-mt-sm q-pa-none">
-			<EditorSaveButton icon="mdi-send" :label="isNewMessage ? 'Send' : 'Update'" @click.native="createOrUpdateMessage"/>
+			<q-btn outline
+						 icon-right="mdi-send"
+						 class="q-px-xs"
+						 :label="actionButtonLabel"
+						 @click.native="createOrUpdateMessage"/>
 		</q-card-actions>
 	</q-card-section>
 </template>
 
 <script>
 import Editor from '../Editor.vue'
-import EditorSaveButton from '../../buttons/EditorSaveButton.vue'
 import { Api } from '../../../services/api'
 import { unWatch } from '../../../services/util'
 
 export default {
 	name: 'IssueDescriptionSection',
 	components: {
-		Editor,
-		EditorSaveButton
+		Editor
 	},
 	props: {
 		issueId: {
@@ -146,6 +149,9 @@ export default {
 		},
 		isNewMessage () {
 			return this.editingMessageId === null
+		},
+		actionButtonLabel () {
+			return this.isNewMessage ? 'Send' : 'Update'
 		}
 	}
 }

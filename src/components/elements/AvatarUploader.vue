@@ -10,16 +10,15 @@
     :factory="uploadFileAvatar"
     auto-upload
     @removed="deleteAvatar"
-    class="full-height"
+    class="full-height full-width"
   >
     <template #header>
       <div
-        v-if="!justUploaded">
+        v-if="!justUploaded" style="width: 100%">
         <q-btn
-          dense
           flat
           class="full-width"
-          type="a"
+					color="white"
           label="Upload avatar"
           icon="mdi-upload">
           <q-uploader-add-trigger />
@@ -96,6 +95,15 @@ export default {
 }
 </script>
 <style lang="scss">
+	.q-uploader_full {
+		width: auto!important;
+		max-height: fit-content!important;
+	}
+
+	.q-uploader__header {
+		background-color: #2e2e2e;
+	}
+
   .q-uploader__list {
     font-size: 0.5em;
     padding: 5px;

@@ -218,6 +218,10 @@ export function IS_ME_OWNER_OF_PROJECT (state, getters) {
 }
 
 /** My data getters **/
+export function MY_ID (state) {
+	return state.person_id
+}
+
 export function MY_DATA (state, getters) {
 	try {
 		return getters.PERSON_BY_ID(getters.MY_PERSON_ID)

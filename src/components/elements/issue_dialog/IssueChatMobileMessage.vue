@@ -1,45 +1,50 @@
 <template>
 	<q-chat-message
 		:name="title"
-		:sent="isMe"
-		:size="size"
-		:bg-color="color"
+		:sent="sent"
+		:avatar="avatar"
+		bg-color="grey-9"
 		text-color="accent">
-		<!-- Block with avatar for participant -->
-		<template #avatar>
-			<q-avatar v-if="avatar">
-				<img :src="avatar"
-						 :alt="title"
-						 class="q-message-avatar q-message-avatar--sent">
-			</q-avatar>
-		</template>
 		<!-- Message body - Mobile version -->
-		<template #default>
-			<q-list dense separator>
-				<q-slide-item
-					@right="edit"
-					@left="remove"
-					:right-color="color"
-					left-color="negative"
-					:class="`text-accent bg-${color}`">
-					<template v-if="isItMe" v-slot:right>
-						<div class="row items-center">
-							Edit
-							<q-icon right name="mdi-comment-edit" />
-						</div>
-					</template>
-					<template v-if="isItMe" v-slot:left>
-						<div class="row items-center">
-							<q-icon left name="mdi-comment-remove" />
-							Remove
-						</div>
-					</template>
-					<q-item class="q-px-sm q-py-sm">
-						<div v-html="message.description"
-								 class="justify-center"/>
-					</q-item>
-				</q-slide-item>
-			</q-list>
+		<!-- Version for mine messages -->
+		<template v-if="isManageable" #default>
+			<div v-for="message in messagePack.list"
+					 :key="message.id">
+				<q-list dense separator>
+					<q-slide-item
+						label
+						@right="edit($event, message.id)"
+						@left="remove($event, message.id)"
+						right-color="grey-9"
+						left-color="negative"
+						style="min-width: 220px"
+						class="text-accent bg-grey-9">
+						<template #right>
+							<div class="row items-center">
+								Edit
+								<q-icon size="sm" right name="mdi-comment-edit"/>
+							</div>
+						</template>
+						<template #left>
+							<div class="row items-center">
+								<q-icon size="1rem" left name="mdi-comment-remove" />
+								Remove
+							</div>
+						</template>
+						<q-item class="q-px-sm q-py-sm">
+							<div v-html="message.description"
+									 class="justify-center"/>
+						</q-item>
+					</q-slide-item>
+				</q-list>
+			</div>
+		</template>
+		<template v-else #default>
+			<div v-for="message in messagePack.list"
+					 :key="message.id"
+					 v-html="message.description"
+					 class="q-pa-sm"
+			/>
 		</template>
 		<!-- Message updated stamp -->
 		<template #stamp>

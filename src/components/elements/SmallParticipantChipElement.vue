@@ -1,6 +1,6 @@
 <template>
   <q-chip
-		:color="`${$q.dark.isActive ? 'primary' : 'accent'}`"
+		:color="`${$q.dark.isActive ? 'info' : 'accent'}`"
 		square
     :key="participant.id">
     <q-avatar v-if="participant.avatar">
@@ -8,7 +8,7 @@
         :src="participant.avatar"
         :alt="`${participant.first_name} ${participant.last_name}`">
     </q-avatar>
-    {{ participant.first_name }} {{ participant.last_name }}
+		<span class="text-bold">{{ participant.first_name }} {{ participant.last_name }}</span>
   </q-chip>
 </template>
 

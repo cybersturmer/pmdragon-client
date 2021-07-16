@@ -36,7 +36,9 @@ import IssueMorePopupMenu from '../../popups/IssueMorePopupMenu'
 
 export default {
 	name: 'IssueHeader',
-	mixins: [Notifications],
+	mixins: [
+		Notifications
+	],
 	components: { IssueMorePopupMenu },
 	props: {
 	  issue: {

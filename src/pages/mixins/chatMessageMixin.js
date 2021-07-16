@@ -1,18 +1,13 @@
 export const ChatMessageMixin = {
 	props: {
-		message: {
+		messagePack: {
 			type: Object,
 			required: true
 		}
 	},
-	data () {
-		return {
-			isMe: this.$store.getters['auth/IS_ME_BY_ID'](this.message.created_by)
-		}
-	},
 	computed: {
 		person () {
-			return this.$store.getters['auth/PERSON_BY_ID'](this.message.created_by)
+			return this.messagePack.createdBy
 		},
 		title () {
 			try {
@@ -30,38 +25,37 @@ export const ChatMessageMixin = {
 				return ''
 			}
 		},
-		isItMe () {
-			/** Return true if given id is current user id **/
-			return this.$store.getters['auth/IS_ME_BY_ID'](this.message.created_by)
-		},
 		sent () {
-			return this.isItMe
+			return this.messagePack.sent
+		},
+		isManageable () {
+			return this.messagePack.sent
 		},
 		size () {
 			return this.$q.screen.lt.sm ? '9' : '6'
 		},
 		getRelativeDatetime () {
 			/** Get relative datetime for messages (example: "an hour ago") **/
-			return this.$moment(this.message.updated_at).fromNow()
+			return this.$moment(this.messagePack.date).fromNow()
 		},
 		color () {
-			return this.isMe ? 'info' : 'primary'
+			return this.sent ? 'info' : 'primary'
 		}
 	},
 	methods: {
-		edit (chat) {
+		edit (chat, messageId) {
 			if ('reset' in chat) {
 				chat.reset()
 			}
 
-			this.$emit('edit', this.message.id)
+			this.$emit('edit', messageId)
 		},
-		remove (chat) {
+		remove (chat, messageId) {
 			if ('reset' in chat) {
 				chat.reset()
 			}
 
-			this.$emit('remove', this.message.id)
+			this.$emit('remove', messageId)
 		}
 	}
 }
