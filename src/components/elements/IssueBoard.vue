@@ -58,7 +58,7 @@
               square
               size="sm"
               :label="estimationTitle"
-              color="secondary"/>
+              color="primary"/>
           </div>
         </q-card-section>
       </q-card-section>
