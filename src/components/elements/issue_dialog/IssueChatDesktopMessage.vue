@@ -1,59 +1,35 @@
 <template>
 	<q-chat-message
-		:sent="isMe"
-		:size="size"
-		:bg-color="color"
-		text-color="accent"
-		@mouseover="showMenu"
-		@mouseleave="hideMenu">
-		<!-- Block with avatar for participant -->
-		<template #avatar>
-			<q-avatar v-if="avatar">
-				<img :src="avatar"
-						 :alt="title"
-						 class="q-message-avatar q-message-avatar--sent">
-			</q-avatar>
-		</template>
-		<template #name>
-			<span class="text-grey-4">{{ title }}</span>
-		</template>
+		:name="title"
+		:sent="sent"
+		:avatar="avatar"
+		bg-color="grey-9"
+		text-color="accent">
 		<!-- Message body - Desktop version -->
 		<template #default>
-			<q-list dense separator>
-				<div v-html="message.description"
-						 class="justify-center text-accent q-pt-sm q-pl-sm q-pb-none"/>
-			</q-list>
+			<div v-for="message in messagePack.list"
+					 :key="message.id"
+					 @mouseover="showMenu"
+					 @mouseleave="hideMenu"
+					 class="q-pa-sm">
+				<span v-html="message.description"/>
+				<q-menu v-if="isManageable" touch-position context-menu>
+					<q-list dense>
+						<q-item clickable @click="edit($event, message.id)">
+							<q-item-section>Edit</q-item-section>
+						</q-item>
+						<q-item clickable @click="remove($event, message.id)">
+							<q-item-section>Delete</q-item-section>
+						</q-item>
+					</q-list>
+				</q-menu>
+			</div>
 		</template>
 		<!-- Message updated stamp -->
 		<template #stamp>
 			<div class="row items-center" style="height: 28px">
 				<div class="col q-px-sm text-accent">
 					{{ getRelativeDatetime }}
-				</div>
-				<div
-					v-show="visible"
-					class="col text-right">
-					<q-btn
-							 flat
-							 dense
-							 icon="mdi-dots-vertical"
-							 class="q-pr-xs"
-							 text-color="white"
-							 label="more"
-							 size="sm">
-					<q-menu @mouseover="showMenu"
-									@mouseleave="hideMenu"
-									auto-close>
-						<q-list>
-							<q-item clickable @click="edit">
-								<q-item-section>Edit</q-item-section>
-							</q-item>
-							<q-item clickable @click="remove">
-								<q-item-section>Remove</q-item-section>
-							</q-item>
-						</q-list>
-					</q-menu>
-				</q-btn>
 				</div>
 			</div>
 		</template>
@@ -75,11 +51,11 @@ export default {
 	},
 	methods: {
 		showMenu () {
-			if (!this.isMe) return false
+			if (!this.isManageable) return false
 			this.visible = true
 		},
 		hideMenu () {
-			if (!this.isMe) return false
+			if (!this.isManageable) return false
 			this.visible = false
 		}
 	}
@@ -89,5 +65,9 @@ export default {
 <style lang="scss" scoped>
 	.q-message-name {
 		color: $secondary!important;
+	}
+
+	.q-message-text--sent:hover {
+		filter: brightness(120%);
 	}
 </style>

@@ -67,11 +67,14 @@
 																</div>
 															</q-card-section>
 															<q-card-section v-else>
-																<IssueChatDesktopMessage v-for="message in packedMessages"
-																												 :message-pack="message"
-																												 :key="message.id"
-																												 @edit="editMessage"
-																												 @remove="removeMessage"/>
+																<div v-for="packedMessage in packedMessages"
+																		 :key="packedMessage.id"
+																		 class="full-width">
+																	<q-chat-message v-if="packedMessage.label" :label="packedMessage.label"/>
+																	<IssueChatDesktopMessage :message-pack="packedMessage"
+																													 @edit="editMessage"
+																													 @remove="removeMessage"/>
+																</div>
 															</q-card-section>
 														</q-card-section>
 													</q-card>
@@ -442,7 +445,7 @@ export default {
   .editor_token {
     display: inline-block;
     font-weight: 700;
-    background-color: $secondary;
+    background-color: $info;
     border-radius: 5px;
     color: white;
     padding: 3px 6px;
