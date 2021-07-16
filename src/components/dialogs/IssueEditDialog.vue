@@ -56,7 +56,7 @@
 														:class="`${ $q.dark.isActive ? 'bg-darkest' : 'bg-accent' }`">
 														<!-- Wrapper for messages to show / hide block if there are no messages -->
 														<q-card-section v-if="thereAreMessages">
-															<q-card-section v-if="true || isMobileApplication">
+															<q-card-section v-if="isMobileApplication">
 																<div v-for="packedMessage in packedMessages"
 																		 :key="packedMessage.id"
 																		 class="full-width">
@@ -82,8 +82,7 @@
 													<q-card
 														flat
 														bordered
-														:class="`${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`"
-													>
+														:class="`${ $q.dark.isActive ? 'bg-dark' : 'bg-accent' }`">
 														<IssueTimeLineSection :history="history"/>
 													</q-card>
 												</q-tab-panel>
