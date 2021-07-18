@@ -5,6 +5,8 @@
 		<q-card-section
 			class="q-pa-none">
 			<Editor :ref="refsKey"
+							height="3em"
+							placeholder="Create new message here..."
 							v-model.trim="formMessage.description"
 							@keyup.enter.native="handleEnter"/>
 		</q-card-section>

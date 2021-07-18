@@ -2,9 +2,10 @@
 	<q-editor
 		dense
 		paragraph-tag="p"
+		:placeholder="placeholder"
 		toolbar-toggle-color="secondary"
+		:height="height"
 		:min-height="minHeight"
-		:max-height="maxHeight"
 		:toolbar="editorToolbar"
 		ref="editor"
 		:value="value"
@@ -28,20 +29,23 @@ export default {
 				['viewsource']
 			]
 		},
+		height: {
+			type: Number,
+			required: false
+		},
 		minHeight: {
 			type: String,
 			required: false,
 			default: () => '5rem'
 		},
-		maxHeight: {
-			type: String,
-			required: false,
-			default: () => '15rem'
-		},
 		isMentionable: {
 			type: Boolean,
 			required: false,
 			default: () => true
+		},
+		placeholder: {
+			type: String,
+			required: false
 		},
 		value: {
 			type: String,
