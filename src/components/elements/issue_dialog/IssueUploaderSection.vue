@@ -32,13 +32,13 @@
         <q-scroll-area
           horizontal
           visible
-          style="height: 55px; border: 1px solid #727272"
-          :class="`rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
+          style="height: 58px; border: 1px solid #727272"
+          :class="`q-pa-sm rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
           <div class="row no-wrap">
             <div
               v-for="attachment in attachments"
               :key="attachment.id"
-              class="q-pa-sm truncate-chip-labels">
+              class="truncate-chip-labels text-weight-bold">
               <q-chip
                 square
                 removable
