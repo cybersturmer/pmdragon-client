@@ -1,5 +1,5 @@
 <template>
-  <q-card flat>
+  <q-card flat class="overflow-hidden no-scroll">
     <q-card-section class="q-pa-xs">
       <slot name="default_pre_text">
         <p class="text-secondary">{{ defaultPreText }}</p>

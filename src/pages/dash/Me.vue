@@ -27,7 +27,7 @@
         animated
         transition-next="fade"
         transition-prev="fade">
-        <q-tab-panel name="general">
+        <q-tab-panel name="general" class="no-scroll">
           <!-- Main user Data card -->
           <!-- @todo Better to move it to separate component -->
           <SettingPanelCard :default-pre-text="defaultPreText">
@@ -77,14 +77,14 @@
               </template>
             </SettingPanelCard>
         </q-tab-panel>
-        <q-tab-panel name="avatar">
+        <q-tab-panel name="avatar" class="no-scroll">
           <q-card flat>
             <q-card-section class="items-center">
               <AvatarUploader/>
             </q-card-section>
           </q-card>
         </q-tab-panel>
-        <q-tab-panel name="security">
+        <q-tab-panel name="security" class="no-scroll">
           <SettingPanelCard :default-pre-text="defaultPreText">
             <!-- Password card -->
             <!-- @todo Better to move it to separate component -->

@@ -10,7 +10,7 @@
     :factory="uploadFileAvatar"
     auto-upload
     @removed="deleteAvatar"
-    class="full-height full-width"
+    class="fit"
   >
     <template #header>
       <div
@@ -28,14 +28,13 @@
     <template #list>
       <q-img
         v-if="avatarUrl"
-        style="border-radius: 5px"
         :src="avatarUrl"
         contain
         native-context-menu>
         <q-btn
           flat
           round
-          style="top: 8px; right: 8px"
+					style="top: 8px; right: 8px"
           class="absolute all-pointer-events"
           icon="mdi-delete"
           @click="deleteAvatar">
@@ -95,6 +94,11 @@ export default {
 }
 </script>
 <style lang="scss">
+	.q-uploader {
+		max-height: none;
+		min-width: 300px;
+	}
+
 	.q-uploader_full {
 		width: auto!important;
 		max-height: fit-content!important;

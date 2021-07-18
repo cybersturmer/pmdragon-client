@@ -20,7 +20,7 @@
           animated
           transition-next="fade"
           transition-prev="fade">
-          <q-tab-panel name="general">
+          <q-tab-panel name="general" class="no-scroll">
             <SettingPanelCard
 							are-actions
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
@@ -65,7 +65,7 @@
             </SettingPanelCard>
           </q-tab-panel>
 
-          <q-tab-panel name="issue_types">
+          <q-tab-panel name="issue_types" class="no-scroll">
             <SettingPanelCard
 							are-actions
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
@@ -182,7 +182,7 @@
           </q-tab-panel>
 
           <!-- Issue types' icons -->
-          <q-tab-panel name="issue_types_icons">
+          <q-tab-panel name="issue_types_icons" class="no-scroll">
             <SettingPanelCard
 							are-actions
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
@@ -312,7 +312,7 @@
             </SettingPanelCard>
           </q-tab-panel>
 
-          <q-tab-panel name="issue_states">
+          <q-tab-panel name="issue_states" class="no-scroll">
             <SettingPanelCard
 							are-actions
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
@@ -414,7 +414,7 @@
             </SettingPanelCard>
           </q-tab-panel>
 
-          <q-tab-panel name="issue_estimations">
+          <q-tab-panel name="issue_estimations" class="no-scroll">
             <SettingPanelCard
 							are-actions
 							:defaultPreText="`* All changes will take effect ${ debounceInSeconds } second after input value`">
