@@ -4,7 +4,7 @@ export const Notifications = {
 			this.$q.notify({
 				position: 'top',
 				message: message,
-				color: 'secondary'
+				color: 'primary'
 			})
 		}
 	}
