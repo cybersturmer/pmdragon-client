@@ -57,8 +57,9 @@
 </template>
 
 <script>
-import SelectAttachmentDialog from 'components/dialogs/SelectAttachmentDialog'
-import { removeElement, unWatch } from '../../../services/util'
+import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
+import { removeElement, unWatch } from 'src/services/util'
+import { openURL } from 'quasar'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -70,7 +71,7 @@ export default {
 	},
 	methods: {
 		downloadFile (url) {
-			window.open(url)
+			openURL(url)
 		},
 		async uploadFileAttachment (files) {
 			const payloadTemplate = {
