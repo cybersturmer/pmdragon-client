@@ -41,7 +41,11 @@ export const Dialogs = {
 					label: actionOk,
 					color: colorOptions[actionColor]
 				},
-				cancel: true,
+				cancel: {
+					label: 'Cancel',
+					color: 'secondary',
+					flat: true
+				},
 				persistent: true
 			})
 		},

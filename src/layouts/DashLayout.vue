@@ -142,14 +142,16 @@
 <script>
 
 import { WsController } from 'src/services/websockets/WsController'
-import { websocket } from 'pages/mixins/websockets'
-import { loading } from '../pages/mixins/loading'
+import { Notifications } from 'src/pages/mixins/notifications'
+import { websocket } from 'src/pages/mixins/websockets'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'DashLayout',
 	mixins: [
 		websocket,
-		loading
+		loading,
+		Notifications
 	],
 	data () {
 		return {

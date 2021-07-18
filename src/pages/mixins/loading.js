@@ -11,7 +11,7 @@ export const loading = {
 		}
 	},
 	methods: {
-		loadData () {
+		async loadData () {
 			this.showProgress()
 
 			this.$store.commit('current/APPEND_LOG', {
@@ -21,6 +21,9 @@ export const loading = {
 			})
 
 			this.$store.dispatch('current/START_LOADING', 'Loading data...')
+				.then(() => {
+					return this.$store.dispatch('auth/REFRESH')
+				})
 				.then(() =>
 					Promise.all([
 						this.$store.dispatch('auth/INIT_WORKSPACES'),

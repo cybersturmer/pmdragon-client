@@ -30,7 +30,7 @@ export default {
 			]
 		},
 		height: {
-			type: Number,
+			type: String,
 			required: false
 		},
 		minHeight: {
