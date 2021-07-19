@@ -43,7 +43,7 @@
           visible
           ref="scrollArea"
           :class="`${$q.screen.lt.md ? 'q-pl-xs q-pr-sm': ''}`"
-          style="height: calc(100vh - 160px);">
+          style="height: calc(100vh - 11em);">
           <div :class="`fit ${ $q.screen.lt.md ? 'column' : 'row' }
             justify-start items-stretch content-center issue_state_column_list`">
             <!-- Issue state column -->
