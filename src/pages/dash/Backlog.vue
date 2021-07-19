@@ -61,7 +61,11 @@
                   @start="dragging=true"
                   @end="dragging=false"
                 >
-                  <transition-group type="transition" name="flip-list" tag="div">
+                  <transition-group
+										type="transition"
+										name="flip-list"
+										tag="div"
+										:style=" dragging ? `min-height: 100px` : ''">
                     <IssueBacklog
                       v-for="issue in sprintIssues(sprint.id)"
                       :key="issue.id"
@@ -88,7 +92,7 @@
 	             class="flex flex-center text-secondary"
 	             style="height: calc(40vh - 60px)">
 		        <div>
-			        Your backlog is empty.
+			        Backlog is empty.
 		        </div>
 	        </div>
           <draggable
