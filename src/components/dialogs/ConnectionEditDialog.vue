@@ -15,9 +15,15 @@
       </q-card-section>
       <q-card-actions vertical>
         <q-btn
+					:loading="connectionChecking"
           outline
           label="Update connection"
-          @click="onOKClick"/>
+					@click="onOKClick">
+					<template v-slot:loading>
+						Testing Host
+						<q-spinner-ball class="on-right" />
+					</template>
+				</q-btn>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -25,12 +31,17 @@
 
 <script>
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
+import { Dialogs } from 'src/pages/mixins/dialogs'
 
 export default {
 	name: 'ConnectionEditDialog',
-	mixins: [fieldValidationMixin],
+	mixins: [
+		fieldValidationMixin,
+		Dialogs
+	],
 	data () {
 		return {
+			connectionChecking: false,
 			formData: {
 				api_host: this.$store.getters['connection/API_HOST']
 			},
@@ -52,18 +63,26 @@ export default {
 			this.$emit('hide')
 		},
 
-		onOKClick () {
+		async checkConnection () {
+			await this.$store.dispatch('connection/UPDATE_API_HOST', this.formData.api_host)
+			return await this.$store.dispatch('connection/CHECK')
+		},
+
+		async onOKClick () {
+			this.connectionChecking = true
+
 			try {
-				this.$store.dispatch('connection/UPDATE_API_HOST', this.formData.api_host)
+				await this.checkConnection()
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
-				e.setErrors(this.formErrors)
+				this.formErrors.api_host = 'Host is unreachable'
+			} finally {
+				this.connectionChecking = false
 			}
 		},
 
 		inputHost ($event) {
-			this.dropErrors()
 			this.formData.api_host = $event
 		},
 
