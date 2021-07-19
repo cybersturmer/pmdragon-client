@@ -15,7 +15,7 @@
 			class="q-mt-sm q-pa-none">
 			<q-btn outline
 						 icon-right="mdi-send"
-						 class="q-px-xs"
+						 color="secondary"
 						 :label="actionButtonLabel"
 						 @click.native="createOrUpdateMessage"/>
 		</q-card-actions>

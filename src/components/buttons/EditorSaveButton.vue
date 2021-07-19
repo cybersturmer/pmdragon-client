@@ -3,6 +3,7 @@
     dense
 		outline
     :label="label"
+		color="secondary"
     style="width: 80px"
   />
 </template>
