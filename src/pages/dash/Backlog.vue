@@ -147,18 +147,18 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { updateSprintMixin } from 'pages/mixins/updateSprint'
-import { editIssueData } from 'pages/mixins/editIssueData'
-import { Dialogs } from 'pages/mixins/dialogs'
+import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
+import { editIssueData } from 'src/pages/mixins/editIssueData'
+import { Dialogs } from 'src/pages/mixins/dialogs'
 import { unWatch } from 'src/services/util'
-import IssueBacklog from 'components/elements/IssueBacklog.vue'
-import StartCompleteSprintButton from 'components/buttons/StartCompleteSprintButton.vue'
-import SprintMorePopupMenu from 'components/popups/SprintMorePopupMenu.vue'
-import BlockHeader from 'components/elements/BlockHeader.vue'
-import BlockHeaderInfo from 'components/elements/BlockHeaderInfo.vue'
-import SprintEditDialog from 'components/dialogs/SprintEditDialog.vue'
-import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
-import { loading } from '../mixins/loading'
+import IssueBacklog from 'src/components/elements/IssueBacklog.vue'
+import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton.vue'
+import SprintMorePopupMenu from 'src/components/popups/SprintMorePopupMenu.vue'
+import BlockHeader from 'src/components/elements/BlockHeader.vue'
+import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo.vue'
+import SprintEditDialog from 'src/components/dialogs/SprintEditDialog.vue'
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog.vue'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'BacklogView',
