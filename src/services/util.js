@@ -39,7 +39,7 @@ function _getResponseErrorMessage (error) {
 
 	if (error.response && error.response.statusText) return error.response.statusText
 	return error.message === 'Network Error'
-		? 'Network error. Check your HOST connection or try again later'
+		? 'Network error. Check your HOST settings'
 		: error.message
 }
 
