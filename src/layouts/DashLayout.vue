@@ -64,7 +64,7 @@
       :width="200"
       :breakpoint="600"
       bordered>
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;">
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;" class="no-scroll">
         <q-list separator
 								class="q-pa-md"
 								style="border-top: 1px solid #5f5f5f; border-bottom: 1px solid #5f5f5f">
