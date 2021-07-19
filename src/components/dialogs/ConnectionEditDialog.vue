@@ -21,7 +21,7 @@
 					@click="onOKClick">
 					<template v-slot:loading>
 						Testing Host
-						<q-spinner-ball class="on-right" />
+						<q-spinner-dots class="on-right" />
 					</template>
 				</q-btn>
       </q-card-actions>
