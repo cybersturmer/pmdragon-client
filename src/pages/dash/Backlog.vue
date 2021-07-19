@@ -21,7 +21,7 @@
         <q-scroll-area
           visible
           class="fit q-py-sm q-pl-sm q-pr-md"
-          style="border-radius: 5px; border: 1px solid var(--q-color-secondary);">
+          style="border-radius: 5px; border: 1px solid #606060;">
             <div
               v-for="(sprint, index) in sprints"
               :key="sprint.id">
@@ -47,8 +47,8 @@
                   </q-btn-group>
                 </div>
               </div>
-              <div class="q-pt-sm q-px-xs q-pb-none"
-                   style="border-top: 1px solid #606060; border-bottom: 1px solid #606060; min-height: 67px;">
+              <div class="q-pt-sm q-px-xs q-pb-none bg-grey-9"
+                   style="border: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center q-pt-md">
                   Plan sprint by dropping issues here.
