@@ -243,7 +243,7 @@ export default {
 			const project = this.$store.getters['current/PROJECT']
 
 			if (workspaceName && project) {
-				const projectTitle = this.$store.getters['auth/PROJECT_TITLE']
+				const projectTitle = this.$store.getters['auth/PROJECT_KEY']
 				return `${workspaceName} [ ${projectTitle} ]`
 			}
 
