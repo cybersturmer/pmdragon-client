@@ -13,9 +13,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-  h5 {
-    text-transform: uppercase;
-  }
-</style>

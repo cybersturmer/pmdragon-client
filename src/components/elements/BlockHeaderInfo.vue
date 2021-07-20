@@ -24,9 +24,6 @@ export default {
 </script>
 
 <style scoped>
-  h5 {
-    text-transform: uppercase;
-  }
   span {
     font-size: 0.75em;
     text-transform: none;

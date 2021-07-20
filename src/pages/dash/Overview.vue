@@ -3,8 +3,14 @@
     <div
       v-if="IsSprintStartedButNotCompleted"
       class="full-width text-center">
-      <span class="q-ml-md text-h5 text-secondary">{{ sprintTitle }}</span>
-      <p class="text-h6 text-secondary">{{ this.startedAt }} - {{ this.finishedAt }}</p>
+			<BlockHeader
+				title="Burn Down Chart"
+				class="q-py-none q-my-none"/>
+			<BlockHeaderInfo
+				:title="sprintTitle"
+				:info="`${this.startedAt} - ${this.finishedAt}`"
+				class="q-my-none q-py-none"/>
+      <p class="text-h6 text-secondary"></p>
       <BurnDownChart/>
     </div>
     <NoStartedSprintNotification v-else />
@@ -12,14 +18,22 @@
 </template>
 
 <script>
-import BurnDownChart from 'components/charts/BurnDownChart.vue'
-import NoStartedSprintNotification from 'components/elements/NoStartedSprintNotification.vue'
+import BurnDownChart from 'src/components/charts/BurnDownChart.vue'
+import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
+import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification.vue'
+
 import { date } from 'quasar'
 import { DATE_MASK } from 'src/services/masks'
+import BlockHeader from 'src/components/elements/BlockHeader'
 
 export default {
 	name: 'Overview',
-	components: { BurnDownChart, NoStartedSprintNotification },
+	components: {
+		BlockHeader,
+		BlockHeaderInfo,
+		BurnDownChart,
+		NoStartedSprintNotification
+	},
 	computed: {
 		IsSprintStartedButNotCompleted () {
 			return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT']
