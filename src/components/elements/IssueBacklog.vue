@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog.vue'
 
 export default {
 	name: 'IssueBacklog',
