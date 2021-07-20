@@ -100,7 +100,7 @@ export default {
 	methods: {
 		addTeamMember () {
 			/** Just add a team member to temp var **/
-			if (this.teamFormEmail === null) return false
+			if (!this.teamFormEmail) return false
 
 			if (!this.isValidEmail(this.teamFormEmail)) {
 				this.showOkDialog(
