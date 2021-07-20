@@ -25,7 +25,7 @@
 								<q-scroll-area
 									ref="scrollArea"
 									class="q-pr-xs"
-									:style="`height: calc(${ $q.screen.gt.sm ? '83vh' : '85vh'} - 11em); border-bottom: 1px solid #686868;`">
+									:style="`${middleSectionHeight} ${middleSectionBorder}`">
 									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
@@ -182,7 +182,9 @@ export default {
 				description: ''
 			},
 			mask: DATETIME_MASK,
-			packedMessages: []
+			packedMessages: [],
+			middleSectionBorder: 'border-bottom: 1px solid #686868;',
+			middleSectionHeight: `height: calc(${this.$q.screen.gt.sm ? '83vh' : '85vh'} - 11em);`
 		}
 	},
 	watch: {
