@@ -100,6 +100,7 @@ export default {
 	methods: {
 		addTeamMember () {
 			/** Just add a team member to temp var **/
+			/** Empty string return false in Js **/
 			if (!this.teamFormEmail) return false
 
 			if (!this.isValidEmail(this.teamFormEmail)) {
