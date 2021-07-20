@@ -25,7 +25,7 @@
 								<q-scroll-area
 									ref="scrollArea"
 									class="q-pr-xs"
-									:style="`height: ${ $q.screen.gt.sm ? '65vh' : '68vh'}; border-bottom: 1px solid #686868;`">
+									:style="`height: calc(${ $q.screen.gt.sm ? '83vh' : '85vh'} - 11em); border-bottom: 1px solid #686868;`">
 									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
