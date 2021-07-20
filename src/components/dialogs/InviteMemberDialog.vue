@@ -10,8 +10,8 @@
           ref="table"
           row-key="email"
           no-data-label="Invite your team members by adding them by email."
-          :hide-bottom="true"
-          :hide-header="true"
+          hide-bottom
+          hide-header
           :data="teamTableData.data"
           :columns="teamTableData.columns"
           :pagination="teamTableData.pagination"
