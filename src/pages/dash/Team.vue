@@ -96,8 +96,8 @@
 </template>
 
 <script>
-import InviteMemberDialog from 'components/dialogs/InviteMemberDialog'
-import { loading } from '../mixins/loading'
+import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'Team',
