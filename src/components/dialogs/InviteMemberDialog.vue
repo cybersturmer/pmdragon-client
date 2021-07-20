@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
-import { Dialogs } from 'pages/mixins/dialogs'
-import { loading } from '../../pages/mixins/loading'
+import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
+import { Dialogs } from 'src/pages/mixins/dialogs'
+import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'SprintEditDialog',
