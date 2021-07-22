@@ -12,24 +12,11 @@
       <q-card-section style="max-height: 50vh" class="q-pa-xs">
         <q-scroll-area visible style="height: 30vw; border: 2px solid #606060;">
           <q-list>
-            <q-item
-              v-for="attachment in attachments" :key="attachment.id"
-              clickable
-              v-ripple
-              class="bg-primary"
-              @click="selectAttachment(attachment)"
-            >
-              <q-item-section avatar>
-                <q-icon :name="attachment.icon"/>
-              </q-item-section>
-              <q-item-section>
-                {{ attachment.title }}
-                <span class="text-secondary" style="font-size: 0.75rem">
-                  {{ attachment.created_by ? `${getParticipantTitleById(attachment.created_by)} -` : '' }}
-                  ({{ attachment.updated_at | moment("from", "now") }})
-                </span>
-              </q-item-section>
-            </q-item>
+						<AttachmentDialogItem
+							v-for="attachment in attachments"
+							:attachment="attachment"
+							:key="attachment.id"
+							@selected="selectAttachment(attachment)"/>
           </q-list>
         </q-scroll-area>
       </q-card-section>
@@ -40,8 +27,13 @@
 </template>
 
 <script>
+import AttachmentDialogItem from 'src/components/elements/AttachmentDialogItem'
+
 export default {
 	name: 'SelectAttachmentDialog',
+	components: {
+		AttachmentDialogItem
+	},
 	props: {
 		issueId: {
 			type: Number,
