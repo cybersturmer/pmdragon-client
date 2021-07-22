@@ -6,7 +6,7 @@
 			<q-card
 				flat
 				bordered
-				class="q-dialog-plugin"
+				class="q-dialog-plugin no-scroll"
 				:style="mainCardStyles">
 				<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
 							<!-- We show this block only on small screen size (copyLink, more, close) -->
@@ -170,7 +170,7 @@ export default {
 		return {
 			tab: 'messages',
 			splitterModel: 80,
-			mainCardStyles: this.$q.screen.gt.sm ? 'width: 95vw; height: 95vh; max-width: 95vw' : '',
+			mainCardStyles: this.$q.screen.gt.sm ? 'width: 98vw; height: 98vh; max-width: 98vw' : '',
 			isDescriptionEditing: false,
 			editingMessageId: null,
 			formData: {
@@ -188,7 +188,7 @@ export default {
 			mask: DATETIME_MASK,
 			packedMessages: [],
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
-			middleSectionHeight: 'height: calc(83vh - 11em);'
+			middleSectionHeight: 'height: calc(82vh - 11em);'
 		}
 	},
 	watch: {

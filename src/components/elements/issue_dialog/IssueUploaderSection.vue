@@ -33,7 +33,7 @@
           horizontal
           visible
           style="height: 58px; border: 1px solid #727272"
-          :class="`q-pa-sm rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
+          :class="`no-scroll q-pa-sm rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
           <div class="row no-wrap">
             <div
               v-for="attachment in attachments"
