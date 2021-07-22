@@ -4,7 +4,7 @@
     flat
     color="secondary"
     label="Cancel"
-    style="width: 80px"
+		class="short"
 		@click="$emit('clicked')"
   />
 </template>
@@ -17,3 +17,9 @@ export default {
 	]
 }
 </script>
+
+<style lang="scss" scoped>
+.short {
+	width: 80px;
+}
+</style>
