@@ -5,11 +5,15 @@
     color="secondary"
     label="Cancel"
     style="width: 80px"
+		@click="$emit('clicked')"
   />
 </template>
 
 <script>
 export default {
-	name: 'EditorCancelButton'
+	name: 'EditorCancelButton',
+	emits: [
+		'clicked'
+	]
 }
 </script>
