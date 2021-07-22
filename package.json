@@ -9,7 +9,7 @@
     "web:dev": "quasar dev",
     "electron:dev": "quasar dev -m electron",
     "android:dev": "quasar dev -m android",
-    "build": "yarn run quasar build",
+    "build": "quasar build",
     "start": "node server.js",
     "heroku-postbuild": "yarn && yarn build",
     "lint": "eslint --ext .js,.vue ./"
