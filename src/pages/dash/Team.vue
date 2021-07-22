@@ -77,30 +77,22 @@
       :filter="invitedTable.filter"
       :pagination="invitedTable.pagination">
       <template #item="props">
-        <div class="q-pa-xs col-xs-12 col-sm-5 col-md-6 col-lg-3 col-xl-2">
-          <q-card bordered>
-            <q-card-section style="height: 90px">
-              <p class="q-ma-sm q-pa-none">
-                <strong>Email:</strong>
-                {{ props.row.email }}
-              </p>
-              <p class="q-ma-sm q-pa-none" :title="props.row.expired_at">
-                <strong>Expired:</strong> {{ props.row.expired_at | moment("from", "now") }}
-              </p>
-            </q-card-section>
-          </q-card>
-        </div>
+				<InvitedTeamMemberCard :invitation="props.row"/>
       </template>
     </q-table>
   </q-page>
 </template>
 
 <script>
-import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
 import { loading } from 'src/pages/mixins/loading'
+import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
+import InvitedTeamMemberCard from 'src/components/elements/InvitedTeamMemberCard'
 
 export default {
 	name: 'Team',
+	components: {
+		InvitedTeamMemberCard
+	},
 	mixins: [loading],
 	data () {
 		return {

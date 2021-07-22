@@ -1,70 +1,73 @@
 <template>
-  <q-card-section class="q-pt-none">
-    <!-- Selection for issue state -->
-    <q-select
-      flat
-      square
-      dense
-      :value="stateCategory"
-      @input="updateIssueState($event)"
-      :options="states"
-      option-label="title"
-      option-value="id"
-    />
-    <!-- Selection for issue type -->
-    <q-select
-      flat
-      square
-      dense
-      :value="typeCategory"
-      @input="updateIssueType($event)"
-      :options="types"
-      option-label="title"
-      option-value="id"
-    />
-    <!-- Selection for assignee -->
-    <q-select
-      flat
-      square
-      dense
-      :value="assignee"
-      @input="updateIssueAssignee($event)"
-      :options="participants"
-      :option-label="(item) => `${item.first_name} ${item.last_name}`"
-      option-value="id"
-    />
-    <!-- Selection for story points -->
-    <q-select
-      flat
-      square
-      dense
-      :value="estimationCategory"
-      @input="updateIssueEstimation($event)"
-      :options="estimations"
-      :option-label="(item) => item ? `${item.title}`: 'None'"
-      option-value="id"
-    />
-  </q-card-section>
+	<q-card-section class="q-pt-none">
+		<!-- Selection for issue state -->
+		<q-select
+			flat
+			square
+			dense
+			:value="stateCategory"
+			@input="updateIssueState($event)"
+			:options="states"
+			option-label="title"
+			option-value="id"
+		/>
+		<!-- Selection for issue type -->
+		<q-select
+			flat
+			square
+			dense
+			:value="typeCategory"
+			@input="updateIssueType($event)"
+			:options="types"
+			option-label="title"
+			option-value="id"
+		/>
+		<!-- Selection for assignee -->
+		<q-select
+			flat
+			square
+			dense
+			:value="assignee"
+			@input="updateIssueAssignee($event)"
+			:options="participants"
+			:option-label="(item) => `${item.first_name} ${item.last_name}`"
+			option-value="id"
+		/>
+		<!-- Selection for story points -->
+		<q-select
+			flat
+			square
+			dense
+			:value="estimationCategory"
+			@input="updateIssueEstimation($event)"
+			:options="estimations"
+			:option-label="(item) => item ? `${item.title}`: 'None'"
+			option-value="id"
+		/>
+	</q-card-section>
 </template>
 
 <script>
+import { unWatch } from 'src/services/util'
+
 export default {
 	name: 'IssueManageSection',
 	props: {
-	  issue: {
-	    type: Object,
+		issue: {
+			type: Object,
 			required: true
+		}
+	},
+	data () {
+		return {
+			formIssue: unWatch(this.issue)
 		}
 	},
 	methods: {
 		async updateIssueState (state) {
-			/** update state for Issue
-       * We use it in selection field **/
-			this.issue.state_category = state.id
-
 			const payload = {
 				id: this.issue.id,
-				state_category: this.issue.state_category
+				state_category: state.id
 			}
 
 			await this.$store.dispatch('core/PATCH_ISSUE', payload)
@@ -72,11 +75,10 @@ export default {
 		},
 		async updateIssueType (state) {
 			/** update Issue type
-       * we use it in selection field **/
-			this.issue.type_category = state.id
+			 * we use it in selection field **/
 			const payload = {
 				id: this.issue.id,
-				type_category: this.issue.type_category
+				type_category: state.id
 			}
 
 			await this.$store.dispatch('core/PATCH_ISSUE', payload)
@@ -84,9 +86,7 @@ export default {
 		},
 		async updateIssueAssignee (assignee) {
 			/** update Issue assignee
-       * we use it in selection field **/
-			this.issue.assignee = assignee.id
-
+			 * we use it in selection field **/
 			const payload = {
 				id: this.issue.id,
 				assignee: assignee.id
@@ -96,8 +96,6 @@ export default {
 			this.$emit('update_assignee', payload)
 		},
 		async updateIssueEstimation (estimation) {
-			this.issue.estimation_category = estimation.id
-
 			const payload = {
 				id: this.issue.id,
 				estimation_category: estimation.id
@@ -121,7 +119,7 @@ export default {
 			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
 		},
 		stateCategory () {
-		  /** Get Issue state by Id, we got Issue State from props given to component **/
+			/** Get Issue state by Id, we got Issue State from props given to component **/
 			return this.$store.getters['core/ISSUE_STATE_BY_ID'](this.issue.state_category)
 		},
 		typeCategory () {
@@ -130,7 +128,7 @@ export default {
 		},
 		assignee () {
 			/** Get participant object by given id from participants list given in props
-       * It also can return Unassigned if given person was not found **/
+			 * It also can return Unassigned if given person was not found **/
 
 			if (this.issue.assignee === null) {
 				return {

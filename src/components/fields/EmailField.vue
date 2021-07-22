@@ -1,14 +1,15 @@
 <template>
-  <q-input
-    flat
-    type="text"
-    @input="handleInput"
-    :value="email"
-    :error="isError"
-    :error-message="errorMessage"
-    :rules="[isValidEmail]"
-    label="Email"
-  />
+	<q-input
+		flat
+		type="text"
+		@keyup.enter="$emit('enter')"
+		@input="handleInput"
+		:value="email"
+		:error="isError"
+		:error-message="errorMessage"
+		:rules="[isValidEmail]"
+		label="Email"
+	/>
 </template>
 
 <script>

@@ -25,25 +25,24 @@ export const fieldValidationMixin = {
 		},
 		isValidHost (str) {
 			/** For host we can use
-       * ONLY https due secure reason
-       * Domain name such as localhost or pmdragon.org or any other valid
-       * Or even IP address
-       * SPECIFIC PORT example https://pmdragon.org:8080
-       * We Do not check empty value by regular expression
-       * **/
+			 * ONLY https due secure reason
+			 * Domain name such as localhost or pmdragon.org or any other valid
+			 * Or even IP address
+			 * SPECIFIC PORT example https://pmdragon.org:8080
+			 * We Do not check empty value by regular expression
+			 * **/
 			const pattern = new RegExp(
 				'^((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // Domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))|' + // Or IPv4 address
-        '(localhost)' + // Or localhost
-        '(\\:\\d+)?$', // Specific Port
+				'((\\d{1,3}\\.){3}\\d{1,3}))|' + // Or IPv4 address
+				'(localhost)' + // Or localhost
+				'(\\:\\d+)?$', // Specific Port
 				'i')
 			return !str || !!pattern.test(str) || 'Should be a valid Host without protocol, example: pmdragon.org'
 		},
 		isValidWorkspacePrefix (str) {
+			/** Disallow use of the RegExp constructor in favor of regular expression literals (prefer-regex-literals) **/
 			/** We Do not check empty value by regular expression */
-			const pattern = new RegExp(
-				'^[a-zA-Z0-9]{3,20}$'
-			)
+			const pattern = /^[a-zA-Z0-9]{3-20}$/
 			return !str || !!pattern.test(str) || 'Should be a valid url from 3 to 20 letters example: pmdragon'
 		}
 	}

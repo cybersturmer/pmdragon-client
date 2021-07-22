@@ -15,7 +15,7 @@
 									can-be-reset
                   v-model="formData.password"
                   :error-message="formErrors.password"
-                  @keyup.enter.native="login"
+                  @keyup.enter="login"
                 />
               </div>
             </div>

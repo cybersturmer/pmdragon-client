@@ -1,23 +1,23 @@
 <template>
-  <q-card-section class="q-py-sm">
-    <!-- Title editing section -->
-    <q-input
-      :value="issue.title"
-      debounce="1000"
-      @input="updateIssueTitle($event)"
-      :label="issueTitleLabel"
-      label-color="secondary">
-      <template v-slot:before>
-        <q-icon
-          v-if="isIssueTypeIcon"
-          :name="issueTypeIconPrefix"
+	<q-card-section class="q-py-sm">
+		<!-- Title editing section -->
+		<q-input
+			:value="issue.title"
+			debounce="1000"
+			@input="updateIssueTitle($event)"
+			:label="issueTitleLabel"
+			label-color="secondary">
+			<template v-slot:before>
+				<q-icon
+					v-if="isIssueTypeIcon"
+					:name="issueTypeIconPrefix"
 					:style="`color: ${issueTypeIconColor}`"
-          :title="issueTypeTitle"
-          size="md"
-        />
-      </template>
-    </q-input>
-  </q-card-section>
+					:title="issueTypeTitle"
+					size="md"
+				/>
+			</template>
+		</q-input>
+	</q-card-section>
 </template>
 
 <script>
@@ -32,10 +32,8 @@ export default {
 	methods: {
 		async updateIssueTitle (title) {
 			/** update Issue Title
-       * we use it as a handler after text in input was changed
-       * and user leave field by clicking outside **/
-			this.issue.title = title
-
+			 * we use it as a handler after text in input was changed
+			 * and user leave field by clicking outside **/
 			const payload = {
 				id: this.issue.id,
 				title: title
@@ -75,7 +73,7 @@ export default {
 			return this.$store.getters['core/ISSUE_TYPE_TITLE_BY_ID'](this.issue.type_category)
 		},
 		issueProjectNumber () {
-		  return this.$store.getters['core/ISSUE_BY_ID_PROJECT_NUMBER'](this.issue.id)
+			return this.$store.getters['core/ISSUE_BY_ID_PROJECT_NUMBER'](this.issue.id)
 		}
 	}
 }

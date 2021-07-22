@@ -7,8 +7,9 @@
 			<Editor :ref="refsKey"
 							height="3em"
 							placeholder="Create new message here..."
-							v-model.trim="formMessage.description"
-							@keyup.enter.native="handleEnter"/>
+							:value="formMessage.description"
+							@input="formMessage.description = $event"
+							@enter="createOrUpdateMessage"/>
 		</q-card-section>
 		<q-card-actions
 			align="right"
@@ -17,13 +18,13 @@
 						 icon-right="mdi-send"
 						 color="secondary"
 						 :label="actionButtonLabel"
-						 @click.native="createOrUpdateMessage"/>
+						 @click="createOrUpdateMessage"/>
 		</q-card-actions>
 	</q-card-section>
 </template>
 
 <script>
-import Editor from 'src/components/elements/Editor'
+import Editor from 'src/components/elements/Editor.vue'
 import { Api } from 'src/services/api'
 import { unWatch } from 'src/services/util'
 
@@ -68,12 +69,6 @@ export default {
 	methods: {
 		focus () {
 			this.$nextTick(this.messageEditor.focus)
-		},
-		async handleEnter (e) {
-			/** Handle Ctrl + Enter command in editor **/
-			if (e.ctrlKey) {
-				return await this.createOrUpdateMessage()
-			}
 		},
 		startMessaging () {
 			this.isMessageEditable = true

@@ -163,7 +163,7 @@
                   label="New Issue Type"
                   color="secondary"
                   v-model="newIssueTypeFormData.title"
-                  @keyup.enter.native="createIssueType"
+                  @keyup.enter="createIssueType"
                 >
                  <template #append>
                    <!-- @Make it disabled if empty -->
@@ -294,7 +294,7 @@
                   label="New Issue Types' Icon"
                   color="secondary"
                   v-model="newIssueTypeIconFormData.prefix"
-                  @keyup.enter.native="createIssueTypeIcon"
+                  @keyup.enter="createIssueTypeIcon"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->
@@ -396,7 +396,7 @@
                   color="secondary"
                   v-model="newIssueStateFormData.title"
                   :debounce="debounceDefault"
-                  @keyup.enter.native="createIssueState"
+                  @keyup.enter="createIssueState"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->
@@ -479,7 +479,7 @@
                   color="secondary"
                   v-model="newIssueEstimationFormData.title"
                   :debounce="debounceDefault"
-                  @keyup.enter.native="createIssueEstimation"
+                  @keyup.enter="createIssueEstimation"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->

@@ -1,20 +1,21 @@
 <template>
-  <q-input
-    flat
-    type="password"
-    @input="handleInput"
-    :value="password"
-    :error="isError"
-    :error-message="errorMessage"
-    label="Password">
+	<q-input
+		flat
+		type="password"
+		@keyup.enter="$emit('enter')"
+		@input="handleInput"
+		:value="password"
+		:error="isError"
+		:error-message="errorMessage"
+		label="Password">
 		<template #append>
 			<q-btn
-					v-if="canBeReset"
-					flat
-					:to="{ name: 'forgot' }"
-					label="Forgot?"/>
+				v-if="canBeReset"
+				flat
+				:to="{ name: 'forgot' }"
+				label="Forgot?"/>
 		</template>
-  </q-input>
+	</q-input>
 </template>
 
 <script>

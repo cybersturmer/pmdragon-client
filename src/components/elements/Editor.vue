@@ -10,6 +10,7 @@
 		ref="editor"
 		:value="value"
 		@input="handleInput"
+		@keyup.enter="handleEnter"
 		class="q-ma-none"
 	/>
 </template>
@@ -17,6 +18,10 @@
 <script>
 export default {
 	name: 'Editor',
+	emits: [
+		'input',
+		'enter'
+	],
 	props: {
 		// Type of the default value for 'editorToolbar' prop must be a function
 		editorToolbar: {
@@ -65,6 +70,12 @@ export default {
 		handleInput (value) {
 			const html = this.renderEditorMentioning(value)
 			this.$emit('input', html)
+		},
+		async handleEnter (e) {
+			/** Handle Ctrl + Enter command in editor **/
+			if (e.ctrlKey) {
+				this.$emit('enter')
+			}
 		},
 		focus () {
 			/** Let's focus editor by this method **/

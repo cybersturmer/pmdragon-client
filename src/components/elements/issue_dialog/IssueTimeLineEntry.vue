@@ -63,7 +63,8 @@ export default {
 			return this.entryType ? this.entryType : 'mdi-radiobox-marked'
 		},
 		participantRepresentation () {
-			return this.$q.screen.gt.sm ? this.$store.getters['auth/PERSON_FULL_REPRESENTATION_BY_ID'](this.entry.changed_by)
+			return this.$q.screen.gt.sm
+				? this.$store.getters['auth/PERSON_FULL_REPRESENTATION_BY_ID'](this.entry.changed_by)
 				: `@${this.$store.getters['auth/PERSON_USERNAME_BY_ID'](this.entry.changed_by)}`
 		},
 		action () {

@@ -16,13 +16,14 @@
 		</q-card>
 		<Editor v-show="isDescriptionEditing"
 						:ref="refsKey"
-						v-model.trim="issue.description"
-						@keyup.enter.native="handleEnterDescription"/>
+						:value="issue.description"
+						@enter="updateIssueDescription"
+					  @input="issue.description = $event"/>
 		<q-card-actions
 			v-show="isDescriptionEditing"
 			class="q-mt-sm q-pa-none">
-			<EditorSaveButton @click.native="updateIssueDescription"/>
-			<EditorCancelButton @click.native="cancelDescriptionEditing"/>
+			<EditorSaveButton @clicked="updateIssueDescription"/>
+			<EditorCancelButton @clicked="cancelDescriptionEditing"/>
 		</q-card-actions>
 	</q-card-section>
 </template>
@@ -58,12 +59,6 @@ export default {
 			 * for make it editable **/
 			this.isDescriptionReadOnly = false
 			this.$nextTick(this.descriptionEditor.focus)
-		},
-		async handleEnterDescription (e) {
-			/** Handle Ctrl + Enter command in editor **/
-			if (e.ctrlKey) {
-				return await this.updateIssueDescription()
-			}
 		},
 		async updateIssueDescription () {
 			/** update Issue description
