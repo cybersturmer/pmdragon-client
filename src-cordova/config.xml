@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cybersturmer.pmdragon.pmdragonce" version="1.0.27" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cybersturmer.pmdragon.pmdragonce" version="1.0.28" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>PmDragon</name>
     <description>PmDragon Community Edition</description>
     <author email="cybersturmer@ya.ru" href="https://pmdragon.org/">
