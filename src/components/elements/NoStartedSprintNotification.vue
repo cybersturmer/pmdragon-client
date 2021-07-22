@@ -1,10 +1,13 @@
 <template>
   <div class="full-width q-pa-md text-center">
     <div class="text-h5"><q-icon name="mdi-history"/>&nbsp;You have not started a sprint.</div>
-    <span class="text-subtitle1">Go to
-        <router-link :to="{ name: 'backlog' }" class="text-secondary">
-          Backlog page
-        </router-link> and start a sprint to continue...</span>
+    <div class="text-subtitle1">Go to
+				<router-link :to="{ name: 'backlog' }" custom v-slot="{ navigate }" class="text-secondary">
+					<span @click="navigate" @keypress.enter="navigate" role="link" class="underlined cursor-pointer">
+						Backlog page
+					</span>
+				</router-link>
+		</div>
   </div>
 </template>
 
@@ -13,3 +16,9 @@ export default {
 	name: 'NoStartedSprintNotification'
 }
 </script>
+
+<style lang="scss" scoped>
+.underlined {
+	text-decoration: underline;
+}
+</style>
