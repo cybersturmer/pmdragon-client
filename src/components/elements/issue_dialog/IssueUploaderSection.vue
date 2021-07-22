@@ -32,7 +32,7 @@
         <q-scroll-area
           horizontal
           visible
-          style="height: 60px; border: 1px solid #727272"
+          style="height: 58px; border: 1px solid #727272"
           :class="`no-scroll q-pa-sm rounded-borders ${$q.dark.isActive ? 'bg-dark' : 'bg-secondary'}`">
           <div class="row no-wrap">
             <div
