@@ -184,7 +184,7 @@ export default {
 			mask: DATETIME_MASK,
 			packedMessages: [],
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
-			middleSectionHeight: 'height: calc(84vh - 11em);'
+			middleSectionHeight: 'height: calc(83vh - 11em);'
 		}
 	},
 	watch: {
