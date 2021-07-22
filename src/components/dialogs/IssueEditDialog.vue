@@ -369,7 +369,8 @@ export default {
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/
 			try {
-				return this.$q.screen.gt.sm ? this.$store.getters['auth/PERSON_FULL_REPRESENTATION_BY_ID'](id)
+				return this.$q.screen.gt.sm
+					? this.$store.getters['auth/PERSON_FULL_REPRESENTATION_BY_ID'](id)
 					: this.$store.getters['auth/PERSON_USERNAME_BY_ID'](id)
 			} catch (e) {
 				return ''
