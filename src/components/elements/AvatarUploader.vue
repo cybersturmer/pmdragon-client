@@ -111,7 +111,6 @@ export default {
   .q-uploader__list {
     font-size: 0.5em;
     padding: 5px;
-    background-color: $accent;
     overflow: hidden;
   }
 
