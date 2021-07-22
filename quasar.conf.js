@@ -9,6 +9,7 @@
 
 const fs = require('fs')
 const { configure } = require('quasar/wrappers')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 const DEBUG = process.env.NODE_ENV === 'development'
 
@@ -65,13 +66,9 @@ module.exports = configure(function (/* ctx */) {
 			// extractCSS: false,
 
 			// https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-			extendWebpack (cfg) {
-				cfg.module.rules.push({
-					enforce: 'pre',
-					test: /\.(js|vue)$/,
-					loader: 'eslint-loader',
-					exclude: /node_modules/
-				})
+			chainWebpack (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
 			}
 		},
 
@@ -205,9 +202,14 @@ module.exports = configure(function (/* ctx */) {
 			// More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
 			nodeIntegration: true,
 
-			extendWebpack (/* cfg */) {
-				// do something with Electron main process Webpack cfg
-				// chainWebpack also available besides this extendWebpack
+			chainWebpackMain (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js'] }])
+			},
+
+			chainWebpackPreload (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js'] }])
 			}
 		}
 	}
