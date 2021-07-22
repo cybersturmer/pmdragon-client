@@ -23,6 +23,10 @@ import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'PasswordField',
+	emits: [
+		'input',
+		'enter'
+	],
 	mixins: [fieldValidationMixin],
 	props: {
 		value: String,

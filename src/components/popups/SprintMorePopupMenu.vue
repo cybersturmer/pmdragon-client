@@ -27,6 +27,10 @@
 <script>
 export default {
 	name: 'SprintMorePopupMenu',
+	emits: [
+		'edit',
+		'remove'
+	],
 	props: {
 		sprintId: {
 			type: Number,

@@ -140,6 +140,10 @@ import IssueCreateUpdateSection from 'src/components/elements/issue_dialog/Issue
 
 export default {
 	name: 'IssueEditDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	components: {
 		IssueChatDesktopMessage,
 		IssueTimeLineSection,

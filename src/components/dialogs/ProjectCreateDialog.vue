@@ -42,6 +42,10 @@ import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
 	name: 'ProjectCreateDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	mixins: [fieldValidationMixin, Dialogs],
 	props: {
 		workspaceId: {

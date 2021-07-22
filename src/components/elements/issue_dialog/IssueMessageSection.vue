@@ -30,6 +30,9 @@ import { unWatch } from 'src/services/util'
 
 export default {
 	name: 'IssueDescriptionSection',
+	emits: [
+		'cancelEditingMessage'
+	],
 	components: {
 		Editor
 	},

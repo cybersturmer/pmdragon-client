@@ -11,6 +11,9 @@
 <script>
 export default {
 	name: 'StartCompleteSprintButton',
+	emits: [
+		'dialog'
+	],
 	props: {
 		sprint: {
 			type: Object,

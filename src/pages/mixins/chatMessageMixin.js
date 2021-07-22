@@ -1,4 +1,8 @@
 export const ChatMessageMixin = {
+	emits: [
+		'edit',
+		'remove'
+	],
 	props: {
 		messagePack: {
 			type: Object,

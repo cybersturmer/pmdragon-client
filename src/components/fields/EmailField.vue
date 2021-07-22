@@ -17,6 +17,10 @@ import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'EmailField',
+	emits: [
+		'enter',
+		'input'
+	],
 	mixins: [fieldValidationMixin],
 	props: {
 		value: String,

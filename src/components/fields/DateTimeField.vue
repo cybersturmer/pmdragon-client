@@ -36,6 +36,9 @@ import { DATETIME_MASK } from 'src/services/masks'
 
 export default {
 	name: 'DateTimeField',
+	emits: [
+		'input'
+	],
 	props: {
 		value: String,
 		label: String

@@ -36,6 +36,10 @@ import IssueMorePopupMenu from '../../popups/IssueMorePopupMenu'
 
 export default {
 	name: 'IssueHeader',
+	emits: [
+		'refresh',
+		'hide'
+	],
 	mixins: [
 		Notifications
 	],

@@ -59,6 +59,9 @@
 
 export default {
 	name: 'AboutDialog',
+	emits: [
+		'hide'
+	],
 	computed: {
 		version () {
 			return require('../../../package.json').version

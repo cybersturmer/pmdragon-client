@@ -16,6 +16,9 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
 export default {
 	name: 'PrefixUrlField',
+	emits: [
+		'input'
+	],
 	mixins: [fieldValidationMixin],
 	props: {
 		value: String,

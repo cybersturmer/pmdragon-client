@@ -35,6 +35,9 @@ import EditorCancelButton from 'src/components/buttons/EditorCancelButton'
 
 export default {
 	name: 'IssueDescriptionSection',
+	emits: [
+		'update_description'
+	],
 	components: {
 		Editor,
 		EditorSaveButton,

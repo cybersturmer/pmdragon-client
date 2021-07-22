@@ -31,6 +31,10 @@ import AttachmentDialogItem from 'src/components/elements/AttachmentDialogItem'
 
 export default {
 	name: 'SelectAttachmentDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	components: {
 		AttachmentDialogItem
 	},

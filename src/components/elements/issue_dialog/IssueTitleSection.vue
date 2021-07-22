@@ -23,6 +23,9 @@
 <script>
 export default {
 	name: 'IssueTitleSection',
+	emits: [
+		'update_title'
+	],
 	props: {
 		issue: {
 			type: Object,

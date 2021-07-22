@@ -28,6 +28,10 @@ import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
 	name: 'WorkspaceCreateDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	mixins: [fieldValidationMixin, Dialogs],
 	data () {
 		return {

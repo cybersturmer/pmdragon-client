@@ -43,6 +43,10 @@ import { DATETIME_MASK } from 'src/services/masks'
 
 export default {
 	name: 'SprintEditDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	components: { DateTimeField },
 	props: {
 		id: {

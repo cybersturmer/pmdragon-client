@@ -18,6 +18,9 @@ import { Dialogs } from 'pages/mixins/dialogs'
 
 export default {
 	name: 'IssueMorePopupMenu',
+	emits: [
+		'remove'
+	],
 	mixins: [Dialogs],
 	props: {
 		issue: {

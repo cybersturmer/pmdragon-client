@@ -35,6 +35,10 @@ import { Dialogs } from 'src/pages/mixins/dialogs'
 
 export default {
 	name: 'ConnectionEditDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	mixins: [
 		fieldValidationMixin,
 		Dialogs

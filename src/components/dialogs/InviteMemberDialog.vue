@@ -69,6 +69,10 @@ import { loading } from 'src/pages/mixins/loading'
 
 export default {
 	name: 'SprintEditDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	mixins: [
 		fieldValidationMixin,
 		Dialogs,

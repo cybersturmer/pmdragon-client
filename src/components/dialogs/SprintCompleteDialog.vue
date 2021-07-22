@@ -18,6 +18,10 @@
 
 export default {
 	name: 'SprintCompleteDialog',
+	emits: [
+		'ok',
+		'hide'
+	],
 	props: {
 		sprint: {
 			type: Object,

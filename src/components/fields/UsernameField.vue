@@ -15,6 +15,9 @@ import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
 export default {
 	name: 'UsernameField',
+	emits: [
+		'input'
+	],
 	mixins: [fieldValidationMixin],
 	props: {
 		value: String,

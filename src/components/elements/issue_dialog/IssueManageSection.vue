@@ -52,6 +52,12 @@ import { unWatch } from 'src/services/util'
 
 export default {
 	name: 'IssueManageSection',
+	emits: [
+		'update_state',
+		'update_type',
+		'update_assignee',
+		'update_estimation'
+	],
 	props: {
 		issue: {
 			type: Object,
