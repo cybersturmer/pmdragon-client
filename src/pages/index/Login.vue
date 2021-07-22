@@ -24,17 +24,16 @@
             <q-btn
               outline
               label="Sign In"
-              @click="login"
-            />
-            <router-link :to="{ name: 'register' }" class="float-right" style="text-decoration: none">
-              <template>
-              <q-btn
-                flat
-                color="secondary"
-                label="Want to register?"
-                style="margin-left: 30px"/>
-              </template>
-            </router-link>
+              @click="login"/>
+						<router-link :to="{ name: 'register' }" custom v-slot="{ navigate }" class="float-right">
+							<q-btn
+								flat
+								color="secondary"
+								label="Register?"
+								@click="navigate"
+								@keypress.enter="navigate"
+								style="margin-left: 30px"/>
+						</router-link>
           </q-card-section>
         </q-card>
   </q-page>

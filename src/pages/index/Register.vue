@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <ChangeConnectionElement/>
-    <q-card bordered flat class="my-card" style="width: 320px">
+    <q-card flat bordered style="width: 320px">
       <q-card-section class="q-pa-md">
         <div class="column">
           <div class="col">
@@ -23,17 +23,18 @@
         </q-card-section>
         <q-card-section class="q-pt-none">
             <q-btn
-              @click="register"
               outline
-              label="Sign Up"/>
-            <router-link :to="{ name: 'login' }" class="float-right"  style="text-decoration: none">
-              <template>
-                <q-btn
-                  flat
-                  color="secondary"
-                  label="Already a member?"/>
-              </template>
-            </router-link>
+							label="Sign Up"
+							@click="register"/>
+						<router-link :to="{ name: 'login' }" custom v-slot="{ navigate }" class="float-right">
+							<q-btn
+								flat
+								color="secondary"
+								label="Login?"
+								@click="navigate"
+								@keypress.enter="navigate"
+								style="margin-left: 30px"/>
+						</router-link>
         </q-card-section>
     </q-card>
   </q-page>
@@ -96,13 +97,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-  .q-field__bottom {
-    padding: 3px 5px;
-  }
-
-  .q-field__messages {
-    line-height: 1.25;
-  }
-</style>
