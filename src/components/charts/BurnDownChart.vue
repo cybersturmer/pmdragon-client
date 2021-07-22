@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import LineChart from 'src/components/charts/LineChart.vue'
+import LineChart from 'src/components/charts/LineChart'
 import { date, Dark } from 'quasar'
 import { Api } from 'src/services/api'
 

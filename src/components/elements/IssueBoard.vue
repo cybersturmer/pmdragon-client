@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import IssueEditDialog from 'components/dialogs/IssueEditDialog.vue'
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 
 export default {
 	name: 'IssueBoard',

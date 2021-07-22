@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import Editor from '../Editor.vue'
-import EditorSaveButton from '../../buttons/EditorSaveButton.vue'
-import EditorCancelButton from '../../buttons/EditorCancelButton.vue'
+import Editor from 'src/components/elements/Editor'
+import EditorSaveButton from 'src/components/buttons/EditorSaveButton'
+import EditorCancelButton from 'src/components/buttons/EditorCancelButton'
 
 export default {
 	name: 'IssueDescriptionSection',

@@ -97,11 +97,11 @@
 </template>
 
 <script>
-import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification.vue'
+import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 
-import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton.vue'
-import SprintEditDialog from 'src/components/dialogs/SprintEditDialog.vue'
-import IssueEditDialog from 'src/components/dialogs/IssueEditDialog.vue'
+import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
+import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 
 import { unWatch } from 'src/services/util'
 import { date } from 'quasar'
@@ -111,7 +111,7 @@ import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
 
-import IssueBoard from 'src/components/elements/IssueBoard.vue'
+import IssueBoard from 'src/components/elements/IssueBoard'
 import { loading } from 'src/pages/mixins/loading'
 
 export default {

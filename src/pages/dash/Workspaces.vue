@@ -70,10 +70,10 @@
 </template>
 
 <script>
-import SmallParticipantChipElement from 'components/elements/SmallParticipantChipElement.vue'
-import WorkspaceCreateDialog from 'components/dialogs/WorkspaceCreateDialog.vue'
-import ProjectCreateDialog from 'components/dialogs/ProjectCreateDialog.vue'
-import { websocket } from 'pages/mixins/websockets'
+import SmallParticipantChipElement from 'src/components/elements/SmallParticipantChipElement'
+import WorkspaceCreateDialog from 'src/components/dialogs/WorkspaceCreateDialog'
+import ProjectCreateDialog from 'src/components/dialogs/ProjectCreateDialog'
+import { websocket } from 'src/pages/mixins/websockets'
 import { ErrorHandler } from 'src/services/util'
 
 export default {

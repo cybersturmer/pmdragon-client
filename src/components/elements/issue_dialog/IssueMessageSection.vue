@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import Editor from '../Editor.vue'
-import { Api } from '../../../services/api'
-import { unWatch } from '../../../services/util'
+import Editor from 'src/components/elements/Editor'
+import { Api } from 'src/services/api'
+import { unWatch } from 'src/services/util'
 
 export default {
 	name: 'IssueDescriptionSection',

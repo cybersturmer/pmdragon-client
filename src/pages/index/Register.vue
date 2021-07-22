@@ -41,11 +41,11 @@
 
 <script>
 
-import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
-import { Dialogs } from 'pages/mixins/dialogs'
-import PrefixUrlField from 'components/fields/PrefixUrlField.vue'
-import EmailField from 'components/fields/EmailField.vue'
-import ChangeConnectionElement from 'components/elements/ChangeConnectionElement.vue'
+import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
+import { Dialogs } from 'src/pages/mixins/dialogs'
+import PrefixUrlField from 'src/components/fields/PrefixUrlField'
+import EmailField from 'src/components/fields/EmailField'
+import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 
 export default {
 	name: 'Register',

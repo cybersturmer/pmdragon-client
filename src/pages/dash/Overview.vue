@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import BurnDownChart from 'src/components/charts/BurnDownChart.vue'
+import BurnDownChart from 'src/components/charts/BurnDownChart'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
-import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification.vue'
+import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 
 import { date } from 'quasar'
 import { DATE_MASK } from 'src/services/masks'

@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import ConnectionEditDialog from 'components/dialogs/ConnectionEditDialog.vue'
-import AboutDialog from '../dialogs/AboutDialog.vue'
+import ConnectionEditDialog from 'src/components/dialogs/ConnectionEditDialog'
+import AboutDialog from 'src/components/dialogs/AboutDialog'
 
 export default {
 	name: 'ChangeConnectionElement',
