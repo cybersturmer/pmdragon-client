@@ -445,25 +445,6 @@ export default {
 		background-color: rgba(76, 76, 76, 0.4);
 	}
 
-  .editable_block:hover {
-		background-color: var(--q-color-secondary)!important;
-		color: var(--q-color-dark)!important;
-  }
-
-  .editor_token {
-    display: inline-block;
-    font-weight: 700;
-    background-color: $info;
-    border-radius: 5px;
-    color: white;
-    padding: 3px 6px;
-    margin: 0;
-  }
-
-  .editor_token:before {
-    content: '@'
-  }
-
   .q-timeline__title {
     font-size: 0.9rem;
   }

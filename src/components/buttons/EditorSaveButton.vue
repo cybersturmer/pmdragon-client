@@ -4,7 +4,7 @@
 		outline
     :label="label"
 		color="secondary"
-		class="short"
+		class="short_button"
 		@click="$emit('clicked')"
   />
 </template>
@@ -24,9 +24,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="scss" scoped>
-	.short {
-		width: 80px;
-	}
-</style>
