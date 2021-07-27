@@ -11,7 +11,7 @@
 					 :key="message.id"
 					 @mouseover="showMenu"
 					 @mouseleave="hideMenu"
-					 class="q-pa-sm">
+					 class="q-pt-xs q-pb-none q-px-sm">
 				<span v-html="message.description"/>
 				<q-menu v-if="isManageable" touch-position context-menu>
 					<q-list dense>

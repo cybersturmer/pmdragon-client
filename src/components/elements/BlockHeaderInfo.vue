@@ -1,8 +1,8 @@
 <template>
   <h5 class="text-secondary">
     {{ title }}
-    <span>
-      (&nbsp;{{ info }}&nbsp;)
+    <span v-if="info">
+      [&nbsp;{{ info }}&nbsp;]
     </span>
   </h5>
 </template>
@@ -17,7 +17,7 @@ export default {
 		},
 		info: {
 			type: String,
-			required: true
+			required: false
 		}
 	}
 }

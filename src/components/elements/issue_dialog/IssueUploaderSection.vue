@@ -11,8 +11,8 @@
       <template #header>
         <div :class="`${$q.dark.isActive ? 'bg-dark text-secondary' : 'bg-secondary text-dark' }`">
           <span v-if="$q.screen.gt.sm"
-                class="text-bold">
-            ATTACHMENTS [{{ attachmentsAmount }}]&nbsp;
+                class="text-bold q-pl-md text-uppercase">
+            Attachments [{{ attachmentsAmount }}]&nbsp;
           </span>
           <q-btn
             flat

@@ -47,7 +47,7 @@
                   </q-btn-group>
                 </div>
               </div>
-              <div class="q-pt-sm q-px-xs q-pb-none bg-grey-9"
+              <div :class="`q-pt-sm q-px-xs q-pb-none ${ $q.dark.isActive ? 'bg-grey-9' : 'bg-accent' }`"
                    style="border: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center q-pt-md">
@@ -118,22 +118,18 @@
           </draggable>
         </q-scroll-area>
         <q-card bordered
-                square
-                class="my-card q-ma-xs absolute-bottom q-pa-none">
+                class="my-card q-ma-sm absolute-bottom q-pa-none">
           <q-card-section class="q-pa-none">
             <q-input
               v-model="formData.title"
               @keyup.enter="createIssue"
-              square
               dense
               filled
-              placeholder="Add Issue"
-            >
+              placeholder="Add Issue">
               <template v-slot:append>
                 <q-btn @click="createIssue"
                        :disable="!isCreateIssueButtonEnabled"
                        dense
-                       rounded
                        flat
                        icon="mdi-keyboard-return"/>
               </template>
@@ -583,11 +579,5 @@ export default {
 
   .my-card:not(:last-child) {
     margin-bottom: 0.75em;
-  }
-
-  h5 {
-    font-size: 1.25rem;
-    margin-bottom: 0;
-    margin-top: 0;
   }
 </style>

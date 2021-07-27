@@ -4,15 +4,8 @@
       <!-- Row wrapper for block with Sprint information -->
       <div class="row full-width justify-between items-center q-pa-sm">
         <!-- Sprint name -->
-        <div class="col-auto text-h5 text-accent">
-          {{ startedSprint.title }}
-        </div>
-        <!-- Sprint goal -->
-        <div
-          v-if="$q.screen.gt.md && startedSprint.goal"
-          class="col text-h6 text-secondary q-pl-md">
-          [&nbsp;{{ startedSprint.goal }}&nbsp;]
-        </div>
+				<BlockHeaderInfo :title="startedSprint.title"
+												 :info="$q.screen.gt.md && startedSprint.goal ? startedSprint.goal : undefined "/>
         <!-- Sprint remaining text -->
         <div
           v-if="$q.screen.gt.sm"
@@ -113,10 +106,12 @@ import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
 
 import IssueBoard from 'src/components/elements/IssueBoard'
 import { loading } from 'src/pages/mixins/loading'
+import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
 
 export default {
 	name: 'BoardView',
 	components: {
+		BlockHeaderInfo,
 		NoStartedSprintNotification,
 		StartCompleteSprintButton,
 		// eslint-disable-next-line vue/no-unused-components

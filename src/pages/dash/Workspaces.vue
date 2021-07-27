@@ -11,6 +11,13 @@
 					:pagination="workspacesTable.pagination"
 				>
 					<template #top-left>
+						<q-input dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
+							<template #append>
+								<q-icon name="mdi-cloud-search" />
+							</template>
+						</q-input>
+					</template>
+					<template #top-right>
 						<q-btn-group outline>
 							<q-btn
 								outline
@@ -24,13 +31,6 @@
 								@click="createProjectDialog"
 							/>
 						</q-btn-group>
-					</template>
-					<template #top-right>
-						<q-input dense debounce="300" v-model="workspacesTable.filter" placeholder="Search">
-							<template #append>
-								<q-icon name="mdi-cloud-search" />
-							</template>
-						</q-input>
 					</template>
 					<template #item="props">
 						<div class="q-pa-xs col-xs-12 col-sm-12 col-md-6">

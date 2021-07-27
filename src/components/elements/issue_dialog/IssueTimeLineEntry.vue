@@ -15,12 +15,12 @@
 				<div
 					v-if="beforeValue"
 					v-html="beforeValue"
-					class="q-pa-sm q-mb-sm bg-secondary text-accent overflow-hidden"
+					class="q-pa-sm q-mb-sm bg-dark text-accent overflow-hidden"
 					:style="valueClasses"/>
 				<div
 					v-if="afterValue"
 					v-html="afterValue"
-					class="q-pa-sm bg-accent text-dark overflow-hidden"
+					class="q-pa-sm bg-info text-accent overflow-hidden"
 					:style="valueClasses"/>
 				</div>
 			</div>
