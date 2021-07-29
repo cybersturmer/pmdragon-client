@@ -1,19 +1,21 @@
 <template>
 	<q-card-section class="q-py-sm">
 		<!-- Section for create new or updated yours messages -->
-		<!-- Section with editor -->
+		<!-- Section with editor and popup -->
 		<q-card-section
 			class="q-pa-none">
-			<Editor :ref="refsKey"
-							height="3em"
-							placeholder="Create new message here..."
-							:value="formMessage.description"
-							@input="formMessage.description = $event"
-							@enter="createOrUpdateMessage"/>
+			<!-- Editor (Like Textarea) -->
+			<EditorExtended :ref="refsKey"
+											:value="formMessage.description"
+											:options="editorOptions"
+											@input="formMessage.description = $event"
+											placeholder="Create new message here..."
+			/>
 		</q-card-section>
 		<q-card-actions
 			align="right"
 			class="q-mt-sm q-pa-none">
+			<!-- Create or Update Button -->
 			<q-btn outline
 						 icon-right="mdi-send"
 						 color="secondary"
@@ -24,9 +26,9 @@
 </template>
 
 <script>
-import Editor from 'src/components/elements/Editor.vue'
 import { Api } from 'src/services/api'
 import { unWatch } from 'src/services/util'
+import EditorExtended from 'components/elements/EditorExtended'
 
 export default {
 	name: 'IssueDescriptionSection',
@@ -34,7 +36,7 @@ export default {
 		'cancelEditingMessage'
 	],
 	components: {
-		Editor
+		EditorExtended
 	},
 	props: {
 		issueId: {
@@ -63,6 +65,20 @@ export default {
 		return {
 			refsKey: 'issueMessageEditor',
 			isMessageEditable: false,
+			isMentioningPopupVisible: false,
+			popupParticipantsFilter: '',
+			editorOptions: {
+				placeholder: 'Start typing your message here...',
+				height: '5em',
+				minHeight: '5em',
+				maxHeight: '7em',
+				toolbar: [
+					['bold', 'italic', 'underline'],
+					['unordered', 'ordered'],
+					['fullscreen'],
+					['viewsource']
+				]
+			},
 			formMessage: {
 				issue: this.issueId,
 				description: ''
@@ -72,10 +88,6 @@ export default {
 	methods: {
 		focus () {
 			this.$nextTick(this.messageEditor.focus)
-		},
-		startMessaging () {
-			this.isMessageEditable = true
-			this.focus()
 		},
 		cancelEditingMessage () {
 			/** We use it if user wrote a message and clicked cancel then **/

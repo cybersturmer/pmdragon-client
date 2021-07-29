@@ -94,8 +94,10 @@ export function MENTIONING_REGEX (state) {
 
 	for (const participant of state.persons) {
 		regexArray.push({
-			userId: participant.id,
+			id: participant.id,
 			username: participant.username,
+			first_name: participant.first_name,
+			last_name: participant.last_name,
 			fullName: `${participant.first_name} ${participant.last_name}`,
 			regex: new RegExp(`@${participant.username}`, 'i'),
 			index: null,

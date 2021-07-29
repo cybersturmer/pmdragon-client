@@ -14,11 +14,14 @@
 				:class="`editable_block ${ $q.dark.isActive ? 'text-white' : 'text-dark'} overflow-hidden q-pa-sm`"
 				@click="startEditingDescription"/>
 		</q-card>
-		<Editor v-show="isDescriptionEditing"
-						:ref="refsKey"
-						:value="issue.description"
-						@enter="updateIssueDescription"
-					  @input="issue.description = $event"/>
+		<EditorExtended
+			ref="issueDescriptionEditor"
+			v-show="isDescriptionEditing"
+			:value="issue.description"
+			:options="editorOptions"
+			@enter="updateIssueDescription"
+			@input="issue.description = $event"
+		/>
 		<q-card-actions
 			v-show="isDescriptionEditing"
 			class="q-mt-sm q-pa-none">
@@ -29,9 +32,9 @@
 </template>
 
 <script>
-import Editor from 'src/components/elements/Editor'
 import EditorSaveButton from 'src/components/buttons/EditorSaveButton'
 import EditorCancelButton from 'src/components/buttons/EditorCancelButton'
+import EditorExtended from 'components/elements/EditorExtended'
 
 export default {
 	name: 'IssueDescriptionSection',
@@ -39,7 +42,7 @@ export default {
 		'update_description'
 	],
 	components: {
-		Editor,
+		EditorExtended,
 		EditorSaveButton,
 		EditorCancelButton
 	},
@@ -52,7 +55,19 @@ export default {
 	data () {
 		return {
 			refsKey: 'issueDescriptionEditor',
-			isDescriptionReadOnly: true
+			isDescriptionReadOnly: true,
+			editorOptions: {
+				placeholder: 'Add you description here...',
+				height: '5em',
+				minHeight: '5em',
+				maxHeight: '7em',
+				toolbar: [
+					['bold', 'italic', 'underline'],
+					['unordered', 'ordered'],
+					['fullscreen'],
+					['viewsource']
+				]
+			}
 		}
 	},
 	methods: {
