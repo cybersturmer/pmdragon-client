@@ -11,7 +11,7 @@ export const htmlSnippets = {
 			const dataField = `data-mentioned-user-id="${person.id}"`
 			const wrapParams = `${snippetClass} ${userTitle} ${dataField} ${readOnly}`
 
-			return `${space}<${wrap} ${wrapParams}>${person.username}</${wrap}>${space}${space}${space}${space}${space}${space}`
+			return `${space}<${wrap} ${wrapParams}>${person.username}</${wrap}>${space}`
 		}
 	}
 }

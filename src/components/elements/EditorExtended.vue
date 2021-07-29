@@ -204,7 +204,10 @@ export default {
 			})
 
 			setTimeout(() => {
-				this.setCaret(this.editor.caret.selection.focusNode)
+				this.editor.focus()
+				const focusNode = this.editor.caret.selection.focusNode
+				console.dir(focusNode)
+				this.setCaret(focusNode)
 			}, 5)
 		},
 
