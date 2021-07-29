@@ -42,16 +42,22 @@ h5 {
 	color: var(--q-color-dark)!important;
 }
 
-.editor_token {
+// Mentioning snippet class
+.m_snp {
 	display: inline-block;
-	font-weight: 700;
+	font-weight: 800;
 	background-color: $info;
 	border-radius: 5px;
 	color: white;
-	padding: 3px 6px;
+	padding: 5px 8px;
 	margin: 0;
 }
 
-.editor_token:before {
-	content: '@'
+.m_snp:before {
+	content: '@';
+	padding-right: 3px;
+}
+
+.m_snp:after {
+	content: '';
 }
