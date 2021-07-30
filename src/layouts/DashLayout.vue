@@ -62,7 +62,7 @@
       v-model="leftDrawerOpen"
       show-if-above
       :width="200"
-      :breakpoint="600"
+      :breakpoint="900"
       bordered>
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px;" class="no-scroll">
         <q-list separator
