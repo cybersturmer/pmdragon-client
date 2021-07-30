@@ -65,6 +65,7 @@ export default {
 <style lang="scss" scoped>
 	.q-message-name {
 		color: $secondary!important;
+		font-weight: bold;
 	}
 
 	.q-message-text--sent:hover {
