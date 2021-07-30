@@ -8,21 +8,21 @@
       :columns="teamTable.columns"
       :filter="teamTable.filter">
       <template #top-left>
-        <q-btn-group outline>
-          <q-btn
-            outline
-            label="Invite a teammate"
-            color="secondary"
-            @click="inviteMembersDialog"
-          />
-        </q-btn-group>
+				<q-input dense debounce="300" v-model="teamTable.filter" placeholder="Search">
+					<template #append>
+						<q-icon name="mdi-account-search" />
+					</template>
+				</q-input>
       </template>
       <template #top-right>
-        <q-input dense debounce="300" v-model="teamTable.filter" placeholder="Search">
-          <template #append>
-            <q-icon name="mdi-account-search" />
-          </template>
-        </q-input>
+				<q-btn-group outline>
+					<q-btn
+						outline
+						label="Invite a teammate"
+						color="secondary"
+						@click="inviteMembersDialog"
+					/>
+				</q-btn-group>
       </template>
       <template #item="props">
         <div class="q-pa-xs col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" >
