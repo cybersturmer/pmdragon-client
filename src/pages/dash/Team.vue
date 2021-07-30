@@ -1,20 +1,20 @@
 <template>
-  <q-page class="q-layout-padding">
-    <q-table
-      grid
-      row-key="username"
-      no-data-label="Invite your team members by adding them by email."
-      :data="participants"
-      :columns="teamTable.columns"
-      :filter="teamTable.filter">
-      <template #top-left>
+	<q-page class="q-layout-padding">
+		<q-table
+			grid
+			row-key="username"
+			no-data-label="Invite your team members by adding them by email."
+			:data="participants"
+			:columns="teamTable.columns"
+			:filter="teamTable.filter">
+			<template #top-left>
 				<q-input dense debounce="300" v-model="teamTable.filter" placeholder="Search">
 					<template #append>
 						<q-icon name="mdi-account-search" />
 					</template>
 				</q-input>
-      </template>
-      <template #top-right>
+			</template>
+			<template #top-right>
 				<q-btn-group outline>
 					<q-btn
 						outline
@@ -23,74 +23,41 @@
 						@click="inviteMembersDialog"
 					/>
 				</q-btn-group>
-      </template>
-      <template #item="props">
-        <div class="q-pa-xs col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" >
-          <q-card bordered>
-            <q-card-section horizontal>
-              <!-- Avatar block -->
-              <q-card-section class="col-4">
-                <q-avatar
-                  v-if="getAvatarByPersonId(props.row.id)">
-                  <img :src="getAvatarByPersonId(props.row.id)" :alt="props.row.username">
-                </q-avatar>
-              </q-card-section>
-              <!-- Name block -->
-              <q-card-section class="col-8">
-                <div class="row items-center no-wrap full-width">
-                  <div class="col-10 text-center">
-                    <p class="text-subtitle2 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.first_name }}</p>
-                    <p class="text-subtitle2 q-pa-none q-ma-none" style="line-height: 1.5rem">{{ props.row.last_name }}</p>
-                  </div>
-                  <div class="col-2 items-center">
-                    <q-btn
-                      v-show="!isMe(props.row.id) && notOwner(props.row.id)"
-                      flat
-                      dense
-                      color="secondary"
-                      icon="mdi-dots-vertical">
-                      <q-menu fit anchor="top left" self="top left" auto-close>
-                        <q-list>
-                          <q-item clickable
-                                  @click="removeMemberDialog(props.row.id)">
-                            <q-item-section>Remove from Workspace</q-item-section>
-                          </q-item>
-                        </q-list>
-                      </q-menu>
-                    </q-btn>
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card-section>
-          </q-card>
-        </div>
-      </template>
-    </q-table>
-    <q-table
-      grid
-      class="text-secondary"
-      :title="`Invited - ( ${invited.length} email )`"
-      row-key="email"
-      no-data-label="Invite your team members by adding them by email."
-      :data="invited"
-      :columns="invitedTable.columns"
-      :filter="invitedTable.filter"
-      :pagination="invitedTable.pagination">
-      <template #item="props">
+			</template>
+			<template #item="props">
+				<ParticipantTeamMemberCard
+					:person="props.row"
+					@removeTeamMember="removeMemberDialog($event)"
+				/>
+			</template>
+		</q-table>
+		<q-table
+			grid
+			class="text-secondary"
+			:title="`Invited - ( ${invited.length} email )`"
+			row-key="email"
+			no-data-label="Invite your team members by adding them by email."
+			:data="invited"
+			:columns="invitedTable.columns"
+			:filter="invitedTable.filter"
+			:pagination="invitedTable.pagination">
+			<template #item="props">
 				<InvitedTeamMemberCard :invitation="props.row"/>
-      </template>
-    </q-table>
-  </q-page>
+			</template>
+		</q-table>
+	</q-page>
 </template>
 
 <script>
 import { loading } from 'src/pages/mixins/loading'
 import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
 import InvitedTeamMemberCard from 'src/components/elements/InvitedTeamMemberCard'
+import ParticipantTeamMemberCard from 'src/components/elements/ParticipantTeamMemberCard'
 
 export default {
 	name: 'Team',
 	components: {
+		ParticipantTeamMemberCard,
 		InvitedTeamMemberCard
 	},
 	mixins: [loading],
@@ -158,19 +125,6 @@ export default {
 		}
 	},
 	methods: {
-		getAvatarByPersonId (id) {
-			try {
-				return this.$store.getters['auth/PERSON_BY_ID'](id).avatar
-			} catch (e) {
-				return false
-			}
-		},
-		isMe (personId) {
-			return this.$store.getters['auth/MY_PERSON_ID'] === personId
-		},
-		notOwner (personId) {
-			return this.$store.getters['auth/PROJECT_OWNED_BY'].id !== personId
-		},
 		inviteMembersDialog () {
 			this.$q.dialog({
 				parent: this,
@@ -181,13 +135,14 @@ export default {
 		},
 		removeMemberDialog (personId) {
 			const participant = this.$store.getters['auth/PERSON_BY_ID'](personId)
-			this.$q.dialog({
-				dark: this.$q.dark.isActive,
-				title: 'Confirmation',
-				message: `Would you like to remove participant: ${participant.first_name} ${participant.last_name}`,
-				cancel: true,
-				persistent: true
-			})
+			const dialog = [
+				'Confirmation',
+				`Would you like to delete participant from the Workspace: "${participant.first_name} ${participant.last_name}"`,
+				'Remove',
+				'danger'
+			]
+
+			this.showOkCancelDialog(...dialog)
 				.onOk(() => {
 					this.showProgress()
 					this.$store.dispatch('auth/REMOVE_TEAM_MEMBER', personId)
