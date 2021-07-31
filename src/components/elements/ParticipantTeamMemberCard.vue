@@ -61,9 +61,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.q-card__actions {
-	padding: 0!important;
-}
-</style>
