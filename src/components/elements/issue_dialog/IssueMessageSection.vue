@@ -9,6 +9,7 @@
 											:value="formMessage.description"
 											:options="editorOptions"
 											@input="formMessage.description = $event"
+											@enter="createOrUpdateMessage"
 											placeholder="Create new message here..."
 			/>
 		</q-card-section>
