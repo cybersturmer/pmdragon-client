@@ -23,6 +23,7 @@
 								<IssueTitleSection v-if="$q.screen.gt.md"
 																	 :issue="formData.issue"/>
 								<q-scroll-area
+									visible
 									ref="scrollArea"
 									class="q-pr-xs"
 									:style="`${middleSectionHeight} ${middleSectionBorder}`">
@@ -31,7 +32,7 @@
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />
 									<IssueDescriptionSection :issue="formData.issue" />
-									<q-separator class="q-mt-md"/>
+									<q-separator class="q-mt-md q-mx-md"/>
 									<!-- Messages section -->
 									<q-card-section class="q-pa-none">
 										<!-- Block with messages -->
