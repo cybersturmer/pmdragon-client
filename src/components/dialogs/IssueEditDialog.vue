@@ -10,7 +10,7 @@
 				:style="mainCardStyles">
 				<q-card-section :horizontal="$q.screen.gt.md" class="q-px-xs q-py-xs">
 							<!-- We show this block only on small screen size (copyLink, more, close) -->
-							<q-card-section v-if="$q.screen.lt.lg" class="column items-end q-pb-none q-pt-sm">
+							<q-card-section v-if="$q.screen.lt.lg" class="column items-end q-pb-none q-pt-xs">
 								<IssueHeader :issue="formData.issue"
 														 class="col"
 														 @hide="hide"
@@ -26,7 +26,7 @@
 									visible
 									ref="scrollArea"
 									class="q-pr-xs"
-									:style="`${middleSectionHeight} ${middleSectionBorder}`">
+									:style="`${middleSectionHeight}`">
 									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
@@ -96,7 +96,8 @@
 									</q-card-section>
 								</q-scroll-area>
 									<!-- New Message Block -->
-								<q-card-section class="q-pa-none">
+								<q-separator class="q-mx-md"/>
+								<q-card-section class="q-pa-none" style="height: 165px">
 									<IssueMessageSection ref="issueMessageSection"
 																			 :issue-id="formNewMessage.issue"
 																			 :editing-message-id="editingMessageId"
@@ -188,8 +189,9 @@ export default {
 			},
 			mask: DATETIME_MASK,
 			packedMessages: [],
+			issueMessageBlockHeight: '165px', // 36px title + 48px header
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
-			middleSectionHeight: 'height: calc(82vh - 11em);'
+			middleSectionHeight: 'height: calc(100vh - 265px);'
 		}
 	},
 	watch: {
