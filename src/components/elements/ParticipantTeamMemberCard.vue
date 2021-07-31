@@ -5,14 +5,16 @@
 			<q-card-section horizontal class="full-width">
 				<!-- Avatar block -->
 				<q-card-section class="col-3 flex flex-center">
-					<q-avatar v-if="person.avatar">
-						<img :src="person.avatar" :alt="person.username">
+					<q-avatar
+						v-if="person.avatar"
+					>
+						<img :src="person.avatar" :alt="person.username" class="q-pa-xs">
 					</q-avatar>
 				</q-card-section>
 				<!-- Name block -->
 				<q-card-section class="col-7 text-center">
 					<span class="block ellipsis">{{ person.first_name }} {{ person.last_name }}</span>
-					<span class="text-subtitle2">@{{ person.username }}</span>
+					<span class="text-subtitle2 ellipsis">@{{ person.username }}</span>
 				</q-card-section>
 				<q-card-actions
 					v-if="!isMe && isOwner"
