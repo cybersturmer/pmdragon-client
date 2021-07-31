@@ -179,6 +179,7 @@ export default {
 
 			this.$nextTick(() => {
 				this.emitInput(html)
+				this.editor.focus()
 			})
 
 			setTimeout(() => {
@@ -205,10 +206,9 @@ export default {
 
 			setTimeout(() => {
 				this.editor.focus()
-				const focusNode = this.editor.caret.selection.focusNode
-				console.dir(focusNode)
+				const focusNode = this.editor.caret.selection.focusNode.lastChild
 				this.setCaret(focusNode)
-			}, 5)
+			}, 10)
 		},
 
 		/** Filtering persons by given text filter **/
