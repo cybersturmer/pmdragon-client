@@ -13,7 +13,7 @@
 				</q-card-section>
 				<!-- Name block -->
 				<q-card-section class="col-7 text-center">
-					<span class="block ellipsis">{{ person.first_name }} {{ person.last_name }}</span>
+					<span class="block ellipsis" :title="title"> {{ title }} </span>
 					<span class="text-subtitle2 ellipsis">@{{ person.username }}</span>
 				</q-card-section>
 				<q-card-actions
@@ -54,6 +54,9 @@ export default {
 		}
 	},
 	computed: {
+		title () {
+			return `${this.person.first_name} ${this.person.last_name}`
+		},
 		isMe () {
 			return this.$store.getters['auth/IS_ME_BY_ID'](this.person.id)
 		},
