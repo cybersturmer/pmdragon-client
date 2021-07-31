@@ -1,4 +1,4 @@
-import { QSpinnerOrbit } from 'quasar'
+import { QSpinnerPuff } from 'quasar'
 import { Dialogs } from './dialogs'
 
 export const loading = {
@@ -75,7 +75,7 @@ export const loading = {
 		showProgress () {
 			this.$q.loading.show({
 				message: this.loadingText,
-				spinner: QSpinnerOrbit
+				spinner: QSpinnerPuff
 			})
 		},
 		hideProgress () {
