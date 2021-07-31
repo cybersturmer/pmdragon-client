@@ -2,6 +2,7 @@
 	<q-card-section class="q-py-sm">
 		<!-- Title editing section -->
 		<q-input
+			dense
 			:value="issue.title"
 			debounce="1000"
 			@input="updateIssueTitle($event)"
