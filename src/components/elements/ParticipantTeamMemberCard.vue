@@ -4,10 +4,11 @@
 		bordered>
 			<q-card-section horizontal class="full-width">
 				<!-- Avatar block -->
-				<q-card-section class="col-3 flex flex-center">
-					<q-avatar
-						v-if="person.avatar"
-					>
+				<q-card-section
+					v-if="person.avatar"
+					avatar
+					class="col-3 flex flex-center">
+					<q-avatar>
 						<img :src="person.avatar" :alt="person.username" class="q-pa-xs">
 					</q-avatar>
 				</q-card-section>
