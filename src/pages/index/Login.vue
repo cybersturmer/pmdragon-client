@@ -8,6 +8,7 @@
                 <UsernameField
                   v-model="formData.username"
                   :error-message="formErrors.username"
+									@enter="login"
                 />
               </div>
               <div class="col">

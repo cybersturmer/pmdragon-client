@@ -2,6 +2,7 @@
   <q-input
     flat
     type="text"
+		@keyup.enter="$emit('enter')"
     @input="handleInput"
     :value="username"
     :error="isError"
