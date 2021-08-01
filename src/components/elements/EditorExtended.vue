@@ -26,7 +26,7 @@
 
 <script>
 import { isEmptyString } from 'src/services/util'
-import EditorMentionPopupMenu from 'src/components/elements/EditorMentionPopupMenu'
+import EditorMentionPopupMenu from 'components/elements/team/EditorMentionPopupMenu'
 import { htmlSnippets } from 'src/pages/mixins/htmlSnippets'
 
 export default {

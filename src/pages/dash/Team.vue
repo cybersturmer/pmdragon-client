@@ -51,8 +51,8 @@
 <script>
 import { loading } from 'src/pages/mixins/loading'
 import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
-import InvitedTeamMemberCard from 'src/components/elements/InvitedTeamMemberCard'
-import ParticipantTeamMemberCard from 'src/components/elements/ParticipantTeamMemberCard'
+import InvitedTeamMemberCard from 'components/elements/team/InvitedTeamMemberCard'
+import ParticipantTeamMemberCard from 'src/components/elements/team/ParticipantTeamMemberCard'
 
 export default {
 	name: 'Team',
