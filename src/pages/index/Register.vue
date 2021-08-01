@@ -16,7 +16,7 @@
               ref="emailField"
               v-model="formData.email"
               :errorMessage="formErrors.email"
-              @keyup.enter="resetFieldErrorMessage('formErrors','email')"
+              @enter="resetFieldErrorMessage('formErrors','email')"
             />
           </div>
         </div>
