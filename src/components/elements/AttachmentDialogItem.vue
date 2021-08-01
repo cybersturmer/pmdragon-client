@@ -2,7 +2,6 @@
 	<q-item
 		clickable
 		v-ripple
-		class="bg-primary"
 		@click="$emit('selected')">
 		<q-item-section avatar>
 			<q-icon :name="attachment.icon"/>

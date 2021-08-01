@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card flat bordered class="q-dialog-plugin bg-secondary overflow-hidden" >
+    <q-card flat bordered class="q-dialog-plugin overflow-hidden" >
       <q-card-section>
         <div class="text-h6 text-center text-uppercase">
           <q-icon
