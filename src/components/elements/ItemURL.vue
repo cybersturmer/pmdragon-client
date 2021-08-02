@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
-import { openInAppBrowser } from 'src/services/platforms'
+import { platformOpenURL } from 'src/services/platforms'
 
 export default {
 	name: 'ItemURL',
@@ -26,16 +25,8 @@ export default {
 	},
 	methods: {
 		open () {
-			if (this.$q.platform.is.ios || this.$q.platform.is.android) {
-				openInAppBrowser(this.url)
-			} else {
-				openURL(this.url)
-			}
+			platformOpenURL(this.url)
 		}
 	}
 }
 </script>
-
-<style scoped>
-
-</style>

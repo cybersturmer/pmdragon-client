@@ -59,8 +59,7 @@
 <script>
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { removeElement, unWatch } from 'src/services/util'
-import { downloadFileOnCordova } from 'src/services/platforms'
-import { openURL } from 'quasar'
+import { platformOpenURL } from 'src/services/platforms'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -72,12 +71,7 @@ export default {
 	},
 	methods: {
 		downloadFile (url, filename = null) {
-			const isMobileApplication = this.$q.platform.is.ios || this.$q.platform.is.android
-			if (!isMobileApplication) {
-				openURL(url)
-			} else {
-				downloadFileOnCordova(url, filename)
-			}
+			platformOpenURL(url)
 		},
 		async uploadFileAttachment (files) {
 			const payloadTemplate = {
