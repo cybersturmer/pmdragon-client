@@ -1,9 +1,9 @@
 import { Platform } from 'quasar'
 
-const ANDROID_DOWNLOAD_LOCATION = 'file:///storage/emulated/0/'
-const IOS_DOWNLOAD_LOCATION = cordova.file.documentsDirectory
+export function downloadFileOnCordova (uri, filename) {
+	const ANDROID_DOWNLOAD_LOCATION = 'file:///storage/emulated/0/'
+	const IOS_DOWNLOAD_LOCATION = cordova.file.documentsDirectory
 
-function downloadFileOnCordova (uri, filename) {
 	let storageLocation = ''
 
 	switch (true) {

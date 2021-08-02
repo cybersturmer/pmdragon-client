@@ -46,7 +46,7 @@
                 :icon="attachment.icon"
                 :label="attachment.title"
                 @remove="deleteFileAttachmentFromIssue(attachment)"
-                @click="downloadFile(attachment.attachment)"
+                @click="downloadFile(attachment.attachment, attachment.title)"
               />
             </div>
           </div>
@@ -59,6 +59,7 @@
 <script>
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { removeElement, unWatch } from 'src/services/util'
+import { downloadFileOnCordova } from 'src/services/platforms'
 import { openURL } from 'quasar'
 
 export default {
@@ -70,8 +71,13 @@ export default {
 		}
 	},
 	methods: {
-		downloadFile (url) {
-			openURL(url)
+		downloadFile (url, filename = null) {
+			const isMobileApplication = this.$q.platform.is.ios || this.$q.platform.is.android
+			if (!isMobileApplication) {
+				openURL(url)
+			} else {
+				downloadFileOnCordova(url, filename)
+			}
 		},
 		async uploadFileAttachment (files) {
 			const payloadTemplate = {
