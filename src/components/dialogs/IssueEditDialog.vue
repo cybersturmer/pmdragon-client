@@ -191,7 +191,7 @@ export default {
 			packedMessages: [],
 			issueMessageBlockHeight: '165px', // 36px title + 48px header
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
-			middleSectionHeight: 'height: calc(100vh - 275px);'
+			middleSectionHeight: 'height: calc(100vh - 280px);'
 		}
 	},
 	watch: {
