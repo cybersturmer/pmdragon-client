@@ -125,7 +125,7 @@
           </q-avatar>
           <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
           <div>
-            <q-badge outline color="grey-6" :label="`@${username}`" />
+            <q-badge outline color="secondary" :label="`@${username}`" />
           </div>
         </div>
       </q-card>
