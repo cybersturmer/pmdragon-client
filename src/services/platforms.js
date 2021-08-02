@@ -1,44 +1,41 @@
 import { Platform } from 'quasar'
 
+export function openInAppBrowser (url) {
+	return cordova.InAppBrowser.open(url, '_system', 'location=yes')
+}
+
+let FileTransfer
+
 export function downloadFileOnCordova (uri, filename) {
-	const ANDROID_DOWNLOAD_LOCATION = 'file:///storage/emulated/0/'
+	const ANDROID_DOWNLOAD_LOCATION = 'file:///storage/emulated/0'
 	const IOS_DOWNLOAD_LOCATION = cordova.file.documentsDirectory
 
 	let storageLocation = ''
+	const download = 'Download'
 
 	switch (true) {
 	case Platform.is.android:
-		storageLocation = ANDROID_DOWNLOAD_LOCATION
+		storageLocation = `${ANDROID_DOWNLOAD_LOCATION}/${download}`
 		break
 	case Platform.is.ios:
 		storageLocation = IOS_DOWNLOAD_LOCATION
 	}
 
-	window.resolveLocalFileSystemURL(storageLocation,
-		function (fileSystem) {
-			fileSystem.getDirectory('Download', {
-				create: true,
-				exclusive: false
-			},
-			function (directory) {
-				directory.getFile(filename, {
-					create: true,
-					exclusive: false
-				},
-				function (fileEntry) {
-					fileEntry.createWriter(function (writer) {
-						writer.onwriteend = function () {
-							console.log('File written to downloads')
-						}
+	const fileTransfer = new FileTransfer()
+	const encodedURI = encodeURI(uri)
 
-						writer.seek(0)
-						writer.write(filename)
-					}, errorCallback)
-				}, errorCallback)
-			}, errorCallback)
-		}, errorCallback)
-}
+	fileTransfer.download(
+		encodedURI,
+		`${storageLocation}/${filename}`,
+		(entry) => {
+			console.log('download complete')
+		},
+		(error) => {
+			console.log('download error source ' + error.source)
+			console.log('download error target ' + error.target)
+			console.log('upload error code' + error.code)
+		}
+	)
 
-function errorCallback (e) {
-	console.log('Error: ' + e)
+	console.log(storageLocation)
 }
