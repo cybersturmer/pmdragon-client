@@ -121,7 +121,7 @@
               :title="connectedText"
               class="connection-state">
             </q-badge>
-            <img :src="avatarUrl">
+            <img :src="avatarUrl" :alt="`${firstName} ${lastName}`">
           </q-avatar>
           <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
           <div>
