@@ -51,7 +51,7 @@ export default {
 	data () {
 		return {
 			isMentioningPopupVisible: true,
-			mentionMaxResults: 2,
+			mentionMaxResults: 1,
 			mentionFilter: ''
 		}
 	},
