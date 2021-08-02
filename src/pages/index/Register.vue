@@ -4,21 +4,27 @@
     <q-card flat bordered style="width: 320px">
       <q-card-section class="q-pa-md">
         <div class="column">
-          <div class="col">
-            <PrefixUrlField
-              ref="prefixUrlField"
-              v-model="formData.prefix_url"
-              :errorMessage="formErrors.prefix_url"
-            />
-          </div>
-          <div class="col">
-            <EmailField
-              ref="emailField"
-              v-model="formData.email"
-              :errorMessage="formErrors.email"
-              @enter="register"
-            />
-          </div>
+					<form
+						autocorrect="off"
+						autocapitalize="off"
+						autocomplete="off"
+						spellcheck="false">
+						<div class="col">
+							<PrefixUrlField
+								ref="prefixUrlField"
+								v-model="formData.prefix_url"
+								:errorMessage="formErrors.prefix_url"
+							/>
+						</div>
+						<div class="col">
+							<EmailField
+								ref="emailField"
+								v-model="formData.email"
+								:errorMessage="formErrors.email"
+								@enter="register"
+							/>
+						</div>
+					</form>
         </div>
         </q-card-section>
         <q-card-section class="q-pt-none">

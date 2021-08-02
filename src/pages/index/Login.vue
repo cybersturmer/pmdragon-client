@@ -4,21 +4,27 @@
         <q-card flat bordered style="width: 320px">
           <q-card-section class="q-pa-md">
             <div class="column">
-              <div class="col">
-                <UsernameField
-                  v-model="formData.username"
-                  :error-message="formErrors.username"
-									@enter="login"
-                />
-              </div>
-              <div class="col">
-                <PasswordField
-									can-be-reset
-                  v-model="formData.password"
-                  :error-message="formErrors.password"
-                  @enter="login"
-                />
-              </div>
+							<form
+								autocorrect="off"
+								autocapitalize="off"
+								autocomplete="off"
+								spellcheck="false">
+								<div class="col">
+									<UsernameField
+										v-model="formData.username"
+										:error-message="formErrors.username"
+										@enter="login"
+									/>
+								</div>
+								<div class="col">
+									<PasswordField
+										can-be-reset
+										v-model="formData.password"
+										:error-message="formErrors.password"
+										@enter="login"
+									/>
+								</div>
+							</form>
             </div>
           </q-card-section>
           <q-card-section class="q-pt-none">
