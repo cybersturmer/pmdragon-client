@@ -13,27 +13,9 @@
 					GitHub
 				</div>
 				<q-list bordered separator>
-					<q-item clickable v-ripple>
-						<q-item-section>
-							<a href="https://github.com/cybersturmer/pmdragon" class="q-btn q-btn--flat">
-								Main repository
-							</a>
-						</q-item-section>
-					</q-item>
-					<q-item clickable v-ripple>
-						<q-item-section>
-							<a href="https://github.com/cybersturmer/pmdragon-core-api" class="q-btn q-btn--flat">
-								API repository
-							</a>
-						</q-item-section>
-					</q-item>
-					<q-item clickable v-ripple>
-						<q-item-section>
-							<a href="https://github.com/cybersturmer/pmdragon-client" class="q-btn q-btn--flat">
-								Client repository
-							</a>
-						</q-item-section>
-					</q-item>
+					<ItemURL url="https://github.com/cybersturmer/pmdragon" label="Main repository"/>
+					<ItemURL url="https://github.com/cybersturmer/pmdragon-core-api" label="API repository"/>
+					<ItemURL url="https://github.com/cybersturmer/pmdragon-client" label="Client repository"/>
 				</q-list>
 			</q-card-actions>
 			<q-card-section class="q-py-xs">
@@ -57,8 +39,11 @@
 
 <script>
 
+import ItemURL from 'src/components/elements/ItemURL'
+
 export default {
 	name: 'AboutDialog',
+	components: { ItemURL },
 	emits: [
 		'hide'
 	],
