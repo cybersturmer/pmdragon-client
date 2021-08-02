@@ -44,8 +44,8 @@
               v-if="$q.screen.gt.md && assignee.username"
               square
               size="sm"
-              color="secondary">
-              <span class="overflow-dotted">
+              color="info">
+              <span class="ellipsis">
                 @{{ assignee.username }}
               </span>
             </q-chip>
@@ -58,7 +58,7 @@
               square
               size="sm"
               :label="estimationTitle"
-              color="primary"/>
+              color="info"/>
           </div>
         </q-card-section>
       </q-card-section>
@@ -146,11 +146,5 @@ export default {
 
 .handle {
   cursor: move;
-}
-
-.overflow-dotted {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 </style>
