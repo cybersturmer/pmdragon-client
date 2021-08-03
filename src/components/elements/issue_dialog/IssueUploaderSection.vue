@@ -59,7 +59,7 @@
 <script>
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { removeElement, unWatch } from 'src/services/util'
-import { platformOpenURL } from 'src/services/platforms'
+import {downloadURL, platformOpenURL} from 'src/services/platforms'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -71,7 +71,11 @@ export default {
 	},
 	methods: {
 		downloadFile (url, filename = null) {
-			platformOpenURL(url)
+			if (this.$q.platform.is.ios || this.$q.platform.is.android) {
+				downloadURL(url, filename)
+			} else {
+				platformOpenURL(url)
+			}
 		},
 		async uploadFileAttachment (files) {
 			const payloadTemplate = {
