@@ -37,9 +37,11 @@ function _getResponseErrorMessage (error) {
 		}
 	}
 
+	const baseURL = new URL(error.config.baseURL)
+
 	if (error.response && error.response.statusText) return error.response.statusText
 	return error.message === 'Network Error'
-		? 'Network error. Check your HOST settings'
+		? `Network error. Check that ${baseURL.protocol}//${baseURL.host} is available.`
 		: error.message
 }
 
