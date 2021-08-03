@@ -59,7 +59,7 @@
 <script>
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { removeElement, unWatch } from 'src/services/util'
-import {downloadURL, platformOpenURL} from 'src/services/platforms'
+import { downloadURL, platformOpenURL } from 'src/services/platforms'
 
 export default {
 	name: 'IssueUploaderSection',
