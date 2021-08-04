@@ -54,7 +54,7 @@
   "engines": {
     "node": "14.17.4",
     "npm": "7.16.0",
-    "yarn": "1.22.10"
+    "yarn": "1.22.11"
   },
   "browserslist": [
     "last 10 Chrome versions",
