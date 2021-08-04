@@ -46,7 +46,7 @@
                 :icon="attachment.icon"
                 :label="attachment.title"
                 @remove="deleteFileAttachmentFromIssue(attachment)"
-                @click="downloadFile(attachment.attachment, attachment.title)"
+                @click="downloadOrOpenFile(attachment.attachment, attachment.title)"
               />
             </div>
           </div>
@@ -60,6 +60,8 @@
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { removeElement, unWatch } from 'src/services/util'
 import { platformOpenURL } from 'src/services/platforms'
+import { downloadFile } from 'src/services/cordova/download'
+import axios from 'axios'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -70,8 +72,24 @@ export default {
 		}
 	},
 	methods: {
-		downloadFile (url, filename = null) {
-			platformOpenURL(url)
+		downloadOrOpenFile (url, filename = null) {
+			// @todo refactor to one root point axios
+			if (this.$q.platform.is.android || this.$q.platform.is.ios) {
+				try {
+					const response = axios({
+						url: url,
+						method: 'GET',
+						responseType: 'blob'
+					})
+
+					const blobFile = new Blob([response.data])
+					downloadFile(blobFile, filename)
+				} catch (e) {
+					console.log(e)
+				}
+			} else {
+				platformOpenURL(url)
+			}
 		},
 		async uploadFileAttachment (files) {
 			const payloadTemplate = {
