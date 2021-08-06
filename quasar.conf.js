@@ -11,10 +11,14 @@ const fs = require('fs')
 const { configure } = require('quasar/wrappers')
 
 const DEBUG = process.env.NODE_ENV === 'development'
+const HEROKU = process.env.HEROKU
+const IS_ANDROID = process.argv[3] === 'android'
+const IS_HTTPS = !HEROKU && !IS_ANDROID
+const IS_SELF_SIGNED_HTTPS = DEBUG && !IS_ANDROID
 
 module.exports = configure(function (/* ctx */) {
 	return {
-		https: !process.env.HEROKU,
+		https: IS_HTTPS,
 		supportTS: false,
 
 		// https://quasar.dev/quasar-cli/cli-documentation/prefetch-feature
@@ -79,7 +83,7 @@ module.exports = configure(function (/* ctx */) {
 		// I created folder ssl with 2 certificates by this tool https://github.com/FiloSottile/mkcert
 		// Of course i didn't commit that :) So create it by yourself or set https: false
 		devServer: {
-			https: DEBUG ? {
+			https: IS_SELF_SIGNED_HTTPS ? {
 				key: fs.readFileSync('ssl/localhost+2-key.pem'),
 				cert: fs.readFileSync('ssl/localhost+2.pem')
 			} : false,

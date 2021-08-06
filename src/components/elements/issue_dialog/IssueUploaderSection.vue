@@ -72,18 +72,20 @@ export default {
 		}
 	},
 	methods: {
-		downloadOrOpenFile (url, filename = null) {
+		async downloadOrOpenFile (url, filename = null) {
 			// @todo refactor to one root point axios
 			if (this.$q.platform.is.android || this.$q.platform.is.ios) {
 				try {
-					const response = axios({
+					const response = await axios({
 						url: url,
 						method: 'GET',
 						responseType: 'blob'
 					})
 
 					const blobFile = new Blob([response.data])
-					downloadFile(blobFile, filename)
+					const workspace = this.$store.getters['current/WORKSPACE'].toLowerCase()
+
+					downloadFile(blobFile, workspace, filename)
 				} catch (e) {
 					console.log(e)
 				}

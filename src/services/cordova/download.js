@@ -4,8 +4,8 @@ function generalErrorCallback (e) {
 	console.log(e)
 }
 
-export function downloadFile (blobFile, filename) {
-	const ANDROID_DOWNLOAD_LOCATION = 'file:///storage/emulated/0'
+export function downloadFile (blobFile, workspace, filename) {
+	const ANDROID_DOWNLOAD_LOCATION = cordova.file.externalDataDirectory
 	const IOS_DOWNLOAD_LOCATION = cordova.file.documentsDirectory
 
 	if (!(Platform.is.android || Platform.is.ios)) {
@@ -15,7 +15,7 @@ export function downloadFile (blobFile, filename) {
 	const storageLocation = Platform.is.android ? ANDROID_DOWNLOAD_LOCATION : IOS_DOWNLOAD_LOCATION
 
 	window.resolveLocalFileSystemURL(storageLocation, (fileSystem) => {
-		fileSystem.getDirectory('Download', {
+		fileSystem.getDirectory(workspace, {
 			create: true,
 			exclusive: false
 		}, (directory) => {
@@ -24,7 +24,9 @@ export function downloadFile (blobFile, filename) {
 				exclusive: false
 			}, (fileEntry) => {
 				fileEntry.createWriter((writer) => {
-					writer.onwriteend = () => { console.log('File written to downloads') }
+					writer.onwriteend = (data) => {
+						console.log(`File ${filename} written to downloads.`)
+					}
 					writer.seek(0)
 					writer.write(blobFile)
 				}, generalErrorCallback)
