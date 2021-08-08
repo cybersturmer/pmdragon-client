@@ -57,11 +57,12 @@
 </template>
 
 <script>
-import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
-import { grantPermission } from 'src/services/cordova/permissions'
-import { removeElement, unWatch } from 'src/services/util'
+import axios from 'axios'
 import { platformOpenURL } from 'src/services/platforms'
+import { removeElement, unWatch } from 'src/services/util'
 import { downloadFile } from 'src/services/cordova/download'
+import { grantPermission } from 'src/services/cordova/permissions'
+import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -75,19 +76,19 @@ export default {
 		async downloadOrOpenFile (url, filename = null) {
 			if (this.$q.platform.is.android || this.$q.platform.is.ios) {
 				try {
-					const response = await this.$axios({
+					const response = await axios({
 						url: url,
 						method: 'GET',
 						responseType: 'blob'
 					})
 
 					const blobFile = new Blob([response.data])
-					const positiveCallbackOptions = {
-						blobFile: blobFile,
-						filename: filename
-					}
+					const positiveCallbackOptions = [
+						blobFile,
+						filename
+					]
 
-					grantPermission('storage', downloadFile, ...positiveCallbackOptions)
+					grantPermission('storage', downloadFile, positiveCallbackOptions)
 				} catch (e) {
 					console.log(e)
 				}

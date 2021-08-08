@@ -18,6 +18,8 @@ export function grantPermission (
 	positiveCallback,
 	positiveCallbackOptions
 ) {
+	console.dir(positiveCallbackOptions)
+
 	const permission = definePermission(permissionChoice)
 
 	permissions.checkPermission(
