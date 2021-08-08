@@ -4,8 +4,8 @@ function generalErrorCallback (e) {
 	console.log(e)
 }
 
-export function downloadFile (blobFile, workspace, filename) {
-	const ANDROID_DOWNLOAD_LOCATION = cordova.file.externalDataDirectory
+export function downloadFile (blobFile, filename) {
+	const ANDROID_DOWNLOAD_LOCATION = cordova.file.externalRootDirectory
 	const IOS_DOWNLOAD_LOCATION = cordova.file.documentsDirectory
 
 	if (!(Platform.is.android || Platform.is.ios)) {
@@ -15,7 +15,7 @@ export function downloadFile (blobFile, workspace, filename) {
 	const storageLocation = Platform.is.android ? ANDROID_DOWNLOAD_LOCATION : IOS_DOWNLOAD_LOCATION
 
 	window.resolveLocalFileSystemURL(storageLocation, (fileSystem) => {
-		fileSystem.getDirectory(workspace, {
+		fileSystem.getDirectory('download', {
 			create: true,
 			exclusive: false
 		}, (directory) => {

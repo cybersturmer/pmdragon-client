@@ -58,6 +58,7 @@
 
 <script>
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
+import { grantPermission } from 'src/services/cordova/permissions'
 import { removeElement, unWatch } from 'src/services/util'
 import { platformOpenURL } from 'src/services/platforms'
 import { downloadFile } from 'src/services/cordova/download'
@@ -81,9 +82,12 @@ export default {
 					})
 
 					const blobFile = new Blob([response.data])
-					const workspace = this.$store.getters['current/WORKSPACE'].toLowerCase()
+					const positiveCallbackOptions = {
+						blobFile: blobFile,
+						filename: filename
+					}
 
-					downloadFile(blobFile, workspace, filename)
+					grantPermission('storage', downloadFile, ...positiveCallbackOptions)
 				} catch (e) {
 					console.log(e)
 				}
