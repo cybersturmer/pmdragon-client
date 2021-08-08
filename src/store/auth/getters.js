@@ -180,8 +180,8 @@ export function INVITED (state) {
 /** Project getters **/
 export function PROJECT_DATA (state, getters, rootState, rootGetters) {
 	try {
-		return getters.WORKSPACE_DATA.projects.find(
-			project => project.id === rootGetters['current/PROJECT'])
+		const workspace = state.workspaces.find(workspace => workspace.prefix_url === rootGetters['current/WORKSPACE'])
+		return workspace.projects.find(project => project.id === rootGetters['current/PROJECT'])
 	} catch (e) {
 		return null
 	}
