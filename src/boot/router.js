@@ -5,16 +5,21 @@ export default boot(({ router, store }) => {
 	const isWorkspaceDefined = store.getters['current/IS_SPACE_DEFINED']
 
 	router.beforeEach((to, from, next) => {
+		// Is this route require authentication, should be defined in routes meta
 		const isRouteRequireAuth = to.matched.some(item => item.meta.requiredAuth)
+
+		// If this route need to have workspace defined
 		const isWorkspaceRequired = to.matched.some(item => item.meta.requireSpace)
 
 		// If User is logged in or page does not require auth
 		const justLetUserGoAhead = (isLoggedIn || !isRouteRequireAuth) &&
 			(isWorkspaceDefined || !isWorkspaceRequired)
 
+		// Oh, we need workspace before continue
 		const askUserToSelectWorkspace = !isWorkspaceDefined &&
 			isWorkspaceRequired
 
+		// Oh, we need user to login before continue
 		const askAnonymousToLogIn = !isLoggedIn &&
 			isRouteRequireAuth
 
