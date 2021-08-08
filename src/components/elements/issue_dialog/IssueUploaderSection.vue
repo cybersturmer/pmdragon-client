@@ -61,7 +61,6 @@ import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialo
 import { removeElement, unWatch } from 'src/services/util'
 import { platformOpenURL } from 'src/services/platforms'
 import { downloadFile } from 'src/services/cordova/download'
-import axios from 'axios'
 
 export default {
 	name: 'IssueUploaderSection',
@@ -73,10 +72,9 @@ export default {
 	},
 	methods: {
 		async downloadOrOpenFile (url, filename = null) {
-			// @todo refactor to one root point axios
 			if (this.$q.platform.is.android || this.$q.platform.is.ios) {
 				try {
-					const response = await axios({
+					const response = await this.$axios({
 						url: url,
 						method: 'GET',
 						responseType: 'blob'
