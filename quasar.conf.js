@@ -29,7 +29,9 @@ module.exports = configure(function (/* ctx */) {
 		// https://quasar.dev/quasar-cli/cli-documentation/boot-files
 		boot: [
 			'i18n',
-			'router'
+			'router',
+			'meta',
+			'server'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
