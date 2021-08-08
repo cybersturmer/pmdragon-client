@@ -64,7 +64,7 @@ export const loading = {
 					}
 
 					// If workspace is not defined, then we redirect him/her on the Workspace selection page
-					if (!this.$store.getters['current/IS_WORKSPACE']) {
+					if (!this.$store.getters['current/IS_SPACE_DEFINED']) {
 						this.$router.push({ name: 'workspaces' })
 					}
 				})
