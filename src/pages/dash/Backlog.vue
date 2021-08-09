@@ -143,7 +143,6 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { unWatch } from 'src/services/util'
@@ -155,6 +154,7 @@ import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
 import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 import { loading } from 'src/pages/mixins/loading'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'BacklogView',
@@ -172,7 +172,7 @@ export default {
 	},
 	mixins: [
 		Dialogs,
-		updateSprintMixin,
+		CoreActionsMixin,
 		editIssueData,
 		loading
 	],
@@ -268,7 +268,7 @@ export default {
 			this.formData.project = this.$store.getters['current/PROJECT']
 
 			this.showProgress()
-			this.$store.dispatch('core/ADD_ISSUE_TO_BACKLOG', this.formData)
+			this.addIssueToBacklog(this.formData)
 				.then(() => {
 					this.formData.title = ''
 				})
@@ -290,7 +290,7 @@ export default {
 			})
 				.onOk((data) => {
 					this.showProgress()
-					this.$store.dispatch('core/EDIT_SPRINT', data)
+					this.editSprint(data)
 						.catch((e) => this.showError(e))
 						.finally(() => this.hideProgress())
 				})
@@ -305,7 +305,7 @@ export default {
 			this.showOkCancelDialog(...dialog)
 				.onOk(() => {
 					this.showProgress()
-					this.$store.dispatch('core/DELETE_SPRINT', item.id)
+					this.deleteSprint(item.id)
 						.finally(() => this.hideProgress())
 				})
 		},
@@ -343,7 +343,7 @@ export default {
 			const handled = this.handleCommonMoved(currentSprintIssues, event)
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
+			this.updateIssuesOrdering(handled.ordering)
 				.then(() => {
 					const payload = {
 						id: sprintId,
@@ -360,7 +360,7 @@ export default {
 			const handled = this.handleCommonMoved(currentBacklogIssues, event)
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
+			this.updateIssuesOrdering(handled.ordering)
 				.then(() => {
 					this.$store.commit('core/UPDATE_BACKLOG_ISSUES', {
 						id: backlogId,
@@ -424,8 +424,8 @@ export default {
 			}
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIdsList)
-				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+			this.updateIssuesInSprint(compositeSprintIdsList)
+				.then(() => this.updateIssuesOrdering(handled.ordering))
 				.finally(() => this.hideProgress())
 		},
 		handleBacklogIssueAdded (event, backlogId) {
@@ -439,8 +439,8 @@ export default {
 			}
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIdsList)
-				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+			this.updateIssuesInBacklog(compositeBacklogIdsList)
+				.then(() => this.updateIssuesOrdering(handled.ordering))
 				.finally(() => this.hideProgress())
 		},
 		handleCommonRemoved (issuesList, event) {
@@ -471,8 +471,8 @@ export default {
 			}
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_IN_SPRINT', compositeSprintIds)
-				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+			this.updateIssuesInSprint(compositeSprintIds)
+				.then(() => this.updateIssuesOrdering(handled.ordering))
 				.finally(() => this.hideProgress())
 		},
 		handleBacklogIssueRemoved (event, backlogId) {
@@ -486,8 +486,8 @@ export default {
 			}
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_IN_BACKLOG', compositeBacklogIds)
-				.then(() => this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering))
+			this.updateIssuesInBacklog(compositeBacklogIds)
+				.then(() => this.updateIssuesOrdering(handled.ordering))
 				.finally(() => this.hideProgress())
 		},
 		handleDraggableEvent (event, dragType, dragId) {
@@ -558,7 +558,7 @@ export default {
 			}
 
 			this.showProgress()
-			this.$store.dispatch('core/ADD_SPRINT_TO_PROJECT', payload)
+			this.addSprintToProject(payload)
 				.finally(() => this.hideProgress())
 		}
 	}

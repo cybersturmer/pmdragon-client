@@ -9,8 +9,13 @@
 </template>
 
 <script>
+import { CoreActionsMixin } from 'src/services/actions/core'
+
 export default {
 	name: 'StartCompleteSprintButton',
+	mixins: [
+		CoreActionsMixin
+	],
 	emits: [
 		'dialog'
 	],
@@ -46,10 +51,7 @@ export default {
 				})
 					.onOk(r => this.$emit('dialog'))
 			} else {
-				this.$store.dispatch('core/START_SPRINT', sprintId)
-					.catch((e) => {
-						console.log(e)
-					})
+				this.startSprint(sprintId)
 			}
 		},
 		completeSprint (sprintId) {
@@ -70,10 +72,7 @@ export default {
 				}
 			})
 				.onOk(() => {
-					this.$store.dispatch('core/COMPLETE_SPRINT', sprintId)
-						.catch((e) => {
-							console.log(e)
-						})
+					this.completeSprint(sprintId)
 				})
 		},
 		recognizeAction () {

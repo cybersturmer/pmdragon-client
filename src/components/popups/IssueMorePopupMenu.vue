@@ -15,13 +15,17 @@
 
 <script>
 import { Dialogs } from 'pages/mixins/dialogs'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'IssueMorePopupMenu',
 	emits: [
 		'remove'
 	],
-	mixins: [Dialogs],
+	mixins: [
+		Dialogs,
+		CoreActionsMixin
+	],
 	props: {
 		issue: {
 			type: Object,
@@ -40,7 +44,7 @@ export default {
 			this.showOkCancelDialog(...dialog)
 				.onOk(() => {
 					try {
-						this.$store.dispatch('core/DELETE_ISSUE', this.issue)
+						this.deleteIssue(this.issue)
 						if (this.$route.name === 'issue') {
 							this.$router.push({ name: 'backlog' })
 						}

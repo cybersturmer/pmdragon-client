@@ -35,9 +35,13 @@
 import EditorSaveButton from 'src/components/buttons/EditorSaveButton'
 import EditorCancelButton from 'src/components/buttons/EditorCancelButton'
 import EditorExtended from 'components/elements/EditorExtended'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'IssueDescriptionSection',
+	mixins: [
+		CoreActionsMixin
+	],
 	emits: [
 		'update_description'
 	],
@@ -86,7 +90,7 @@ export default {
 				description: this.issue.description
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.isDescriptionReadOnly = true
 
 			this.$emit('update_description', payload)

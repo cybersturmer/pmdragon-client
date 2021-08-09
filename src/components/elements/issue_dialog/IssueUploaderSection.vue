@@ -63,9 +63,13 @@ import { removeElement, unWatch } from 'src/services/util'
 import { downloadFile } from 'src/services/cordova/download'
 import { grantPermission } from 'src/services/cordova/permissions'
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'IssueUploaderSection',
+	mixins: [
+		CoreActionsMixin
+	],
 	props: {
 	  issue: {
 	    type: Object,
@@ -97,30 +101,8 @@ export default {
 			}
 		},
 		async uploadFileAttachment (files) {
-			const payloadTemplate = {
-				workspace: this.$store.getters['auth/WORKSPACE_ID'],
-				project: this.$store.getters['current/PROJECT'],
-				title: '',
-				issue: this.issue.id
-			}
-
-			for (const file of files) {
-				payloadTemplate.title = file.name
-
-				const payload = {
-					file: file,
-					data: payloadTemplate
-				}
-
-				try {
-					await this.$store.dispatch('core/ADD_ATTACHMENT', payload)
-				} catch (e) {
-					return Promise.reject('One of file was not uploaded')
-				}
-			}
-
-			this.$nextTick(this.$refs.uploader.removeQueuedFiles)
-			return Promise.resolve('Successfully uploaded')
+			this.addAttachments(files)
+				.then(() => this.$nextTick(this.$refs.uploader.removeQueuedFiles))
 		},
 		async linkFileAttachment (attachment) {
 			const issueId = this.issue.id
@@ -133,7 +115,7 @@ export default {
 				attachments: attachments
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 		},
 		async showSelectAttachmentDialog () {
 			this.$q.dialog({
@@ -158,7 +140,7 @@ export default {
 				attachments: patchedAttachments
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 		}
 	},
 	computed: {

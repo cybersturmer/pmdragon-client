@@ -29,27 +29,27 @@ export function ACTIVATE (state) {
 	LocalStorage.set('core.enabled', true)
 }
 
-export function INIT_BACKLOGS (state, payload) {
+export function UPDATE_BACKLOGS (state, payload) {
 	state.backlogs = payload
 	LocalStorage.set('core.backlogs', payload)
 }
 
-export function INIT_SPRINTS (state, payload) {
+export function UPDATE_SPRINTS (state, payload) {
 	state.sprints = payload
 	LocalStorage.set('core.sprints', payload)
 }
 
-export function INIT_ISSUES (state, payload) {
+export function UPDATE_ISSUES (state, payload) {
 	state.issues = payload
 	LocalStorage.set('core.issues', payload)
 }
 
-export function INIT_ATTACHMENTS (state, payload) {
+export function UPDATE_ATTACHMENTS (state, payload) {
 	state.issue_attachments = payload
 	LocalStorage.set('core.issue_attachments', payload)
 }
 
-export function INIT_SPRINT_DURATIONS (state, payload) {
+export function UPDATE_SPRINT_DURATIONS (state, payload) {
 	state.sprint_durations = payload
 	LocalStorage.set('core.sprint_durations', payload)
 }

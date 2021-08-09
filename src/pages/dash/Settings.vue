@@ -508,6 +508,7 @@ import { loading } from 'src/pages/mixins/loading'
 import { debounce } from 'quasar'
 import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 import { isEmptyString } from 'src/services/util'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'SettingsView',
@@ -517,6 +518,7 @@ export default {
 	},
 	mixins: [
 		Dialogs,
+		CoreActionsMixin,
 		loading
 	],
 	data () {
@@ -805,7 +807,7 @@ export default {
 			payload[attribute] = attribute === 'icon' ? value.id : value
 
 			try {
-				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_CATEGORY', payload)
+				await this.updateIssueTypeCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -825,7 +827,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/ADD_ISSUE_TYPE_CATEGORY', payload)
+				await this.addIssueTypeCategory(payload)
 				this.newIssueTypeFormData.title = ''
 			} catch (e) {
 				this.showError(e)
@@ -841,7 +843,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_CATEGORY', payload)
+				await this.deleteIssueTypeCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -864,7 +866,7 @@ export default {
 			payload[attribute] = value
 
 			try {
-				await this.$store.dispatch('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', payload)
+				await this.updateIssueTypeIconCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -883,7 +885,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/ADD_ISSUE_TYPE_ICON_CATEGORY', payload)
+				await this.addIssueTypeIconCategory(payload)
 				this.newIssueTypeIconFormData.prefix = ''
 			} catch (e) {
 				this.showError(e)
@@ -898,7 +900,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/DELETE_ISSUE_TYPE_ICON_CATEGORY', payload)
+				await this.deleteIssueTypeIconCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -916,7 +918,7 @@ export default {
 			payload[attribute] = value
 
 			try {
-				await this.$store.dispatch('core/UPDATE_ISSUE_STATE_CATEGORY', payload)
+				await this.updateIssueStateCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -933,7 +935,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/ADD_ISSUE_STATE_CATEGORY', payload)
+				await this.addIssueStateCategory(payload)
 				this.newIssueStateFormData.title = ''
 			} catch (e) {
 				this.showError(e)
@@ -948,7 +950,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/DELETE_ISSUE_STATE_CATEGORY', payload)
+				await this.deleteIssueStateCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -966,7 +968,7 @@ export default {
 			payload[attribute] = value
 
 			try {
-				await this.$store.dispatch('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', payload)
+				await this.updateIssueEstimationCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -985,7 +987,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/ADD_ISSUE_ESTIMATION_CATEGORY', payload)
+				await this.addIssueEstimationCategory(payload)
 				this.newIssueEstimationFormData.title = ''
 			} catch (e) {
 				this.showError(e)
@@ -1000,7 +1002,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('core/DELETE_ISSUE_ESTIMATION_CATEGORY', payload)
+				await this.deleteIssueEstimationCategory(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {

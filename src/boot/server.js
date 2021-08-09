@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from 'axios'
 import { boot } from 'quasar/wrappers'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
@@ -44,23 +45,19 @@ class Http {
 
 	expect (expectedStatus) {
 		this.expectedStatus = expectedStatus
-		return this
+		return this.instance
 	}
 
 	auth (authRequired) {
 		this.authRequired = authRequired
 
 		if (this.authRequired) {
-			this.axiosOptions.headers = {
+			this.instance.defaults.headers = {
 				Authorization: this.generateAuthHeader()
 			}
 		}
 
 		return this
-	}
-
-	do () {
-		return this.instance
 	}
 
 	validateStatus (status) {
@@ -75,6 +72,8 @@ class Http {
 }
 
 export default boot(({ app, store }) => {
-	app.$axios = axios
-	app.$http = new Http(store)
+	Vue.prototype.$axios = axios
+	Vue.prototype.$http = new Http(store)
 })
+
+export { axios, Http }

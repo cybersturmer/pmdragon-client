@@ -102,11 +102,11 @@ import draggable from 'vuedraggable'
 import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
 
 import { editIssueData } from 'src/pages/mixins/editIssueData'
-import { updateSprintMixin } from 'src/pages/mixins/updateSprint'
 
 import IssueBoard from 'src/components/elements/IssueBoard'
 import { loading } from 'src/pages/mixins/loading'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'BoardView',
@@ -122,7 +122,7 @@ export default {
 		draggable
 	},
 	mixins: [
-		updateSprintMixin,
+		CoreActionsMixin,
 		editIssueData,
 		loading
 	],
@@ -192,7 +192,7 @@ export default {
 			updatedElement.state_category = issueStateId
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUE_STATE', updatedElement)
+			this.updateIssueState(updatedElement)
 				.finally(() => this.hideProgress())
 		},
 		handleCommonMoved (issuesList, event) {
@@ -222,7 +222,7 @@ export default {
 			const handled = this.handleCommonMoved(issuesList, event)
 
 			this.showProgress()
-			this.$store.dispatch('core/UPDATE_ISSUES_ORDERING', handled.ordering)
+			this.updateIssuesOrdering(handled.ordering)
 				.finally(() => this.hideProgress())
 		},
 		handleIssueStateChanging (event, issueStateId) {
@@ -256,7 +256,7 @@ export default {
 			})
 				.onOk((data) => {
 					this.showProgress()
-					this.$store.dispatch('core/EDIT_SPRINT', data)
+					this.editSprint(data)
 						.finally(() => this.hideProgress())
 				})
 		}

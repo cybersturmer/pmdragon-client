@@ -49,9 +49,13 @@
 
 <script>
 import { unWatch } from 'src/services/util'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'IssueManageSection',
+	mixins: [
+		CoreActionsMixin
+	],
 	emits: [
 		'update_state',
 		'update_type',
@@ -76,7 +80,7 @@ export default {
 				state_category: state.id
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.$emit('update_state', payload)
 		},
 		async updateIssueType (state) {
@@ -87,7 +91,7 @@ export default {
 				type_category: state.id
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.$emit('update_type', payload)
 		},
 		async updateIssueAssignee (assignee) {
@@ -98,7 +102,7 @@ export default {
 				assignee: assignee.id
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.$emit('update_assignee', payload)
 		},
 		async updateIssueEstimation (estimation) {
@@ -107,7 +111,7 @@ export default {
 				estimation_category: estimation.id
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.$emit('update_estimation', payload)
 		}
 	},

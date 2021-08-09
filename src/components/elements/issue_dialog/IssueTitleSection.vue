@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import { CoreActionsMixin } from 'src/services/actions/core'
+
 export default {
 	name: 'IssueTitleSection',
+	mixins: [
+		CoreActionsMixin
+	],
 	emits: [
 		'update_title'
 	],
@@ -43,7 +48,7 @@ export default {
 				title: title
 			}
 
-			await this.$store.dispatch('core/PATCH_ISSUE', payload)
+			await this.patchIssue(payload)
 			this.$emit('update_title', payload)
 		}
 	},
