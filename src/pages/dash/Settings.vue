@@ -740,10 +740,7 @@ export default {
 		this.updateIssueTypeIcon = debounce(this.updateIssueTypeIcon, this.debounceDefault)
 	},
 	mounted () {
-		this.$store.dispatch('core/INIT_SPRINT_DURATIONS')
-			.catch((e) => {
-				console.log(e)
-			})
+		this.getSprintDurations()
 	},
 	methods: {
 		inputIconPickerFilter (value) {

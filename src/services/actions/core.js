@@ -228,7 +228,7 @@ export const CoreActionsMixin = {
 				const response =
 					await this.$http
 						.auth(true)
-						.expect(200)
+						.expect(204)
 						.delete(
 							`/core/issue-types/${payload.id}/`
 						)
@@ -355,7 +355,7 @@ export const CoreActionsMixin = {
 						.auth(true)
 						.expect(204)
 						.delete(
-							`/core/issue-state/${payload.id}/`
+							`/core/issue-states/${payload.id}/`
 						)
 
 				this.$store.commit('core/DELETE_ISSUE_STATE_CATEGORY', payload)
