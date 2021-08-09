@@ -1,10 +1,10 @@
-export const permissions = cordova.plugins.permissions
-
 const errorCallback = (permission) => {
 	console.warn(`Permission ${permission} is not turned on`)
 }
 
 const definePermission = (permission) => {
+	const permissions = cordova.plugins.permissions
+
 	switch (permission) {
 	case 'storage':
 		return permissions.READ_EXTERNAL_STORAGE
@@ -18,8 +18,7 @@ export function grantPermission (
 	positiveCallback,
 	positiveCallbackOptions
 ) {
-	console.dir(positiveCallbackOptions)
-
+	const permissions = cordova.plugins.permissions
 	const permission = definePermission(permissionChoice)
 
 	permissions.checkPermission(
