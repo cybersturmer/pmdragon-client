@@ -172,7 +172,7 @@ export default {
 				return 'Will start...'
 			case this.daysRemaining > 0:
 				return `${this.daysRemaining} days${this.$q.screen.gt.md ? ' remaining' : ''}`
-			case this.daysRemaining < 0:
+			case this.daysRemaining <= 0:
 				return `0 days${this.$q.screen.gt.md ? ' remaining' : ''}`
 			default:
 				throw new Error('Unexpected days remaining value')
