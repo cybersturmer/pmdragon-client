@@ -139,6 +139,7 @@ import IssueChatMobileMessage from 'src/components/elements/issue_dialog/IssueCh
 import IssueChatDesktopMessage from 'src/components/elements/issue_dialog/IssueChatDesktopMessage'
 import IssueDescriptionSection from 'src/components/elements/issue_dialog/IssueDescriptionSection'
 import IssueCreateUpdateSection from 'src/components/elements/issue_dialog/IssueCreateUpdateSection'
+import { CurrentActionsMixin } from 'src/services/actions/current'
 
 export default {
 	name: 'IssueEditDialog',
@@ -160,7 +161,8 @@ export default {
 	},
 	mixins: [
 		Dialogs,
-		Notifications
+		Notifications,
+		CurrentActionsMixin
 	],
 	props: {
 		id: {
@@ -358,7 +360,7 @@ export default {
 				id
 			}
 
-			await this.$store.dispatch('current/REMOVE_MESSAGE_BY_ID', payload)
+			await this.removeMessage(payload)
 			this.editingMessageId = null
 		},
 		editMessage (id) {

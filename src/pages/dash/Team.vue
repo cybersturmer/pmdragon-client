@@ -145,7 +145,7 @@ export default {
 			this.showOkCancelDialog(...dialog)
 				.onOk(() => {
 					this.showProgress()
-					this.$store.dispatch('auth/REMOVE_TEAM_MEMBER', personId)
+					this.removeTeamMember(personId)
 						.finally(() => this.hideProgress())
 				})
 		}

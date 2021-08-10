@@ -31,7 +31,7 @@
                   label="Project name"
                   :value="projectTitle"
                   :debounce="debounceDefault"
-                  @input="updateProject($event, 'title')"
+                  @input="updateProjectEvent($event, 'title')"
                 />
                 <q-input
                   flat
@@ -39,7 +39,7 @@
                   label="Project key"
                   :value="projectKey"
                   :debounce="debounceDefault"
-                  @input="updateProject($event, 'key')"
+                  @input="updateProjectEvent($event, 'key')"
                 />
                 <q-select
                   flat
@@ -48,7 +48,7 @@
                   :options="participants"
                   :option-label="(item) => `${item.first_name} ${item.last_name}`"
                   hint="Right after changing it you will not be able anymore to change the project."
-                  @input="updateProject($event, 'owned_by')"
+                  @input="updateProjectEvent($event, 'owned_by')"
                 />
               </template>
               <template #actions>
@@ -57,7 +57,7 @@
                     color="negative"
                     label="Remove project"
                     icon="mdi-delete"
-                    @click="deleteProject"/>
+                    @click="deleteProjectEvent"/>
                 </q-btn-group>
                 <p class="text-secondary q-pt-sm">* By clicking it you will delete this project with all its issues,
                   issue types, issue states, issue estimations</p>
@@ -509,6 +509,7 @@ import { debounce } from 'quasar'
 import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 import { isEmptyString } from 'src/services/util'
 import { CoreActionsMixin } from 'src/services/actions/core'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'SettingsView',
@@ -518,6 +519,7 @@ export default {
 	},
 	mixins: [
 		Dialogs,
+		AuthActionsMixin,
 		CoreActionsMixin,
 		loading
 	],
@@ -749,7 +751,7 @@ export default {
 		getIssueTypeIconById (iconId) {
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
 		},
-		async updateProject (event, attribute) {
+		async updateProjectEvent (event, attribute) {
 			this.showProgress()
 
 			const payload = {
@@ -758,14 +760,14 @@ export default {
 
 			payload[attribute] = attribute === 'owned_by' ? event.id : event
 			try {
-				await this.$store.dispatch('auth/UPDATE_PROJECT', payload)
+				await this.updateProject(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
 				this.hideProgress()
 			}
 		},
-		async deleteProject () {
+		async deleteProjectEvent () {
 			this.showProgress()
 
 			const payload = {
@@ -783,8 +785,8 @@ export default {
 			try {
 				this.showOkCancelDialog(...dialog)
 					.onOk(r => {
-						this.$store.dispatch('auth/DELETE_PROJECT', payload)
-						this.$router.push({ name: 'loading' })
+						this.deleteProject(payload)
+							.then(() => this.$router.push({ name: 'loading' }))
 					})
 			} catch (e) {
 				this.showError(e)

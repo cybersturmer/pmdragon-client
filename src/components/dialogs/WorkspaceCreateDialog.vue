@@ -25,6 +25,7 @@
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'WorkspaceCreateDialog',
@@ -32,7 +33,11 @@ export default {
 		'ok',
 		'hide'
 	],
-	mixins: [fieldValidationMixin, Dialogs],
+	mixins: [
+		Dialogs,
+		AuthActionsMixin,
+		fieldValidationMixin
+	],
 	data () {
 		return {
 			formData: {
@@ -71,7 +76,7 @@ export default {
 
 		async onOKClick () {
 			try {
-				const payload = await this.$store.dispatch('auth/ADD_WORKSPACE', this.formData)
+				const payload = await this.addWorkspace(this.formData)
 				this.$emit('ok', payload)
 				this.hide()
 			} catch (e) {

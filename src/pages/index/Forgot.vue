@@ -19,6 +19,7 @@
 
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 import { Dialogs } from 'pages/mixins/dialogs'
 import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
 import EmailField from 'components/fields/EmailField'
@@ -26,7 +27,11 @@ import EmailField from 'components/fields/EmailField'
 export default {
 	name: 'Login',
 	components: { EmailField, ChangeConnectionElement },
-	mixins: [Dialogs, fieldValidationMixin],
+	mixins: [
+		Dialogs,
+		fieldValidationMixin,
+		AuthActionsMixin
+	],
 	data () {
 		return {
 			formData: {
@@ -44,7 +49,7 @@ export default {
 					email: this.formData.email
 				}
 
-				await this.$store.dispatch('auth/FORGOT_PASSWORD', payload)
+				await this.addPersonPasswordForgotRequest(payload)
 				this.showOkDialog(
 					'Password successfully reset',
 					'Password successfully reset, please follow link in email'

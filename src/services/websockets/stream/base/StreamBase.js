@@ -32,6 +32,7 @@ export class StreamBase {
 			this.onDelete(message)
 			break
 		default:
+			console.dir(action)
 			throw new Error(`Unhandled action: ${action}`)
 		}
 	}

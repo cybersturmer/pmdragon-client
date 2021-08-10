@@ -82,10 +82,15 @@
 
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'Kickstart',
-	mixins: [fieldValidationMixin, Dialogs],
+	mixins: [
+		AuthActionsMixin,
+		fieldValidationMixin,
+		Dialogs
+	],
 	data () {
 		return {
 			steps: [1, 2],
@@ -146,7 +151,7 @@ export default {
 		},
 		async updateUserData () {
 			/** Update user data on server and mark step as done **/
-			await this.$store.dispatch('auth/UPDATE_MY_DATA', this.userFormData)
+			await this.updateMyPerson(this.userFormData)
 			this.isUserStepDone = true
 		},
 		getInitStep () {

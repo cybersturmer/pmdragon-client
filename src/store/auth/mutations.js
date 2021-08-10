@@ -26,6 +26,31 @@ export function ACTIVATE (state) {
 	LocalStorage.set('auth.enabled', true)
 }
 
+export function SET_TOKENS (state, payload) {
+	const accessTokenDetails = _parseTokenDetails(payload.access)
+	const refreshTokenDetails = _parseTokenDetails(payload.access)
+
+	const accessTokenExpiredAt = new Date((accessTokenDetails.exp - 60) * 1000)
+	const refreshTokenExpiredAt = new Date((refreshTokenDetails.exp - 60) * 1000)
+
+	state.tokens = {
+		access: {
+			data: payload.access,
+			expired_at: accessTokenExpiredAt
+		},
+		refresh: {
+			data: payload.refresh,
+			expired_at: refreshTokenExpiredAt
+		}
+	}
+
+	state.person_id = refreshTokenDetails.person_id
+
+	LocalStorage.set('auth.tokens.access', state.tokens.access)
+	LocalStorage.set('auth.tokens.refresh', state.tokens.refresh)
+	LocalStorage.set('auth.person_id', state.person_id)
+}
+
 export function SET_ACCESS_TOKEN (state, payload) {
 	if (!payload) throw new Error('Empty access token given')
 
@@ -93,17 +118,17 @@ export function RESET_MY_AVATAR (state) {
 	LocalStorage.set('auth.persons', state.persons)
 }
 
-export function INIT_WORKSPACES (state, payload) {
+export function UPDATE_WORKSPACES (state, payload) {
 	state.workspaces = payload
 	LocalStorage.set('auth.workspaces', state.workspaces)
 }
 
-export function INIT_PERSONS (state, payload) {
+export function UPDATE_PERSONS (state, payload) {
 	state.persons = payload
 	LocalStorage.set('auth.persons', state.persons)
 }
 
-export function INIT_INVITED (state, payload) {
+export function UPDATE_INVITED (state, payload) {
 	state.invited = payload
 	LocalStorage.set('auth.invited', state.invited)
 }

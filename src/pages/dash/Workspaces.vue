@@ -75,11 +75,13 @@ import WorkspaceCreateDialog from 'src/components/dialogs/WorkspaceCreateDialog'
 import ProjectCreateDialog from 'src/components/dialogs/ProjectCreateDialog'
 import { websocket } from 'src/pages/mixins/websockets'
 import { ErrorHandler } from 'src/services/util'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'WorkspacesView',
 	mixins: [
-		websocket
+		websocket,
+		AuthActionsMixin
 	],
 	components: {
 		SmallParticipantChipElement
@@ -103,8 +105,8 @@ export default {
 	methods: {
 		async refresh (done) {
 			try {
-				await this.$store.dispatch('auth/INIT_PERSONS')
-				await this.$store.dispatch('auth/INIT_WORKSPACES')
+				await this.getPersons()
+				await this.getWorkspaces()
 			} catch (e) {
 				this.showError(new ErrorHandler(e))
 			} finally {

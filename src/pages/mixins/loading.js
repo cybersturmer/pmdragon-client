@@ -1,11 +1,13 @@
 import { QSpinnerPuff } from 'quasar'
 import { Dialogs } from './dialogs'
 import { CoreActionsMixin } from 'src/services/actions/core'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export const loading = {
 	mixins: [
 		Dialogs,
-		CoreActionsMixin
+		CoreActionsMixin,
+		AuthActionsMixin
 	],
 	computed: {
 		loadingText () {
@@ -23,13 +25,11 @@ export const loading = {
 			})
 
 			this.$store.dispatch('current/START_LOADING', 'Loading data...')
-				.then(() => {
-					return this.$store.dispatch('auth/REFRESH')
-				})
+				.then(() => this.refreshTokens())
 				.then(() =>
 					Promise.all([
-						this.$store.dispatch('auth/INIT_WORKSPACES'),
-						this.$store.dispatch('auth/INIT_PERSONS'),
+						this.getWorkspaces(),
+						this.getPersons(),
 						this.getIssueStates(),
 						this.getIssueTypes(),
 						this.getIssueTypeIcons(),
@@ -39,7 +39,7 @@ export const loading = {
 						this.getAttachments(),
 						this.getSprints(),
 						this.getBacklogs(),
-						this.$store.dispatch('auth/INIT_INVITED')
+						this.getInvited()
 					]))
 				.catch((e) => {
 					this.showError(e)

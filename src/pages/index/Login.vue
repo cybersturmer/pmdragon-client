@@ -52,11 +52,16 @@ import { Dialogs } from 'pages/mixins/dialogs'
 import PasswordField from 'components/fields/PasswordField'
 import UsernameField from 'components/fields/UsernameField'
 import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'Login',
 	components: { UsernameField, PasswordField, ChangeConnectionElement },
-	mixins: [Dialogs, fieldValidationMixin],
+	mixins: [
+		Dialogs,
+		fieldValidationMixin,
+		AuthActionsMixin
+	],
 	data () {
 		return {
 			formData: {
@@ -92,7 +97,7 @@ export default {
 				await this.$store.dispatch('auth/RESET')
 				await this.$store.dispatch('core/RESET')
 
-				await this.$store.dispatch('auth/LOGIN', this.formData)
+				await this.obtainTokens(this.formData)
 
 				this.$set(this.formData, 'username', '')
 				this.$set(this.formData, 'password', '')

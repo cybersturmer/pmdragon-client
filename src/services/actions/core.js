@@ -1,72 +1,70 @@
 import { ErrorHandler, unWatch } from 'src/services/util'
+import { PresetsActionsMixin } from 'src/services/actions/presets'
 
 export const CoreActionsMixin = {
+	mixins: [
+		PresetsActionsMixin
+	],
 	methods: {
-		/** Getting and fully updating for entities activity **/
-		async __getEntities (entities, mutation) {
-			try {
-				const response =
-					await this.$http
-						.auth(true)
-						.expect(200)
-						.get(`/core/${entities}/`)
-
-				this.$store.commit(mutation, response.data)
-				return Promise.resolve(response)
-			} catch (e) {
-				throw new ErrorHandler(e)
-			}
-		},
 		async getBacklogs () {
 			return this.__getEntities(
+				'core',
 				'backlogs',
 				'core/UPDATE_BACKLOGS'
 			)
 		},
 		async getSprints () {
 			return this.__getEntities(
+				'core',
 				'sprints',
 				'core/UPDATE_SPRINTS'
 			)
 		},
 		async getIssues () {
 			return this.__getEntities(
+				'core',
 				'issues',
 				'core/UPDATE_ISSUES'
 			)
 		},
 		async getSprintDurations () {
 			return this.__getEntities(
+				'core',
 				'sprint-durations',
 				'core/UPDATE_SPRINT_DURATIONS'
 			)
 		},
 		async getIssueStates () {
 			return this.__getEntities(
+				'core',
 				'issue-states',
 				'core/UPDATE_ISSUE_STATES'
 			)
 		},
 		async getIssueTypes () {
 			return this.__getEntities(
+				'core',
 				'issue-types',
 				'core/UPDATE_ISSUE_TYPES'
 			)
 		},
 		async getAttachments () {
 			return this.__getEntities(
+				'core',
 				'issue-attachments',
 				'core/UPDATE_ATTACHMENTS'
 			)
 		},
 		async getIssueTypeIcons () {
 			return this.__getEntities(
+				'core',
 				'issue-type-icons',
 				'core/UPDATE_ISSUE_TYPE_ICONS'
 			)
 		},
 		async getIssueEstimations () {
 			return this.__getEntities(
+				'core',
 				'issue-estimations',
 				'core/UPDATE_ISSUE_ESTIMATIONS'
 			)
@@ -130,21 +128,11 @@ export const CoreActionsMixin = {
 			return Promise.resolve('Successfully uploaded')
 		},
 		async patchAttachment (payload) {
-			try {
-				const response =
-					await this.$http
-						.auth(true)
-						.expect(200)
-						.patch(
-							`/core/issue-attachments/${payload.id}/`,
-							payload
-						)
-
-				this.$store.commit('core/UPDATE_ATTACHMENT', response.data)
-				return Promise.resolve(response)
-			} catch (e) {
-				throw new ErrorHandler(e)
-			}
+			return this.__patchEntity(
+				`/core/issue-attachments/${payload.id}/`,
+				payload,
+				'core/UPDATE_ATTACHMENT'
+			)
 		},
 		async deleteAttachment (payload) {
 			try {
@@ -257,21 +245,11 @@ export const CoreActionsMixin = {
 			}
 		},
 		async updateIssueTypeIconCategory (payload) {
-			try {
-				const response =
-					await this.$http
-						.auth(true)
-						.expect(200)
-						.patch(
-							`/core/issue-type-icons/${payload.id}/`,
-							payload
-						)
-
-				this.$store.commit('core/UPDATE_ISSUE_TYPE_ICON_CATEGORY', response.data)
-				return Promise.resolve(response)
-			} catch (e) {
-				throw new ErrorHandler(e)
-			}
+			return this.__patchEntity(
+				`/core/issue-type-icons/${payload.id}/`,
+				payload,
+				'core/UPDATE_ISSUE_TYPE_ICON_CATEGORY'
+			)
 		},
 		async deleteIssueTypeIconCategory (payload) {
 			try {
@@ -382,21 +360,11 @@ export const CoreActionsMixin = {
 			}
 		},
 		async updateIssueEstimationCategory (payload) {
-			try {
-				const response =
-					await this.$http
-						.auth(true)
-						.expect(200)
-						.patch(
-							`/core/issue-estimations/${payload.id}/`,
-							payload
-						)
-
-				this.$store.commit('core/UPDATE_ISSUE_ESTIMATION_CATEGORY', response.data)
-				return Promise.resolve(response)
-			} catch (e) {
-				throw new ErrorHandler(e)
-			}
+			return this.__patchEntity(
+				`/core/issue-estimations/${payload.id}/`,
+				payload,
+				'core/UPDATE_ISSUE_ESTIMATION_CATEGORY'
+			)
 		},
 		async deleteIssueEstimationCategory (payload) {
 			try {
@@ -421,21 +389,11 @@ export const CoreActionsMixin = {
 			 *   issue_state: 2
 			 * }
 			 * **/
-			try {
-				const response =
-					await this.$http
-						.auth(true)
-						.expect(200)
-						.patch(
-							`/core/issues/${payload.id}/`,
-							payload
-						)
-
-				this.$store.commit('core/UPDATE_ISSUE', response.data)
-				return Promise.resolve(response)
-			} catch (e) {
-				throw new ErrorHandler(e)
-			}
+			return this.__patchEntity(
+				`/core/issues/${payload.id}/`,
+				payload,
+				'core/UPDATE_ISSUE'
+			)
 		},
 		async updateIssueState (payload) {
 			try {

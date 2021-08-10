@@ -39,6 +39,7 @@
 <script>
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'ProjectCreateDialog',
@@ -46,7 +47,11 @@ export default {
 		'ok',
 		'hide'
 	],
-	mixins: [fieldValidationMixin, Dialogs],
+	mixins: [
+		fieldValidationMixin,
+		AuthActionsMixin,
+		Dialogs
+	],
 	props: {
 		workspaceId: {
 			type: Number,
@@ -97,7 +102,7 @@ export default {
 			}
 
 			try {
-				const emitPayload = await this.$store.dispatch('auth/ADD_PROJECT', payload)
+				const emitPayload = await this.addProject(payload)
 				this.$emit('ok', emitPayload)
 				this.hide()
 			} catch (e) {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import { boot } from 'quasar/wrappers'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
+import { ErrorHandler } from 'src/services/util'
 
 class Http {
 	constructor ($store) {
@@ -64,10 +65,45 @@ class Http {
 		return this.expectedStatus ? this.expectedStatus === status : true
 	}
 
-	refreshTokens (failedRequest) {
-		if (failedRequest.config.url === '/auth/obtain/') { return Promise.reject(failedRequest) }
+	async obtainTokens (payload) {
+		try {
+			const response =
+				await this
+					.auth(false)
+					.expect(200)
+					.post(
+						'/auth/obtain/',
+						payload
+					)
 
-		return this.$store.dispatch('auth/REFRESH')
+			this.$store.commit('auth/SET_TOKENS', response.data)
+		} catch (e) {
+			throw new ErrorHandler(e)
+		}
+	}
+
+	async refreshTokens (failedRequest = null) {
+		if (failedRequest && failedRequest.config.url === '/auth/obtain/') { return Promise.reject(failedRequest) }
+
+		const payload = {
+			refresh: this.$store.getters['auth/REFRESH_TOKEN']
+		}
+
+		try {
+			const response =
+				await this
+					.auth(false)
+					.expect(200)
+					.post(
+						'/auth/refresh/',
+						payload
+					)
+
+			this.$store.commit('auth/SET_TOKENS', response.data)
+			return Promise.resolve(response)
+		} catch (e) {
+			throw new ErrorHandler(e)
+		}
 	}
 }
 

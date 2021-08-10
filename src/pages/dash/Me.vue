@@ -162,13 +162,15 @@ import SettingPanelCard from 'components/elements/SettingPanelCard'
 import AvatarUploader from 'components/elements/AvatarUploader'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { loading } from '../mixins/loading'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'AccountView',
 	components: { AvatarUploader, SettingPanelCard },
 	mixins: [
+		loading,
 		Dialogs,
-		loading
+		AuthActionsMixin
 	],
 	data () {
 		return {
@@ -200,7 +202,7 @@ export default {
 			}
 
 			try {
-				this.$store.dispatch('auth/UPDATE_MY_DATA', payload)
+				this.updateMyPerson(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
@@ -218,7 +220,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('auth/UPDATE_MY_PASSWORD', payload)
+				await this.updateMyPassword(payload)
 				this.passwordFormData.oldPassword = ''
 				this.passwordFormData.newPassword1 = ''
 				this.passwordFormData.newPassword2 = ''

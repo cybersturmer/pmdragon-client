@@ -60,19 +60,20 @@
 
 <script>
 import { AVATAR_ALLOW_MIMES } from 'src/services/allow'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'AvatarUploader',
+	mixins: [
+		AuthActionsMixin
+	],
 	methods: {
 		uploadFileAvatar (files) {
-			files.forEach(file => {
-				return this.$store.dispatch('auth/UPDATE_MY_AVATAR', file)
-			})
-
+			files.forEach(file => this.updateMyAvatar(file))
 			this.justUploaded = true
 		},
 		async deleteAvatar () {
-			await this.$store.dispatch('auth/DELETE_MY_AVATAR')
+			await this.deleteMyAvatar()
 			this.justUploaded = false
 		}
 	},

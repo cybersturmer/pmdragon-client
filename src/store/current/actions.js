@@ -1,6 +1,3 @@
-import { Api } from '../../services/api'
-import { ErrorHandler } from 'src/services/util'
-
 export function SELECT_WORKSPACE ({ commit }, payload) {
 	commit('SELECT_WORKSPACE', payload)
 }
@@ -21,23 +18,6 @@ export function STOP_LOADING ({ commit }) {
 
 export function SET_ISSUE_ID ({ commit }, payload) {
 	commit('SET_ISSUE_ID', payload)
-}
-
-export async function REMOVE_MESSAGE_BY_ID ({ commit, getters }, payload) {
-	try {
-		await new Api({
-			auth: true,
-			expectedStatus: 204
-		})
-			.delete(
-				`/core/issue-messages/${payload.id}/`
-			)
-
-		/** We dot need to commit it, cause we have socket connection for it
-		 * Look here for more information src/services/websockets/stream/IssueChat.js **/
-	} catch (e) {
-		throw new ErrorHandler(e)
-	}
 }
 
 export function SET_ISSUE_MESSAGES ({ commit }, payload) {

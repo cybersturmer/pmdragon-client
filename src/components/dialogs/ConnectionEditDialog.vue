@@ -32,6 +32,7 @@
 <script>
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 import { Dialogs } from 'src/pages/mixins/dialogs'
+import { ConnectionActionsMixin } from 'src/services/actions/connection'
 
 export default {
 	name: 'ConnectionEditDialog',
@@ -40,6 +41,7 @@ export default {
 		'hide'
 	],
 	mixins: [
+		ConnectionActionsMixin,
 		fieldValidationMixin,
 		Dialogs
 	],
@@ -69,7 +71,7 @@ export default {
 
 		async checkConnection () {
 			await this.$store.dispatch('connection/UPDATE_API_HOST', this.formData.api_host)
-			return await this.$store.dispatch('connection/CHECK')
+			return await this.check()
 		},
 
 		async onOKClick () {

@@ -163,7 +163,7 @@ export default {
 				payload.invites.push(dictPayload)
 			}
 
-			this.$store.dispatch('auth/INVITE_TEAM', payload)
+			this.inviteTeam(payload)
 				.finally(() => this.hideProgress())
 
 			this.isTeamStepDone = true

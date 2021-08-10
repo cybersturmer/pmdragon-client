@@ -53,11 +53,16 @@ import { Dialogs } from 'src/pages/mixins/dialogs'
 import PrefixUrlField from 'src/components/fields/PrefixUrlField'
 import EmailField from 'src/components/fields/EmailField'
 import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'Register',
 	components: { EmailField, PrefixUrlField, ChangeConnectionElement },
-	mixins: [Dialogs, fieldValidationMixin],
+	mixins: [
+		Dialogs,
+		fieldValidationMixin,
+		AuthActionsMixin
+	],
 	data () {
 		return {
 			formData: {
@@ -78,7 +83,7 @@ export default {
 			}
 
 			try {
-				await this.$store.dispatch('auth/REGISTER', this.formData)
+				await this.addPersonRegistrationRequest(this.formData)
 				const dialog = [
 					'Congratulations',
 					"We've sent you an email." +
