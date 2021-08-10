@@ -65,7 +65,7 @@
 																	<q-chat-message v-if="packedMessage.label" :label="packedMessage.label"/>
 																	<IssueChatMobileMessage :message-pack="packedMessage"
 																													 @edit="editMessage"
-																													 @remove="removeMessage"/>
+																													 @remove="removeMessageEvent"/>
 																</div>
 															</q-card-section>
 															<q-card-section v-else>
@@ -75,7 +75,7 @@
 																	<q-chat-message v-if="packedMessage.label" :label="packedMessage.label"/>
 																	<IssueChatDesktopMessage :message-pack="packedMessage"
 																													 @edit="editMessage"
-																													 @remove="removeMessage"/>
+																													 @remove="removeMessageEvent"/>
 																</div>
 															</q-card-section>
 														</q-card-section>
@@ -355,7 +355,7 @@ export default {
 		cancelEditingMessage () {
 			this.editingMessageId = null
 		},
-		async removeMessage (id) {
+		async removeMessageEvent (id) {
 			const payload = {
 				id
 			}
