@@ -1,10 +1,9 @@
 <template>
   <q-btn
-    dense
 		outline
     :label="label"
 		color="secondary"
-		class="short_button"
+		class="q-px-xs"
 		@click="$emit('clicked')"
   />
 </template>

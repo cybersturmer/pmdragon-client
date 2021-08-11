@@ -1,10 +1,9 @@
 <template>
   <q-btn
-		dense
     flat
     color="secondary"
     label="Cancel"
-		class="short_button"
+		class="q-px-xs"
 		@click="$emit('clicked')"
   />
 </template>

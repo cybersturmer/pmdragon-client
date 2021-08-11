@@ -18,9 +18,11 @@
 			class="q-mt-sm q-pa-none">
 			<!-- Create or Update Button -->
 			<q-btn outline
-						 icon-right="mdi-send"
 						 color="secondary"
 						 :label="actionButtonLabel"
+						 icon-right="mdi-keyboard-return"
+						 class="q-px-sm"
+						 title="Ctrl + Enter"
 						 @click="createOrUpdateMessage"/>
 		</q-card-actions>
 	</q-card-section>
