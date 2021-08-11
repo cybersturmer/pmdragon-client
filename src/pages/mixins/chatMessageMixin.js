@@ -13,15 +13,6 @@ export const ChatMessageMixin = {
 		person () {
 			return this.messagePack.createdBy
 		},
-		title () {
-			try {
-				return this.$q.screen.gt.sm
-					? `${this.person.username} (${this.person.first_name} ${this.person.last_name})`
-					: `@${this.person.username}`
-			} catch (e) {
-				return ''
-			}
-		},
 		avatar () {
 			try {
 				return this.person.avatar

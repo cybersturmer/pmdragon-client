@@ -1,11 +1,16 @@
 <template>
 	<q-chat-message
-		:name="title"
 		:sent="sent"
 		:avatar="avatar"
 		bg-color="grey-9"
 		text-color="accent">
 		<!-- Message body - Desktop version -->
+		<template #name>
+			<span class="text-bold">@{{ person.username }}</span>
+			<span v-show="$q.screen.gt.sm">
+				[ {{  person.first_name }} {{ person.last_name }} ]
+			</span>
+		</template>
 		<template #default>
 			<div v-for="message in messagePack.list"
 					 :key="message.id"
