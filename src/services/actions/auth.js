@@ -107,6 +107,17 @@ export const AuthActionsMixin = {
 				throw new ErrorHandler(e)
 			}
 		},
+		async acceptCollaborationRequest (payload) {
+			try {
+				await this.$http
+					.auth(false)
+					.expect(200)
+					.put(`/auth/person-invitation-requests/${payload.key}/`,
+						{ is_accepted: true })
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
+		},
 		async updateMyPerson (payload) {
 			try {
 				const response =
@@ -166,27 +177,25 @@ export const AuthActionsMixin = {
 		async deleteMyAvatar () {
 			return this.__deleteEntity(
 				'/auth/avatar/',
+				null,
 				'auth/RESET_MY_AVATAR'
 			)
 		},
 		async getWorkspaces () {
 			return this.__getEntities(
-				'core',
-				'workspaces',
+				'/core/workspaces/',
 				'auth/UPDATE_WORKSPACES'
 			)
 		},
 		async getPersons () {
 			return this.__getEntities(
-				'core',
-				'persons',
+				'/core/persons/',
 				'auth/UPDATE_PERSONS'
 			)
 		},
 		async getInvited () {
 			return this.__getEntities(
-				'auth',
-				'person-invitation-requests',
+				'/auth/person-invitation-requests/',
 				'auth/UPDATE_INVITED'
 			)
 		}

@@ -29,13 +29,16 @@
 </template>
 
 <script>
-import { Api } from 'src/services/api'
 import { Dialogs } from 'pages/mixins/dialogs'
 import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'VerifyCollaboration',
-	mixins: [Dialogs],
+	mixins: [
+		Dialogs,
+		AuthActionsMixin
+	],
 	components: { ChangeConnectionElement },
 	data () {
 		return {
@@ -64,7 +67,7 @@ export default {
 			}
 
 			try {
-				await new Api().put(`/auth/person-invitation-requests/${this.key}/`, payload)
+				await this.acceptCollaborationRequest(payload)
 				this.isRequestSent = true
 				this.isVerified = true
 			} catch (e) {

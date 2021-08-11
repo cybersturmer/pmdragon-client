@@ -8,64 +8,55 @@ export const CoreActionsMixin = {
 	methods: {
 		async getBacklogs () {
 			return this.__getEntities(
-				'core',
-				'backlogs',
+				'/core/backlogs/',
 				'core/UPDATE_BACKLOGS'
 			)
 		},
 		async getSprints () {
 			return this.__getEntities(
-				'core',
-				'sprints',
+				'/core/sprints/',
 				'core/UPDATE_SPRINTS'
 			)
 		},
 		async getIssues () {
 			return this.__getEntities(
-				'core',
-				'issues',
+				'/core/issues/',
 				'core/UPDATE_ISSUES'
 			)
 		},
 		async getSprintDurations () {
 			return this.__getEntities(
-				'core',
-				'sprint-durations',
+				'/core/sprint-durations/',
 				'core/UPDATE_SPRINT_DURATIONS'
 			)
 		},
 		async getIssueStates () {
 			return this.__getEntities(
-				'core',
-				'issue-states',
+				'/core/issue-states/',
 				'core/UPDATE_ISSUE_STATES'
 			)
 		},
 		async getIssueTypes () {
 			return this.__getEntities(
-				'core',
-				'issue-types',
+				'/core/issue-types/',
 				'core/UPDATE_ISSUE_TYPES'
 			)
 		},
 		async getAttachments () {
 			return this.__getEntities(
-				'core',
-				'issue-attachments',
+				'/core/issue-attachments/',
 				'core/UPDATE_ATTACHMENTS'
 			)
 		},
 		async getIssueTypeIcons () {
 			return this.__getEntities(
-				'core',
-				'issue-type-icons',
+				'/core/issue-type-icons/',
 				'core/UPDATE_ISSUE_TYPE_ICONS'
 			)
 		},
 		async getIssueEstimations () {
 			return this.__getEntities(
-				'core',
-				'issue-estimations',
+				'/core/issue-estimations/',
 				'core/UPDATE_ISSUE_ESTIMATIONS'
 			)
 		},

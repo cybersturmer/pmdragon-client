@@ -15,7 +15,6 @@
 <script>
 import LineChart from 'src/components/charts/LineChart'
 import { date, Dark } from 'quasar'
-import { Api } from 'src/services/api'
 
 export default {
 	name: 'BurnDownChart',
@@ -96,13 +95,11 @@ export default {
 		const totalValue = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
 		const perDayDecrement = totalValue / diffDays
 
-		const estimations = await new Api({
-			auth: true,
-			expectedStatus: 200
-		})
-			.get(
-				`/core/sprint-estimations/?sprint=${sprint.id}`
-			)
+		const estimations =
+			await this.$http
+				.auth(true)
+				.expect(200)
+				.get(`/core/sprint-estimations/?sprint=${sprint.id}`)
 
 		const daysLabels = []
 		const expectedTimeValues = []

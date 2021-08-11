@@ -2,14 +2,13 @@ import { ErrorHandler } from 'src/services/util'
 
 export const PresetsActionsMixin = {
 	methods: {
-		/** Getting and fully updating for entities activity **/
-		async __getEntities (module, entities, mutation) {
+		async __getEntities (endpoint, mutation) {
 			try {
 				const response =
 					await this.$http
 						.auth(true)
 						.expect(200)
-						.get(`/${module}/${entities}/`)
+						.get(endpoint)
 
 				this.$store.commit(mutation, response.data)
 				return Promise.resolve(response)
@@ -24,7 +23,7 @@ export const PresetsActionsMixin = {
 						.auth(true)
 						.expect(201)
 						.post(
-							`/${endpoint}/`,
+							endpoint,
 							payload
 						)
 
@@ -35,7 +34,7 @@ export const PresetsActionsMixin = {
 		},
 		async __addEntity (endpoint, payload, mutation) {
 			const response = await this.__addEntityWithoutMutation(endpoint, payload)
-			this.$store.commit(mutation, response)
+			this.$store.commit(mutation, response.data)
 			return Promise.resolve(response)
 		},
 		async __patchEntity (endpoint, payload, mutation) {
@@ -55,7 +54,7 @@ export const PresetsActionsMixin = {
 				throw new ErrorHandler(e)
 			}
 		},
-		async __deleteEntity (endpoint, mutation) {
+		async __deleteEntityWithoutMutation (endpoint) {
 			try {
 				const response = await this.$http
 					.auth(true)
@@ -63,12 +62,16 @@ export const PresetsActionsMixin = {
 					.delete(
 						endpoint
 					)
-
-				this.$store.commit(mutation)
 				return Promise.resolve(response)
 			} catch (e) {
 				throw new ErrorHandler(e)
 			}
+		},
+		async __deleteEntity (endpoint, payload = null, mutation) {
+			const response = await this.__deleteEntityWithoutMutation(endpoint)
+
+			payload ? this.$store.commit(mutation, payload) : this.$store.commit(mutation)
+			return Promise.resolve(response)
 		}
 	}
 }

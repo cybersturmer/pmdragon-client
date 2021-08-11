@@ -27,14 +27,18 @@
 </template>
 
 <script>
-import { Api } from 'src/services/api'
-import { unWatch } from 'src/services/util'
 import EditorExtended from 'components/elements/EditorExtended'
+import { Dialogs } from 'pages/mixins/dialogs'
+import { CurrentActionsMixin } from 'src/services/actions/current'
 
 export default {
 	name: 'IssueDescriptionSection',
 	emits: [
 		'cancelEditingMessage'
+	],
+	mixins: [
+		Dialogs,
+		CurrentActionsMixin
 	],
 	components: {
 		EditorExtended
@@ -95,7 +99,7 @@ export default {
 			this.formMessage.description = ''
 			this.$emit('cancelEditingMessage')
 		},
-		async _createMessage () {
+		async addMessageEvent () {
 			/** We use it for adding one more message **/
 			if (!this.formMessage.description) return false
 
@@ -104,50 +108,33 @@ export default {
 				description: this.formMessage.description
 			}
 
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 201
-			})
-				.post(
-					'/core/issue-messages/',
-					payload
-				)
-
-			const messagesClone = unWatch(this.messages)
-			messagesClone.push(response.data)
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
+			try {
+				await this.addMessage(payload)
+			} catch (e) {
+				this.showError(e)
+			}
 		},
-		async _updateMessage () {
+		async updateMessageEvent () {
 			/** Kind of private method - we use it in create - update method **/
+			if (!this.formMessage.description) return false
+
 			const payload = {
+				id: this.editingMessageId,
 				description: this.formMessage.description
 			}
 
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 200
-			})
-				.patch(
-					`/core/issue-messages/${this.editingMessageId}/`,
-					payload
-				)
-
-			const oldMessage = this.messages
-				.find(message => message.id === this.editingMessageId)
-
-			const idx = this.messages
-				.indexOf(oldMessage)
-
-			const messagesClone = unWatch(this.messages)
-			messagesClone.splice(idx, 1, response.data)
-			this.$store.commit('current/SET_ISSUE_MESSAGES', messagesClone)
+			try {
+				await this.updateMessage(payload)
+			} catch (e) {
+				this.showError(e)
+			}
 		},
 		async createOrUpdateMessage () {
 			/** We use it for adding one more message or update the previous one **/
 			if (this.isNewMessage) {
-				await this._createMessage()
+				await this.addMessageEvent()
 			} else {
-				await this._updateMessage()
+				await this.updateMessageEvent()
 			}
 
 			this.cancelEditingMessage()

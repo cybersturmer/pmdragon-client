@@ -122,7 +122,6 @@
 
 <script>
 import { date } from 'quasar'
-import { Api } from 'src/services/api'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { DATETIME_MASK } from 'src/services/masks'
 import { packMessages } from 'src/services/messages'
@@ -231,8 +230,8 @@ export default {
 		}
 
 		try {
-			await this.getMessages()
-			await this.getHistory()
+			await this.getMessagesEvent()
+			await this.getHistoryEvent()
 		} catch (e) {
 			this.showError(new ErrorHandler(e))
 		}
@@ -336,8 +335,8 @@ export default {
 
 				this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
-				await this.getMessages()
-				await this.getHistory()
+				await this.getMessagesEvent()
+				await this.getHistoryEvent()
 			} catch (e) {
 				this.showError(new ErrorHandler(e))
 			} finally {
@@ -392,30 +391,30 @@ export default {
 
 			return participant.avatar
 		},
-		async getMessages () {
+		async getMessagesEvent () {
 			/** get messages for current issue without paging
 			 * Now its not a problem, will think later **/
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 200
-			})
-				.get(
-					`/core/issue-messages/?issue=${this.formData.issue.id}`
-				)
+			const payload = {
+				id: this.formData.issue.id
+			}
 
-			await this.$store.dispatch('current/SET_ISSUE_MESSAGES', response.data)
+			try {
+				await this.getMessages(payload)
+			} catch (e) {
+				this.showError(e)
+			}
 		},
-		async getHistory () {
+		async getHistoryEvent () {
 			/** get history of changes for current issue **/
-			const response = await new Api({
-				auth: true,
-				expectedStatus: 200
-			})
-				.get(
-					`/core/issues-history/?issue=${this.formData.issue.id}`
-				)
+			const payload = {
+				id: this.formData.issue.id
+			}
 
-			await this.$store.dispatch('current/SET_ISSUE_HISTORY', response.data)
+			try {
+				await this.getHistory(payload)
+			} catch (e) {
+				this.showError(e)
+			}
 		},
 		show () {
 			this.$refs.dialog.show()

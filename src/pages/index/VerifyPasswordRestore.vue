@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import { Api } from 'src/services/api'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
@@ -69,9 +68,9 @@ export default {
 	},
 	async mounted () {
 		try {
-			await new Api({
-				expectedStatus: 200
-			})
+			await this.$http
+				.auth(false)
+				.expect(200)
 				.get(`/auth/person-password-forgot-requests/${this.$attrs.key}/`)
 
 			this.isPasswordForgotRequestValid = true
@@ -95,11 +94,13 @@ export default {
 			}
 
 			try {
-				await new Api({
-					expectedStatus: 200
-				})
-					.patch(`/auth/person-password-forgot-requests/${this.$attrs.key}/`,
-						payload)
+				await this.$http
+					.auth(false)
+					.expect(200)
+					.patch(
+						`/auth/person-password-forgot-requests/${this.$attrs.key}/`,
+						payload
+					)
 
 				this.showOkDialog(
 					'Password successfully changed',
