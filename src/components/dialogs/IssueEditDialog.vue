@@ -331,8 +331,7 @@ export default {
 	methods: {
 		async refresh (done) {
 			try {
-				await this.$store.dispatch('core/INIT_ISSUES')
-
+				await this.getIssues()
 				this.formData.issue = unWatch(this.$store.getters['core/ISSUE_BY_ID'](parseInt(this.id)))
 
 				await this.getMessagesEvent()
