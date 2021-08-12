@@ -138,6 +138,7 @@ import IssueChatDesktopMessage from 'src/components/elements/issue_dialog/IssueC
 import IssueDescriptionSection from 'src/components/elements/issue_dialog/IssueDescriptionSection'
 import IssueCreateUpdateSection from 'src/components/elements/issue_dialog/IssueCreateUpdateSection'
 import { CurrentActionsMixin } from 'src/services/actions/current'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
 	name: 'IssueEditDialog',
@@ -160,7 +161,8 @@ export default {
 	mixins: [
 		Dialogs,
 		Notifications,
-		CurrentActionsMixin
+		CurrentActionsMixin,
+		CoreActionsMixin
 	],
 	props: {
 		id: {
@@ -194,6 +196,9 @@ export default {
 		}
 	},
 	watch: {
+		messages (newArray, oldArray) {
+			this._scrollToEnd()
+		},
 		issue (newObject, oldObject) {
 			if (newObject) {
 				this.formData.issue = unWatch(newObject)

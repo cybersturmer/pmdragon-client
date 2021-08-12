@@ -11,7 +11,11 @@ export const ChatMessageMixin = {
 	},
 	computed: {
 		person () {
-			return this.messagePack.createdBy
+			try {
+				return this.messagePack.createdBy
+			} catch (e) {
+				return null
+			}
 		},
 		avatar () {
 			try {

@@ -10,8 +10,8 @@ export const empty = () => {
 		loading_module: null,
 		dark: true,
 		issue_id: null,
-		issue_messages: null,
-		issue_history: null,
+		issue_messages: [],
+		issue_history: [],
 		issue_in_workspace_subscribed: false
 	}
 }

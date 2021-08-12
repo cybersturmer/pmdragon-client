@@ -5,9 +5,9 @@
 		bg-color="grey-9"
 		text-color="accent">
 		<!-- Message body - Desktop version -->
-		<template #name>
+		<template v-if="person" #name>
 			<span class="text-bold">@{{ person.username }}</span>
-			<span v-show="$q.screen.gt.sm">
+			<span>
 				[ {{  person.first_name }} {{ person.last_name }} ]
 			</span>
 		</template>

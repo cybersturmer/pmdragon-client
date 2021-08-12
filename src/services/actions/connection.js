@@ -6,7 +6,7 @@ export const ConnectionActionsMixin = {
 			try {
 				const response =
 					await this.$http
-						.auth(true)
+						.auth(false)
 						.expect(200)
 						.get('/check/')
 
