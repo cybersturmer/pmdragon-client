@@ -59,7 +59,7 @@
 														<!-- Wrapper for messages to show / hide block if there are no messages -->
 														<q-card-section v-if="thereAreMessages">
 															<q-card-section v-if="isMobileApplication">
-																<div v-for="packedMessage in packedMessages"
+																<div v-for="packedMessage in messages"
 																		 :key="packedMessage.id"
 																		 class="full-width">
 																	<q-chat-message v-if="packedMessage.label" :label="packedMessage.label"/>
@@ -69,7 +69,7 @@
 																</div>
 															</q-card-section>
 															<q-card-section v-else>
-																<div v-for="packedMessage in packedMessages"
+																<div v-for="packedMessage in messages"
 																		 :key="packedMessage.id"
 																		 class="full-width">
 																	<q-chat-message v-if="packedMessage.label" :label="packedMessage.label"/>
@@ -124,7 +124,6 @@
 import { date } from 'quasar'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { DATETIME_MASK } from 'src/services/masks'
-import { packMessages } from 'src/services/messages'
 import { ErrorHandler, unWatch } from 'src/services/util'
 import { Notifications } from 'src/pages/mixins/notifications'
 
@@ -189,19 +188,12 @@ export default {
 				description: ''
 			},
 			mask: DATETIME_MASK,
-			packedMessages: [],
 			issueMessageBlockHeight: '165px', // 36px title + 48px header
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
 			middleSectionHeight: 'height: calc(100vh - 280px);'
 		}
 	},
 	watch: {
-		messages (newArray, oldArray) {
-			this._scrollToEnd()
-			if (newArray) {
-				this.packedMessages = packMessages(newArray, this.myId)
-			}
-		},
 		issue (newObject, oldObject) {
 			if (newObject) {
 				this.formData.issue = unWatch(newObject)
@@ -248,14 +240,11 @@ export default {
 		isMobileApplication () {
 			return this.$q.platform.is.cordova
 		},
-		myId () {
-			return this.$store.getters['auth/MY_ID']
-		},
 		issue () {
 			return this.$store.getters['current/ISSUE']
 		},
 		messages () {
-			return this.$store.getters['current/ISSUE_MESSAGES']
+			return this.$store.getters['current/ISSUE_MESSAGES_PACKED']
 		},
 		history () {
 			return this.$store.getters['current/ISSUE_HISTORY']
@@ -278,9 +267,6 @@ export default {
 		participants () {
 			// Check usage
 			return this.$store.getters['auth/PARTICIPANTS_BY_CURRENT_PROJECT']
-		},
-		estimation () {
-			return this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.formData.issue.estimation_category)
 		},
 		estimationTitle () {
 			try {
@@ -323,9 +309,6 @@ export default {
 			} catch (e) {
 				return ''
 			}
-		},
-		mentioningRegex () {
-			return this.$store.getters['auth/MENTIONING_REGEX']
 		}
 	},
 	methods: {
@@ -365,14 +348,6 @@ export default {
 			this.editingMessageId = id
 			this.$nextTick(this.$refs.issueMessageSection.focus)
 		},
-		getRelativeDatetime (datetime) {
-			/** Get relative datetime for messages (example: "an hour ago") **/
-			return this.$moment(datetime).fromNow()
-		},
-		isItMe (id) {
-			/** Return true if given id is current user id **/
-			return this.$store.getters['auth/IS_ME_BY_ID'](id)
-		},
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/
 			try {
@@ -382,13 +357,6 @@ export default {
 			} catch (e) {
 				return ''
 			}
-		},
-		getParticipantAvatarById (id) {
-			/** return avatar path by given user id **/
-			const participant = this.$store.getters['auth/PERSON_BY_ID'](id)
-			if (!participant.id) return false
-
-			return participant.avatar
 		},
 		async getMessagesEvent () {
 			/** get messages for current issue without paging
