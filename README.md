@@ -8,7 +8,8 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 | [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
 ## Binaries
-[![Download PmDragon](https://sourceforge.net/sflogo.php?type=14&group_id=3405332)](https://sourceforge.net/p/pmdragon/)
+<a href="https://sourceforge.net/p/pmdragon/"><img alt="Download PmDragon" src="https://sourceforge.net/sflogo.php?type=17&group_id=3405332" width=200></a>
+
 
 ## Android application
 <a href='https://play.google.com/store/apps/details?id=com.cybersturmer.pmdragon.pmdragonce&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height='60'/></a>
