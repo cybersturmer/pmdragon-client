@@ -189,7 +189,7 @@ module.exports = configure(function (/* ctx */) {
 			packager: {
 				appVersion: '1.0.0',
 				buildVersion: '1',
-				appCopyright: 'Vladimir Shturmer'
+				appCopyright: 'Vladimir Shturmer',
 				// https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
 
 				// OS X / Mac App Store
@@ -199,13 +199,19 @@ module.exports = configure(function (/* ctx */) {
 				// protocol: 'myapp://path',
 
 				// Windows only
-				// win32metadata: { ... }
+				win32metadata: {
+					companyName: 'Vladimir Shturmer',
+					productName: 'PmDragon',
+					appCopyright: 'Vladimir Shturmer',
+					appVersion: '1.0.0',
+					buildVersion: '1',
+					icon: 'src/src-electron/icons/linux-512x512.png'
+				}
 			},
 
 			builder: {
 				// https://www.electron.build/configuration/configuration
-
-				appId: 'web'
+				appId: 'com.cybersturmer.pmdragon.pmdragonce'
 			},
 
 			// More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
