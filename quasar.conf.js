@@ -31,6 +31,7 @@ module.exports = configure(function (/* ctx */) {
 			'i18n',
 			'router',
 			'meta',
+			'moment',
 			'server'
 		],
 

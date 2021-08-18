@@ -3,14 +3,9 @@ import VueRouter from 'vue-router'
 import $store from 'src/store'
 
 import routes from './routes'
-import VueMoment from 'vue-moment'
 import VueNativeSock from 'vue-native-websocket'
-import moment from 'moment-timezone'
 
 Vue.use(VueRouter)
-Vue.use(VueMoment, {
-	moment
-})
 Vue.use(
 	VueNativeSock,
 	$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN'],
