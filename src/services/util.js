@@ -27,19 +27,19 @@ function _getStatusMessage (status) {
 }
 
 function _getResponseErrorMessage (error) {
-	if (error.response && error.response.data) {
-		if (error.response.data.detail) {
-			return error.response.data.detail
-		} else if (error.response.data.non_field_errors) {
-			return error.response.data.non_field_errors.join(' ')
+	if (error.response?.data) {
+		if (error.response.data?.detail) {
+			return error.response?.data?.detail
+		} else if (error.response?.data?.non_field_errors) {
+			return error.response?.data?.non_field_errors.join(' ')
 		} else {
-			return _getStatusMessage(error.response.status)
+			return _getStatusMessage(error.response?.status)
 		}
 	}
 
-	const baseURL = new URL(error.config.baseURL)
+	const baseURL = new URL(error?.config?.baseURL)
 
-	if (error.response && error.response.statusText) return error.response.statusText
+	if (error?.response?.statusText) return error.response.statusText
 	return error.message === 'Network Error'
 		? `Network error. Check that ${baseURL.protocol}//${baseURL.host} is available.`
 		: error.message
@@ -49,11 +49,12 @@ export class ErrorHandler extends Error {
 	constructor (error, message) {
 		super()
 		this.request = error.isAxiosError
-		this.data = error.response ? error.response.data : false
-		this.success = error.response ? error.response.data.success : false
-		this.meta = error.response ? error.response.data.meta : false
-		this.code = error.response ? error.response.data.code : false
-		this.status = error.response ? error.response.status : false
+		this.data = error.response?.data
+		this.data = error.response?.data
+		this.success = error.response?.data?.success
+		this.meta = error.response?.data?.meta
+		this.code = error.response?.data?.code
+		this.status = error.response?.status
 		this.statusMessage = _getStatusMessage(this.status)
 		this.message = message || _getResponseErrorMessage(error)
 		this.messageUseful = !!this.data || message

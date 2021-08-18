@@ -11,6 +11,8 @@ class Http {
 		this.expectedStatus = false
 		this.authRequired = false
 
+		this.updateOptions()
+
 		this.axiosOptions = {
 			baseURL: this.$store.getters['connection/REST_ENDPOINT'],
 			withCredentials: false,
@@ -25,7 +27,7 @@ class Http {
 					return Promise.resolve()
 				})
 
-		this.instance = axios.create(this.axiosOptions)
+		this.createInstance()
 
 		createAuthRefreshInterceptor(
 			this.instance,
@@ -38,6 +40,19 @@ class Http {
 		)
 
 		return this
+	}
+
+	updateOptions () {
+		this.axiosOptions = {
+			baseURL: this.$store.getters['connection/REST_ENDPOINT'],
+			withCredentials: false,
+			validateStatus: (status) => this.validateStatus(status)
+		}
+		console.log(this.axiosOptions)
+	}
+
+	createInstance () {
+		this.instance = axios.create(this.axiosOptions)
 	}
 
 	generateAuthHeader () {

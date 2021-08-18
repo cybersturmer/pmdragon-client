@@ -71,6 +71,9 @@ export default {
 
 		async checkConnection () {
 			await this.$store.dispatch('connection/UPDATE_API_HOST', this.formData.api_host)
+			this.$http.updateOptions()
+			this.$http.createInstance()
+
 			return await this.check()
 		},
 
@@ -79,6 +82,7 @@ export default {
 
 			try {
 				await this.checkConnection()
+
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
