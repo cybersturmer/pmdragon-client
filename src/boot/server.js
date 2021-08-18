@@ -48,7 +48,6 @@ class Http {
 			withCredentials: false,
 			validateStatus: (status) => this.validateStatus(status)
 		}
-		console.log(this.axiosOptions)
 	}
 
 	createInstance () {
