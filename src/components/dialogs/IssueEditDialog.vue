@@ -110,7 +110,10 @@
 								class="col-md-4">
 							<!-- Right section, we can change issue data here -->
 								<q-card-section v-if="$q.screen.gt.sm" class="column items-end">
-									<IssueHeader :issue="formData.issue" class="col" @hide="hide"/>
+									<IssueHeader :issue="formData.issue"
+															 class="col"
+															 @hide="hide"
+															 @refresh="refresh"/>
 								</q-card-section>
 								<IssueManageSection :issue="formData.issue"/>
 								<IssueCreateUpdateSection :issue="formData.issue"/>
