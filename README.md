@@ -22,33 +22,6 @@ https://pmdragon-client.herokuapp.com/
 | ------- | ----- |
 | admin | admin |
 
-## Build Application
-### Electron application
-#### Linux
-```
-quasar build --mode electron --target linux
-```
-
-#### macOS
-```
-quasar build --mode electron --target darwin
-```
-
-#### Win
-```
-quasar build --mode electron --target win32
-```
-
-### Mobile applications
-#### Android
-```
-quasar build --mode cordova --target android
-```
-
-#### IOS
-```
-quasar build --mode cordova --target ios
-```
 
 ## Deploy Web version by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
