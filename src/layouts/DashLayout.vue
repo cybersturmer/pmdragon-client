@@ -236,6 +236,7 @@ export default {
 			this.$router.push({ name: 'workspaces' })
 		},
 		goToSettingsOfProject () {
+			if (this.$router.currentRoute.name === 'settings') return false
 			this.$router.push({ name: 'settings' })
 		}
 	},
@@ -307,6 +308,7 @@ export default {
   .q-toolbar__title {
     font-size: 18px;
   }
+
   .q-toolbar__title:first-child {
     padding-left: 1em;
   }
