@@ -15,7 +15,7 @@
           {{ toolbarText }}
         </q-toolbar-title>
         <q-btn
-          v-if="isWorkspaceSelected && isMeOwnerOfCurrentProject"
+          v-if="isSettingsButtonVisible"
           flat
           dense
           round
@@ -243,6 +243,9 @@ export default {
 	computed: {
 		modeColors () {
 			return this.$q.dark.isActive ? 'bg-dark text-white' : 'bg-primary text-white'
+		},
+		isSettingsButtonVisible () {
+			return this.isWorkspaceSelected && this.isMeOwnerOfCurrentProject
 		},
 		isVisible () {
 			return this.$q.appVisible
