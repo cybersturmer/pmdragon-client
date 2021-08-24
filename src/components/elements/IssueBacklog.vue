@@ -31,7 +31,8 @@
 						square
             size="sm"
             :label="estimationTitle"
-            color="primary"/>
+						text-color="white"
+            color="info"/>
         </div>
       </q-card-section>
       <q-card-section

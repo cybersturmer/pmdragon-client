@@ -30,7 +30,7 @@
 
 <script>
 import { Dialogs } from 'pages/mixins/dialogs'
-import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {

@@ -75,8 +75,7 @@ export function packMessages (messages, myId) {
 	 * }
 	 *
 	 * **/
-
-	if (messages?.length === 0) {
+	if (messages === null || messages.length === 0) {
 		return []
 	}
 

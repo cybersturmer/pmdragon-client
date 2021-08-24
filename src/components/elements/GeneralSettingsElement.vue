@@ -34,7 +34,7 @@ import ConnectionEditDialog from 'src/components/dialogs/ConnectionEditDialog'
 import AboutDialog from 'src/components/dialogs/AboutDialog'
 
 export default {
-	name: 'ChangeConnectionElement',
+	name: 'GeneralSettingsElement',
 	methods: {
 		showConnectionEditDialog () {
 			this.$q.dialog({
@@ -51,6 +51,8 @@ export default {
 			})
 		},
 		toggleLightOrDarkMode () {
+			const newIsDarkState = !this.$q.dark.isActive
+			this.$store.commit('current/SET_DARK_MODE', newIsDarkState)
 			this.$q.dark.toggle()
 		}
 	},

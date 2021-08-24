@@ -209,7 +209,9 @@
                   </template>
                   <template #body-cell-prefix="props">
                     <q-td :props="props">
-											<q-btn flat icon="mdi-tooltip-image">
+											<q-btn
+												flat
+												icon="mdi-tooltip-image">
 														<q-popup-proxy transition-show="scale" transition-hide="scale">
 															<div style="max-width: 800px; width: 100%;">
 																<q-input :value="iconPickerFilter"
@@ -233,7 +235,7 @@
 																		'input-class': 'text-white text-weight-bold'
 																	}"
 																	font-size="16px"
-																	style="height: 300px; width: 300px">
+																	style="height: 300px; width: 180px">
 																</q-icon-picker>
 															</div>
 														</q-popup-proxy>

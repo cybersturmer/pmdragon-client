@@ -1,5 +1,5 @@
 <template>
-  <h5 class="text-secondary">
+  <h5 class="text-primary">
     {{ title }}
     <span v-if="info">
       [&nbsp;{{ info }}&nbsp;]

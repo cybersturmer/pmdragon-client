@@ -21,7 +21,7 @@
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 import { Dialogs } from 'pages/mixins/dialogs'
-import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import EmailField from 'components/fields/EmailField'
 
 export default {

@@ -129,7 +129,7 @@ export default {
 					label: 'Estimated Effort',
 					fill: false,
 					pointRadius: 3,
-					borderColor: 'rgba(255,255,255,0.85)',
+					borderColor: Dark.isActive ? 'white' : 'red',
 					borderWidth: 3,
 					data: expectedTimeValues
 				},

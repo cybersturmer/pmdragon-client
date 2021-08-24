@@ -34,7 +34,7 @@
 import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
-import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 
 export default {
 	name: 'VerifyInvitation',

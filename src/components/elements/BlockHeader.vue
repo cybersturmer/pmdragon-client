@@ -1,5 +1,5 @@
 <template>
-  <h5 class="text-secondary">{{ title }}</h5>
+  <h5 class="text-primary">{{ title }}</h5>
 </template>
 
 <script>

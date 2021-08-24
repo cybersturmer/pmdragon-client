@@ -42,7 +42,7 @@ import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { ErrorHandler } from 'src/services/util'
-import ChangeConnectionElement from 'src/components/elements/ChangeConnectionElement'
+import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 
 export default {
 	name: 'VerifyPasswordRestore',

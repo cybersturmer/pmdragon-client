@@ -45,7 +45,7 @@
               :key="state.id"
               class="col q-pa-xs full-width text-center">
               <!-- Printable HEAD of column -->
-              <div class="q-py-xs text-accent text-center text-uppercase">
+              <div class="q-py-xs text-center text-uppercase">
                 {{ state.title }}
                 <span>&nbsp;&nbsp;{{ issuesByStateAmount(state.id) }}</span>
                 <q-icon v-if="state.is_done"

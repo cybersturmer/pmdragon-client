@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated :class="modeColors">
       <q-toolbar>
         <q-btn
           v-if="isWorkspaceSelected"
@@ -60,6 +60,7 @@
     <q-drawer
       v-if="isWorkspaceSelected"
       v-model="leftDrawerOpen"
+			:content-class="modeColors"
       show-if-above
       :width="200"
       :breakpoint="900"
@@ -111,7 +112,7 @@
         </q-list>
       </q-scroll-area>
 
-      <q-card square flat class="absolute-top" style="height: 150px;">
+      <q-card square flat :class="`absolute-top ${modeColors}`" style="height: 150px;">
         <div class="absolute-bottom text-center" style="margin-bottom: 1em;">
           <q-avatar v-if="avatarUrl" size="65px" class="q-mb-sm">
             <q-badge
@@ -125,7 +126,11 @@
           </q-avatar>
           <div class="text-subtitle2">{{ firstName }} {{ lastName }}</div>
           <div>
-            <q-badge outline color="secondary" :label="`@${username}`" />
+            <q-badge
+							outline
+							color="secondary"
+							:class="`${modeColors} q-px-sm q-py-xs`"
+							:label="`@${username}`" />
           </div>
         </div>
       </q-card>
@@ -235,6 +240,9 @@ export default {
 		}
 	},
 	computed: {
+		modeColors () {
+			return this.$q.dark.isActive ? 'bg-dark text-white' : 'bg-primary text-white'
+		},
 		isVisible () {
 			return this.$q.appVisible
 		},
@@ -292,10 +300,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.q-layout__section--marginal {
-		background-color: var(--q-color-dark);
-	}
-
 	.q-drawer {
 		background-color: var(--q-color-dark)!important;
 	}

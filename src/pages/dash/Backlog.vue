@@ -27,9 +27,9 @@
               :key="sprint.id">
               <div class="row q-px-none q-py-sm">
                 <div class="col-auto q-py-xs q-pl-xs">
-                  <div class="h6 text-secondary">
+                  <div class="h6 text-primary">
                     {{ sprint.title }}
-                    {{ $q.screen.gt.sm ? `- ${sprint.goal} (${sprint.issues.length }) issues`: '' }}
+                    {{ $q.screen.gt.sm ? `- ${sprint.goal} [ ${sprint.issues.length } issues ]`: '' }}
                   </div>
                 </div>
                 <q-space/>

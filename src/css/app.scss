@@ -4,7 +4,8 @@
 }
 
 .q-item.q-router-link--active, .q-item--active {
-  color: #9c9c9c;
+	background-color: var(--q-color-info);
+  color: var(--q-color-accent);
 	filter: brightness(120%);
 }
 

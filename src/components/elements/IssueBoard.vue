@@ -44,7 +44,9 @@
               v-if="$q.screen.gt.md && assignee.username"
               square
               size="sm"
-              color="info">
+              color="info"
+							class="text-bold"
+							text-color="white">
               <span class="ellipsis">
                 @{{ assignee.username }}
               </span>
@@ -58,7 +60,9 @@
               square
               size="sm"
               :label="estimationTitle"
-              color="info"/>
+              color="info"
+							text-color="white"
+						/>
           </div>
         </q-card-section>
       </q-card-section>
