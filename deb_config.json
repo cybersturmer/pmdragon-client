@@ -1,0 +1,14 @@
+{
+	"productName": "PmDragon",
+	"description": "Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.",
+	"section": "utils",
+	"maintainer": "Vladimir Shturmer <cybersturmer@ya.ru>",
+	"homepage": "https://pmdragon.org",
+	"dest": "dist/electron/installers/",
+	"icon": "src-electron/icons/linux-512x512.png",
+	"categories": [
+		"Development",
+		"Office",
+		"Utility"
+	]
+}
