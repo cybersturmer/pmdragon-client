@@ -5,7 +5,14 @@
 	"maintainer": "Vladimir Shturmer <cybersturmer@ya.ru>",
 	"homepage": "https://pmdragon.org",
 	"dest": "dist/electron/installers/",
-	"icon": "src-electron/icons/linux-512x512.png",
+	"icon": {
+		"128x128": "public/icons/icon-128x128.png",
+		"192x192": "public/icons/icon-192x192.png",
+		"256x256": "public/icons/icon-256x256.png",
+		"384x384": "public/icons/icon-384x384.png",
+		"512x512": "public/icons/icon-512x512.png",
+		"scalable": "public/icons/safari-pinned-tab.svg"
+	},
 	"categories": [
 		"Development",
 		"Office",
