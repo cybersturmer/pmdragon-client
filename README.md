@@ -16,9 +16,8 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 
 ## Live Demo
 https://pmdragon-client.herokuapp.com/
-
-username: admin
-password: admin
+| Username | Password |
+| admin | admin |
 
 ## Build Application
 ### Electron application
