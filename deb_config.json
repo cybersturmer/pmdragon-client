@@ -4,14 +4,14 @@
 	"section": "utils",
 	"maintainer": "Vladimir Shturmer <cybersturmer@ya.ru>",
 	"homepage": "https://pmdragon.org",
-	"dest": "dist/electron/installers/",
+	"dest": "/home/cs/projects/pmdragon/pmdragon-client/dist/electron/installers/",
 	"icon": {
-		"128x128": "public/icons/icon-128x128.png",
-		"192x192": "public/icons/icon-192x192.png",
-		"256x256": "public/icons/icon-256x256.png",
-		"384x384": "public/icons/icon-384x384.png",
-		"512x512": "public/icons/icon-512x512.png",
-		"scalable": "public/icons/safari-pinned-tab.svg"
+		"128x128": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/icon-128x128.png",
+		"192x192": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/icon-192x192.png",
+		"256x256": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/icon-256x256.png",
+		"384x384": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/icon-384x384.png",
+		"512x512": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/icon-512x512.png",
+		"scalable": "/home/cs/projects/pmdragon/pmdragon-client/public/icons/safari-pinned-tab.svg"
 	},
 	"categories": [
 		"Development",
