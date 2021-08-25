@@ -31,7 +31,9 @@
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />
-									<IssueDescriptionSection :issue="formData.issue" />
+									<IssueDescriptionSection :issue="formData.issue"
+																					 @input="formData.issue.description = $event"
+																					 @updateDescription="updateIssueDescription($event)"/>
 									<q-separator class="q-mt-md q-mx-md"/>
 									<!-- Messages section -->
 									<q-card-section class="q-pa-none">
@@ -334,6 +336,17 @@ export default {
 					done()
 				}
 			}
+		},
+		async updateIssueDescription (value) {
+			/** update Issue description
+			 * we use it as a handler for description field changing **/
+			const payload = {
+				id: this.formData.issue.id,
+				description: this.formData.issue.description
+			}
+
+			await this.patchIssue(payload)
+			this.formData.issue.description = value
 		},
 		_scrollToEnd () {
 			const areaRefs = 'scrollArea'

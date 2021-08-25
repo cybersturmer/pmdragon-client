@@ -146,7 +146,7 @@
 
 <script>
 
-import { WsController } from 'src/services/websockets/WsController'
+// import { WsController } from 'src/services/websockets/WsController'
 import { Notifications } from 'src/pages/mixins/notifications'
 import { websocket } from 'src/pages/mixins/websockets'
 import { loading } from 'src/pages/mixins/loading'
@@ -204,18 +204,18 @@ export default {
 	},
 	created () {
 		/** Socket manual connection **/
-		const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
-		this.$connect(target, this.websocketConfiguration)
+		// const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
+		// this.$connect(target, this.websocketConfiguration)
 
-		this.$options.sockets.onmessage = (data) => {
-			const handler = new WsController()
-			handler.processEvent(data)
-		}
+		// this.$options.sockets.onmessage = (data) => {
+		// 	const handler = new WsController()
+		// 	handler.processEvent(data)
+		// }
 	},
 	methods: {
 		logout () {
 			// Disconnect from sockets first (we use auth credentials to connect websockets)
-			this.$disconnect()
+			// this.$disconnect()
 
 			this.$store.dispatch('auth/RESET')
 			this.$store.dispatch('current/RESET')

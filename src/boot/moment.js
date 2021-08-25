@@ -1,7 +1,6 @@
-import Vue from 'vue'
-import VueMoment from 'vue-moment'
-import moment from 'moment-timezone'
+import moment from 'moment'
+import { boot } from 'quasar/wrappers'
 
-Vue.use(VueMoment, {
-	moment
+export default boot(({ app }) => {
+	app.config.globalProperties.$moment = moment
 })

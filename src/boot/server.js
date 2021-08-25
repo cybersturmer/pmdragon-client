@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import axios from 'axios'
 import { boot } from 'quasar/wrappers'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
@@ -122,8 +121,6 @@ class Http {
 }
 
 export default boot(({ app, store }) => {
-	Vue.prototype.$axios = axios
-	Vue.prototype.$http = new Http(store)
+	app.config.globalProperties.$axios = axios
+	app.config.globalProperties.$http = new Http(store)
 })
-
-export { axios, Http }

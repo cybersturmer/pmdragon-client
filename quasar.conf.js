@@ -98,7 +98,7 @@ module.exports = configure(function (/* ctx */) {
 		framework: {
 			dark: true,
 			iconSet: 'mdi-v5', // Quasar icon set
-			lang: 'en-us', // Quasar language pack
+			lang: 'en-US', // Quasar language pack
 
 			// Possible values for "all":
 			// * 'auto' - Auto-import needed Quasar components & directives

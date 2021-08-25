@@ -227,7 +227,7 @@
 																	@input="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
 																	icon-set="mdi-v5"
 																	:filter="iconPickerFilter"
-																	:pagination.sync="iconPickerPagination"
+																	:pagination="iconPickerPagination"
 																	:pagination-props="{
 																		maxPages: 5,
 																		input: true,

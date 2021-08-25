@@ -17,7 +17,7 @@
 				@keydown.tab.prevent="handleTab"
 			/>
 		</form>
-		<EditorMentionPopupMenu :visible.sync="isMentioningPopupVisible"
+		<EditorMentionPopupMenu :visible="isMentioningPopupVisible"
 														:persons="persons"
 														@selected="select($event)"
 		/>
@@ -144,7 +144,7 @@ export default {
 
 			if (isEmptyString(value)) return false
 
-			const isMentioningPattern = new RegExp('@(?<meta>\\S+)')
+			const isMentioningPattern = /@(?<meta>\\S+)/
 			const isMentioningResult = value.match(isMentioningPattern)
 
 			if (!isMentioningResult) {

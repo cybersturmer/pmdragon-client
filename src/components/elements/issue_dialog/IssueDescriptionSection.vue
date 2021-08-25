@@ -20,7 +20,7 @@
 			:value="issue.description"
 			:options="editorOptions"
 			@enter="updateIssueDescription"
-			@input="issue.description = $event"
+			@input="handleIssueDescription($event)"
 		/>
 		<q-card-actions
 			v-show="isDescriptionEditing"
@@ -82,6 +82,9 @@ export default {
 			this.isDescriptionReadOnly = false
 			this.$nextTick(this.descriptionEditor.focus)
 		},
+		async handleIssueDescription (value) {
+			this.$emit('input', value)
+		},
 		async updateIssueDescription () {
 			/** update Issue description
 			 * we use it as a handler for description field changing **/
@@ -93,7 +96,7 @@ export default {
 			await this.patchIssue(payload)
 			this.isDescriptionReadOnly = true
 
-			this.$emit('update_description', payload)
+			this.$emit('updateDescription', payload)
 		},
 		cancelDescriptionEditing () {
 			/** We use this handler if user wrote something in Issue description

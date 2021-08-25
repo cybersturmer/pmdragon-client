@@ -164,15 +164,11 @@ const routes = [
 		meta: {
 			requiredAuth: true
 		}
+	},
+	{
+		path: '/:catchAll(.*)*',
+		component: () => import('src/pages/Error404.vue')
 	}
 ]
-
-// Always leave this as last one
-if (process.env.MODE !== 'ssr') {
-	routes.push({
-		path: '*',
-		component: () => import('src/pages/Error404.vue')
-	})
-}
 
 export default routes

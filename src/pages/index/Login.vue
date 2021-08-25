@@ -99,9 +99,6 @@ export default {
 
 				await this.obtainTokens(this.formData)
 
-				this.$set(this.formData, 'username', '')
-				this.$set(this.formData, 'password', '')
-
 				this.$store.commit('connection/ACTIVATE')
 				this.$store.commit('current/ACTIVATE')
 				this.$store.commit('auth/ACTIVATE')
