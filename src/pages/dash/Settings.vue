@@ -31,8 +31,7 @@
                   label="Project name"
                   :value="projectTitle"
                   :debounce="debounceDefault"
-                  @input="updateProjectEvent($event, 'title')"
-                />
+                  @input="updateProjectEvent($event, 'title')"/>
                 <q-input
                   flat
                   type="text"
@@ -78,7 +77,7 @@
                   row-key="title"
                   no-data-label="There are no issue types in your project"
                   :hide-bottom="true"
-                  :data="issueTypes"
+                  :rows="issueTypes"
                   :columns="issueTypesTableData.columns"
                   :pagination="issueTypesTableData.pagination"
                 >
@@ -195,7 +194,7 @@
                   row-key="prefix"
                   no-data-label="There are no issue types icons in your project"
                   :hide-bottom="true"
-                  :data="issueTypeIcons"
+                  :rows="issueTypeIcons"
                   :columns="issueTypesIconsTableData.columns"
                   :pagination="issueTypesIconsTableData.pagination"
                 >
@@ -327,7 +326,7 @@
                   row-key="title"
                   no-data-label="There are no issue states in your project"
                   :hide-bottom="true"
-                  :data="issueStates"
+                  :rows="issueStates"
                   :columns="issueStatesTableData.columns"
                   :pagination="issueStatesTableData.pagination"
                 >
@@ -428,7 +427,7 @@
                   ref="issue_types_estimations"
                   row-key="title"
                   no-data-label="There are no issue estimations in your project"
-                  :data="issueEstimations"
+                  :rows="issueEstimations"
                   :columns="issueEstimationsTableData.columns"
                   :pagination="issueEstimationsTableData.pagination"
                   :hide-bottom="true"

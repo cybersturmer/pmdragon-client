@@ -1,10 +1,10 @@
 <template>
 	<q-page class="q-pa-lg">
-				<div class="row">
+				<div class="row hide">
 				<q-table
 					grid
 					class="full-width items-center"
-					:data="workspaces"
+					:rows="workspaces"
 					no-data-label="You are not participating in any workspace"
 					:filter="workspacesTable.filter"
 					:filter-method="filterByString"
@@ -73,14 +73,14 @@
 import SmallParticipantChipElement from 'src/components/elements/SmallParticipantChipElement'
 import WorkspaceCreateDialog from 'src/components/dialogs/WorkspaceCreateDialog'
 import ProjectCreateDialog from 'src/components/dialogs/ProjectCreateDialog'
-import { websocket } from 'src/pages/mixins/websockets'
+// import { websocket } from 'src/pages/mixins/websockets'
 import { ErrorHandler } from 'src/services/util'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
 export default {
 	name: 'WorkspacesView',
 	mixins: [
-		websocket,
+		// websocket,
 		AuthActionsMixin
 	],
 	components: {
@@ -143,15 +143,17 @@ export default {
 				})
 		},
 		selectSpace (prefixUrl, projectId) {
-			this.unsubscribeIssuesInWorkspace()
-			this.unsubscribeSettings()
+			// @todo restore sockets
+			// this.unsubscribeIssuesInWorkspace()
+			// this.unsubscribeSettings()
 
 			/** Then select new Workspace and Project */
 			this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
 			this.$store.dispatch('current/SELECT_PROJECT', projectId)
 
-			this.subscribeIssuesInWorkspace()
-			this.subscribeSettings()
+			// @todo restore sockets
+			// this.subscribeIssuesInWorkspace()
+			// this.subscribeSettings()
 
 			this.$router.push({ name: 'backlog' })
 		},
