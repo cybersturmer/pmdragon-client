@@ -27,20 +27,23 @@
 					</form>
         </div>
         </q-card-section>
-        <q-card-section class="q-pt-none">
+        <q-card-section class="row q-pt-none justify-between">
+					<div class="col-5">
             <q-btn
               outline
 							label="Sign Up"
 							@click="register"/>
-						<router-link :to="{ name: 'login' }" custom v-slot="{ navigate }" class="float-right">
+					</div>
+					<div class="col-4">
+						<router-link :to="{ name: 'login' }" custom v-slot="{ navigate }">
 							<q-btn
 								flat
 								color="secondary"
 								label="Login?"
 								@click="navigate"
-								@keypress.enter="navigate"
-								style="margin-left: 30px"/>
+								@keypress.enter="navigate"/>
 						</router-link>
+					</div>
         </q-card-section>
     </q-card>
   </q-page>

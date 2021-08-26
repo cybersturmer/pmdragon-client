@@ -5,14 +5,24 @@
           <q-card-section class="q-pa-md">
               <EmailField v-model="formData.email" :error-message="formErrors.email"/>
           </q-card-section>
-          <q-card-actions vertical>
-            <q-btn
-              outline
-              color="secondary"
-              label="Send reset email"
-              @click="reset"
-            />
-          </q-card-actions>
+					<q-card-section class="row q-pt-none justify-between">
+						<div class="col-5">
+							<q-btn
+								outline
+								label="Reset"
+								@click="reset"/>
+						</div>
+						<div class="col-4">
+							<router-link :to="{ name: 'login' }" custom v-slot="{ navigate }">
+								<q-btn
+									flat
+									color="secondary"
+									label="Cancel"
+									@click="navigate"
+									@keypress.enter="navigate"/>
+							</router-link>
+						</div>
+					</q-card-section>
         </q-card>
   </q-page>
 </template>

@@ -4,7 +4,7 @@
 			grid
 			row-key="username"
 			no-data-label="Invite your team members by adding them by email."
-			:data="participants"
+			:rows="participants"
 			:columns="teamTable.columns"
 			:filter="teamTable.filter">
 			<template #top-left>
@@ -27,8 +27,7 @@
 			<template #item="props">
 				<ParticipantTeamMemberCard
 					:person="props.row"
-					@removeTeamMember="removeMemberDialog($event)"
-				/>
+					@removeTeamMember="removeMemberDialog($event)"/>
 			</template>
 		</q-table>
 		<q-table
