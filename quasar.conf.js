@@ -8,24 +8,24 @@
 /* eslint-env node */
 
 const fs = require('fs')
-const { configure } = require('quasar/wrappers')
 
+// Custom process based constants
 const DEBUG = process.env.NODE_ENV === 'development'
 const HEROKU = process.env.HEROKU
 const IS_ANDROID = process.argv[3] === 'android'
+
+// Custom calculated constants
 const IS_HTTPS = !HEROKU && !IS_ANDROID
 const IS_SELF_SIGNED_HTTPS = DEBUG && !IS_ANDROID
 
-module.exports = configure(function (/* ctx */) {
+const ESLintPlugin = require('eslint-webpack-plugin')
+const { configure } = require('quasar/wrappers')
+
+module.exports = configure(function (ctx) {
 	return {
 		https: IS_HTTPS,
 		supportTS: false,
 
-		// https://quasar.dev/quasar-cli/cli-documentation/prefetch-feature
-		// preFetch: true,
-
-		// app boot file (/src/boot)
-		// --> boot files are part of "main.js"
 		// https://quasar.dev/quasar-cli/cli-documentation/boot-files
 		boot: [
 			'i18n',
@@ -42,16 +42,8 @@ module.exports = configure(function (/* ctx */) {
 
 		// https://github.com/quasarframework/quasar/tree/dev/extras
 		extras: [
-			// 'ionicons-v4',
 			'mdi-v5',
-			// 'fontawesome-v5',
-			// 'eva-icons',
-			// 'themify',
-			// 'line-awesome',
-			// 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-			'roboto-font' // optional, you are not bound to it
-			// 'material-icons-outlined' // optional, you are not bound to it
+			'roboto-font'
 		],
 
 		// Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
@@ -70,15 +62,9 @@ module.exports = configure(function (/* ctx */) {
 
 			// Options below are automatically set depending on the env, set them if you want to override
 			// extractCSS: false,
-
-			// https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-			extendWebpack (cfg) {
-				cfg.module.rules.push({
-					enforce: 'pre',
-					test: /\.(js|vue)$/,
-					loader: 'eslint-loader',
-					exclude: /node_modules/
-				})
+			chainWebpack (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
 			}
 		},
 
@@ -86,10 +72,12 @@ module.exports = configure(function (/* ctx */) {
 		// I created folder ssl with 2 certificates by this tool https://github.com/FiloSottile/mkcert
 		// Of course i didn't commit that :) So create it by yourself or set https: false
 		devServer: {
-			https: IS_SELF_SIGNED_HTTPS ? {
-				key: fs.readFileSync('ssl/localhost+2-key.pem'),
-				cert: fs.readFileSync('ssl/localhost+2.pem')
-			} : false,
+			https: IS_SELF_SIGNED_HTTPS
+				? {
+					key: fs.readFileSync('ssl/localhost+2-key.pem'),
+					cert: fs.readFileSync('ssl/localhost+2.pem')
+				}
+				: false,
 			port: 8080,
 			open: false
 		},
@@ -128,7 +116,25 @@ module.exports = configure(function (/* ctx */) {
 
 		// https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
 		ssr: {
-			pwa: false
+			pwa: false,
+
+			// manualStoreHydration: true,
+			// manualPostHydrationTrigger: true,
+
+			prodPort: 3000, // The default port that the production server should use
+			// (gets superseded if process.env.PORT is specified at runtime)
+
+			maxAge: 1000 * 60 * 60 * 24 * 30,
+			// Tell browser when a file from the server should expire from cache (in ms)
+			chainWebpackWebserver (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js'] }])
+			},
+
+			middlewares: [
+				ctx.prod ? 'compression' : '',
+				'render' // keep this as last one
+			]
 		},
 
 		// https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
@@ -215,12 +221,16 @@ module.exports = configure(function (/* ctx */) {
 				appId: 'com.cybersturmer.pmdragon.pmdragonce'
 			},
 
-			// More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
-			nodeIntegration: true,
+			// "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+			chainWebpackMain (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js'] }])
+			},
 
-			extendWebpack (/* cfg */) {
-				// do something with Electron main process Webpack cfg
-				// chainWebpack also available besides this extendWebpack
+			// "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+			chainWebpackPreload (chain) {
+				chain.plugin('eslint-webpack-plugin')
+					.use(ESLintPlugin, [{ extensions: ['js'] }])
 			}
 		}
 	}
