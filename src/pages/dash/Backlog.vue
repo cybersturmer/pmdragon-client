@@ -52,28 +52,13 @@
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center q-pt-md">
                   Plan sprint by dropping issues here.
-                </div>
-                <draggable
-                  :value="sprintIssues(sprint.id)"
-                  :handle="$q.screen.lt.sm ? '.handle' : false"
-                  v-bind="dragOptions"
-                  @change="handleDraggableEvent($event, dragTypes.SPRINT, sprint.id)"
-                  @start="dragging=true"
-                  @end="dragging=false"
-                >
-                  <transition-group
-										type="transition"
-										name="flip-list"
-										tag="div"
-										:style=" dragging ? `min-height: 100px` : ''">
-                    <IssueBacklog
-                      v-for="issue in sprintIssues(sprint.id)"
-                      :key="issue.id"
-                      :issue="issue"
-                    />
-                  </transition-group>
-                </draggable>
-              </div>
+								</div>
+								<DraggableSprintIssues
+									:dragOptions="dragOptions"
+									:collectionId="sprint.id"
+									@start="dragging=true"
+									@end="dragging=false"/>
+							</div>
             </div>
         </q-scroll-area>
       </div>
@@ -86,7 +71,7 @@
       <div class="col">
         <q-scroll-area
           visible
-          class="q-py-sm q-pl-sm q-pr-md"
+          class="q-py-sm q-pl-sm q-pr-md q-mb-xs"
           style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060;">
 	        <div v-if="isBacklogEmpty && !dragging"
 	             class="flex flex-center text-secondary"
@@ -95,27 +80,13 @@
 			        Backlog is empty.
 		        </div>
 	        </div>
-          <draggable
-		        v-else
-            :value="backlogIssues"
-            :handle="$q.screen.lt.sm ? '.handle' : false"
-            v-bind="dragOptions"
-            @change="handleDraggableEvent($event, dragTypes.BACKLOG, backlog.id)"
-            @start="dragging=true"
-            @end="dragging=false"
-						class="full-height full-width"
-            :style="`min-height: 30vh; ${dragging ? 'border: 1px dashed #424242' : ''}`">
-            <transition-group
-		            type="transition"
-		            name="flip-list"
-		            tag="div">
-              <IssueBacklog
-                v-for="issue in backlogIssues"
-                :key="issue.id"
-                :issue="issue"
-              />
-            </transition-group>
-          </draggable>
+					<DraggableBacklogIssues
+						v-else
+						:drag-options="dragOptions"
+						:collection-id="backlog.id"
+						@start="dragging=true"
+						@end="dragging=false"
+					/>
         </q-scroll-area>
         <q-card bordered
                 class="my-card q-ma-sm absolute-bottom q-pa-none">
@@ -142,11 +113,9 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { unWatch } from 'src/services/util'
-import IssueBacklog from 'src/components/elements/IssueBacklog'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintMorePopupMenu from 'src/components/popups/SprintMorePopupMenu'
 import BlockHeader from 'src/components/elements/BlockHeader'
@@ -155,10 +124,17 @@ import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 import { loading } from 'src/pages/mixins/loading'
 import { CoreActionsMixin } from 'src/services/actions/core'
+import DraggableIssueCollection from 'components/elements/backlog/interface/DraggableIssuesCollection'
+import DraggableBacklogIssues from 'components/elements/backlog/DraggableBacklogIssues'
+import DraggableSprintIssues from 'components/elements/backlog/DraggableSprintIssues'
 
 export default {
 	name: 'BacklogView',
 	components: {
+		DraggableSprintIssues,
+		DraggableBacklogIssues,
+		// eslint-disable-next-line vue/no-unused-components
+		DraggableIssueCollection,
 		// eslint-disable-next-line vue/no-unused-components
 		IssueEditDialog,
 		// eslint-disable-next-line vue/no-unused-components
@@ -166,9 +142,7 @@ export default {
 		BlockHeader,
 		BlockHeaderInfo,
 		SprintMorePopupMenu,
-		StartCompleteSprintButton,
-		draggable,
-		IssueBacklog
+		StartCompleteSprintButton
 	},
 	mixins: [
 		Dialogs,
@@ -193,8 +167,13 @@ export default {
 			dragOptions: {
 				animation: 200,
 				group: 'issues',
+				itemKey: 'id',
 				disabled: false,
-				ghostClass: 'ghost'
+				ghostClass: 'ghost',
+				'component-data': {
+					name: 'fade'
+				},
+				handle: this.$q.screen.lt.sm ? '.handle' : false
 			},
 			dragging: false,
 			isIssueDialogOpened: false
@@ -227,6 +206,15 @@ export default {
 		}
 	},
 	computed: {
+		backlogIssuesN: {
+			get () {
+				return this.$store.getters['core/BACKLOG_ISSUES']
+			},
+			set (value) {
+				this.updateIssuesInBacklog()
+				this.$store.commit()
+			}
+		},
 		backlog () {
 			/** Getting current backlog by chosen workspace and project **/
 			return this.$store.getters['core/BACKLOG']
@@ -430,9 +418,9 @@ export default {
 		},
 		handleBacklogIssueAdded (event, backlogId) {
 			/** Handling adding to Backlog **/
-			const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
+			const backlogIssuesIds = this.$store.getters['core/BACKLOG_ISSUES_IDS']
 
-			const handled = this.handleCommonAdded(currentBacklogIssues, event)
+			const handled = this.handleCommonAdded(backlogIssuesIds, event)
 			const compositeBacklogIdsList = {
 				id: backlogId,
 				issues: handled.list
@@ -477,9 +465,9 @@ export default {
 		},
 		handleBacklogIssueRemoved (event, backlogId) {
 			/** Handling removing from Backlog **/
-			const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
+			const backlogIssuesIds = this.$store.getters['core/BACKLOG_ISSUES_IDS']
 
-			const handled = this.handleCommonRemoved(currentBacklogIssues, event)
+			const handled = this.handleCommonRemoved(backlogIssuesIds, event)
 			const compositeBacklogIds = {
 				id: backlogId,
 				issues: handled.list
@@ -490,7 +478,10 @@ export default {
 				.then(() => this.updateIssuesOrdering(handled.ordering))
 				.finally(() => this.hideProgress())
 		},
-		handleDraggableEvent (event, dragType, dragId) {
+		handleDraggableEvent (listEvent) {
+			console.log('listEvent')
+			console.log(listEvent)
+
 			/** Handle dropping from Sprint/Backlog to Sprint/Backlog
        * This call can be called twice for any drag&drop
        * Object {
@@ -508,38 +499,53 @@ export default {
        * }
        * **/
 
+			const { event, collectionType, collectionId } = listEvent
+
+			console.log('event')
+			console.log(event)
+			console.log('collectionType')
+			console.log(collectionType)
+			console.log('collectionId')
+			console.log(collectionId)
+
 			// Moving events block
-			const isMovedInsideOfSprint = ('moved' in event) && (dragType === this.dragTypes.SPRINT)
-			const isMovedInsideOfBacklog = ('moved' in event) && (dragType === this.dragTypes.BACKLOG)
+			const isMovedInsideOfSprint = ('moved' in event) && (collectionType === this.dragTypes.SPRINT)
+			const isMovedInsideOfBacklog = ('moved' in event) && (collectionType === this.dragTypes.BACKLOG)
 
 			// Adding events block
-			const isAddedToSprint = ('added' in event) && (dragType === this.dragTypes.SPRINT)
-			const isAddedToBacklog = ('added' in event) && (dragType === this.dragTypes.BACKLOG)
+			const isAddedToSprint = ('added' in event) && (collectionType === this.dragTypes.SPRINT)
+			const isAddedToBacklog = ('added' in event) && (collectionType === this.dragTypes.BACKLOG)
 
 			// Removing events block
-			const isRemovedFromSprint = ('removed' in event) && (dragType === this.dragTypes.SPRINT)
-			const isRemovedFromBacklog = ('removed' in event) && (dragType === this.dragTypes.BACKLOG)
+			const isRemovedFromSprint = ('removed' in event) && (collectionType === this.dragTypes.SPRINT)
+			const isRemovedFromBacklog = ('removed' in event) && (collectionType === this.dragTypes.BACKLOG)
 
 			switch (true) {
 			case isMovedInsideOfSprint:
-				this.handleSprintIssueMoved(event, dragId)
+				console.log('isMovedInsideOfSprint')
+				this.handleSprintIssueMoved(event, collectionId)
 				break
 			case isMovedInsideOfBacklog:
-				this.handleBacklogIssueMoved(event, dragId)
+				console.log('isMovedInsideOfBacklog')
+				this.handleBacklogIssueMoved(event, collectionId)
 				break
 			case isAddedToSprint:
-				this.notifyAboutStartedSprintAffecting(event, dragId)
-				this.handleSprintIssueAdded(event, dragId)
+				console.log('isAddedToSprint')
+				this.notifyAboutStartedSprintAffecting(event, collectionId)
+				this.handleSprintIssueAdded(event, collectionId)
 				break
 			case isAddedToBacklog:
-				this.handleBacklogIssueAdded(event, dragId)
+				console.log('isAddedToBacklog')
+				this.handleBacklogIssueAdded(event, collectionId)
 				break
 			case isRemovedFromSprint:
-				this.notifyAboutStartedSprintAffecting(event, dragId)
-				this.handleSprintIssueRemoved(event, dragId)
+				console.log('isRemovedFromSprint')
+				this.notifyAboutStartedSprintAffecting(event, collectionId)
+				this.handleSprintIssueRemoved(event, collectionId)
 				break
 			case isRemovedFromBacklog:
-				this.handleBacklogIssueRemoved(event, dragId)
+				console.log('isRemovedFromBacklog')
+				this.handleBacklogIssueRemoved(event, collectionId)
 				break
 			default:
 				throw new Error('Unexpected dragging type')

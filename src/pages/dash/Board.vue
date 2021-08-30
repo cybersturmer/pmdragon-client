@@ -57,26 +57,14 @@
               <div class="full-width full-height">
                 <q-scroll-area
                   :delay="1200"
-                  class="q-pl-xs q-pr-sm overflow-hidden"
                   :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
                   <draggable
-                    :value="issuesByState(state.id)"
-                    :handle="$q.screen.lt.sm ? '.handle' : false"
+                    :modelValue="issuesByState(state.id)"
                     v-bind="dragOptions"
-                    @change="handleIssueStateChanging($event, state.id)"
-                    class="fit overflow-hidden-y no-scroll">
-
-                    <transition-group
-                      type="transition"
-                      name="flip-list"
-                      tag="div"
-                      class="fit"
-                      style="min-height: 37vh">
-                      <IssueBoard
-                        v-for="issue in issuesByState(state.id)"
-                        :key="issue.id"
-                        :issue="issue"/>
-                    </transition-group>
+                    @change="handleIssueStateChanging($event, state.id)">
+										<template #item="{ element }">
+											<IssueBoard :issue="element"/>
+										</template>
                   </draggable>
                 </q-scroll-area>
               </div>
@@ -131,8 +119,13 @@ export default {
 			dragOptions: {
 				animation: 200,
 				group: 'issues',
+				itemKey: 'id',
 				disabled: false,
-				ghostClass: 'ghost'
+				ghostClass: 'ghost',
+				'component-data': {
+					name: 'fade'
+				},
+				handle: this.$q.screen.lt.sm ? '.handle' : false
 			}
 		}
 	},
