@@ -3,9 +3,9 @@
 		<!-- Title editing section -->
 		<q-input
 			dense
-			:value="issue.title"
+			:modelValue="issue.title"
+			@update:modelValue="updateIssueTitle($event)"
 			debounce="1000"
-			@input="updateIssueTitle($event)"
 			:label="issueTitleLabel"
 			label-color="secondary">
 			<template v-slot:before>

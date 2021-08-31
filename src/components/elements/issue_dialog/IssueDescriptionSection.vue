@@ -17,10 +17,10 @@
 		<EditorExtended
 			ref="issueDescriptionEditor"
 			v-show="isDescriptionEditing"
-			:value="issue.description"
+			:modelValue="issue.description"
+			@update:modelValue="handleIssueDescription($event)"
 			:options="editorOptions"
 			@enter="updateIssueDescription"
-			@input="handleIssueDescription($event)"
 		/>
 		<q-card-actions
 			v-show="isDescriptionEditing"

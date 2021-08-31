@@ -5,8 +5,8 @@
 			flat
 			square
 			dense
-			:value="stateCategory"
-			@input="updateIssueState($event)"
+			:modelValue="stateCategory"
+			@update:modelValue="updateIssueState($event)"
 			:options="states"
 			option-label="title"
 			option-value="id"
@@ -16,8 +16,8 @@
 			flat
 			square
 			dense
-			:value="typeCategory"
-			@input="updateIssueType($event)"
+			:modelValue="typeCategory"
+			@update:modelValue="updateIssueType($event)"
 			:options="types"
 			option-label="title"
 			option-value="id"
@@ -27,8 +27,8 @@
 			flat
 			square
 			dense
-			:value="assignee"
-			@input="updateIssueAssignee($event)"
+			:modelValue="assignee"
+			@update:modelValue="updateIssueAssignee($event)"
 			:options="participants"
 			:option-label="(item) => `${item.first_name} ${item.last_name}`"
 			option-value="id"
@@ -38,8 +38,8 @@
 			flat
 			square
 			dense
-			:value="estimationCategory"
-			@input="updateIssueEstimation($event)"
+			:modelValue="estimationCategory"
+			@update:modelValue="updateIssueEstimation($event)"
 			:options="estimations"
 			:option-label="(item) => item ? `${item.title}`: 'None'"
 			option-value="id"

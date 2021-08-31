@@ -11,8 +11,8 @@
 				toolbar-toggle-color="secondary"
 				class="q-ma-none"
 				v-bind="options"
-				:value="value"
-				@input="handleInput"
+				:modelValue="value"
+				@update:modelValue="handleInput"
 				@keyup.enter="handleEnter"
 				@keydown.tab.prevent="handleTab"
 			/>
@@ -108,8 +108,8 @@ export default {
 		},
 
 		/** Emitting methods **/
-		emitInput (value) {
-			this.$emit('input', value)
+		emitUpdateModel (value) {
+			this.$emit('update:modelValue', value)
 		},
 
 		/** Handling user activity **/
@@ -118,7 +118,7 @@ export default {
 			this.editor.focus()
 
 			const mentionedReplacedByChip = this.replaceMentionedByChip(value)
-			this.emitInput(mentionedReplacedByChip)
+			this.emitUpdateModel(mentionedReplacedByChip)
 		},
 		handleEnter (key) {
 			if (!key.ctrlKey) return false
@@ -178,7 +178,7 @@ export default {
 			const html = this.value.replace(replaceable, chip)
 
 			this.$nextTick(() => {
-				this.emitInput(html)
+				this.emitUpdateModel(html)
 				this.editor.focus()
 			})
 
@@ -200,7 +200,7 @@ export default {
 			const html = value.replace(`@${person.username}`, chip)
 
 			this.$nextTick(() => {
-				this.emitInput(html)
+				this.emitUpdateModel(html)
 				this.editor.focus()
 			})
 
