@@ -23,7 +23,7 @@ https://pmdragon-client.herokuapp.com/
 | admin | admin |
 
 
-## Deploy Web version by one click
+## Deploy Web application by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
 
 
