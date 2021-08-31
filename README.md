@@ -7,7 +7,7 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 | ------- | ----- | --- | ------ |
 | [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
-## Binaries
+## Binaries (Linux / MacOs / Windows)
 <a href="https://sourceforge.net/projects/pmdragon/files/"><img alt="Download PmDragon" src="https://sourceforge.net/sflogo.php?type=17&group_id=3405332" width=200></a>
 
 
