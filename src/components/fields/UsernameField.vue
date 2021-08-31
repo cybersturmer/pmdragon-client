@@ -3,9 +3,9 @@
     flat
     type="text"
 		@keyup.enter="$emit('enter')"
-    @input="handleInput"
-    :value="username"
-    :error="isError"
+    :modelValue="username"
+		@update:modelValue="handleInput"
+		:error="isError"
     :error-message="errorMessage"
     label="Username"
   />

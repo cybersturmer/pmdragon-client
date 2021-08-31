@@ -2,15 +2,15 @@
   <q-input
     flat
     color="secondary"
-    :value="rawDatetime"
+    :modelValue="rawDatetime"
     :label="label"
     @input="handleInput">
     <template v-slot:prepend>
       <q-icon name="mdi-calendar" class="cursor-pointer">
         <q-popup-proxy transition-show="scale" transition-hide="scale">
           <q-date
-            :value="rawDatetime"
-            @input="handleInput($event)"
+            :modelValue="rawDatetime"
+            @update:modelValue="handleInput($event)"
             :mask="mask" />
         </q-popup-proxy>
       </q-icon>
@@ -20,8 +20,8 @@
       <q-icon name="mdi-clock-outline" class="cursor-pointer">
         <q-popup-proxy transition-show="scale" transition-hide="scale">
           <q-time
-            :value="rawDatetime"
-            @input="handleInput($event)"
+            :modelValue="rawDatetime"
+            @update:modelValue="handleInput($event)"
             :mask="mask"
             :minute-options="minuteOptions"
             format24h />

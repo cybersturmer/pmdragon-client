@@ -3,8 +3,8 @@
     <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
-          @input="inputHost($event)"
-          :value="formData.api_host"
+          @update:modelValue="inputHost($event)"
+          :modelValue="formData.api_host"
           :rules="[isValidHost]"
           label="Host"
           label-color="secondary"

@@ -3,8 +3,8 @@
     <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
-          @input="inputPrefixUrl($event)"
-          :value="formData.prefix_url"
+					:modelValue="formData.prefix_url"
+					@update:modelValue="inputPrefixUrl($event)"
           :rules="[workspacePrefixUrlLength]"
           maxlength="20"
           label="Prefix Url"

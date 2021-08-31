@@ -3,7 +3,7 @@
 		square
 		auto-close
 		no-focus
-		:value="visible">
+		:modelValue="visible">
 		<!-- List for persons -->
 		<q-list bordered
 						separator>

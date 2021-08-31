@@ -6,9 +6,9 @@
 			class="q-pa-none">
 			<!-- Editor (Like Textarea) -->
 			<EditorExtended :ref="refsKey"
-											:value="formMessage.description"
+											:modelValue="formMessage.description"
 											:options="editorOptions"
-											@input="formMessage.description = $event"
+											@update:modelValue="formMessage.description = $event"
 											@enter="createOrUpdateMessage"
 											placeholder="Create new message here..."
 			/>

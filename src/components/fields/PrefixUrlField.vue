@@ -3,10 +3,10 @@
     flat
     type="text"
 		@keyup.enter="$emit('enter')"
-    @input="handleInput"
     :rules="[isValidWorkspacePrefix]"
-    :value="value"
-    :error="isError"
+		:modelValue="value"
+		@update:modelValue="handleInput"
+		:error="isError"
     :error-message="errorMessage"
     label="Workspace prefix"
   />

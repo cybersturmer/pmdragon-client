@@ -3,8 +3,8 @@
 		flat
 		type="text"
 		@keyup.enter="$emit('enter')"
-		@input="handleInput"
-		:value="email"
+		:modelValue="email"
+		@update:modelValue="handleInput"
 		:error="isError"
 		:error-message="errorMessage"
 		:rules="[isValidEmail]"

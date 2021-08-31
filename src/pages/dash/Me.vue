@@ -134,17 +134,17 @@
                     <q-input
                       readonly
                       label="Email"
-                      :value="email"
+                      :modelValue="email"
                     />
                     <q-input
                       readonly
                       label="Last Login"
-                      :value="meLastLogin"
+                      :modelValue="meLastLogin"
                     />
                     <q-input
                       readonly
                       label="Joined"
-                      :value="meCreatedAt"
+                      :modelValue="meCreatedAt"
                     />
                   </q-card-section>
                 </q-card-section>

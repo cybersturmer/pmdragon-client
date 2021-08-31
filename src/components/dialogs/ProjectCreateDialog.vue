@@ -6,9 +6,9 @@
           flat
           square
           dense
-          @input="updateWorkspace($event)"
-          :options="workspaces"
-          :value="formData.workspace"
+					:modelValue="formData.workspace"
+					@update:modelValue="updateWorkspace($event)"
+					:options="workspaces"
           :option-label="(item) => item.prefix_url"
           option-value="id"
         />

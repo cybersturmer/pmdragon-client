@@ -5,7 +5,7 @@
       flat
       square
       readonly
-      :value="createdAt"
+      :modelValue="createdAt"
       :mask="mask"
       type="datetime"
       label="Created at"
@@ -15,7 +15,7 @@
 			flat
 			square
 			readonly
-			:value="createdBy"
+			:modelValue="createdBy"
 			label="Created By"
 			label-color="secondary"
 		/>
@@ -23,7 +23,7 @@
       flat
       square
       readonly
-      :value="updatedAt"
+      :modelValue="updatedAt"
       :mask="mask"
       type="datetime"
       label="Updated at"

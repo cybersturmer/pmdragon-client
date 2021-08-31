@@ -29,25 +29,26 @@
                   flat
                   type="text"
                   label="Project name"
-                  :value="projectTitle"
-                  :debounce="debounceDefault"
-                  @input="updateProjectEvent($event, 'title')"/>
+                  :modelValue="projectTitle"
+									@update:modelValue="updateProjectEvent($event, 'title')"
+									:debounce="debounceDefault"
+								/>
                 <q-input
                   flat
                   type="text"
                   label="Project key"
-                  :value="projectKey"
-                  :debounce="debounceDefault"
-                  @input="updateProjectEvent($event, 'key')"
+                  :modelValue="projectKey"
+									@update:modelValue="updateProjectEvent($event, 'key')"
+									:debounce="debounceDefault"
                 />
                 <q-select
                   flat
                   label="Project owner"
-                  :value="projectOwnedBy"
-                  :options="participants"
-                  :option-label="(item) => `${item.first_name} ${item.last_name}`"
-                  hint="Right after changing it you will not be able anymore to change the project."
-                  @input="updateProjectEvent($event, 'owned_by')"
+                  :modelValue="projectOwnedBy"
+									@update:modelValue="updateProjectEvent($event, 'owned_by')"
+									:options="participants"
+									:option-label="(item) => `${item.first_name} ${item.last_name}`"
+									hint="Right after changing it you will not be able anymore to change the project."
                 />
               </template>
               <template #actions>
@@ -88,9 +89,9 @@
                         borderless
                         type="text"
                         color="secondary"
-                        :value="props.row.title"
-                        :debounce="debounceDefault"
-                        @input="updateIssueType(props.row.id, 'title', $event)"
+                        :modelValue="props.row.title"
+												@update:modelValue="updateIssueType(props.row.id, 'title', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>
@@ -98,8 +99,8 @@
                     <q-td :props="props">
                       <q-toggle
                         color="info"
-                        :value="props.row.is_default"
-                        @input="updateIssueType(props.row.id, 'is_default', $event)"
+                        :modelValue="props.row.is_default"
+                        @update:modelValue="updateIssueType(props.row.id, 'is_default', $event)"
                       />
                     </q-td>
                   </template>
@@ -111,8 +112,8 @@
                         color="secondary"
                         :options="issueTypeIcons"
                         :option-label="(item) => item.prefix"
-                        :value="getIssueTypeIconById(props.row.icon)"
-                        @input="updateIssueType(props.row.id, 'icon', $event)"
+                        :modelValue="getIssueTypeIconById(props.row.icon)"
+                        @update:modelValue="updateIssueType(props.row.id, 'icon', $event)"
                         class="float-right col-3 overflow-hidden"
                       >
                         <template #selected-item="scope">
@@ -213,8 +214,8 @@
 												icon="mdi-tooltip-image">
 														<q-popup-proxy transition-show="scale" transition-hide="scale">
 															<div style="max-width: 800px; width: 100%;">
-																<q-input :value="iconPickerFilter"
-																				 @input="inputIconPickerFilter"
+																<q-input :modelValue="iconPickerFilter"
+																				 @update:modelValue="inputIconPickerFilter"
 																				 flat
 																				 type="text"
 																				 label="Filter"
@@ -222,8 +223,8 @@
 																				 clearable
 																				 class="q-pa-sm" />
 																<q-icon-picker
-																	:value="props.row.prefix"
-																	@input="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
+																	:modelValue="props.row.prefix"
+																	@update:modelValue="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
 																	icon-set="mdi-v5"
 																	:filter="iconPickerFilter"
 																	:pagination="iconPickerPagination"
@@ -250,16 +251,18 @@
                         borderless
                         type="text"
                         color="secondary"
-                        :value="props.row.color"
-                        :debounce="debounceDefault"
-                        @input="updateIssueTypeIcon(props.row.id, 'color', $event)">
+                        :modelValue="props.row.color"
+												@update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
+												:debounce="debounceDefault"
+											>
 												<template #prepend>
 													<q-icon name="mdi-palette" class="cursor-pointer">
 														<q-popup-proxy transition-show="scale" transition-hide="scale">
 															<q-color format-model="hex"
-																			 :value="props.row.color"
+																			 :modelValue="props.row.color"
+																			 @update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
 																			 :debounce="debounceDefault"
-																			 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
+															/>
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -270,9 +273,10 @@
 												icon="mdi-palette">
 												<q-popup-proxy transition-show="scale" transition-hide="scale">
 													<q-color format-model="hex"
-																	 :value="props.row.color"
+																	 :modelValue="props.row.color"
+																	 @update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
 																	 :debounce="debounceDefault"
-																	 @input="updateIssueTypeIcon(props.row.id, 'color', $event)"/>
+													/>
 												</q-popup-proxy>
 											</q-btn>
                     </q-td>
@@ -337,9 +341,9 @@
                         borderless
                         type="text"
                         color="secondary"
-                        :value="props.row.title"
-                        :debounce="debounceDefault"
-                        @input="updateIssueState(props.row.id, 'title', $event)"
+                        :modelValue="props.row.title"
+												@update:modelValue="updateIssueState(props.row.id, 'title', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>
@@ -347,9 +351,9 @@
                     <q-td :props="props">
                       <q-toggle
                         color="info"
-                        :value="props.row.is_default"
-                        :debounce="debounceDefault"
-                        @input="updateIssueState(props.row.id, 'is_default', $event)"
+                        :modelValue="props.row.is_default"
+												@update:modelValue="updateIssueState(props.row.id, 'is_default', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>
@@ -357,9 +361,9 @@
                     <q-td :props="props">
                       <q-toggle
                         color="info"
-                        :value="props.row.is_done"
-                        :debounce="debounceDefault"
-                        @input="updateIssueState(props.row.id, 'is_done', $event)"
+                        :modelValue="props.row.is_done"
+												@update:modelValue="updateIssueState(props.row.id, 'is_done', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>
@@ -372,9 +376,9 @@
 												color="secondary"
 												class="text-center"
 												input-style="width: 30px; text-align: center"
-												:value="props.row.ordering"
+												:modelValue="props.row.ordering"
+												@update:modelValue="updateIssueState(props.row.id, 'ordering', $event)"
 												:debounce="debounceDefault"
-												@input="updateIssueState(props.row.id, 'ordering', $event)"
 											/>
 										</q-td>
 									</template>
@@ -439,9 +443,9 @@
                         borderless
                         type="text"
                         color="secondary"
-                        :value="props.row.title"
-                        :debounce="debounceDefault"
-                        @input="updateIssueEstimation(props.row.id, 'title', $event)"
+                        :modelValue="props.row.title"
+												@update:modelValue="updateIssueEstimation(props.row.id, 'title', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>
@@ -453,9 +457,9 @@
                         type="number"
                         color="secondary"
 												input-style="width: 60px; text-align: center"
-                        :value="props.row.value"
-                        :debounce="debounceDefault"
-                        @input="updateIssueEstimation(props.row.id, 'value', $event)"
+                        :modelValue="props.row.value"
+												@update:modelValue="updateIssueEstimation(props.row.id, 'value', $event)"
+												:debounce="debounceDefault"
                       />
                     </q-td>
                   </template>

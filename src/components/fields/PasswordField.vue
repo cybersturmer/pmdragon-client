@@ -3,8 +3,8 @@
 		flat
 		type="password"
 		@keyup.enter="$emit('enter')"
-		@input="handleInput"
-		:value="password"
+		:modelValue="password"
+		@update:modelValue="handleInput"
 		:error="isError"
 		:error-message="errorMessage"
 		label="Password">
