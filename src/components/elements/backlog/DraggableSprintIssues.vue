@@ -1,28 +1,35 @@
 <script>
-import DraggableIssuesCollection from 'components/elements/backlog/interface/DraggableIssuesCollection'
+import DraggableIssueBacklogCollection from 'components/elements/backlog/interface/DraggableIssueBacklogCollection'
 
 export default {
 	name: 'DraggableSprintIssues',
-	extends: DraggableIssuesCollection,
-	data () {
-		return {
-			collectionType: 1 // SPRINT
-		}
-	},
+	extends: DraggableIssueBacklogCollection,
 	computed: {
 		issues: {
 			get () {
 				return this.$store.getters['core/SPRINT_BY_ID_ISSUES'](this.collectionId)
 			},
-			set (value) {
-				const payload = {
-					id: this.collectionId,
-					issues: value
+			async set (value) {
+				const issuesIds = []
+				const issuesOrdering = []
+
+				for (const [index, issue] of value.entries()) {
+					issuesIds.push(issue.id)
+					issuesOrdering.push({
+						id: issue.id,
+						ordering: index
+					})
 				}
 
-				console.dir(payload)
+				const sprintUpdatePayload = {
+					id: this.collectionId,
+					issues: issuesIds
+				}
 
-				return this.$store.commit('core/UPDATE_SPRINT_ISSUES', payload)
+				await Promise.all([
+					this.updateIssuesInSprint(sprintUpdatePayload),
+					this.updateIssuesOrdering(issuesOrdering)
+				])
 			}
 		}
 	}

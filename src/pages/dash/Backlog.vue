@@ -56,6 +56,7 @@
 								<DraggableSprintIssues
 									:dragOptions="dragOptions"
 									:collectionId="sprint.id"
+									:style="`${dragging ? 'min-height: 100px; border: 1px dashed #424242' : ''}`"
 									@start="dragging=true"
 									@end="dragging=false"/>
 							</div>
@@ -84,6 +85,7 @@
 						v-else
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
+						:style="`min-height: 30vh; ${dragging ? 'border: 1px dashed #424242' : ''}`"
 						@start="dragging=true"
 						@end="dragging=false"
 					/>
@@ -115,7 +117,6 @@
 <script>
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { Dialogs } from 'src/pages/mixins/dialogs'
-import { unWatch } from 'src/services/util'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintMorePopupMenu from 'src/components/popups/SprintMorePopupMenu'
 import BlockHeader from 'src/components/elements/BlockHeader'
@@ -124,7 +125,7 @@ import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 import { loading } from 'src/pages/mixins/loading'
 import { CoreActionsMixin } from 'src/services/actions/core'
-import DraggableIssueCollection from 'components/elements/backlog/interface/DraggableIssuesCollection'
+import DraggableIssueCollection from 'components/elements/backlog/interface/DraggableIssueBacklogCollection'
 import DraggableBacklogIssues from 'components/elements/backlog/DraggableBacklogIssues'
 import DraggableSprintIssues from 'components/elements/backlog/DraggableSprintIssues'
 
@@ -219,10 +220,6 @@ export default {
 			/** Getting current backlog by chosen workspace and project **/
 			return this.$store.getters['core/BACKLOG']
 		},
-		backlogIssues () {
-			/** Getting current backlog core **/
-			return this.$store.getters['core/BACKLOG_ISSUES']
-		},
 		isBacklogEmpty () {
 			return this.$store.getters['core/IS_BACKLOG_EMPTY']
 		},
@@ -303,77 +300,6 @@ export default {
 		areSprintIssues (sprintId) {
 			return this.sprintIssues(sprintId).length > 0
 		},
-		handleCommonMoved (issuesList, event) {
-			/** Handle moving - doesnt matter is it sprint or backlog **/
-
-			const immutableList = unWatch(issuesList)
-
-			immutableList
-				.splice(event.moved.newIndex, 0, immutableList
-					.splice(event.moved.oldIndex, 1)[0])
-
-			const ordering = []
-			immutableList.forEach((issueId, index) => {
-				ordering.push(
-					{
-						id: issueId,
-						ordering: index
-					}
-				)
-			})
-
-			return { list: immutableList, ordering }
-		},
-		handleSprintIssueMoved (event, sprintId) {
-			/** Handling moving inside of sprint **/
-			const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID'](sprintId).issues
-
-			const handled = this.handleCommonMoved(currentSprintIssues, event)
-
-			this.showProgress()
-			this.updateIssuesOrdering(handled.ordering)
-				.then(() => {
-					const payload = {
-						id: sprintId,
-						issues: handled.list
-					}
-
-					this.$store.commit('core/UPDATE_SPRINT_ISSUES', payload)
-				}).finally(() => this.hideProgress())
-		},
-		handleBacklogIssueMoved (event, backlogId) {
-			/** Handling moving inside of backlog **/
-			const currentBacklogIssues = this.$store.getters['core/BACKLOG'].issues
-
-			const handled = this.handleCommonMoved(currentBacklogIssues, event)
-
-			this.showProgress()
-			this.updateIssuesOrdering(handled.ordering)
-				.then(() => {
-					this.$store.commit('core/UPDATE_BACKLOG_ISSUES', {
-						id: backlogId,
-						issues: handled.list
-					})
-				})
-				.finally(() => this.hideProgress())
-		},
-		handleCommonAdded (issuesList, event) {
-			const immutableList = unWatch(issuesList)
-
-			immutableList.splice(event.added.newIndex, 0, event.added.element.id)
-
-			const ordering = []
-			immutableList.forEach((issueId, index) => {
-				ordering.push(
-					{
-						id: issueId,
-						ordering: index
-					}
-				)
-			})
-
-			return { list: immutableList, ordering }
-		},
 		notifyAboutStartedSprintAffecting (event, sprintId) {
 			/** Notify if someone start to put core in already started sprint or take it from **/
 			const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED_BY_ID'](sprintId)
@@ -401,155 +327,6 @@ export default {
 				`By ${actionText} #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
 			]
 			this.showOkDialog(...dialog)
-		},
-		handleSprintIssueAdded (event, sprintId) {
-			/** Handling adding inside of Sprint **/
-			const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
-			const handled = this.handleCommonAdded(currentSprintIssues, event)
-			const compositeSprintIdsList = {
-				id: sprintId,
-				issues: handled.list
-			}
-
-			this.showProgress()
-			this.updateIssuesInSprint(compositeSprintIdsList)
-				.then(() => this.updateIssuesOrdering(handled.ordering))
-				.finally(() => this.hideProgress())
-		},
-		handleBacklogIssueAdded (event, backlogId) {
-			/** Handling adding to Backlog **/
-			const backlogIssuesIds = this.$store.getters['core/BACKLOG_ISSUES_IDS']
-
-			const handled = this.handleCommonAdded(backlogIssuesIds, event)
-			const compositeBacklogIdsList = {
-				id: backlogId,
-				issues: handled.list
-			}
-
-			this.showProgress()
-			this.updateIssuesInBacklog(compositeBacklogIdsList)
-				.then(() => this.updateIssuesOrdering(handled.ordering))
-				.finally(() => this.hideProgress())
-		},
-		handleCommonRemoved (issuesList, event) {
-			const list = unWatch(issuesList)
-
-			list.splice(event.removed.oldIndex, 1)
-
-			const ordering = []
-			list.forEach((issueId, index) => {
-				ordering.push(
-					{
-						id: issueId,
-						ordering: index
-					}
-				)
-			})
-
-			return { list, ordering }
-		},
-		handleSprintIssueRemoved (event, sprintId) {
-			/** Handling removing from Sprint **/
-			const currentSprintIssues = this.$store.getters['core/SPRINT_BY_ID_ISSUES_IDS'](sprintId)
-
-			const handled = this.handleCommonRemoved(currentSprintIssues, event)
-			const compositeSprintIds = {
-				id: sprintId,
-				issues: handled.list
-			}
-
-			this.showProgress()
-			this.updateIssuesInSprint(compositeSprintIds)
-				.then(() => this.updateIssuesOrdering(handled.ordering))
-				.finally(() => this.hideProgress())
-		},
-		handleBacklogIssueRemoved (event, backlogId) {
-			/** Handling removing from Backlog **/
-			const backlogIssuesIds = this.$store.getters['core/BACKLOG_ISSUES_IDS']
-
-			const handled = this.handleCommonRemoved(backlogIssuesIds, event)
-			const compositeBacklogIds = {
-				id: backlogId,
-				issues: handled.list
-			}
-
-			this.showProgress()
-			this.updateIssuesInBacklog(compositeBacklogIds)
-				.then(() => this.updateIssuesOrdering(handled.ordering))
-				.finally(() => this.hideProgress())
-		},
-		handleDraggableEvent (listEvent) {
-			console.log('listEvent')
-			console.log(listEvent)
-
-			/** Handle dropping from Sprint/Backlog to Sprint/Backlog
-       * This call can be called twice for any drag&drop
-       * Object {
-       *  removed: {
-       *    element: {data},
-       *    oldIndex: 0
-       *  }
-       * }
-       *
-       * * Object {
-       *  added: {
-       *    element: {data},
-       *    newIndex: 0
-       *  }
-       * }
-       * **/
-
-			const { event, collectionType, collectionId } = listEvent
-
-			console.log('event')
-			console.log(event)
-			console.log('collectionType')
-			console.log(collectionType)
-			console.log('collectionId')
-			console.log(collectionId)
-
-			// Moving events block
-			const isMovedInsideOfSprint = ('moved' in event) && (collectionType === this.dragTypes.SPRINT)
-			const isMovedInsideOfBacklog = ('moved' in event) && (collectionType === this.dragTypes.BACKLOG)
-
-			// Adding events block
-			const isAddedToSprint = ('added' in event) && (collectionType === this.dragTypes.SPRINT)
-			const isAddedToBacklog = ('added' in event) && (collectionType === this.dragTypes.BACKLOG)
-
-			// Removing events block
-			const isRemovedFromSprint = ('removed' in event) && (collectionType === this.dragTypes.SPRINT)
-			const isRemovedFromBacklog = ('removed' in event) && (collectionType === this.dragTypes.BACKLOG)
-
-			switch (true) {
-			case isMovedInsideOfSprint:
-				console.log('isMovedInsideOfSprint')
-				this.handleSprintIssueMoved(event, collectionId)
-				break
-			case isMovedInsideOfBacklog:
-				console.log('isMovedInsideOfBacklog')
-				this.handleBacklogIssueMoved(event, collectionId)
-				break
-			case isAddedToSprint:
-				console.log('isAddedToSprint')
-				this.notifyAboutStartedSprintAffecting(event, collectionId)
-				this.handleSprintIssueAdded(event, collectionId)
-				break
-			case isAddedToBacklog:
-				console.log('isAddedToBacklog')
-				this.handleBacklogIssueAdded(event, collectionId)
-				break
-			case isRemovedFromSprint:
-				console.log('isRemovedFromSprint')
-				this.notifyAboutStartedSprintAffecting(event, collectionId)
-				this.handleSprintIssueRemoved(event, collectionId)
-				break
-			case isRemovedFromBacklog:
-				console.log('isRemovedFromBacklog')
-				this.handleBacklogIssueRemoved(event, collectionId)
-				break
-			default:
-				throw new Error('Unexpected dragging type')
-			}
 		},
 		createSprint () {
 			/** Create quite empty sprint **/

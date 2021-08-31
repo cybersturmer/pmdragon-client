@@ -1,29 +1,35 @@
 <script>
-import DraggableIssuesCollection from 'components/elements/backlog/interface/DraggableIssuesCollection'
+import DraggableIssueBacklogCollection from 'components/elements/backlog/interface/DraggableIssueBacklogCollection'
 
 export default {
 	name: 'DraggableBacklogIssues',
-	extends: DraggableIssuesCollection,
-	data () {
-		return {
-			collectionType: 0 // BACKLOG
-		}
-	},
+	extends: DraggableIssueBacklogCollection,
 	computed: {
 		issues: {
 			get () {
 				return this.$store.getters['core/BACKLOG_ISSUES']
 			},
-			set (value) {
-				const payload = {
-					id: this.collectionId,
-					issues: value
+			async set (value) {
+				const issuesIds = []
+				const issuesOrdering = []
+
+				for (const [index, issue] of value.entries()) {
+					issuesIds.push(issue.id)
+					issuesOrdering.push({
+						id: issue.id,
+						ordering: index
+					})
 				}
 
-				console.log('SENT PAYLOAD TO' + `BACKLOG ${this.collectionId}`)
-				console.dir(payload)
+				const updatePayload = {
+					id: this.collectionId,
+					issues: issuesIds
+				}
 
-				return this.$store.commit('core/UPDATE_BACKLOG_ISSUES', payload)
+				await Promise.all([
+					this.updateIssuesInBacklog(updatePayload),
+					this.updateIssuesOrdering(issuesOrdering)
+				])
 			}
 		}
 	}

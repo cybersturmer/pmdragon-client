@@ -1,7 +1,7 @@
 <template>
 	<draggable
 		v-bind="dragOptions"
-		:list="issues"
+		v-model="issues"
 		@change="onChangeHandler($event)"
 		@start="$emit('start', $event)"
 		@end="$emit('end', $event)"
@@ -15,13 +15,17 @@
 <script>
 import draggable from 'vuedraggable'
 import IssueBacklog from 'components/elements/IssueBacklog'
+import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default {
-	name: 'DraggableIssuesCollection',
+	name: 'DraggableIssueBacklogCollection',
 	emits: [
 		'start',
 		'end',
 		'dragged'
+	],
+	mixins: [
+		CoreActionsMixin
 	],
 	components: {
 		IssueBacklog,
@@ -47,8 +51,10 @@ export default {
 	},
 	methods: {
 		onChangeHandler (event) {
-			console.log('DraggableIssueCollection - On Change Handler')
-			console.log(event)
+			/** Actually we don't need this emitter.
+			 *  However we can pass draggable event to parent component
+			 *  Maybe it will be useful in a future **/
+
 			this.$emit('dragged', {
 				event,
 				collectionType: this.collectionType,
