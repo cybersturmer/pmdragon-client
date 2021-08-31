@@ -14,7 +14,7 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 ## Android application
 <a href='https://play.google.com/store/apps/details?id=com.cybersturmer.pmdragon.pmdragonce&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height='60'/></a>
 
-## Live Demo
+## Web application Live Demo
 https://pmdragon-client.herokuapp.com/
 
 
