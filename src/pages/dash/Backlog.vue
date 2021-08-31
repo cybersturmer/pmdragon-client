@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div :class="`q-pt-sm q-px-xs q-pb-none ${ $q.dark.isActive ? 'bg-grey-9' : 'bg-accent' }`"
-                   style="border: 1px solid #606060; min-height: 67px;">
+                   style="border-radius: 5px; border: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center q-pt-md">
                   Plan sprint by dropping issues here.
@@ -73,7 +73,7 @@
         <q-scroll-area
           visible
           class="q-py-sm q-pl-sm q-pr-md q-mb-xs"
-          style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060;">
+          style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060; ">
 	        <div v-if="isBacklogEmpty && !dragging"
 	             class="flex flex-center text-secondary"
 	             style="height: calc(40vh - 60px)">
@@ -85,7 +85,7 @@
 						v-else
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
-						:style="`min-height: 30vh; ${dragging ? 'border: 1px dashed #424242' : ''}`"
+						:style="`${dragging ? 'min-height: 30vh; border: 1px dashed #424242;' : ''}`"
 						@start="dragging=true"
 						@end="dragging=false"
 					/>
