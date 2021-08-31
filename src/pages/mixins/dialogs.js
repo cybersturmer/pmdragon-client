@@ -60,7 +60,7 @@ export const Dialogs = {
 			)
 		},
 		showRaisedError (message) {
-			this.showError(new ErrorHandler(new Error(), message))
+			return this.showError(new ErrorHandler(new Error(), message))
 		}
 	}
 }
