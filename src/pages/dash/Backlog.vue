@@ -264,14 +264,16 @@ export default {
 		},
 		editSprintDialog (item) {
 			this.$q.dialog({
-				parent: this,
-				dark: this.$q.dark.isActive,
 				component: SprintEditDialog,
-				id: item.id,
-				title: item.title,
-				goal: item.goal,
-				startedAt: item.started_at,
-				finishedAt: item.finished_at
+				componentProps: {
+					id: item.id,
+					title: item.title,
+					goal: item.goal,
+					startedAt: item.started_at,
+					finishedAt: item.finished_at
+				},
+				parent: this,
+				dark: this.$q.dark.isActive
 			})
 				.onOk((data) => {
 					this.showProgress()
@@ -299,34 +301,6 @@ export default {
 		},
 		areSprintIssues (sprintId) {
 			return this.sprintIssues(sprintId).length > 0
-		},
-		notifyAboutStartedSprintAffecting (event, sprintId) {
-			/** Notify if someone start to put core in already started sprint or take it from **/
-			const isSprintStarted = this.$store.getters['core/IS_SPRINT_STARTED_BY_ID'](sprintId)
-			if (!isSprintStarted) return false
-
-			let elId = null
-			let actionText = ''
-			switch (true) {
-			case 'added' in event:
-				elId = event.added.element.id
-				actionText = 'adding'
-				break
-			case 'removed' in event:
-				elId = event.removed.element.id
-				actionText = 'removing'
-				break
-			default:
-				throw Error('Unexpected event data')
-			}
-
-			const droppedIssue = this.$store.getters['core/ISSUE_BY_ID'](elId)
-
-			const dialog = [
-				'Started Sprint affected',
-				`By ${actionText} #${droppedIssue.id} - ${droppedIssue.title} you affect already started Sprint.`
-			]
-			this.showOkDialog(...dialog)
 		},
 		createSprint () {
 			/** Create quite empty sprint **/

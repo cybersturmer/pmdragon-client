@@ -5,6 +5,14 @@ export const CurrentActionsMixin = {
 		PresetsActionsMixin
 	],
 	methods: {
+		async getMessagesPacked (payload) {
+			/** get messages for current issue without paging
+			 * Now its not a problem, will think later **/
+			return this.__getEntities(
+				`/core/issue-messages-packed/${payload.id}/`,
+				'current/SET_ISSUE_MESSAGES'
+			)
+		},
 		async getMessages (payload) {
 			/** get messages for current issue without paging
 			 * Now its not a problem, will think later **/

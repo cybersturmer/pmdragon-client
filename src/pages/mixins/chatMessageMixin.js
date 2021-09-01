@@ -17,9 +17,12 @@ export const ChatMessageMixin = {
 				return null
 			}
 		},
+		server () {
+			return this.$store.getters['connection/API_HOST_WITH_PROTOCOL']
+		},
 		avatar () {
 			try {
-				return this.person.avatar
+				return `${this.server}${this.person.avatar}`
 			} catch (e) {
 				return ''
 			}

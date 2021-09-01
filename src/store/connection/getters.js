@@ -16,6 +16,11 @@ export function API_HOST (state) {
 	return state.api_host
 }
 
+export function API_HOST_WITH_PROTOCOL (state) {
+	const protocol = process.env.DEV ? 'http' : 'https'
+	return `${protocol}://${state.api_host}`
+}
+
 export function FRONTEND_HOST () {
 	return new URL(location.href)
 }

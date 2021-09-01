@@ -17,7 +17,7 @@
 		<EditorExtended
 			ref="issueDescriptionEditor"
 			v-show="isDescriptionEditing"
-			:modelValue="issue.description"
+			:value="issue.description"
 			@update:modelValue="handleIssueDescription($event)"
 			:options="editorOptions"
 			@enter="updateIssueDescription"

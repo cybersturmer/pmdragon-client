@@ -102,8 +102,7 @@ export default {
 					id: this.issue.id
 				},
 				parent: this,
-				dark: this.$q.dark.isActive,
-				title: 'Issue '
+				dark: this.$q.dark.isActive
 			})
 		}
 	}

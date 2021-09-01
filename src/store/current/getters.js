@@ -1,5 +1,3 @@
-import { packMessages } from 'src/services/messages'
-
 export function IS_DARK (state) {
 	return state.dark
 }
@@ -44,10 +42,6 @@ export function ISSUE (state, getters, rootState, rootGetters) {
 
 export function ISSUE_MESSAGES (state) {
 	return state.issue_messages
-}
-
-export function ISSUE_MESSAGES_PACKED (state, getters, rootState, rootGetters) {
-	return packMessages(state.issue_messages, rootGetters['auth/MY_ID'])
 }
 
 export function ISSUE_MESSAGE_BY_ID (state) {

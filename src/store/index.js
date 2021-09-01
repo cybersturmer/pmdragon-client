@@ -1,5 +1,9 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
+
+/*
+* Importing modules
+ */
 import auth from './auth'
 import current from './current'
 import core from './core'
@@ -16,7 +20,7 @@ import connection from './connection'
  * with the Store instance.
  */
 
-export default store(function (/* { ssrContext } */) {
+export default store(async function (/* { ssrContext } */) {
 	return createStore({
 		modules: {
 			connection,

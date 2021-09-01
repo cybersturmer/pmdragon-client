@@ -232,8 +232,10 @@ export default {
 		}
 
 		try {
-			await this.getMessagesEvent()
-			await this.getHistoryEvent()
+			await Promise.all([
+				this.getMessagesEvent(),
+				this.getHistoryEvent()
+			])
 		} catch (e) {
 			this.showError(new ErrorHandler(e))
 		}
@@ -254,7 +256,50 @@ export default {
 			return this.$store.getters['current/ISSUE']
 		},
 		messages () {
-			return this.$store.getters['current/ISSUE_MESSAGES_PACKED']
+			/** Result example:
+			 * {
+			 *		"label": "July 22",
+			 *		"key": 92,
+			 *		"createdBy": {
+			 *			"id": 1,
+			 *			"username": "cyber",
+			 *			"email": "cybersturmer@ya.ru",
+			 *			"avatar": "/media/person_2/images/avatar_5c36e6a2409348969392320bec95a1d8.jpg",
+			 *			"first_name": "Vladimir",
+			 *			"last_name": "Shturmer",
+			 *			"title": "Vladimir Shturmer",
+			 *			"is_active": true,
+			 *			"last_login": "2021-09-01T13:21:04.630339Z",
+			 *			"created_at": "2021-06-05T23:32:07.832727Z"
+			 *		},
+			 *		"sent": false,
+			 *		"text": [
+			 *			"One more message here",
+			 *			"What are you doing?"
+			 *		],
+			 *		"date": "2021-07-22T22:06:40.496975Z",
+			 *		"list": [
+			 *			{
+			 *				"id": 92,
+			 *				"issue": 2,
+			 *				"description": "One more message here",
+			 *				"created_by": 1,
+			 *				"created_at": "2021-07-22T22:06:40.496975Z",
+			 *				"updated_at": "2021-07-22T22:06:40.496995Z"
+			 *			},
+			 *			{
+			 *				"id": 93,
+			 *				"issue": 2,
+			 *				"description": "What are you doing?",
+			 *				"created_by": 1,
+			 *				"created_at": "2021-07-22T22:13:14.622125Z",
+			 *				"updated_at": "2021-07-22T22:13:14.622145Z"
+			 *			}
+			 *		]
+			 *	 },
+			 *
+			 * **/
+			return this.$store.getters['current/ISSUE_MESSAGES']
 		},
 		history () {
 			return this.$store.getters['current/ISSUE_HISTORY']
@@ -352,7 +397,7 @@ export default {
 			const areaRefs = 'scrollArea'
 			if (!(areaRefs in this.$refs)) return false
 
-			this.$refs[areaRefs].setScrollPercentage(1.25, 300)
+			// this.$refs.scrollArea.setScrollPercentage(1.25, 300)
 		},
 		cancelEditingMessage () {
 			this.editingMessageId = null
@@ -387,7 +432,7 @@ export default {
 			}
 
 			try {
-				await this.getMessages(payload)
+				await this.getMessagesPacked(payload)
 			} catch (e) {
 				this.showError(e)
 			}
