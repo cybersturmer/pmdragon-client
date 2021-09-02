@@ -56,6 +56,7 @@
 								<DraggableSprintIssues
 									:dragOptions="dragOptions"
 									:collectionId="sprint.id"
+									:handle="this.$q.screen.lt.sm ? '.handle' : false"
 									:style="`${dragging ? 'min-height: 100px; border: 1px dashed #424242' : ''}`"
 									@start="dragging=true"
 									@end="dragging=false"/>
@@ -86,6 +87,7 @@
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
 						:style="`${dragging ? 'min-height: 30vh; border: 1px dashed #424242;' : ''}`"
+						:handle="this.$q.screen.lt.sm ? '.handle' : false"
 						@start="dragging=true"
 						@end="dragging=false"
 					/>
@@ -173,8 +175,7 @@ export default {
 				ghostClass: 'ghost',
 				'component-data': {
 					name: 'fade'
-				},
-				handle: this.$q.screen.lt.sm ? '.handle' : false
+				}
 			},
 			dragging: false,
 			isIssueDialogOpened: false
