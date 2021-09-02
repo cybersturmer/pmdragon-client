@@ -85,7 +85,7 @@
 												</q-tab-panel>
 												<q-tab-panel
 													name="history"
-													class="no-padding">
+													class="no-padding no-scroll">
 													<q-card
 														flat
 														bordered

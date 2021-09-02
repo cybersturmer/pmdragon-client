@@ -1,7 +1,9 @@
 <template>
 	<q-card-section class="q-py-xs">
 		<q-timeline :layout="timelineLayout"
-								color="secondary">
+								color="secondary"
+								class="no-scroll"
+		>
 			<IssueTimeLineEntry v-for="entry in history"
 													:entry="entry"
 													:key="entry.id"/>
