@@ -4,8 +4,8 @@
 }
 
 .q-item.q-router-link--active, .q-item--active {
-	background-color: var(--q-color-info);
-  color: var(--q-color-accent);
+	background-color: $info;
+  color: $accent;
 	filter: brightness(120%);
 }
 
@@ -35,8 +35,9 @@ h5 {
 }
 
 .editable_block:hover {
-	background-color: var(--q-color-secondary)!important;
-	color: var(--q-color-dark)!important;
+	background-color: $accent!important;
+	color: $dark!important;
+	cursor: pointer;
 }
 
 // Mentioning snippet class
