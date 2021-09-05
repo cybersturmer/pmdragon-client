@@ -24,7 +24,7 @@ const { configure } = require('quasar/wrappers')
 module.exports = configure(function (ctx) {
 	return {
 		https: IS_HTTPS,
-		supportTS: false,
+		supportTS: true,
 
 		// https://quasar.dev/quasar-cli/cli-documentation/boot-files
 		boot: [
