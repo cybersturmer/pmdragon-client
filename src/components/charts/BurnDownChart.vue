@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from 'vue'
 import LineChart from 'components/charts/LineChart'
-import { Dark, date } from 'quasar'
+import { date } from 'quasar'
 
 export default defineComponent({
 	name: 'BurnDownChart',
@@ -92,7 +92,7 @@ export default defineComponent({
 					label: 'Estimated Effort',
 					fill: false,
 					pointRadius: 3,
-					borderColor: Dark.isActive ? 'white' : 'red',
+					borderColor: 'gray',
 					borderWidth: 3,
 					data: expectedTimeValues
 				},
