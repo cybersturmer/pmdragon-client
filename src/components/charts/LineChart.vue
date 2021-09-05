@@ -9,8 +9,10 @@ import {
 	LineController,
 	LineElement,
 	PointElement,
-	CategoryScale
+	CategoryScale,
+	TimeScale
 } from 'chart.js'
+import 'chartjs-adapter-moment'
 
 export default defineComponent({
 	name: 'LineChart',
@@ -32,7 +34,8 @@ export default defineComponent({
 			LineController,
 			CategoryScale,
 			LineElement,
-			PointElement
+			PointElement,
+			TimeScale
 		)
 
 		// eslint-disable-next-line no-unused-vars

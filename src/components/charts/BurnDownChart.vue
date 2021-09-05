@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from 'vue'
 import LineChart from 'components/charts/LineChart'
-import { date, Dark } from 'quasar'
+import { Dark, date } from 'quasar'
 
 export default defineComponent({
 	name: 'BurnDownChart',
@@ -27,60 +27,21 @@ export default defineComponent({
 			chartdata: [],
 			options: {
 				responsive: true,
-				aspectRatio: 0.5,
 				elements: {
 					line: {
-						tension: 0.1
+						tension: 0.1 // Smooth borders
 					}
-				},
-				legend: {
-					display: true,
-					labels: {
-						fontColor: Dark.isActive ? 'white' : 'black',
-						fontSize: 16,
-						padding: 16
-					}
-				},
-				tooltips: {
-					mode: 'point',
-					intersect: false
 				},
 				scales: {
-					xAxes: [{
-						gridLines: {
-							color: '#424242'
-						},
+					x: {
 						type: 'time',
-						distribution: 'series',
-						offset: true,
-						bounds: 'data',
 						time: {
-							parser: 'MM DD YYYY',
-							unit: 'day',
-							round: 'day',
-							tooltipFormat: 'll'
-						},
-						ticks: {
-							fontColor: Dark.isActive ? 'white' : 'black',
-							autoSkip: true
+							unit: 'day'
 						}
-					}],
-					yAxes: [{
-						display: true,
-						gridLines: {
-							color: '#424242'
-						},
-						scaleLabel: {
-							display: true,
-							labelString: 'Efforts',
-							fontColor: Dark.isActive ? 'white' : 'black',
-							fontSize: 14
-						},
-						ticks: {
-							fontColor: Dark.isActive ? 'white' : 'black',
-							autoSkip: true
-						}
-					}]
+					},
+					y: {
+						display: true
+					}
 				}
 			}
 		}
@@ -131,10 +92,9 @@ export default defineComponent({
 					label: 'Estimated Effort',
 					fill: false,
 					pointRadius: 3,
-					borderColor: 'rgba(255,255,255,0.85)',
+					borderColor: Dark.isActive ? 'white' : 'red',
 					borderWidth: 3,
-					data: expectedTimeValues,
-					xAxisID: 'xAxis'
+					data: expectedTimeValues
 				},
 				{
 					label: 'Actual Effort',
@@ -142,8 +102,7 @@ export default defineComponent({
 					pointRadius: 3,
 					borderColor: '#4c8ef1',
 					borderWidth: 3,
-					data: realTimeValues,
-					yAxisID: 'yAxis'
+					data: realTimeValues
 				}
 			]
 		}
@@ -153,11 +112,3 @@ export default defineComponent({
 
 })
 </script>
-<style>
-.small_chart {
-	width: 600px;
-	height: 600px;
-	max-height: 500px;
-	max-width: 500px;
-}
-</style>
