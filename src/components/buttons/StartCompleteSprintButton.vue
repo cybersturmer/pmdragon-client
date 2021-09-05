@@ -37,24 +37,24 @@ export default {
 		}
 	},
 	methods: {
-		startSprint (sprintId) {
+		startSprintEvent () {
 			/** Start not empty sprint **/
 			if (!this.sprint.started_at || !this.sprint.finished_at) {
 				this.$q.dialog({
-					dark: this.$q.dark.isActive,
 					title: 'Unable to start sprint',
 					message: 'Cant start sprint without start and end date. Set started at and finished at dates first.',
 					ok: {
 						label: 'OK',
+						color: 'secondary',
 						outline: true
 					}
 				})
 					.onOk(r => this.$emit('dialog'))
 			} else {
-				this.startSprint(sprintId)
+				this.startSprint(this.sprint.id)
 			}
 		},
-		completeSprint (sprintId) {
+		completeSprintEvent () {
 			/** Complete started sprint **/
 			this.$q.dialog({
 				dark: this.$q.dark.isActive,
@@ -72,11 +72,11 @@ export default {
 				}
 			})
 				.onOk(() => {
-					this.completeSprint(sprintId)
+					this.completeSprint(this.sprint.id)
 				})
 		},
 		recognizeAction () {
-			this.sprint.is_started ? this.completeSprint(this.sprint.id) : this.startSprint(this.sprint.id)
+			this.sprint.is_started ? this.completeSprintEvent(this.sprint.id) : this.startSprintEvent(this.sprint.id)
 		}
 	}
 }

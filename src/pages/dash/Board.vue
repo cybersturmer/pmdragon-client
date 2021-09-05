@@ -241,11 +241,13 @@ export default {
 			this.$q.dialog({
 				dark: this.$q.dark.isActive,
 				component: SprintEditDialog,
-				id: item.id,
-				title: item.title,
-				goal: item.goal,
-				startedAt: item.started_at,
-				finishedAt: item.finished_at
+				componentProps: {
+					id: item.id,
+					title: item.title,
+					goal: item.goal,
+					startedAt: item.started_at,
+					finishedAt: item.finished_at
+				}
 			})
 				.onOk((data) => {
 					this.showProgress()

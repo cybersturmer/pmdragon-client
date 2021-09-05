@@ -37,7 +37,7 @@ import { DATETIME_MASK } from 'src/services/masks'
 export default {
 	name: 'DateTimeField',
 	emits: [
-		'input'
+		'update:modelValue'
 	],
 	props: {
 		value: String,
@@ -58,7 +58,7 @@ export default {
 	methods: {
 		handleInput (value) {
 			this.rawDatetime = value
-			this.$emit('input', value)
+			this.$emit('update:modelValue', value)
 		}
 	}
 }
