@@ -61,6 +61,9 @@
                   <draggable
                     :modelValue="issuesByState(state.id)"
                     v-bind="dragOptions"
+										@start="dragging=true"
+										@end="dragging=false"
+										:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
                     @change="handleIssueStateChanging($event, state.id)">
 										<template #item="{ element }">
 											<IssueBoard :issue="element"/>
@@ -116,6 +119,7 @@ export default {
 	],
 	data () {
 		return {
+			dragging: false,
 			dragOptions: {
 				animation: 200,
 				group: 'issues',

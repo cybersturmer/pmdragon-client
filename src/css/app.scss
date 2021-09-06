@@ -71,3 +71,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
 	-moz-appearance: textfield;
 }
+
+.drag_to_point_highlighter {
+	min-height: 20vh!important;
+	border: 1px dashed #424242!important;
+	background-color: #494949 !important;
+}

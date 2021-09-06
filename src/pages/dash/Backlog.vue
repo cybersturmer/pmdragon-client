@@ -57,7 +57,7 @@
 									:dragOptions="dragOptions"
 									:collectionId="sprint.id"
 									:handle="this.$q.screen.lt.sm ? '.handle' : false"
-									:style="`${dragging ? 'min-height: 100px; border: 1px dashed #424242' : ''}`"
+									:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
 									@start="dragging=true"
 									@end="dragging=false"/>
 							</div>
@@ -86,7 +86,7 @@
 						v-else
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
-						:style="`${dragging ? 'min-height: 30vh; border: 1px dashed #424242;' : ''}`"
+						:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
 						:handle="this.$q.screen.lt.sm ? '.handle' : false"
 						@start="dragging=true"
 						@end="dragging=false"
