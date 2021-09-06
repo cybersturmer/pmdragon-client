@@ -506,7 +506,7 @@ export const CoreActionsMixin = {
 						.expect(200)
 						.patch(
 							`/core/sprints/${sprintId}/`,
-							{ is_competed: true }
+							{ is_completed: true }
 						)
 
 				this.$store.commit('core/COMPLETE_SPRINT', sprintId)
