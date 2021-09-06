@@ -1,5 +1,6 @@
 <template>
   <q-card
+		clickable
     dense
     bordered
     class="my-card q-ma-sm overflow-hidden issue-backlog"
@@ -124,11 +125,11 @@ export default {
 	methods: {
 		openEditDialog () {
 			this.$q.dialog({
-				parent: this,
-				dark: this.$q.dark.isActive,
-				title: 'Issue ',
 				component: IssueEditDialog,
-				id: this.issue.id
+				componentProps: {
+					id: this.issue.id
+				},
+				parent: this
 			})
 		}
 	}

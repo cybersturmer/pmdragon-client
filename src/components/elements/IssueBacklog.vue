@@ -101,8 +101,7 @@ export default {
 				componentProps: {
 					id: this.issue.id
 				},
-				parent: this,
-				dark: this.$q.dark.isActive
+				parent: this
 			})
 		}
 	}
