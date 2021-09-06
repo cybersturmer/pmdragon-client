@@ -27,6 +27,21 @@ export default defineComponent({
 			chartdata: [],
 			options: {
 				responsive: true,
+				interaction: {
+					intersect: false,
+					mode: 'point'
+				},
+				plugins: {
+					legend: {
+						display: true,
+						labels: {
+							font: {
+								size: 16
+							},
+							padding: 16
+						}
+					}
+				},
 				elements: {
 					line: {
 						tension: 0.1 // Smooth borders
@@ -34,6 +49,7 @@ export default defineComponent({
 				},
 				scales: {
 					x: {
+						display: true,
 						type: 'time',
 						time: {
 							unit: 'day'

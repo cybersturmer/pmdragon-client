@@ -1,5 +1,5 @@
 <template>
-	<canvas id="line_chart" width="500" height="500"></canvas>
+	<canvas id="line_chart" width="450" height="500"></canvas>
 </template>
 <script>
 import { defineComponent } from 'vue'
@@ -10,8 +10,11 @@ import {
 	LineElement,
 	PointElement,
 	CategoryScale,
-	TimeScale
+	TimeScale,
+	Tooltip,
+	Legend
 } from 'chart.js'
+
 import 'chartjs-adapter-moment'
 
 export default defineComponent({
@@ -35,7 +38,9 @@ export default defineComponent({
 			CategoryScale,
 			LineElement,
 			PointElement,
-			TimeScale
+			TimeScale,
+			Tooltip,
+			Legend
 		)
 
 		// eslint-disable-next-line no-unused-vars
