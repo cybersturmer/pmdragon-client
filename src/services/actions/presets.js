@@ -37,7 +37,7 @@ export const PresetsActionsMixin = {
 			this.$store.commit(mutation, response.data)
 			return Promise.resolve(response)
 		},
-		async __patchEntity (endpoint, payload, mutation) {
+		async __patchEntityWithoutMutation (endpoint, payload) {
 			try {
 				const response =
 					await this.$http
@@ -48,11 +48,15 @@ export const PresetsActionsMixin = {
 							payload
 						)
 
-				this.$store.commit(mutation, response.data)
 				return Promise.resolve(response)
 			} catch (e) {
 				throw new ErrorHandler(e)
 			}
+		},
+		async __patchEntity (endpoint, payload, mutation) {
+			const response = await this.__patchEntityWithoutMutation(endpoint, payload)
+			this.$store.commit(mutation, response.data)
+			return Promise.resolve(response)
 		},
 		async __deleteEntityWithoutMutation (endpoint) {
 			try {

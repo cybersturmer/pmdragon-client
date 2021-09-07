@@ -144,6 +144,7 @@ import IssueDescriptionSection from 'src/components/elements/issue_dialog/IssueD
 import IssueCreateUpdateSection from 'src/components/elements/issue_dialog/IssueCreateUpdateSection'
 import { CurrentActionsMixin } from 'src/services/actions/current'
 import { CoreActionsMixin } from 'src/services/actions/core'
+import MessagesPacker from 'src/store/current/messages'
 
 export default {
 	name: 'IssueEditDialog',
@@ -408,6 +409,16 @@ export default {
 			}
 
 			await this.removeMessage(payload)
+			this.packer = new MessagesPacker(
+				this.$store.getters['auth/PERSONS'],
+				this.$store.getters['auth/MY_PERSON_ID']
+			)
+
+			await this.packer.setPackedMessages(this.messages)
+			await this.packer.removeMessageFromThePackById(id)
+
+			this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
+
 			this.editingMessageId = null
 		},
 		editMessage (id) {

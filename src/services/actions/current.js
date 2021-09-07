@@ -28,17 +28,15 @@ export const CurrentActionsMixin = {
 			)
 		},
 		async addMessage (payload) {
-			return this.__addEntity(
+			return this.__addEntityWithoutMutation(
 				'/core/issue-messages/',
-				payload,
-				'current/ADD_ISSUE_MESSAGE'
+				payload
 			)
 		},
 		async updateMessage (payload) {
-			return this.__patchEntity(
+			return this.__patchEntityWithoutMutation(
 				`/core/issue-messages/${payload.id}/`,
-				payload,
-				'current/UPDATE_ISSUE_MESSAGE'
+				payload
 			)
 		},
 		async removeMessage (payload) {

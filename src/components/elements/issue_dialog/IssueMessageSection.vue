@@ -32,6 +32,8 @@
 import EditorExtended from 'components/elements/EditorExtended'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { CurrentActionsMixin } from 'src/services/actions/current'
+import MessagesPacker from 'src/store/current/messages'
+import { unWatch } from 'src/services/util'
 
 export default {
 	name: 'IssueDescriptionSection',
@@ -70,6 +72,10 @@ export default {
 	},
 	data () {
 		return {
+			packer: new MessagesPacker(
+				this.$store.getters['auth/PERSONS'],
+				this.$store.getters['auth/MY_PERSON_ID']
+			),
 			refsKey: 'issueMessageEditor',
 			isMessageEditable: false,
 			isMentioningPopupVisible: false,
@@ -111,8 +117,14 @@ export default {
 			}
 
 			try {
-				await this.addMessage(payload)
+				const rawMessage = await this.addMessage(payload)
+
+				this.packer.setPackedMessages(this.messages)
+				this.packer.addRawMessageToPack(rawMessage.data)
+
+				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
 			} catch (e) {
+				console.log(e)
 				this.showError(e)
 			}
 		},
@@ -126,7 +138,12 @@ export default {
 			}
 
 			try {
-				await this.updateMessage(payload)
+				const rawMessage = await this.updateMessage(payload)
+
+				this.packer.setPackedMessages(this.messages)
+				this.packer.updateMessageFromThePack(rawMessage.data)
+
+				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
 			} catch (e) {
 				this.showError(e)
 			}
@@ -147,13 +164,16 @@ export default {
 			return this.$refs.issueMessageEditor
 		},
 		messages () {
-			return this.$store.getters['current/ISSUE_MESSAGES']
+			return unWatch(this.$store.getters['current/ISSUE_MESSAGES'])
 		},
 		isNewMessage () {
 			return this.editingMessageId === null
 		},
 		actionButtonLabel () {
 			return this.isNewMessage ? 'Send' : 'Update'
+		},
+		persons () {
+			return this.$store.getters['auth/PERSONS']
 		}
 	}
 }
