@@ -101,8 +101,8 @@
 								<q-separator class="q-mx-md"/>
 								<q-card-section class="q-pa-none" style="height: 165px">
 									<IssueMessageSection ref="issueMessageSection"
-																			 :issue-id="formNewMessage.issue"
-																			 :editing-message-id="editingMessageId"
+																			 :issueId="formNewMessage.issue"
+																			 :messageId="editingMessageId"
 																			 @cancelEditingMessage="cancelEditingMessage"/>
 								</q-card-section>
 							</q-card-section>

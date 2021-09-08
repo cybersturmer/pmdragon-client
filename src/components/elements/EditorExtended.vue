@@ -11,7 +11,7 @@
 				toolbar-toggle-color="secondary"
 				class="q-ma-none"
 				v-bind="options"
-				:modelValue="value"
+				:modelValue="modelValue"
 				@update:modelValue="handleInput"
 				@keyup.enter="handleEnter"
 				@keydown.tab.prevent="handleTab"
@@ -38,7 +38,7 @@ export default {
 		htmlSnippets
 	],
 	props: {
-		value: {
+		modelValue: {
 			type: String,
 			required: false,
 			default: ''
@@ -125,14 +125,14 @@ export default {
 			this.$emit('enter')
 		},
 		handleTab (key) {
-			const mentioning = this.isMentioning(this.value)
+			const mentioning = this.isMentioning(this.modelValue)
 			if (!mentioning || this.persons.length <= 0) return false
 			this.replaceMentioningByChosenChip(mentioning, this.persons[0])
 		},
 
 		/** Select mentioning person **/
 		select (person) {
-			const mentioning = this.isMentioning(this.value)
+			const mentioning = this.isMentioning(this.modelValue)
 			this.replaceMentioningByChosenChip(mentioning, person)
 		},
 
@@ -175,7 +175,7 @@ export default {
 		/** Replacing content with snippets **/
 		replaceMentioningByChosenChip (replaceable, person) {
 			const chip = this.generatePersonSnippet(person)
-			const html = this.value.replace(replaceable, chip)
+			const html = this.modelValue.replace(replaceable, chip)
 
 			this.$nextTick(() => {
 				this.emitUpdateModel(html)

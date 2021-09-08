@@ -52,21 +52,19 @@ export default {
 			type: Number,
 			required: true
 		},
-		editingMessageId: {
+		messageId: {
 			type: Number,
 			required: false,
 			default: null
-		},
-		description: {
-			type: String,
-			required: false,
-			default: ''
 		}
 	},
 	watch: {
-		editingMessageId (newId, oldId) {
-			if (oldId === null && newId !== null) {
-				this.formMessage.description = this.$store.getters['current/ISSUE_MESSAGE_BY_ID'](newId).description
+		messageId (newId, oldId) {
+			const nowIsNotEmpty = newId !== null
+			const message = nowIsNotEmpty ? this.$store.getters['current/ISSUE_MESSAGE_BY_ID'](newId) : null
+
+			if (nowIsNotEmpty && !!message) {
+				this.formMessage.description = message.description
 			}
 		}
 	},
@@ -117,15 +115,18 @@ export default {
 			}
 
 			try {
+				// Here we have only axios result, so data is in rawMessage.data
 				const rawMessage = await this.addMessage(payload)
 
 				this.packer.setPackedMessages(this.messages)
 				this.packer.addRawMessageToPack(rawMessage.data)
 
 				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
+
+				this.formMessage.description = ''
 			} catch (e) {
-				console.log(e)
 				this.showError(e)
+				console.log(e)
 			}
 		},
 		async updateMessageEvent () {
@@ -133,7 +134,7 @@ export default {
 			if (!this.formMessage.description) return false
 
 			const payload = {
-				id: this.editingMessageId,
+				id: this.messageId,
 				description: this.formMessage.description
 			}
 
@@ -144,7 +145,10 @@ export default {
 				this.packer.updateMessageFromThePack(rawMessage.data)
 
 				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
+
+				this.$emit('cancelEditingMessage')
 			} catch (e) {
+				console.log(e)
 				this.showError(e)
 			}
 		},
@@ -167,7 +171,7 @@ export default {
 			return unWatch(this.$store.getters['current/ISSUE_MESSAGES'])
 		},
 		isNewMessage () {
-			return this.editingMessageId === null
+			return this.messageId === null
 		},
 		actionButtonLabel () {
 			return this.isNewMessage ? 'Send' : 'Update'
