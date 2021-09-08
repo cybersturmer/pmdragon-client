@@ -47,9 +47,14 @@ export function ISSUE_MESSAGES (state) {
 export function ISSUE_MESSAGE_BY_ID (state) {
 	/** Return issue message by id
 	 * Messages normally loaded to state only when we start to edit issue,
-	 * for example we can do it in separate modal window **/
+	 * for example we can do it in separate modal window
+	 * We also load already packed messages
+	 * **/
 	return issueMessageId => {
-		return state.issue_messages.find(message => message.id === issueMessageId)
+		const messagePack = state.issue_messages
+			.find(({ list }) => list.find((message) => message.id === issueMessageId))
+
+		return messagePack.list.find(message => message.id === issueMessageId)
 	}
 }
 
