@@ -54,10 +54,15 @@ export const Dialogs = {
 				return false
 			}
 
-			return this.showOkDialog(
-				e.statusMessage,
-				e.message
-			)
+			try {
+				return this.showOkDialog(
+					e.statusMessage,
+					e.message
+				)
+			} catch (errorDuringHandling) {
+				console.log('Original error', e)
+				console.log('During handling', errorDuringHandling)
+			}
 		},
 		showRaisedError (message) {
 			return this.showError(new ErrorHandler(new Error(), message))
