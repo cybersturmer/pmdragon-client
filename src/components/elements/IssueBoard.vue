@@ -29,7 +29,7 @@
               size="xs"
               :title="getIssueTypeTitle"/>
             <!-- Project number -->
-            <span class="text-weight-bold">
+            <span class="text-weight-bold q-ml-xs">
             {{ issue.project_number }}
             </span>
           </div>
