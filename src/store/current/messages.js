@@ -51,9 +51,19 @@ export default class MessagesPacker {
 	removeMessageFromThePackById (id) {
 		for (const [index, packedMessage] of this.packedMessages.entries()) {
 			const message = packedMessage.list.find((rawMessage) => rawMessage.id === id)
-			if (message) {
+			if (!message) continue
+
+			const messageLength = this.packedMessages[index].list.length
+
+			switch (true) {
+			case messageLength === 1:
+				this.packedMessages.splice(index, 1)
+				return
+			case messageLength > 1:
 				removeElementById(this.packedMessages[index].list, { id })
-				break
+				return
+			default:
+				throw new Error(`Unexpected message length: ${messageLength}`)
 			}
 		}
 	}
