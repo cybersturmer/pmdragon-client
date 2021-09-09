@@ -5,7 +5,7 @@
 		@keyup.enter="$emit('enter')"
     :rules="[isValidWorkspacePrefix]"
 		:modelValue="value"
-		@update:modelValue="handleInput"
+		@update:modelValue="handleUpdateModel"
 		:error="isError"
     :error-message="errorMessage"
     label="Workspace prefix"
@@ -18,7 +18,8 @@ import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 export default {
 	name: 'PrefixUrlField',
 	emits: [
-		'input'
+		'update:modelValue',
+		'enter'
 	],
 	mixins: [fieldValidationMixin],
 	props: {
@@ -26,8 +27,8 @@ export default {
 		errorMessage: String
 	},
 	methods: {
-		handleInput (value) {
-			this.$emit('input', value)
+		handleUpdateModel (value) {
+			this.$emit('update:modelValue', value)
 		}
 	},
 	computed: {

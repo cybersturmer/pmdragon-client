@@ -42,7 +42,7 @@ export const fieldValidationMixin = {
 		isValidWorkspacePrefix (str) {
 			/** Disallow use of the RegExp constructor in favor of regular expression literals (prefer-regex-literals) **/
 			/** We Do not check empty value by regular expression */
-			const pattern = /^[a-zA-Z0-9]{3-20}$/
+			const pattern = /^[a-z0-9]{3,20}$/i
 			return !str || !!pattern.test(str) || 'Should be a valid url from 3 to 20 letters example: pmdragon'
 		}
 	}
