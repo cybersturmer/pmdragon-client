@@ -32,6 +32,21 @@ export const PresetsActionsMixin = {
 				throw new ErrorHandler(e)
 			}
 		},
+		async __addEntityWithoutMutationAndAuth (endpoint, payload) {
+			try {
+				const response =
+					await this.$http
+						.expect(201)
+						.post(
+							endpoint,
+							payload
+						)
+
+				return Promise.resolve(response)
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
+		},
 		async __addEntity (endpoint, payload, mutation) {
 			const response = await this.__addEntityWithoutMutation(endpoint, payload)
 			this.$store.commit(mutation, response.data)

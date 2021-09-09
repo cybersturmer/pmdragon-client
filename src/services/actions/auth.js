@@ -7,7 +7,7 @@ export const AuthActionsMixin = {
 	],
 	methods: {
 		async addPersonRegistrationRequest (payload) {
-			return this.__addEntityWithoutMutation(
+			return this.__addEntityWithoutMutationAndAuth(
 				'/auth/person-registration-requests/',
 				payload
 			)
@@ -19,7 +19,7 @@ export const AuthActionsMixin = {
 			return this.$http.refreshTokens()
 		},
 		async addPersonPasswordForgotRequest (payload) {
-			return this.__addEntityWithoutMutation(
+			return this.__addEntityWithoutMutationAndAuth(
 				'/auth/person-password-forgot-requests/',
 				payload
 			)
