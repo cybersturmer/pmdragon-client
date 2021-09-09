@@ -32,7 +32,7 @@
 									</q-card-section>
 									<IssueUploaderSection :issue="formData.issue" />
 									<IssueDescriptionSection :issue="formData.issue"
-																					 @input="formData.issue.description = $event"
+																					 @update:modelValue="formData.issue.description = $event"
 																					 @updateDescription="updateIssueDescription($event)"/>
 									<q-separator class="q-mt-md q-mx-md"/>
 									<!-- Messages section -->
@@ -198,7 +198,7 @@ export default {
 			mask: DATETIME_MASK,
 			issueMessageBlockHeight: '165px', // 36px title + 48px header
 			middleSectionBorder: 'border-bottom: 1px solid #686868;',
-			middleSectionHeight: 'height: calc(100vh - 280px);'
+			middleSectionHeight: 'height: calc(100vh - 305px);'
 		}
 	},
 	watch: {

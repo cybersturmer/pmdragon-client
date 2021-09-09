@@ -17,8 +17,8 @@
 		<EditorExtended
 			ref="issueDescriptionEditor"
 			v-show="isDescriptionEditing"
-			:value="issue.description"
-			@update:modelValue="handleIssueDescription($event)"
+			:modelValue="issue.description"
+			@update:modelValue="handleIssueDescription"
 			:options="editorOptions"
 			@enter="updateIssueDescription"
 		/>
@@ -43,7 +43,8 @@ export default {
 		CoreActionsMixin
 	],
 	emits: [
-		'update_description'
+		'updateDescription',
+		'update:modelValue'
 	],
 	components: {
 		EditorExtended,
@@ -83,7 +84,7 @@ export default {
 			this.$nextTick(this.descriptionEditor.focus)
 		},
 		async handleIssueDescription (value) {
-			this.$emit('input', value)
+			this.$emit('update:modelValue', value)
 		},
 		async updateIssueDescription () {
 			/** update Issue description
@@ -93,10 +94,10 @@ export default {
 				description: this.issue.description
 			}
 
-			await this.patchIssue(payload)
+			const issue = await this.patchIssue(payload)
 			this.isDescriptionReadOnly = true
 
-			this.$emit('updateDescription', payload)
+			this.$emit('updateDescription', issue.data.description)
 		},
 		cancelDescriptionEditing () {
 			/** We use this handler if user wrote something in Issue description
