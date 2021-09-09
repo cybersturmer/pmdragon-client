@@ -10,7 +10,6 @@
 				:title="sprintTitle"
 				:info="`${this.startedAt} - ${this.finishedAt}`"
 				class="q-my-none q-py-none"/>
-      <p class="text-h6 text-secondary"></p>
       <BurnDownChart/>
     </div>
     <NoStartedSprintNotification v-else />
