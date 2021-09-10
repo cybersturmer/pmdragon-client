@@ -4,6 +4,9 @@ const routes = [
 	{
 		path: '/',
 		component: () => import('src/layouts/IndexLayout.vue'),
+		meta: {
+			requiredAuth: false
+		},
 		children: [
 			{
 				name: 'register',
@@ -86,6 +89,9 @@ const routes = [
 	{
 		path: '/dash',
 		component: () => import('src/layouts/DashLayout.vue'),
+		meta: {
+			requiredAuth: true
+		},
 		children: [
 			{
 				name: 'workspaces',
@@ -160,10 +166,7 @@ const routes = [
 				},
 				component: () => import('src/pages/dash/Overview.vue')
 			}
-		],
-		meta: {
-			requiredAuth: true
-		}
+		]
 	},
 	{
 		path: '/:catchAll(.*)*',
