@@ -32,7 +32,8 @@ module.exports = configure(function (ctx) {
 			'router',
 			'meta',
 			'moment',
-			'server'
+			'server',
+			'sockets'
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
