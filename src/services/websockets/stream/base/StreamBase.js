@@ -1,17 +1,17 @@
-import $store from 'src/store'
-
 export class StreamBase {
-	constructor () {
-		this.person = $store.getters['auth/MY_PERSON_ID']
+	constructor (proxy, options) {
+		this.$store = proxy.$store
+		this.myPersonId = proxy.$store.getters['auth/MY_PERSON_ID']
+		this.options = options
 	}
 
 	isMyEvent (action, message) {
 		switch (action) {
 		case 'create':
-			return ('created_by' in message) && (message.created_by === this.person)
+			return ('created_by' in message) && (message.created_by === this.myPersonId)
 		case 'update':
 		case 'delete':
-			return ('updated_by' in message) && (message.updated_by === this.person)
+			return ('updated_by' in message) && (message.updated_by === this.myPersonId)
 		}
 	}
 
@@ -24,15 +24,14 @@ export class StreamBase {
 		switch (action) {
 		case 'create':
 			this.onCreate(message)
-			break
+			return 'created'
 		case 'update':
 			this.onUpdate(message)
-			break
+			return 'updated'
 		case 'delete':
 			this.onDelete(message)
-			break
+			return 'deleted'
 		default:
-			console.dir(action)
 			throw new Error(`Unhandled action: ${action}`)
 		}
 	}

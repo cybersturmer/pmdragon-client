@@ -147,8 +147,7 @@
 </template>
 
 <script>
-
-// import { WsController } from 'src/services/websockets/WsController'
+import { WsController } from 'src/services/websockets/WsController'
 import { Notifications } from 'src/pages/mixins/notifications'
 import { websocket } from 'src/pages/mixins/websockets'
 import { loading } from 'src/pages/mixins/loading'
@@ -163,32 +162,7 @@ export default {
 	data () {
 		return {
 			leftDrawerOpen: false,
-			websocketConfiguration: {
-				store: this.$store,
-				reconnection: true,
-				reconnectionDelay: 3000,
-				format: 'json',
-				passToStoreHandler (eventName, event) {
-					if (!eventName.startsWith('SOCKET_')) { return null }
-
-					const namespace = 'connection'
-					let target = ['connection', eventName.toUpperCase()].join('/')
-					let method = 'commit'
-					let msg = event
-
-					if (event.data) {
-						msg = JSON.parse(event.data)
-						if (msg.mutation) {
-							target = [namespace, msg.mutation].join('/')
-						} else if (msg.action) {
-							method = 'dispatch'
-							target = [namespace, msg.action].join('/')
-						}
-					}
-
-					this.store[method](target, msg)
-				}
-			}
+			websocketHandler: new WsController(this)
 		}
 	},
 	watch: {
@@ -204,21 +178,15 @@ export default {
 			if (newState && !oldState) { this.reloadData() }
 		}
 	},
-	created () {
-		/** Socket manual connection **/
-		// const target = this.$store.getters['connection/SOCKET_ENDPOINT_WITH_TOKEN']
-		// this.$connect(target, this.websocketConfiguration)
-
-		// this.$options.sockets.onmessage = (data) => {
-		// 	const handler = new WsController()
-		// 	handler.processEvent(data)
-		// }
+	async mounted () {
+		this.$options.sockets.onmessage = (data) => {
+			this.websocketHandler
+				.processEvent(data)
+		}
 	},
 	methods: {
 		logout () {
 			// Disconnect from sockets first (we use auth credentials to connect websockets)
-			// this.$disconnect()
-
 			this.$store.dispatch('auth/RESET')
 			this.$store.dispatch('current/RESET')
 			this.$store.dispatch('core/RESET')
@@ -341,10 +309,9 @@ export default {
   }
 
   .connection-state {
-    height: 12px;
-    width: 12px;
+    height: 14px;
+    width: 14px;
     top: 55px;
     right: 15px;
-    border-radius: 15px;
   }
 </style>
