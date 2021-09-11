@@ -223,13 +223,13 @@ export default {
 		await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 		/** Let's unsubscribe from previously opened issue if that exist **/
 		if (currentIssue) {
-			// const payload = {
-			// 	action: 'unsubscribe_from_messages_in_issue',
-			// 	request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-			// 	issue_pk: currentIssue
-			// }
+			const payload = {
+				action: 'unsubscribe_from_messages_in_issue',
+				request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+				issue_pk: currentIssue
+			}
 
-			// this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
+			this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
 		}
 
 		try {
@@ -241,13 +241,13 @@ export default {
 			this.showError(new ErrorHandler(e))
 		}
 
-		// const payload = {
-		// 	action: 'subscribe_to_messages_in_issue',
-		// 	request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-		// 	issue_pk: currentIssue
-		// }
-		//
-		// this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
+		const payload = {
+			action: 'subscribe_to_messages_in_issue',
+			request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+			issue_pk: currentIssue
+		}
+
+		this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
 	},
 	computed: {
 		isMobileApplication () {
