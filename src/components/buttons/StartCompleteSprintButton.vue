@@ -9,9 +9,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'StartCompleteSprintButton',
 	mixins: [
 		CoreActionsMixin
@@ -79,5 +80,5 @@ export default {
 			this.sprint.is_started ? this.completeSprintEvent(this.sprint.id) : this.startSprintEvent(this.sprint.id)
 		}
 	}
-}
+})
 </script>

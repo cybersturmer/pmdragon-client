@@ -28,13 +28,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 import { Dialogs } from 'pages/mixins/dialogs'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import EmailField from 'components/fields/EmailField'
 
-export default {
+export default defineComponent({
 	name: 'Login',
 	components: { EmailField, ChangeConnectionElement },
 	mixins: [
@@ -70,7 +71,7 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>
 
 <style>

@@ -158,13 +158,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import SettingPanelCard from 'components/elements/SettingPanelCard'
 import AvatarUploader from 'components/elements/AvatarUploader'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { loading } from '../mixins/loading'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'AccountView',
 	components: { AvatarUploader, SettingPanelCard },
 	mixins: [
@@ -257,5 +258,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

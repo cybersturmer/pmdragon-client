@@ -13,11 +13,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import draggable from 'vuedraggable'
 import IssueBacklog from 'components/elements/IssueBacklog'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'DraggableIssueBacklogCollection',
 	emits: [
 		'start',
@@ -67,5 +68,5 @@ export default {
 			return []
 		}
 	}
-}
+})
 </script>

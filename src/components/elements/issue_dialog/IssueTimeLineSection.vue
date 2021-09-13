@@ -12,9 +12,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import IssueTimeLineEntry from './IssueTimeLineEntry'
 
-export default {
+export default defineComponent({
 	name: 'IssueTimeLineSection',
 	components: { IssueTimeLineEntry },
 	props: {
@@ -58,7 +59,7 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

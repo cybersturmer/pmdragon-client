@@ -25,11 +25,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { isEmptyString } from 'src/services/util'
 import EditorMentionPopupMenu from 'components/elements/team/EditorMentionPopupMenu'
 import { htmlSnippets } from 'src/pages/mixins/htmlSnippets'
 
-export default {
+export default defineComponent({
 	name: 'EditorExtended',
 	components: {
 		EditorMentionPopupMenu
@@ -223,5 +224,5 @@ export default {
 		filterByFirstName (value) { return value.first_name.toLowerCase().includes(this.mentionFilter) },
 		filterByLastName (value) { return value.last_name.toLowerCase().includes(this.mentionFilter) }
 	}
-}
+})
 </script>

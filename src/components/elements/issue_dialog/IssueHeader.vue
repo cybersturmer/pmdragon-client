@@ -30,11 +30,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { copyToClipboard } from 'quasar'
 import { Notifications } from 'pages/mixins/notifications'
 import IssueMorePopupMenu from '../../popups/IssueMorePopupMenu'
 
-export default {
+export default defineComponent({
 	name: 'IssueHeader',
 	emits: [
 		'refresh',
@@ -65,5 +66,5 @@ export default {
 		  this.$emit('hide')
 		}
 	}
-}
+})
 </script>

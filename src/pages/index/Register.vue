@@ -50,7 +50,7 @@
 </template>
 
 <script>
-
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import PrefixUrlField from 'src/components/fields/PrefixUrlField'
@@ -58,7 +58,7 @@ import EmailField from 'src/components/fields/EmailField'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'Register',
 	components: { EmailField, PrefixUrlField, ChangeConnectionElement },
 	mixins: [
@@ -109,5 +109,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

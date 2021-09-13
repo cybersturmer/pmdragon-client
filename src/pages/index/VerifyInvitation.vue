@@ -31,12 +31,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 
-export default {
+export default defineComponent({
 	name: 'VerifyInvitation',
 	mixins: [Dialogs],
 	components: {
@@ -109,7 +110,7 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

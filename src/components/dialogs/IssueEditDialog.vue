@@ -126,6 +126,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { date } from 'quasar'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { DATETIME_MASK } from 'src/services/masks'
@@ -146,7 +147,7 @@ import { CurrentActionsMixin } from 'src/services/actions/current'
 import { CoreActionsMixin } from 'src/services/actions/core'
 import MessagesPacker from 'src/store/current/messages'
 
-export default {
+export default defineComponent({
 	name: 'IssueEditDialog',
 	emits: [
 		'ok',
@@ -485,7 +486,7 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>
 <style lang="scss">
 	.q-message-label {

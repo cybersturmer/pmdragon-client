@@ -46,7 +46,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'ParticipantTeamMemberCard',
 	props: {
 		person: {
@@ -65,5 +67,5 @@ export default {
 			return this.$store.getters['auth/IS_ME_OWNER_OF_PROJECT']
 		}
 	}
-}
+})
 </script>

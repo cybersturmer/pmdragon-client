@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 import PasswordField from 'components/fields/PasswordField'
@@ -57,7 +58,7 @@ import UsernameField from 'components/fields/UsernameField'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'Login',
 	components: { UsernameField, PasswordField, ChangeConnectionElement },
 	mixins: [
@@ -113,5 +114,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

@@ -63,11 +63,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { loading } from 'src/pages/mixins/loading'
 
-export default {
+export default defineComponent({
 	name: 'SprintEditDialog',
 	emits: [
 		'ok',
@@ -175,5 +176,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

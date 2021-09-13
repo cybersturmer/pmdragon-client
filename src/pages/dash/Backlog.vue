@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
@@ -131,7 +132,7 @@ import DraggableIssueCollection from 'components/elements/backlog/interface/Drag
 import DraggableBacklogIssues from 'components/elements/backlog/DraggableBacklogIssues'
 import DraggableSprintIssues from 'components/elements/backlog/DraggableSprintIssues'
 
-export default {
+export default defineComponent({
 	name: 'BacklogView',
 	components: {
 		DraggableSprintIssues,
@@ -320,7 +321,7 @@ export default {
 				.finally(() => this.hideProgress())
 		}
 	}
-}
+})
 </script>
 <style lang="scss" scoped>
   .flip-list-move {

@@ -48,10 +48,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { unWatch } from 'src/services/util'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'IssueManageSection',
 	mixins: [
 		CoreActionsMixin
@@ -155,5 +156,5 @@ export default {
 			return this.$store.getters['core/ISSUE_ESTIMATION_BY_ID'](this.issue.estimation_category)
 		}
 	}
-}
+})
 </script>

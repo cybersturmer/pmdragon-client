@@ -1,8 +1,9 @@
 <script>
+import { defineComponent } from 'vue'
 import DraggableIssueBacklogCollection from 'components/elements/backlog/interface/DraggableIssueBacklogCollection'
 import { Dialogs } from 'pages/mixins/dialogs'
 
-export default {
+export default defineComponent({
 	name: 'DraggableSprintIssues',
 	extends: DraggableIssueBacklogCollection,
 	mixins: [
@@ -74,5 +75,5 @@ export default {
 			this.showOkDialog(...dialog)
 		}
 	}
-}
+})
 </script>

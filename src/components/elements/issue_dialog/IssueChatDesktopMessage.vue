@@ -42,9 +42,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { ChatMessageMixin } from 'src/pages/mixins/chatMessageMixin'
 
-export default {
+export default defineComponent({
 	name: 'IssueChatDesktopMessage',
 	mixins: [
 		ChatMessageMixin
@@ -64,7 +65,7 @@ export default {
 			this.visible = false
 		}
 	}
-}
+})
 </script>
 
 <style lang="scss" scoped>

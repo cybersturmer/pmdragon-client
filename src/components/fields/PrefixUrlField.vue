@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 
-export default {
+export default defineComponent({
 	name: 'PrefixUrlField',
 	emits: [
 		'update:modelValue',
@@ -40,5 +41,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

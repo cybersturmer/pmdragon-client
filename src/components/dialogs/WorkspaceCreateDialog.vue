@@ -23,11 +23,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'WorkspaceCreateDialog',
 	emits: [
 		'ok',
@@ -88,5 +89,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

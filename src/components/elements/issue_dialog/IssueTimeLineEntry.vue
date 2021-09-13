@@ -29,7 +29,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'IssueTimeLineEntry',
 	props: {
 		entry: {
@@ -110,5 +112,5 @@ export default {
 			return 'border: 1px solid gray; border-radius: 5px; max-width: 100%'
 		}
 	}
-}
+})
 </script>

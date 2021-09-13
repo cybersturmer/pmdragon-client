@@ -22,9 +22,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'IssueTitleSection',
 	mixins: [
 		CoreActionsMixin
@@ -85,5 +86,5 @@ export default {
 			return this.$store.getters['core/ISSUE_BY_ID_PROJECT_NUMBER'](this.issue.id)
 		}
 	}
-}
+})
 </script>

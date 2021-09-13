@@ -7,9 +7,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { platformOpenURL } from 'src/services/platforms'
 
-export default {
+export default defineComponent({
 	name: 'ItemURL',
 	props: {
 		url: {
@@ -26,5 +27,5 @@ export default {
 			platformOpenURL(this.url)
 		}
 	}
-}
+})
 </script>

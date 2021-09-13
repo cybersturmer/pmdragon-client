@@ -15,8 +15,9 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
 	name: 'SprintCompleteDialog',
 	emits: [
 		'ok',
@@ -59,5 +60,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

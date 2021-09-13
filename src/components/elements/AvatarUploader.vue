@@ -59,10 +59,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { AVATAR_ALLOW_MIMES } from 'src/services/allow'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'AvatarUploader',
 	mixins: [
 		AuthActionsMixin
@@ -92,7 +93,7 @@ export default {
 			reUploadIntended: true
 		}
 	}
-}
+})
 </script>
 <style lang="scss">
 	.q-uploader {

@@ -29,11 +29,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { Dialogs } from 'pages/mixins/dialogs'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'VerifyCollaboration',
 	mixins: [
 		Dialogs,
@@ -76,7 +77,7 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

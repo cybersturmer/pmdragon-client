@@ -14,10 +14,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'IssueMorePopupMenu',
 	emits: [
 		'remove'
@@ -57,7 +58,7 @@ export default {
 		}
 	}
 
-}
+})
 </script>
 
 <style scoped>

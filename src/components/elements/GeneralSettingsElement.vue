@@ -30,10 +30,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import ConnectionEditDialog from 'src/components/dialogs/ConnectionEditDialog'
 import AboutDialog from 'src/components/dialogs/AboutDialog'
 
-export default {
+export default defineComponent({
 	name: 'GeneralSettingsElement',
 	methods: {
 		showConnectionEditDialog () {
@@ -64,7 +65,7 @@ export default {
 			return `${this.$q.dark.isActive ? 'Light' : 'Dark'}`
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

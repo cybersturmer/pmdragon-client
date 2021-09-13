@@ -29,13 +29,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import EditorExtended from 'components/elements/EditorExtended'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { CurrentActionsMixin } from 'src/services/actions/current'
 import MessagesPacker from 'src/store/current/messages'
 import { unWatch } from 'src/services/util'
 
-export default {
+export default defineComponent({
 	name: 'IssueDescriptionSection',
 	emits: [
 		'cancelEditingMessage'
@@ -180,7 +181,7 @@ export default {
 			return this.$store.getters['auth/PERSONS']
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

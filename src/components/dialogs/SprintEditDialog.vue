@@ -37,11 +37,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import DateTimeField from 'src/components/fields/DateTimeField'
 import { date } from 'quasar'
 import { DATETIME_MASK } from 'src/services/masks'
 
-export default {
+export default defineComponent({
 	name: 'SprintEditDialog',
 	emits: [
 		'ok',
@@ -109,5 +110,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

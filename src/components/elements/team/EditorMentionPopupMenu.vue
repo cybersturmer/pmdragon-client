@@ -23,7 +23,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'EditorMentionPopupMenu',
 	emits: [
 		'selected'
@@ -39,5 +41,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>

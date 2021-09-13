@@ -59,12 +59,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { ChatMessageMixin } from 'src/pages/mixins/chatMessageMixin'
 
-export default {
+export default defineComponent({
 	name: 'IssueChatMobileMessage',
 	mixins: [
 		ChatMessageMixin
 	]
-}
+})
 </script>

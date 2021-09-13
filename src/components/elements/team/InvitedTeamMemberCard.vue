@@ -15,7 +15,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'InvitedTeamMemberCard',
 	props: {
 		invitation: {
@@ -28,7 +30,7 @@ export default {
 			return this.$moment(this.invitation.expired_at).fromNow()
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

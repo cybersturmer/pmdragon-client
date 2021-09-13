@@ -82,9 +82,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 
-export default {
+export default defineComponent({
 	name: 'IssueBoard',
 	props: {
 		issue: {
@@ -133,7 +134,7 @@ export default {
 			})
 		}
 	}
-}
+})
 </script>
 <style lang="scss">
 .fade-enter-active, .fade-leave-active {

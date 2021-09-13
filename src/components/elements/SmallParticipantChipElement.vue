@@ -13,7 +13,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'SmallParticipantChipElement',
 	props: {
 		participant: {
@@ -21,5 +23,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>

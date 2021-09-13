@@ -38,10 +38,10 @@
 </template>
 
 <script>
-
+import { defineComponent } from 'vue'
 import ItemURL from 'src/components/elements/ItemURL'
 
-export default {
+export default defineComponent({
 	name: 'AboutDialog',
 	components: { ItemURL },
 	emits: [
@@ -73,5 +73,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

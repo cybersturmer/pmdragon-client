@@ -48,12 +48,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { loading } from 'src/pages/mixins/loading'
 import InviteMemberDialog from 'src/components/dialogs/InviteMemberDialog'
 import InvitedTeamMemberCard from 'components/elements/team/InvitedTeamMemberCard'
 import ParticipantTeamMemberCard from 'src/components/elements/team/ParticipantTeamMemberCard'
 
-export default {
+export default defineComponent({
 	name: 'Team',
 	components: {
 		ParticipantTeamMemberCard,
@@ -149,5 +150,5 @@ export default {
 				})
 		}
 	}
-}
+})
 </script>

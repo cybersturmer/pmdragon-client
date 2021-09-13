@@ -16,7 +16,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'AttachmentDialogItem',
 	props: {
 		attachment: {
@@ -35,5 +37,5 @@ export default {
 			return this.$moment(this.attachment.updated_at).fromNow()
 		}
 	}
-}
+})
 </script>

@@ -1,7 +1,9 @@
 <script>
+import { defineComponent } from 'vue'
+
 import DraggableIssueBacklogCollection from 'components/elements/backlog/interface/DraggableIssueBacklogCollection'
 
-export default {
+export default defineComponent({
 	name: 'DraggableBacklogIssues',
 	extends: DraggableIssueBacklogCollection,
 	computed: {
@@ -33,5 +35,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

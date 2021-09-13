@@ -26,7 +26,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'SettingPanelCard',
 	props: {
 		areActions: {
@@ -42,7 +44,7 @@ export default {
 			default: '* All changes will take effect 1 second after input value'
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

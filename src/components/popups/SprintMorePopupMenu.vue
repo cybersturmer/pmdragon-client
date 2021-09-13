@@ -25,7 +25,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'SprintMorePopupMenu',
 	emits: [
 		'edit',
@@ -45,7 +47,7 @@ export default {
 			this.$emit('remove', this.sprintId)
 		}
 	}
-}
+})
 </script>
 <style lang="scss">
 

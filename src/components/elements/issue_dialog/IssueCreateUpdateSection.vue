@@ -33,10 +33,11 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { DATETIME_MASK } from 'src/services/masks'
 import { date } from 'quasar'
 
-export default {
+export default defineComponent({
 	name: 'IssueCreateUpdateSection',
 	props: {
 	  issue: {
@@ -62,5 +63,5 @@ export default {
 			return date.formatDate(this.issue.updated_at, DATETIME_MASK)
 		}
 	}
-}
+})
 </script>

@@ -30,11 +30,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { ConnectionActionsMixin } from 'src/services/actions/connection'
 
-export default {
+export default defineComponent({
 	name: 'ConnectionEditDialog',
 	emits: [
 		'ok',
@@ -109,5 +110,5 @@ export default {
 			return !process.env.DEV ? 'https://' : 'http://'
 		}
 	}
-}
+})
 </script>

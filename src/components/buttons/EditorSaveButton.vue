@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'EditorSaveButton',
 	emits: [
 		'clicked'
@@ -21,5 +23,5 @@ export default {
 			default: 'Save'
 		}
 	}
-}
+})
 </script>

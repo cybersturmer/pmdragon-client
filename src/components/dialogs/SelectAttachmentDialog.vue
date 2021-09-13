@@ -27,9 +27,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import AttachmentDialogItem from 'src/components/elements/AttachmentDialogItem'
 
-export default {
+export default defineComponent({
 	name: 'SelectAttachmentDialog',
 	emits: [
 		'ok',
@@ -88,5 +89,5 @@ export default {
 			this.hide()
 		}
 	}
-}
+})
 </script>

@@ -37,11 +37,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'ProjectCreateDialog',
 	emits: [
 		'ok',
@@ -120,5 +121,5 @@ export default {
 			return this.$store.getters['auth/WORKSPACES']
 		}
 	}
-}
+})
 </script>

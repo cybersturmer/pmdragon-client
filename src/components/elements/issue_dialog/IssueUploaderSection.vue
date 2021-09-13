@@ -58,6 +58,7 @@
 
 <script>
 import axios from 'axios'
+import { defineComponent } from 'vue'
 import { platformOpenURL } from 'src/services/platforms'
 import { removeElement, unWatch } from 'src/services/util'
 import { downloadFile } from 'src/services/cordova/download'
@@ -65,7 +66,7 @@ import { grantPermission } from 'src/services/cordova/permissions'
 import SelectAttachmentDialog from 'src/components/dialogs/SelectAttachmentDialog'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'IssueUploaderSection',
 	mixins: [
 		CoreActionsMixin
@@ -156,7 +157,7 @@ export default {
 			return this.$store.getters['core/ISSUE_BY_ID_ATTACHMENTS'](this.issue.id).length
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

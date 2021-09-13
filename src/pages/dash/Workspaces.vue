@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import SmallParticipantChipElement from 'src/components/elements/SmallParticipantChipElement'
 import WorkspaceCreateDialog from 'src/components/dialogs/WorkspaceCreateDialog'
 import ProjectCreateDialog from 'src/components/dialogs/ProjectCreateDialog'
@@ -77,7 +78,7 @@ import { websocket } from 'src/pages/mixins/websockets'
 import { ErrorHandler } from 'src/services/util'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'WorkspacesView',
 	mixins: [
 		websocket,
@@ -176,5 +177,5 @@ export default {
 		this.$store.dispatch('current/RESET_WORKSPACE')
 		this.$store.dispatch('current/RESET_PROJECT')
 	}
-}
+})
 </script>

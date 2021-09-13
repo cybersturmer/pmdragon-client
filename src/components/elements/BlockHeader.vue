@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'BlockHeader',
 	props: {
 		title: {
@@ -11,5 +13,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>

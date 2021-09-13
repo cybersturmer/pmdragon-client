@@ -507,6 +507,7 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import SettingPanelCard from 'src/components/elements/SettingPanelCard'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { loading } from 'src/pages/mixins/loading'
@@ -516,7 +517,7 @@ import { isEmptyString } from 'src/services/util'
 import { CoreActionsMixin } from 'src/services/actions/core'
 import { AuthActionsMixin } from 'src/services/actions/auth'
 
-export default {
+export default defineComponent({
 	name: 'SettingsView',
 	components: {
 		QIconPicker,
@@ -1014,5 +1015,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

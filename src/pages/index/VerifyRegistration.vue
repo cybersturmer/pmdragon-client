@@ -44,13 +44,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { ErrorHandler } from 'src/services/util'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 
-export default {
+export default defineComponent({
 	name: 'VerifyRegistration',
 	mixins: [Dialogs, fieldValidationMixin],
 	components: {
@@ -118,7 +119,7 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

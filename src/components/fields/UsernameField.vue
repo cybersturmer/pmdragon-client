@@ -12,9 +12,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { fieldValidationMixin } from 'src/pages/mixins/fieldValidation'
 
-export default {
+export default defineComponent({
 	name: 'UsernameField',
 	emits: [
 		'input'
@@ -44,5 +45,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

@@ -147,12 +147,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { WsController } from 'src/services/websockets/WsController'
 import { Notifications } from 'src/pages/mixins/notifications'
 import { websocket } from 'src/pages/mixins/websockets'
 import { loading } from 'src/pages/mixins/loading'
 
-export default {
+export default defineComponent({
 	name: 'DashLayout',
 	mixins: [
 		websocket,
@@ -270,7 +271,7 @@ export default {
 			return this.$store.getters['current/WORKSPACE']
 		}
 	}
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -38,13 +38,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import PasswordField from 'components/fields/PasswordField'
 import { Dialogs } from 'pages/mixins/dialogs'
 import { fieldValidationMixin } from 'pages/mixins/fieldValidation'
 import { ErrorHandler } from 'src/services/util'
 import ChangeConnectionElement from 'components/elements/GeneralSettingsElement'
 
-export default {
+export default defineComponent({
 	name: 'VerifyPasswordRestore',
 	mixins: [Dialogs, fieldValidationMixin],
 	components: {
@@ -117,5 +118,5 @@ export default {
 			}
 		}
 	}
-}
+})
 </script>

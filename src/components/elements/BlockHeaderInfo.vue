@@ -8,7 +8,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
 	name: 'BlockHeaderInfo',
 	props: {
 		title: {
@@ -20,7 +22,7 @@ export default {
 			required: false
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

@@ -4,9 +4,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { loading } from 'src/pages/mixins/loading'
 
-export default {
+export default defineComponent({
 	name: 'LoadingView',
 	mixins: [loading],
 	data () {
@@ -17,5 +18,5 @@ export default {
 	mounted () {
 		this.loadData()
 	}
-}
+})
 </script>

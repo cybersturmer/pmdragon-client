@@ -32,12 +32,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import EditorSaveButton from 'src/components/buttons/EditorSaveButton'
 import EditorCancelButton from 'src/components/buttons/EditorCancelButton'
 import EditorExtended from 'components/elements/EditorExtended'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'IssueDescriptionSection',
 	mixins: [
 		CoreActionsMixin
@@ -113,7 +114,7 @@ export default {
 			return this.$refs.issueDescriptionEditor
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

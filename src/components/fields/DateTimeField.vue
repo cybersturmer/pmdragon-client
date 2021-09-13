@@ -32,9 +32,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { DATETIME_MASK } from 'src/services/masks'
 
-export default {
+export default defineComponent({
 	name: 'DateTimeField',
 	emits: [
 		'update:modelValue'
@@ -61,7 +62,7 @@ export default {
 			this.$emit('update:modelValue', value)
 		}
 	}
-}
+})
 </script>
 
 <style scoped>

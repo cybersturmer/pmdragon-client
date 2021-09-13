@@ -81,12 +81,13 @@
 </template>
 
 <script>
-import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
+import { defineComponent } from 'vue'
 
+import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
-import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 
+import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
 import { unWatch } from 'src/services/util'
 import { date } from 'quasar'
 import draggable from 'vuedraggable'
@@ -99,7 +100,7 @@ import { loading } from 'src/pages/mixins/loading'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
 import { CoreActionsMixin } from 'src/services/actions/core'
 
-export default {
+export default defineComponent({
 	name: 'BoardView',
 	components: {
 		BlockHeaderInfo,
@@ -260,7 +261,7 @@ export default {
 				})
 		}
 	}
-}
+})
 </script>
 <style lang="scss">
 .issue_state_column_list > div {
