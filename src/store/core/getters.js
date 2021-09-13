@@ -96,7 +96,7 @@ export function SPRINT_STARTED_BY_CURRENT_PROJECT (state, getters, rootState, ro
         sprint.is_started &&
         !sprint.is_completed)
 	} catch (e) {
-		return false
+		return null
 	}
 }
 
@@ -173,10 +173,14 @@ export function SPRINT_BY_ID (state) {
 }
 
 export function SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
-	return state.sprints.find(sprint =>
-		sprint.project === rootGetters['current/PROJECT'] &&
-    sprint.is_started === true &&
-    sprint.is_completed === false)
+	try {
+		return state.sprints.find(sprint =>
+			sprint.project === rootGetters['current/PROJECT'] &&
+			sprint.is_started === true &&
+			sprint.is_completed === false)
+	} catch (e) {
+		return null
+	}
 }
 
 export function IS_SPRINT_STARTED_BY_ID (state, getters) {
