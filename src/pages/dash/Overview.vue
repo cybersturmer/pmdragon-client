@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex q-layout-padding overflow-hidden">
     <div
-      v-if="IsSprintStartedButNotCompleted"
+      v-if="isActiveSprint"
       class="full-width text-center">
 			<BlockHeader
 				title="Burn Down Chart"
@@ -35,7 +35,7 @@ export default defineComponent({
 		NoStartedSprintNotification
 	},
 	computed: {
-		IsSprintStartedButNotCompleted () {
+		isActiveSprint () {
 			return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT']
 		},
 		sprintDonePercentage () {
