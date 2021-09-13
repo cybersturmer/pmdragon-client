@@ -30,7 +30,11 @@ export default defineComponent({
 		}
 	},
 	mounted () {
-		const ctx = document.getElementById('line_chart').getContext('2d')
+		/** Let's skip Chart initialization if element was not found */
+		const $lineChartElement = document.getElementById('line_chart')
+		if (!$lineChartElement) return false
+
+		const ctx = $lineChartElement.getContext('2d')
 
 		Chart.register(
 			LinearScale,
