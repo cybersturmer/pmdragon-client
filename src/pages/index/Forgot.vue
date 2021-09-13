@@ -13,7 +13,7 @@
 								@click="reset"/>
 						</div>
 						<div class="col-4">
-							<router-link :to="{ name: 'login' }" custom v-slot="{ navigate }">
+							<router-link :to="{ name: 'login' }" v-slot="{ navigate }">
 								<q-btn
 									flat
 									color="secondary"
