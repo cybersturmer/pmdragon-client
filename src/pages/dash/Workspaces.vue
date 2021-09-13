@@ -40,13 +40,13 @@
 									<div class="text-subtitle2">Participants</div>
 									<SmallParticipantChipElement
 										v-for="participant in props.row.participants"
-										v-bind:key="participant.id"
+										:key="participant.id"
 										:participant="participant"
 									/>
 								</q-card-section>
 								<q-card-actions v-if="props.row.projects.length > 0" vertical>
 									<q-btn v-for="project in props.row.projects"
-												 v-bind:key="project.id"
+												 :key="project.id"
 												 outline
 												 @click="selectSpace(props.row.prefix_url, project.id)">
 										{{ project.title }}
