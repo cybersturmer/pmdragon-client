@@ -212,8 +212,8 @@ export default defineComponent({
 			}
 		}
 	},
-	async beforeMount () {
-		await this.$store.dispatch('current/SET_ISSUE_ID', this.id)
+	beforeMount () {
+		this.$store.dispatch('current/SET_ISSUE_ID', this.id)
 	},
 	async mounted () {
 		/** We need it for not mutate outside of mutations context **/
@@ -224,13 +224,31 @@ export default defineComponent({
 		await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
 		/** Let's unsubscribe from previously opened issue if that exist **/
 		if (currentIssue) {
-			const payload = {
+			const unsubscribePayload = {
 				action: 'unsubscribe_from_messages_in_issue',
 				request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
 				issue_pk: currentIssue
 			}
 
-			this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
+			const subscribePayload = {
+				action: 'subscribe_to_messages_in_issue',
+				request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+				issue_pk: currentIssue
+			}
+
+			this.$store.subscribe((mutation, state) => {
+				if (mutation.type === 'SOCKET_ONOPEN') {
+					this.$socket.sendObj({
+						stream: 'issue_chat',
+						payload: unsubscribePayload
+					})
+
+					this.$socket.sendObj({
+						stream: 'issue_chat',
+						payload: subscribePayload
+					})
+				}
+			})
 		}
 
 		try {
@@ -241,14 +259,6 @@ export default defineComponent({
 		} catch (e) {
 			this.showError(new ErrorHandler(e))
 		}
-
-		const payload = {
-			action: 'subscribe_to_messages_in_issue',
-			request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-			issue_pk: currentIssue
-		}
-
-		this.$socket.sendObj({ stream: 'issue_chat', payload: payload })
 	},
 	computed: {
 		isMobileApplication () {

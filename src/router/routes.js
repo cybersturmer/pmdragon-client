@@ -141,7 +141,12 @@ const routes = [
 			{
 				name: 'issue',
 				path: 'issue/:id',
-				props: true,
+				props: (route) => {
+					const issueId = Number.parseInt(route.params.id)
+					return {
+						issueId: Number.isNaN(issueId) ? 0 : issueId
+					}
+				},
 				meta: {
 					title: 'Issue' + PMDRAGON_STRING,
 					requireSpace: true

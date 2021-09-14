@@ -154,6 +154,13 @@ export default defineComponent({
 		editIssueData,
 		loading
 	],
+	props: {
+		/** Passed from the Router */
+		issueId: {
+			type: Number,
+			required: false
+		}
+	},
 	data () {
 		return {
 			formData: {
@@ -182,42 +189,28 @@ export default defineComponent({
 			isIssueDialogOpened: false
 		}
 	},
-	mounted () {
-		try {
-			const issueId = parseInt(this.$route.params.id)
+	beforeUpdate () {
+		const issueIdPassed = Boolean(this.issueId)
+		if (!issueIdPassed) return false
 
-			const isIssueExists = this.$store.getters['core/IS_ISSUE_EXISTS_BY_ID'](issueId)
+		const isIssueExists = this.$store.getters['core/IS_ISSUE_EXISTS_BY_ID'](this.issueId)
 
-			if (!issueId) return false
+		if (!isIssueExists) {
+			this.showRaisedError('Issue is not exist or was removed.')
+				.onOk(() => { this.$router.push({ name: 'backlog' }) })
 
-			if (isIssueExists) {
-				this.$q.dialog({
-					parent: this,
-					dark: this.$q.dark.isActive,
-					title: 'Issue ',
-					component: IssueEditDialog,
-					id: issueId
-				})
-			} else {
-				this.showRaisedError('Issue is not exist or was removed.')
-					.onOk(() => {
-						this.$router.push({ name: 'backlog' })
-					})
-			}
-		} catch (e) {
-			console.log(e)
+			return
 		}
+
+		this.$q.dialog({
+			component: IssueEditDialog,
+			componentProps: {
+				id: this.issueId
+			},
+			parent: this
+		})
 	},
 	computed: {
-		backlogIssuesN: {
-			get () {
-				return this.$store.getters['core/BACKLOG_ISSUES']
-			},
-			set (value) {
-				this.updateIssuesInBacklog()
-				this.$store.commit()
-			}
-		},
 		backlog () {
 			/** Getting current backlog by chosen workspace and project **/
 			return this.$store.getters['core/BACKLOG']
