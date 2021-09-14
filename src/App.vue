@@ -3,10 +3,8 @@
 </template>
 
 <script>
-export default {
-	name: 'App',
-	mounted () {
-		this.$q.dark.set(this.$store.getters['current/IS_DARK'])
-	}
-}
+import { defineComponent } from 'vue'
+export default defineComponent({
+	name: 'App'
+})
 </script>
