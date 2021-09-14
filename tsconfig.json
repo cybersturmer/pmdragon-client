@@ -1,5 +1,5 @@
 {
-	"extends": "@quasar/app/tsconfig-preset.json",
+	"extends": "@quasar/app/tsconfig-preset",
 	"compilerOptions": {
 		"baseUrl": "."
 	}
