@@ -1,3 +1,5 @@
+import { waitFor } from 'src/services/util'
+
 export const websocket = {
 	methods: {
 		unsubscribeIssuesInWorkspace () {
@@ -34,6 +36,48 @@ export const websocket = {
 			})
 
 			this.$store.commit('current/SET_ISSUE_IN_WORKSPACE_SUBSCRIBED', true)
+		},
+		async subscribeIssueChat () {
+			const currentIssue = this.$store.getters['current/ISSUE_ID']
+
+			return await waitFor(
+				this.$store.getters['connection/SOCKET_CONNECTED'],
+				() => {
+					this.$store.commit('connection/UPDATE_SOCKET_REQUEST_ID')
+
+					const subscribePayload = {
+						action: 'subscribe_to_messages_in_issue',
+						request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+						issue_pk: currentIssue
+					}
+
+					this.$socket.sendObj({
+						stream: 'issue_chat',
+						payload: subscribePayload
+					})
+				},
+				100
+			)
+		},
+		async unsubscribeIssueChat () {
+			const currentIssue = this.$store.getters['current/ISSUE_ID']
+
+			return await waitFor(
+				this.$store.getters['connection/SOCKET_CONNECTED'],
+				() => {
+					this.$store.commit('connection/UPDATE_SOCKET_REQUEST_ID')
+					const unsubscribePayload = {
+						action: 'unsubscribe_from_messages_in_issue',
+						request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
+						issue_pk: currentIssue
+					}
+
+					this.$socket.sendObj({
+						stream: 'issue_chat',
+						payload: unsubscribePayload
+					})
+				}
+			)
 		},
 		subscribeSettings () {
 			const workspaceId = this.$store.getters['auth/WORKSPACE_ID']

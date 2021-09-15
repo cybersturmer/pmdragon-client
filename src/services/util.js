@@ -123,3 +123,20 @@ export function updateElementById (array, newElement) {
 	const oldElement = array.find(element => element.id === newElement.id)
 	updateElement(array, oldElement, newElement)
 }
+
+export function delay (ms) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve()
+		}, ms)
+	})
+}
+
+export async function waitFor (booleanExpression, callback, checkThrottle) {
+	// eslint-disable-next-line no-unmodified-loop-condition
+	while (!booleanExpression) {
+		await delay(checkThrottle)
+	}
+
+	return callback()
+}

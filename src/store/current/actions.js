@@ -1,4 +1,5 @@
 import { empty } from 'src/store/current/presets'
+import MessagesPacker from 'src/store/current/messages'
 
 export function SELECT_WORKSPACE ({ commit }, payload) {
 	commit('SELECT_WORKSPACE', payload)
@@ -24,6 +25,42 @@ export function SET_ISSUE_ID ({ commit }, payload) {
 
 export function SET_ISSUE_MESSAGES ({ commit }, payload) {
 	commit('SET_ISSUE_MESSAGES', payload)
+}
+
+export function ADD_ISSUE_MESSAGE ({ commit, getters, rootGetters }, payload) {
+	const packer = new MessagesPacker(
+		rootGetters['auth/PERSONS'],
+		rootGetters['auth/MY_PERSON_ID']
+	)
+
+	packer.setPackedMessages(getters.ISSUE_MESSAGES)
+	packer.addRawMessageToPack(payload)
+
+	commit('SET_ISSUE_MESSAGES', packer.packedMessages)
+}
+
+export function UPDATE_ISSUE_MESSAGE ({ commit, getters, rootGetters }, payload) {
+	const packer = new MessagesPacker(
+		rootGetters['auth/PERSONS'],
+		rootGetters['auth/MY_PERSON_ID']
+	)
+
+	packer.setPackedMessages(getters.ISSUE_MESSAGES)
+	packer.updateMessageFromThePack(payload)
+
+	commit('SET_ISSUE_MESSAGES', packer.packedMessages)
+}
+
+export function REMOVE_ISSUE_MESSAGE ({ commit, getters, rootGetters }, payload) {
+	const packer = new MessagesPacker(
+		rootGetters['auth/PERSONS'],
+		rootGetters['auth/MY_PERSON_ID']
+	)
+
+	packer.setPackedMessages(getters.ISSUE_MESSAGES)
+	packer.removeMessageFromThePackById(payload.id)
+
+	commit('SET_ISSUE_MESSAGES', packer.packedMessages)
 }
 
 export function SET_ISSUE_HISTORY ({ commit }, payload) {

@@ -118,12 +118,7 @@ export default defineComponent({
 			try {
 				// Here we have only axios result, so data is in rawMessage.data
 				const rawMessage = await this.addMessage(payload)
-
-				this.packer.setPackedMessages(this.messages)
-				this.packer.addRawMessageToPack(rawMessage.data)
-
-				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
-
+				await this.$store.dispatch('current/ADD_ISSUE_MESSAGE', rawMessage.data)
 				this.formMessage.description = ''
 			} catch (e) {
 				this.showError(e)
@@ -141,12 +136,7 @@ export default defineComponent({
 
 			try {
 				const rawMessage = await this.updateMessage(payload)
-
-				this.packer.setPackedMessages(this.messages)
-				this.packer.updateMessageFromThePack(rawMessage.data)
-
-				this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
-
+				await this.$store.dispatch('current/UPDATE_ISSUE_MESSAGE', rawMessage.data)
 				this.$emit('cancelEditingMessage')
 			} catch (e) {
 				console.log(e)

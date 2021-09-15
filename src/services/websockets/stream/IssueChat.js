@@ -1,15 +1,15 @@
 import { StreamBase } from 'src/services/websockets/stream/base/StreamBase'
 
 export class IssueChat extends StreamBase {
-	onCreate (message) {
-		this.$store.commit('current/ADD_ISSUE_MESSAGE', message)
+	async onCreate (message) {
+		await this.$store.dispatch('current/ADD_ISSUE_MESSAGE', message)
 	}
 
-	onUpdate (message) {
-		this.$store.commit('current/UPDATE_ISSUE_MESSAGE', message)
+	async onUpdate (message) {
+		await this.$store.dispatch('current/UPDATE_ISSUE_MESSAGE', message)
 	}
 
-	onDelete (message) {
-		this.$store.commit('current/DELETE_ISSUE_MESSAGE', message)
+	async onDelete (message) {
+		await this.$store.dispatch('current/REMOVE_ISSUE_MESSAGE', message)
 	}
 }

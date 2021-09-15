@@ -110,7 +110,7 @@
 							<q-card-section
 								v-if="$q.screen.gt.md"
 								class="col-md-4">
-							<!-- Right section, we can change issue data here -->
+								<!-- Right section, we can change issue data here -->
 								<q-card-section v-if="$q.screen.gt.sm" class="column items-end">
 									<IssueHeader :issue="formData.issue"
 															 class="col"
@@ -145,7 +145,7 @@ import IssueDescriptionSection from 'src/components/elements/issue_dialog/IssueD
 import IssueCreateUpdateSection from 'src/components/elements/issue_dialog/IssueCreateUpdateSection'
 import { CurrentActionsMixin } from 'src/services/actions/current'
 import { CoreActionsMixin } from 'src/services/actions/core'
-import MessagesPacker from 'src/store/current/messages'
+import { websocket } from 'pages/mixins/websockets'
 
 export default defineComponent({
 	name: 'IssueEditDialog',
@@ -169,7 +169,8 @@ export default defineComponent({
 		Dialogs,
 		Notifications,
 		CurrentActionsMixin,
-		CoreActionsMixin
+		CoreActionsMixin,
+		websocket
 	],
 	props: {
 		id: {
@@ -219,37 +220,10 @@ export default defineComponent({
 		/** We need it for not mutate outside of mutations context **/
 		this.formData.issue = unWatch(this.$store.getters['current/ISSUE'])
 
-		const currentIssue = this.$store.getters['current/ISSUE_ID']
-
-		await this.$store.dispatch('connection/UPDATE_REQUEST_ID')
-		/** Let's unsubscribe from previously opened issue if that exist **/
-		if (currentIssue) {
-			const unsubscribePayload = {
-				action: 'unsubscribe_from_messages_in_issue',
-				request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-				issue_pk: currentIssue
-			}
-
-			const subscribePayload = {
-				action: 'subscribe_to_messages_in_issue',
-				request_id: this.$store.getters['connection/SOCKET_REQUEST_ID'],
-				issue_pk: currentIssue
-			}
-
-			this.$store.subscribe((mutation, state) => {
-				if (mutation.type === 'SOCKET_ONOPEN') {
-					this.$socket.sendObj({
-						stream: 'issue_chat',
-						payload: unsubscribePayload
-					})
-
-					this.$socket.sendObj({
-						stream: 'issue_chat',
-						payload: subscribePayload
-					})
-				}
-			})
-		}
+		/** Let's wait till the sockets are opened and then
+		 * unsubscribe from previously opened issue messages
+		 * and subscribe t currently opened issue */
+		await this.subscribeIssueChat()
 
 		try {
 			await Promise.all([
@@ -259,6 +233,9 @@ export default defineComponent({
 		} catch (e) {
 			this.showError(new ErrorHandler(e))
 		}
+	},
+	async beforeUnmount () {
+		await this.unsubscribeIssueChat()
 	},
 	computed: {
 		isMobileApplication () {
@@ -420,16 +397,7 @@ export default defineComponent({
 			}
 
 			await this.removeMessage(payload)
-			this.packer = new MessagesPacker(
-				this.$store.getters['auth/PERSONS'],
-				this.$store.getters['auth/MY_PERSON_ID']
-			)
-
-			await this.packer.setPackedMessages(this.messages)
-			await this.packer.removeMessageFromThePackById(id)
-
-			this.$store.commit('current/SET_ISSUE_MESSAGES', this.packer.packedMessages)
-
+			await this.$store.dispatch('current/REMOVE_ISSUE_MESSAGE', { id })
 			this.editingMessageId = null
 		},
 		editMessage (id) {
