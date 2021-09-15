@@ -35,13 +35,16 @@
 								@click="login"/>
 							</div>
 						<div class="col-4">
-							<router-link :to="{ name: 'register' }" v-slot="{ navigate }">
+							<router-link
+								style="text-decoration: none"
+								:to="{ name: 'register' }"
+								v-slot="{ navigate }">
 								<q-btn
 									flat
 									color="secondary"
 									label="Register?"
 									@click="navigate"
-									@keypress.enter="navigate"/>
+								/>
 							</router-link>
 						</div>
           </q-card-section>

@@ -35,7 +35,10 @@
 							@click="register"/>
 					</div>
 					<div class="col-4">
-						<router-link :to="{ name: 'login' }" v-slot="{ navigate }">
+						<router-link
+							style="text-decoration: none"
+							:to="{ name: 'login' }"
+							v-slot="{ navigate }">
 							<q-btn
 								flat
 								color="secondary"
