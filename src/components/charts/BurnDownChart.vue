@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from 'vue'
 import LineChart from 'components/charts/LineChart'
-import { date } from 'quasar'
+import { date, getCssVar } from 'quasar'
 
 export default defineComponent({
 	name: 'BurnDownChart',
@@ -108,7 +108,7 @@ export default defineComponent({
 					label: 'Estimated Effort',
 					fill: false,
 					pointRadius: 3,
-					borderColor: 'gray',
+					borderColor: getCssVar('secondary'),
 					borderWidth: 3,
 					data: expectedTimeValues
 				},
@@ -116,7 +116,7 @@ export default defineComponent({
 					label: 'Actual Effort',
 					fill: false,
 					pointRadius: 3,
-					borderColor: '#4c8ef1',
+					borderColor: getCssVar('negative'),
 					borderWidth: 3,
 					data: realTimeValues
 				}
