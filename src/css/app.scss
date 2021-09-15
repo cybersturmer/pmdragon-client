@@ -3,6 +3,12 @@
   min-width: auto;
 }
 
+@media (max-width: $breakpoint-sm-max) {
+	.q-timeline__dot {
+		left: 0 !important;
+	}
+}
+
 .q-item.q-router-link--active, .q-item--active {
 	background-color: $info;
   color: $accent;
