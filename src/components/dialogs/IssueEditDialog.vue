@@ -386,7 +386,7 @@ export default defineComponent({
 			const areaRefs = 'scrollArea'
 			if (!(areaRefs in this.$refs)) return false
 
-			// this.$refs.scrollArea.setScrollPercentage(1.25, 300)
+			this.$refs.scrollArea.setScrollPercentage('vertical', 300)
 		},
 		cancelEditingMessage () {
 			this.editingMessageId = null
