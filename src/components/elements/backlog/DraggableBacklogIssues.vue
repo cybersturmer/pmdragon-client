@@ -9,7 +9,7 @@ export default defineComponent({
 	computed: {
 		issues: {
 			get () {
-				return this.$store.getters['core/BACKLOG_ISSUES']
+				return this.$store.getters['core/BACKLOG_ISSUES_SORTED_BY_ORDERING']
 			},
 			async set (value) {
 				const issuesIds = []

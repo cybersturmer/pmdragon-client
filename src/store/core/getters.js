@@ -1,3 +1,7 @@
+function sortIssuesByOrdering (a, b) {
+	return a.ordering - b.ordering
+}
+
 export function BACKLOGS (state) {
 	return state.backlogs
 }
@@ -53,7 +57,6 @@ export function ISSUES_BY_IDS (state) {
 	return issuesIds => {
 		return state.issues
 			.filter((issue) => issuesIds.indexOf(issue.id) >= 0)
-			.sort((a, b) => a.ordering - b.ordering)
 	}
 }
 
@@ -196,6 +199,13 @@ export function SPRINT_BY_ID_ISSUES_IDS (state, getters) {
 export function SPRINT_BY_ID_ISSUES (state, getters) {
 	return sprintId => {
 		return getters.ISSUES_BY_IDS(getters.SPRINT_BY_ID(sprintId).issues)
+	}
+}
+
+export function SPRINT_BY_ID_ISSUES_SORTED_BY_ORDERING (state, getters) {
+	return sprintId => {
+		return getters.SPRINT_BY_ID_ISSUES(sprintId)
+			.sort(sortIssuesByOrdering)
 	}
 }
 
@@ -379,6 +389,14 @@ export function BACKLOG_ISSUES_IDS (state, getters) {
 export function BACKLOG_ISSUES (state, getters) {
 	try {
 		return getters.ISSUES_BY_IDS(getters.BACKLOG.issues)
+	} catch (e) {
+		return []
+	}
+}
+
+export function BACKLOG_ISSUES_SORTED_BY_ORDERING (state, getters) {
+	try {
+		return getters.BACKLOG_ISSUES.sort(sortIssuesByOrdering)
 	} catch (e) {
 		return []
 	}

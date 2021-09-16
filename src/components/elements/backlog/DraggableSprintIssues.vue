@@ -15,7 +15,7 @@ export default defineComponent({
 		},
 		issues: {
 			get () {
-				return this.$store.getters['core/SPRINT_BY_ID_ISSUES'](this.collectionId)
+				return this.$store.getters['core/SPRINT_BY_ID_ISSUES_SORTED_BY_ORDERING'](this.collectionId)
 			},
 			async set (value) {
 				const issuesIds = []
