@@ -104,7 +104,13 @@ export function UPDATE_BACKLOG_ISSUES (state, composite) {
 		.find(backlog => backlog.id === composite.id)
 	backlog.issues = composite.issues
 
+	for (const [index, issueId] of backlog.issues.entries()) {
+		const issue = state.issues.find(issue => issue.id === issueId)
+		issue.ordering = index
+	}
+
 	LocalStorage.set('core.backlogs', state.backlogs)
+	LocalStorage.set('core.issues', state.issues)
 }
 
 export function UPDATE_BACKLOG (state, payload) {
@@ -186,7 +192,13 @@ export function UPDATE_SPRINT_ISSUES (state, composite) {
 
 	sprint.issues = composite.issues
 
+	for (const [index, issueId] of sprint.issues.entries()) {
+		const issue = state.issues.find(issue => issue.id === issueId)
+		issue.ordering = index
+	}
+
 	LocalStorage.set('core.sprints', state.sprints)
+	LocalStorage.set('core.issues', state.issues)
 }
 
 export function START_SPRINT (state, sprintId) {

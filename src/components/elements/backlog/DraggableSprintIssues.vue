@@ -19,14 +19,9 @@ export default defineComponent({
 			},
 			async set (value) {
 				const issuesIds = []
-				const issuesOrdering = []
 
-				for (const [index, issue] of value.entries()) {
+				for (const issue of value) {
 					issuesIds.push(issue.id)
-					issuesOrdering.push({
-						id: issue.id,
-						ordering: index
-					})
 				}
 
 				const sprintUpdatePayload = {
@@ -34,10 +29,7 @@ export default defineComponent({
 					issues: issuesIds
 				}
 
-				await Promise.all([
-					this.updateIssuesInSprint(sprintUpdatePayload),
-					this.updateIssuesOrdering(issuesOrdering)
-				])
+				await this.updateIssuesInSprint(sprintUpdatePayload)
 			}
 		}
 	},

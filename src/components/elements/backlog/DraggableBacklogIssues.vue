@@ -13,25 +13,17 @@ export default defineComponent({
 			},
 			async set (value) {
 				const issuesIds = []
-				const issuesOrdering = []
 
-				for (const [index, issue] of value.entries()) {
+				for (const issue of value) {
 					issuesIds.push(issue.id)
-					issuesOrdering.push({
-						id: issue.id,
-						ordering: index
-					})
 				}
 
-				const updatePayload = {
+				const backlogUpdatePayload = {
 					id: this.collectionId,
 					issues: issuesIds
 				}
 
-				await Promise.all([
-					this.updateIssuesInBacklog(updatePayload),
-					this.updateIssuesOrdering(issuesOrdering)
-				])
+				await this.updateIssuesInBacklog(backlogUpdatePayload)
 			}
 		}
 	}
