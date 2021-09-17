@@ -1,6 +1,4 @@
-function sortIssuesByOrdering (a, b) {
-	return a.ordering - b.ordering
-}
+import { sortByOrdering } from 'src/services/util'
 
 export function BACKLOGS (state) {
 	return state.backlogs
@@ -205,7 +203,7 @@ export function SPRINT_BY_ID_ISSUES (state, getters) {
 export function SPRINT_BY_ID_ISSUES_SORTED_BY_ORDERING (state, getters) {
 	return sprintId => {
 		return getters.SPRINT_BY_ID_ISSUES(sprintId)
-			.sort(sortIssuesByOrdering)
+			.sort(sortByOrdering)
 	}
 }
 
@@ -396,7 +394,7 @@ export function BACKLOG_ISSUES (state, getters) {
 
 export function BACKLOG_ISSUES_SORTED_BY_ORDERING (state, getters) {
 	try {
-		return getters.BACKLOG_ISSUES.sort(sortIssuesByOrdering)
+		return getters.BACKLOG_ISSUES.sort(sortByOrdering)
 	} catch (e) {
 		return []
 	}

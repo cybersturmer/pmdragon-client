@@ -140,3 +140,7 @@ export async function waitFor (booleanExpression, callback, checkThrottle) {
 
 	return callback()
 }
+
+export function sortByOrdering (a, b) {
+	return a.ordering - b.ordering
+}
