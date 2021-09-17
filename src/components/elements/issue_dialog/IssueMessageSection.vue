@@ -66,6 +66,8 @@ export default defineComponent({
 
 			if (nowIsNotEmpty && !!message) {
 				this.formMessage.description = message.description
+			} else {
+				this.formMessage.description = ''
 			}
 		}
 	},
