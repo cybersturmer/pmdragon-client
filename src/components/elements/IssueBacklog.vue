@@ -9,8 +9,8 @@
 			<q-card-section
 				v-ripple
 				@click="openEditDialog"
-				class="q-pa-sm flex flex-center"
-				style="width: 120px">
+				class="q-pa-none overflow-hidden flex flex-center"
+				style="width: 10em">
 				<q-icon
 					v-if="isIssueTypeIcon"
 					:name="getIssueTypeIconPrefix"
@@ -19,14 +19,13 @@
 					:title="getIssueTypeTitle"/>
 				<span class="text-weight-bold q-ml-sm">{{ issue.project_number }}</span>
 			</q-card-section>
+			<q-separator vertical inset />
       <q-card-section
         v-ripple
         @click="openEditDialog"
-        class="row full-width q-pa-sm items-center">
+        class="row full-width q-py-sm items-center">
         <!-- ID + Icon + Title -->
-        <div>
-          <span>{{ issue.title }}</span>
-        </div>
+				<span>{{ issue.title }}</span>
       </q-card-section>
       <q-card-section v-if="$q.screen.gt.sm && estimationTitle" class="q-pa-sm">
         <!-- Estimation data X, L, XL ... -->
