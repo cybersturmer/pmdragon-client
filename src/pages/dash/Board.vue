@@ -89,12 +89,12 @@ import draggable from 'vuedraggable'
 import { loading } from 'src/pages/mixins/loading'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { CoreActionsMixin } from 'src/services/actions/core'
+import { sortByOrdering, unWatch } from 'src/services/util'
 
 import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
-import { sortByOrdering, unWatch } from 'src/services/util'
 import IssueBoard from 'src/components/elements/IssueBoard'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
 
