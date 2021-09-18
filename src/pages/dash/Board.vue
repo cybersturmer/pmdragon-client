@@ -83,22 +83,20 @@
 <script>
 import { defineComponent } from 'vue'
 
+import { date } from 'quasar'
+import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
+import draggable from 'vuedraggable'
+import { loading } from 'src/pages/mixins/loading'
+import { editIssueData } from 'src/pages/mixins/editIssueData'
+import { CoreActionsMixin } from 'src/services/actions/core'
+
 import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
-
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
-import { unWatch } from 'src/services/util'
-import { date } from 'quasar'
-import draggable from 'vuedraggable'
-import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
-
-import { editIssueData } from 'src/pages/mixins/editIssueData'
-
+import { sortByOrdering, unWatch } from 'src/services/util'
 import IssueBoard from 'src/components/elements/IssueBoard'
-import { loading } from 'src/pages/mixins/loading'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
-import { CoreActionsMixin } from 'src/services/actions/core'
 
 export default defineComponent({
 	name: 'BoardView',
@@ -179,7 +177,8 @@ export default defineComponent({
 	},
 	methods: {
 		issuesByState (stateId) {
-			return this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId)
+			return unWatch(this.$store.getters['core/SPRINT_ISSUES_BY_CURRENT_PROJECT_AND_STATE_ID'](stateId))
+				.sort(sortByOrdering)
 		},
 		issuesByStateAmount (stateId) {
 			return this.issuesByState(stateId).length
