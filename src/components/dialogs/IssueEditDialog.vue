@@ -205,7 +205,7 @@ export default defineComponent({
 	},
 	watch: {
 		messages (newArray, oldArray) {
-			this._scrollToEnd()
+			this.$nextTick(this._scrollToEnd)
 		},
 		issue (newObject, oldObject) {
 			if (newObject) {
@@ -383,10 +383,8 @@ export default defineComponent({
 			this.formData.issue.description = value
 		},
 		_scrollToEnd () {
-			const areaRefs = 'scrollArea'
-			if (!(areaRefs in this.$refs)) return false
-
-			this.$refs.scrollArea.setScrollPercentage('vertical', 300)
+			const { scrollArea } = this.$refs
+			scrollArea.setScrollPercentage('vertical', 300)
 		},
 		cancelEditingMessage () {
 			this.editingMessageId = null
