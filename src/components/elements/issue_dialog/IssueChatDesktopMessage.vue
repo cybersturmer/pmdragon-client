@@ -2,8 +2,8 @@
 	<q-chat-message
 		:sent="sent"
 		:avatar="avatar"
-		bg-color="grey-9"
-		text-color="accent">
+		:bg-color="$q.dark.isActive ? 'grey-9' : 'grey-6'"
+		:text-color="$q.dark.isActive ? 'accent' : 'dark'">
 		<!-- Message body - Desktop version -->
 		<template v-if="person" #name>
 			<span class="text-bold">@{{ person.username }}</span>
@@ -33,7 +33,7 @@
 		<!-- Message updated stamp -->
 		<template #stamp>
 			<div class="row items-center" style="height: 28px">
-				<div class="col q-px-sm text-accent">
+				<div :class="`col q-px-sm ${ $q.dark.isActive ? 'text-accent' : 'text-black'}`">
 					{{ getRelativeDatetime }}
 				</div>
 			</div>
