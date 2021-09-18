@@ -58,17 +58,14 @@
                 <q-scroll-area
                   :delay="1200"
                   :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
-                  <draggable
-                    :modelValue="issuesByState(state.id)"
-                    v-bind="dragOptions"
+									<DraggableIssueBoardStateCollection
+										:stateCategory="state.id"
+										:dragOptions="dragOptions"
+										@dragged="handleIssueStateChanging($event)"
+										:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
 										@start="dragging=true"
 										@end="dragging=false"
-										:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
-                    @change="handleIssueStateChanging($event, state.id)">
-										<template #item="{ element }">
-											<IssueBoard :issue="element"/>
-										</template>
-                  </draggable>
+									/>
                 </q-scroll-area>
               </div>
             </div>
@@ -85,7 +82,6 @@ import { defineComponent } from 'vue'
 
 import { date } from 'quasar'
 import { SPRINT_REMAINING_UNIT, DATE_MASK } from 'src/services/masks'
-import draggable from 'vuedraggable'
 import { loading } from 'src/pages/mixins/loading'
 import { editIssueData } from 'src/pages/mixins/editIssueData'
 import { CoreActionsMixin } from 'src/services/actions/core'
@@ -95,21 +91,20 @@ import NoStartedSprintNotification from 'src/components/elements/NoStartedSprint
 import StartCompleteSprintButton from 'src/components/buttons/StartCompleteSprintButton'
 import SprintEditDialog from 'src/components/dialogs/SprintEditDialog'
 import IssueEditDialog from 'src/components/dialogs/IssueEditDialog'
-import IssueBoard from 'src/components/elements/IssueBoard'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
+import DraggableIssueBoardStateCollection from 'components/elements/board/DraggableIssueBoardStateCollection'
 
 export default defineComponent({
 	name: 'BoardView',
 	components: {
+		DraggableIssueBoardStateCollection,
 		BlockHeaderInfo,
 		NoStartedSprintNotification,
 		StartCompleteSprintButton,
 		// eslint-disable-next-line vue/no-unused-components
 		IssueEditDialog,
 		// eslint-disable-next-line vue/no-unused-components
-		SprintEditDialog,
-		IssueBoard,
-		draggable
+		SprintEditDialog
 	},
 	mixins: [
 		CoreActionsMixin,
@@ -192,37 +187,8 @@ export default defineComponent({
 			this.updateIssueState(updatedElement)
 				.finally(() => this.hideProgress())
 		},
-		handleCommonMoved (issuesList, event) {
-			/** Handle moving - common function **/
-
-			const immutableList = unWatch(issuesList)
-
-			immutableList
-				.splice(event.moved.newIndex, 0, immutableList
-					.splice(event.moved.oldIndex, 1)[0])
-
-			const ordering = []
-			immutableList.forEach((issue, index) => {
-				ordering.push(
-					{
-						id: issue.id,
-						ordering: index
-					}
-				)
-			})
-
-			return { list: immutableList, ordering }
-		},
-		handleStateMoved (event, stateId) {
-			/** Handling moving inside of state **/
-			const issuesList = this.issuesByState(stateId)
-			const handled = this.handleCommonMoved(issuesList, event)
-
-			this.showProgress()
-			this.updateIssuesOrdering(handled.ordering)
-				.finally(() => this.hideProgress())
-		},
-		handleIssueStateChanging (event, issueStateId) {
+		handleIssueStateChanging (emitted) {
+			const { event, issueStateId } = emitted
 			/** Handling moving inside of states **/
 			const isAdded = ('added' in event)
 			const isRemoved = ('removed' in event)
@@ -235,7 +201,6 @@ export default defineComponent({
 			case isRemoved:
 				break
 			case isMoved:
-				this.handleStateMoved(event, issueStateId)
 				break
 			default:
 				throw new Error('This error should not occurred')

@@ -37,7 +37,7 @@ function _getResponseErrorMessage (error) {
 		}
 	}
 
-	const baseURL = new URL(error?.config?.baseURL)
+	const baseURL = error?.config?.baseURL ? new URL(error?.config?.baseURL) : 'Undefined'
 
 	if (error?.response?.statusText) return error.response.statusText
 	return error.message === 'Network Error'

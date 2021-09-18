@@ -74,6 +74,17 @@ class Http {
 		return this
 	}
 
+	async chain (preset, payload) {
+		const { auth, expect, method, endpoint } = preset
+
+		return this
+			.auth(auth)
+			.expect(expect)[method](
+				endpoint,
+				payload
+			)
+	}
+
 	validateStatus (status) {
 		return this.expectedStatus ? this.expectedStatus === status : true
 	}

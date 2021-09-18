@@ -58,7 +58,6 @@ export default defineComponent({
 
 			this.$emit('dragged', {
 				event,
-				collectionType: this.collectionType,
 				collectionId: this.collectionId
 			})
 		}
