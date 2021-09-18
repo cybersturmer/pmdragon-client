@@ -1,6 +1,7 @@
 <template>
   <q-chip
 		:color="`${$q.dark.isActive ? 'info' : 'accent'}`"
+		:text-color="`${$q.dark.isActive ? 'accent' : 'dark'}`"
 		square
     :key="participant.id">
     <q-avatar v-if="participant.avatar">
