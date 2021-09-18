@@ -383,8 +383,10 @@ export default defineComponent({
 			this.formData.issue.description = value
 		},
 		_scrollToEnd () {
-			const { scrollArea } = this.$refs
-			scrollArea.setScrollPercentage('vertical', 300)
+			try {
+				const { scrollArea } = this.$refs
+				scrollArea.setScrollPercentage('vertical', 300)
+			} catch (e) {}
 		},
 		cancelEditingMessage () {
 			this.editingMessageId = null
