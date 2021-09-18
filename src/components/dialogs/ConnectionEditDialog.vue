@@ -11,6 +11,7 @@
           :prefix="prefix"
           :error="isValid('formErrors', 'api_host')"
           :error-message="formErrors.api_host"
+					@keyup.enter="onOKClick"
         />
       </q-card-section>
       <q-card-actions vertical>
