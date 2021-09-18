@@ -6,21 +6,25 @@
     class="q-mb-sm issue-backlog"
     @click="$q.screen.lt.sm ? false : openEditDialog">
     <q-card-section horizontal>
+			<q-card-section
+				v-ripple
+				@click="openEditDialog"
+				class="q-pa-sm flex flex-center"
+				style="width: 120px">
+				<q-icon
+					v-if="isIssueTypeIcon"
+					:name="getIssueTypeIconPrefix"
+					:style="`color: ${getIssueTypeIcon.color}`"
+					size="sm"
+					:title="getIssueTypeTitle"/>
+				<span class="text-weight-bold q-ml-sm">{{ issue.project_number }}</span>
+			</q-card-section>
       <q-card-section
         v-ripple
         @click="openEditDialog"
         class="row full-width q-pa-sm items-center">
         <!-- ID + Icon + Title -->
         <div>
-          <q-icon
-            v-if="isIssueTypeIcon"
-            :name="getIssueTypeIconPrefix"
-						:style="`color: ${getIssueTypeIcon.color}`"
-            size="sm"
-            :title="getIssueTypeTitle"/>
-          &nbsp;
-          <span class="text-weight-bold">{{ issue.project_number }}</span>
-          &nbsp;
           <span>{{ issue.title }}</span>
         </div>
       </q-card-section>
