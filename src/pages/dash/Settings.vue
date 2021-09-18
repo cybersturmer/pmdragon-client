@@ -474,8 +474,10 @@
                     </q-td>
                   </template>
                 </q-table>
-                <p class="text-secondary q-pt-sm">** By changing values you will not affect already calculated
-                  Sprint Actual Efforts ( for example: BurnDown Chart)</p>
+                <p class="text-secondary q-pt-sm q-pb-none q-mb-none">** Value is equal to SP, we use it to calculate capacity and
+									track progress</p>
+								<p class="text-secondary">*** By changing values you will not affect already calculated
+									Sprint Actual Efforts ( for example: BurnDown Chart)</p>
               </template>
               <template #actions>
                 <q-input
