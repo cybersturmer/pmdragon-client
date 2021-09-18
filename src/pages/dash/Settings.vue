@@ -213,7 +213,7 @@
 												flat
 												icon="mdi-tooltip-image">
 														<q-popup-proxy transition-show="scale" transition-hide="scale">
-															<div style="max-width: 800px; width: 100%;">
+															<div style="width: 200px;">
 																<q-input :modelValue="iconPickerFilter"
 																				 @update:modelValue="inputIconPickerFilter"
 																				 flat
@@ -222,21 +222,22 @@
 																				 label-color="secondary"
 																				 clearable
 																				 class="q-pa-sm" />
-																<q-icon-picker
+																<QIconPicker
 																	:modelValue="props.row.prefix"
 																	@update:modelValue="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
+																	dense
 																	icon-set="mdi-v5"
 																	:filter="iconPickerFilter"
-																	:pagination="iconPickerPagination"
-																	:pagination-props="{
-																		maxPages: 5,
+																	v-model:model-pagination="iconPickerPagination"
+																	:paginationProps="{
+																		maxPages: 2,
 																		input: true,
 																		color: iconPickerPaginationColor,
 																		'input-class': 'text-white text-weight-bold'
 																	}"
 																	font-size="16px"
-																	style="height: 300px; width: 180px">
-																</q-icon-picker>
+																	style="height: 200px; width: 200px">
+																</QIconPicker>
 															</div>
 														</q-popup-proxy>
 													</q-btn>
@@ -507,12 +508,14 @@
 </template>
 
 <script>
+import '@quasar/quasar-ui-qiconpicker/dist/index.css'
+import '@quasar/quasar-ui-qiconpicker/dist/icon-set/mdi-v5.umd.js'
 import { defineComponent } from 'vue'
 import SettingPanelCard from 'src/components/elements/SettingPanelCard'
 import { Dialogs } from 'src/pages/mixins/dialogs'
 import { loading } from 'src/pages/mixins/loading'
 import { debounce } from 'quasar'
-import { Component as QIconPicker } from '@quasar/quasar-ui-qiconpicker'
+import { QIconPicker } from '@quasar/quasar-ui-qiconpicker'
 import { isEmptyString } from 'src/services/util'
 import { CoreActionsMixin } from 'src/services/actions/core'
 import { AuthActionsMixin } from 'src/services/actions/auth'
@@ -535,7 +538,7 @@ export default defineComponent({
 			debounceDefault: 1000,
 			iconPickerFilter: '',
 			iconPickerPagination: {
-				itemsPerPage: 60,
+				itemsPerPage: 30,
 				page: 0
 			},
 			iconPickerPaginationColor: 'white',
