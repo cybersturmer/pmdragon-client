@@ -743,7 +743,7 @@ export default defineComponent({
 			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
 		},
 		debounceInSeconds () {
-			return Math.trunc(this.debounceDefault)
+			return Math.trunc(this.debounceDefault / 1000)
 		}
 	},
 	created () {
