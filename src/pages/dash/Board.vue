@@ -5,7 +5,7 @@
       <div class="row full-width justify-between items-center q-pa-sm">
         <!-- Sprint name -->
 				<BlockHeaderInfo :title="startedSprint.title"
-												 :info="$q.screen.gt.md && startedSprint.goal ? startedSprint.goal : undefined "/>
+												 :info="$q.screen.gt.sm && startedSprint.goal ? startedSprint.goal : undefined "/>
         <!-- Sprint remaining text -->
         <div
           v-if="$q.screen.gt.sm"
