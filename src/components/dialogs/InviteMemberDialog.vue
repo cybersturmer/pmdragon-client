@@ -12,7 +12,7 @@
           no-data-label="Invite your team members by adding them by email."
           hide-bottom
           hide-header
-          :data="teamTableData.data"
+          :rows="teamTableData.data"
           :columns="teamTableData.columns"
           :pagination="teamTableData.pagination"
         >
