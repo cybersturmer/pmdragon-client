@@ -47,7 +47,7 @@
                   </q-btn-group>
                 </div>
               </div>
-              <div :class="`q-pt-sm q-px-xs q-pb-none ${ $q.dark.isActive ? 'bg-grey-9' : 'bg-accent' }`"
+              <div :class="`q-pa-xs ${ $q.dark.isActive ? 'bg-grey-9' : 'bg-accent' }`"
                    style="border-radius: 5px; border: 1px solid #606060; min-height: 67px;">
                 <div v-if="!areSprintIssues(sprint.id) && !dragging"
                      class="text-center q-pt-md">
@@ -57,7 +57,7 @@
 									:dragOptions="dragOptions"
 									:collectionId="sprint.id"
 									:handle="this.$q.screen.lt.sm ? '.handle' : false"
-									:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
+									:class="`q-pa-xs ${dragging ? 'drag_to_point_highlighter' : '' }`"
 									@start="dragging=true"
 									@end="dragging=false"/>
 							</div>
@@ -73,7 +73,7 @@
       <div class="col">
         <q-scroll-area
           visible
-          class="q-py-sm q-pl-sm q-pr-md q-mb-xs"
+          class="q-pa-sm q-pr-md"
           style="border-radius: 5px; height: calc(100% - 35px); border: 1px solid #606060; ">
 	        <div v-if="isBacklogEmpty && !dragging"
 	             class="flex flex-center text-secondary"
@@ -86,7 +86,7 @@
 						v-else
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
-						:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
+						:class="`q-pa-xs ${dragging ? 'drag_to_point_highlighter' : '' }`"
 						:handle="this.$q.screen.lt.sm ? '.handle' : false"
 						@start="dragging=true"
 						@end="dragging=false"
