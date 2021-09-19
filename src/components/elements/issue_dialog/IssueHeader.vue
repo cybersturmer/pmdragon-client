@@ -5,17 +5,21 @@
       flat
       dense
       icon="mdi-link-variant"
+      title="Copy Link"
       @click="copyLink"/>
 		<q-btn
 			flat
 			dense
-			icon="mdi-cloud-refresh"
+			icon="mdi-email-sync-outline"
+      title="Refresh Messages manually"
 			@click="refresh"/>
     <!-- More button -->
     <q-btn
       flat
       dense
-      icon="mdi-dots-vertical">
+      icon="mdi-dots-vertical"
+      title="Menu"
+    >
       <IssueMorePopupMenu
         @remove="hide"
         :issue="issue"/>

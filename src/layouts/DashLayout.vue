@@ -35,7 +35,7 @@
 					flat
 					round
 					dense
-					icon="mdi-cloud-refresh"
+					icon="mdi-refresh"
 					title="Manually refresh data"
 					class="q-mr-xs"
 					@click="refreshManually"/>

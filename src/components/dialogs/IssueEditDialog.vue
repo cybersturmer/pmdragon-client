@@ -205,6 +205,8 @@ export default defineComponent({
 	},
 	watch: {
 		messages (newArray, oldArray) {
+			if (newArray === oldArray) return false
+
 			this.$nextTick(this._scrollToEnd)
 		},
 		issue (newObject, oldObject) {
