@@ -27,7 +27,10 @@
         <!-- ID + Icon + Title -->
 				<span>{{ issue.title }}</span>
       </q-card-section>
-      <q-card-section v-if="$q.screen.gt.sm && estimationTitle" class="q-pa-sm">
+      <q-card-section
+				v-if="$q.screen.gt.sm && estimationTitle"
+				class="q-pa-sm overflow-hidden flex flex-center"
+			>
         <!-- Estimation data X, L, XL ... -->
         <div class="xs-hide sm-hide float-right">
           <q-chip
