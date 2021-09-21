@@ -57,7 +57,7 @@
 									:dragOptions="dragOptions"
 									:collectionId="sprint.id"
 									:handle="this.$q.screen.lt.sm ? '.handle' : false"
-									:class="`q-pa-xs ${dragging ? 'drag_to_point_highlighter' : '' }`"
+									:class="`q-pa-xs ${dragging ? 'drag-to-point-highlighted' : 'drag-to-point-passive' }`"
 									@start="dragging=true"
 									@end="dragging=false"/>
 							</div>
@@ -86,7 +86,7 @@
 						v-else
 						:drag-options="dragOptions"
 						:collection-id="backlog.id"
-						:class="`q-pa-xs ${dragging ? 'drag_to_point_highlighter' : '' }`"
+						:class="`q-pa-xs ${dragging ? 'drag-to-point-highlighted' : 'drag-to-point-passive' }`"
 						:handle="this.$q.screen.lt.sm ? '.handle' : false"
 						@start="dragging=true"
 						@end="dragging=false"

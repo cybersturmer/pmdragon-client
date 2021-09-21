@@ -77,8 +77,12 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
-.drag_to_point_highlighter {
+.drag-to-point-highlighted {
 	min-height: 10vh!important;
 	border: 1px dashed $info!important;
 	filter: brightness(120%);
+}
+
+.drag-to-point-passive {
+	border: 1px solid transparent;
 }

@@ -62,7 +62,7 @@
 										:stateCategory="state.id"
 										:dragOptions="dragOptions"
 										@dragged="handleIssueStateChanging($event)"
-										:class="`${dragging ? 'drag_to_point_highlighter' : '' }`"
+										:class="`${dragging ? 'drag-to-point-highlighted' : 'drag-to-point-passive' }`"
 										@start="dragging=true"
 										@end="dragging=false"
 									/>
