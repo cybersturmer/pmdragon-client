@@ -27,6 +27,7 @@ export default defineComponent({
 			chartdata: [],
 			options: {
 				responsive: true,
+				aspectRatio: 1.75,
 				interaction: {
 					intersect: false,
 					mode: 'point'
@@ -35,11 +36,17 @@ export default defineComponent({
 					legend: {
 						display: true,
 						labels: {
+							color: getCssVar('accent'),
 							font: {
 								size: 16
 							},
 							padding: 16
 						}
+					},
+					tooltip: {
+						enabled: true,
+						footerColor: getCssVar('accent'),
+						titleColor: getCssVar('accent')
 					}
 				},
 				elements: {

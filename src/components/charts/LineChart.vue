@@ -1,5 +1,7 @@
 <template>
-	<canvas id="line_chart" width="450" height="500"></canvas>
+	<div class="chart-container" style="position: relative; width:70vw">
+		<canvas id="line_chart" ></canvas>
+	</div>
 </template>
 <script>
 import { defineComponent } from 'vue'
