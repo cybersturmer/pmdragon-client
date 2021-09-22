@@ -181,8 +181,9 @@ export default defineComponent({
 				itemKey: 'id',
 				disabled: false,
 				ghostClass: 'ghost',
-				'component-data': {
-					name: 'fade'
+				componentData: {
+					type: 'transition-group',
+					name: 'flip-list'
 				}
 			},
 			dragging: false,

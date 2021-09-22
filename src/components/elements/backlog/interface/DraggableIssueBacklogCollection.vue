@@ -4,8 +4,7 @@
 		v-model="issues"
 		@change="onChangeHandler($event)"
 		@start="$emit('start', $event)"
-		@end="$emit('end', $event)"
-		:component-data="{ name: 'fade' }">
+		@end="$emit('end', $event)">
 		<template #item="{ element }">
 			<IssueBacklog :issue="element"/>
 		</template>
