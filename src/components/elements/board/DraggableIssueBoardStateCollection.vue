@@ -3,8 +3,8 @@
 		v-bind="dragOptions"
 		v-model="issues"
 		@change="onChangeHandler($event)"
-		@start="$emit('start', $event)"
-		@end="$emit('end', $event)"
+		@start="onStart"
+		@end="onEnd"
 		:component-data="{ name: 'fade' }">
 		<template #item="{ element }">
 			<IssueBoard :issue="element"/>
@@ -37,7 +37,9 @@ export default defineComponent({
 		}
 	},
 	emits: [
-		'dragged'
+		'dragged',
+		'start',
+		'end'
 	],
 	setup (props, context) {
 		const store = useStore()
@@ -77,9 +79,19 @@ export default defineComponent({
 			})
 		}
 
+		const onStart = async (event) => {
+			context.emit('start', event)
+		}
+
+		const onEnd = async (event) => {
+			context.emit('end', event)
+		}
+
 		return {
 			issues,
-			onChangeHandler
+			onChangeHandler,
+			onStart,
+			onEnd
 		}
 	}
 })
