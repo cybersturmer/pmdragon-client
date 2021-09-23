@@ -28,7 +28,6 @@
         </div>
       </div>
       <q-card
-        square
         bordered
         :class="`q-mt-sm-none q-mt-md-md ${ $q.dark.isActive ? 'bg-grey-10' : '' }`">
         <!-- Scroll for all columns -->
