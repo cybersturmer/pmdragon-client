@@ -53,7 +53,7 @@
                         class="q-ml-sm"/>
               </div>
               <!-- Issues block -->
-              <div class="full-width full-height">
+              <div class="full-width full-height q-pt-sm">
                 <q-scroll-area
                   :delay="1200"
                   :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
