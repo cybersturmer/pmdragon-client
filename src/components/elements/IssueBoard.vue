@@ -14,7 +14,7 @@
         @click="openEditDialog">
         <!-- Title -->
         <q-card-section class="q-pt-none q-px-xs text-left">
-          <span :class="`text-left text-muted ${ isDone ? 'text-strike': '' }`">
+          <span :class="`text-left text-muted`">
             {{ issue.title }}
           </span>
         </q-card-section>
@@ -29,7 +29,7 @@
               size="xs"
               :title="getIssueTypeTitle"/>
             <!-- Project number -->
-            <span class="text-weight-bold q-ml-xs">
+            <span :class="`text-weight-bold q-ml-xs ${ isDone ? 'text-strike': '' }`">
             {{ issue.project_number }}
             </span>
           </div>
