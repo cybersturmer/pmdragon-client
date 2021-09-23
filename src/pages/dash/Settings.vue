@@ -694,7 +694,7 @@ export default defineComponent({
 						sortable: true
 					},
 					{
-						label: 'Value',
+						label: 'Points',
 						name: 'value',
 						required: true,
 						align: 'left',
