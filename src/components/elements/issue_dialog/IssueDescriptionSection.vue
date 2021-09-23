@@ -77,12 +77,12 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		startEditingDescription () {
+		async startEditingDescription () {
 			/** update description state
 			 * We use it by clicking on the block with description of Issue
 			 * for make it editable **/
 			this.isDescriptionReadOnly = false
-			this.$nextTick(this.descriptionEditor.focus)
+			await this.$nextTick(this.descriptionEditor.editor.focus)
 		},
 		async handleIssueDescription (value) {
 			this.$emit('update:modelValue', value)
