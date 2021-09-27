@@ -26,7 +26,7 @@ export const restored = () => {
 		loading_module: null, // We don't need to store it in LocalStorage
 		dark: LocalStorage.getItem('current.dark'),
 		issue_id: LocalStorage.getItem('current.issue_id'),
-		issue_messages: LocalStorage.getItem('current.issue_messages'),
+		issue_messages: empty().issue_messages,
 		issue_history: LocalStorage.getItem('current.issue_history'),
 		issue_in_workspace_subscribed: false // We need it to understand that we subscribed on issues in Workspace
 	}

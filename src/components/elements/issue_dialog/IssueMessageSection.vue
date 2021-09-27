@@ -100,8 +100,8 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		focus () {
-			this.$nextTick(this.messageEditor.focus)
+		async focus () {
+			await this.$nextTick(this.messageEditor.focus)
 		},
 		cancelEditingMessage () {
 			/** We use it if user wrote a message and clicked cancel then **/

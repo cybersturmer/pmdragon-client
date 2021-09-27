@@ -55,7 +55,7 @@ export default defineComponent({
 	],
 	data () {
 		return {
-			isMentioningPopupVisible: true,
+			isMentioningPopupVisible: false,
 			mentionMaxResults: 1,
 			mentionFilter: ''
 		}

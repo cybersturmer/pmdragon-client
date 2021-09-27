@@ -27,6 +27,7 @@
 									ref="scrollArea"
 									class="q-pr-xs"
 									:style="`${middleSectionHeight}`">
+									<q-scroll-observer @scroll="modalScrollHandler" debounce="1000" axis="vertical"/>
 									<q-card-section v-if="$q.screen.lt.lg" class="q-pa-none">
 										<IssueManageSection :issue="formData.issue"/>
 									</q-card-section>
@@ -204,8 +205,9 @@ export default defineComponent({
 		}
 	},
 	watch: {
-		messages (newArray, oldArray) {
-			if (newArray === oldArray) return false
+		messages (newState, oldState) {
+			const oldStateWasEmpty = oldState.length === 0
+			if (oldStateWasEmpty) return false
 
 			this.$nextTick(this._scrollToEnd)
 		},
@@ -240,6 +242,9 @@ export default defineComponent({
 		await this.unsubscribeIssueChat()
 	},
 	computed: {
+		issueMessageSection () {
+			return this.$refs.issueMessageSection
+		},
 		isMobileApplication () {
 			return this.$q.platform.is.cordova
 		},
@@ -358,6 +363,14 @@ export default defineComponent({
 		}
 	},
 	methods: {
+		modalScrollHandler (event) {
+			const { delta, position } = event
+
+			if (delta.top === position.top) {
+				this.$nextTick(this.issueMessageSection.focus)
+				this.issueMessageSection.focus()
+			}
+		},
 		async refresh (done) {
 			try {
 				await this.getIssues()
@@ -404,7 +417,7 @@ export default defineComponent({
 		},
 		editMessage (id) {
 			this.editingMessageId = id
-			this.$nextTick(this.$refs.issueMessageSection.focus)
+			this.$nextTick(this.issueMessageSection.focus)
 		},
 		getParticipantTitleById (id) {
 			/** return title with username, first name and last name as a String **/

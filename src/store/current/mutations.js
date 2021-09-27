@@ -52,7 +52,6 @@ export function SET_ISSUE_ID (state, payload) {
 
 export function SET_ISSUE_MESSAGES (state, payload) {
 	state.issue_messages = payload
-	LocalStorage.set('current.issue_messages', payload)
 }
 
 export function SET_ISSUE_HISTORY (state, payload) {
@@ -71,7 +70,6 @@ export function RESET (state) {
 		'workspace',
 		'project',
 		'issue',
-		'issue_messages',
 		'issue_history'
 	]
 
