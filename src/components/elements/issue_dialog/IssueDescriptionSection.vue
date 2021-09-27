@@ -15,8 +15,8 @@
 				@click="startEditingDescription"/>
 		</q-card>
 		<EditorExtended
-			ref="issueDescriptionEditor"
 			v-show="isDescriptionEditing"
+			ref="issueDescriptionEditor"
 			:modelValue="issue.description"
 			@update:modelValue="handleIssueDescription"
 			:options="editorOptions"

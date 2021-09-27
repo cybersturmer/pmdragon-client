@@ -5,12 +5,12 @@
 		<q-card-section
 			class="q-pa-none">
 			<!-- Editor (Like Textarea) -->
-			<EditorExtended :ref="refsKey"
-											:modelValue="formMessage.description"
-											:options="editorOptions"
-											@update:modelValue="formMessage.description = $event"
-											@enter="createOrUpdateMessage"
-											placeholder="Create new message here..."
+			<EditorExtended
+				ref="issueMessageEditor"
+				:modelValue="formMessage.description"
+				@update:modelValue="handleIssueMessage"
+				:options="editorOptions"
+				@enter="createOrUpdateMessage"
 			/>
 		</q-card-section>
 		<q-card-actions
@@ -38,9 +38,6 @@ import { unWatch } from 'src/services/util'
 
 export default defineComponent({
 	name: 'IssueDescriptionSection',
-	emits: [
-		'cancelEditingMessage'
-	],
 	mixins: [
 		Dialogs,
 		CurrentActionsMixin
@@ -59,6 +56,10 @@ export default defineComponent({
 			default: null
 		}
 	},
+	emits: [
+		'cancelEditingMessage',
+		'update:modelValue'
+	],
 	watch: {
 		messageId (newId, oldId) {
 			const nowIsNotEmpty = newId !== null
@@ -77,7 +78,6 @@ export default defineComponent({
 				this.$store.getters['auth/PERSONS'],
 				this.$store.getters['auth/MY_PERSON_ID']
 			),
-			refsKey: 'issueMessageEditor',
 			isMessageEditable: false,
 			isMentioningPopupVisible: false,
 			popupParticipantsFilter: '',
@@ -107,6 +107,10 @@ export default defineComponent({
 			/** We use it if user wrote a message and clicked cancel then **/
 			this.formMessage.description = ''
 			this.$emit('cancelEditingMessage')
+		},
+		async handleIssueMessage (value) {
+			this.formMessage.description = value
+			this.$emit('update:modelValue', value)
 		},
 		async addMessageEvent () {
 			/** We use it for adding one more message **/

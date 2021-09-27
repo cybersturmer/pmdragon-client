@@ -49,6 +49,10 @@ export default defineComponent({
 			required: false
 		}
 	},
+	emits: [
+		'update:modelValue',
+		'enter'
+	],
 	data () {
 		return {
 			isMentioningPopupVisible: true,
