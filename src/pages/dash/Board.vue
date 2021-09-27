@@ -56,7 +56,7 @@
               <div class="full-width full-height q-pt-sm">
                 <q-scroll-area
                   :delay="1200"
-									class="q-pa-sm"
+									class="q-pl-none q-pr-sm"
                   :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
 									<DraggableIssueBoardStateCollection
 										:stateCategory="state.id"
