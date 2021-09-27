@@ -176,7 +176,7 @@ export default defineComponent({
 				BACKLOG: 0
 			},
 			dragOptions: {
-				animation: 200,
+				animation: 500,
 				group: 'issues',
 				itemKey: 'id',
 				disabled: false,
@@ -184,7 +184,8 @@ export default defineComponent({
 				componentData: {
 					type: 'transition-group',
 					name: 'flip-list'
-				}
+				},
+				handle: this.$q.screen.lt.sm ? '.handle' : false
 			},
 			dragging: false,
 			isIssueDialogOpened: false

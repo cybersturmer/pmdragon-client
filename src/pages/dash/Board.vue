@@ -56,12 +56,14 @@
               <div class="full-width full-height q-pt-sm">
                 <q-scroll-area
                   :delay="1200"
+									class="q-pa-sm"
                   :style="`${ $q.screen.lt.md ? 'height: 40vh' : 'height: 75vh'}`">
 									<DraggableIssueBoardStateCollection
 										:stateCategory="state.id"
 										:dragOptions="dragOptions"
 										@dragged="handleIssueStateChanging($event)"
 										:class="`${dragging ? 'drag-to-point-highlighted' : 'drag-to-point-passive' }`"
+										:handle="this.$q.screen.lt.sm ? '.handle' : false"
 										@start="dragging=true"
 										@end="dragging=false"
 									/>
@@ -114,15 +116,15 @@ export default defineComponent({
 		return {
 			dragging: false,
 			dragOptions: {
-				animation: 200,
+				animation: 500,
 				group: 'issues',
 				itemKey: 'id',
 				disabled: false,
 				ghostClass: 'ghost',
-				'component-data': {
-					name: 'fade'
-				},
-				handle: this.$q.screen.lt.sm ? '.handle' : false
+				componentData: {
+					type: 'transition-group',
+					name: 'flip-list'
+				}
 			}
 		}
 	},
