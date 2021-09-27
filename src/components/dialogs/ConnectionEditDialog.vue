@@ -3,6 +3,7 @@
     <q-card flat bordered class="q-dialog-plugin">
       <q-card-section>
         <q-input
+					autofocus
           @update:modelValue="inputHost($event)"
           :modelValue="formData.api_host"
           :rules="[isValidHost]"
