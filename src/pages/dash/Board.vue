@@ -116,7 +116,7 @@ export default defineComponent({
 		return {
 			dragging: false,
 			dragOptions: {
-				animation: 500,
+				animation: 300,
 				group: 'issues',
 				itemKey: 'id',
 				disabled: false,
