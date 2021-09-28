@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cybersturmer_pmdragon-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=cybersturmer_pmdragon-client)
+
 # PmDragon Client
 Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
 Quasar (Vue.Js / JavaScript) based Cross-platform software.
