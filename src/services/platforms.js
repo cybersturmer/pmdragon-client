@@ -6,7 +6,8 @@ export function openInAppBrowser (url) {
 
 export function platformOpenURL (url) {
 	switch (true) {
-	case Platform.is.android || Platform.is.ios:
+	case Platform.is.android:
+	case Platform.is.ios:
 		openInAppBrowser(url)
 		break
 	default:
