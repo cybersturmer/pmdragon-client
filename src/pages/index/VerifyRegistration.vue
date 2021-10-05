@@ -66,7 +66,7 @@ export default defineComponent({
 				email: ''
 			},
 			formData: {
-				key: this.key,
+				key: this.$route.params.key,
 				password: '',
 				is_invited: false
 			},
