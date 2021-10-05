@@ -56,7 +56,7 @@ export default defineComponent({
 		return {
 			isPasswordForgotRequestValid: false,
 			formData: {
-				key: this.$attrs.key,
+				key: this.key,
 				new_password1: '',
 				new_password2: ''
 			},
@@ -67,12 +67,17 @@ export default defineComponent({
 			}
 		}
 	},
+	computed: {
+		key () {
+			return this.$route.params.key
+		}
+	},
 	async mounted () {
 		try {
 			await this.$http
 				.auth(false)
 				.expect(200)
-				.get(`/auth/person-password-forgot-requests/${this.$attrs.key}/`)
+				.get(`/auth/person-password-forgot-requests/${this.key}/`)
 
 			this.isPasswordForgotRequestValid = true
 		} catch (e) {
@@ -99,7 +104,7 @@ export default defineComponent({
 					.auth(false)
 					.expect(200)
 					.patch(
-						`/auth/person-password-forgot-requests/${this.$attrs.key}/`,
+						`/auth/person-password-forgot-requests/${this.key}/`,
 						payload
 					)
 

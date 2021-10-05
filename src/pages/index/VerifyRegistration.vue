@@ -66,7 +66,7 @@ export default defineComponent({
 				email: ''
 			},
 			formData: {
-				key: this.$attrs.key,
+				key: this.key,
 				password: '',
 				is_invited: false
 			},
@@ -77,7 +77,7 @@ export default defineComponent({
 	},
 	computed: {
 		key () {
-			return this.$attrs.key
+			return this.$route.params.key
 		}
 	},
 	async mounted () {

@@ -49,7 +49,7 @@ export default defineComponent({
 	},
 	computed: {
 		key () {
-			return this.$attrs.key
+			return this.$route.params.key
 		},
 		is_error () {
 			return this.isRequestSent && !this.isVerified
