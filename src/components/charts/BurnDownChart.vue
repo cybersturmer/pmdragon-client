@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from 'vue'
 import LineChart from 'components/charts/LineChart'
-import { date, getCssVar } from 'quasar'
+import { getCssVar } from 'quasar'
 
 export default defineComponent({
 	name: 'BurnDownChart',
@@ -35,6 +35,7 @@ export default defineComponent({
 				plugins: {
 					legend: {
 						display: true,
+						position: 'bottom',
 						labels: {
 							color: getCssVar('accent'),
 							font: {
@@ -51,7 +52,7 @@ export default defineComponent({
 				},
 				elements: {
 					line: {
-						tension: 0.1 // Smooth borders
+						tension: 0 // Smooth borders
 					}
 				},
 				scales: {
@@ -60,10 +61,25 @@ export default defineComponent({
 						type: 'time',
 						time: {
 							unit: 'day'
+						},
+						ticks: {
+							padding: 10,
+							color: getCssVar('accent')
+						},
+						grid: {
+							color: getCssVar('info')
 						}
 					},
 					y: {
-						display: true
+						display: true,
+						type: 'linear',
+						ticks: {
+							padding: 10,
+							color: getCssVar('accent')
+						},
+						grid: {
+							color: getCssVar('info')
+						}
 					}
 				}
 			}
@@ -72,39 +88,35 @@ export default defineComponent({
 	async mounted () {
 		const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
 
-		const sprintStartedAt = new Date(sprint.started_at)
-		const sprintFinishedAt = new Date(sprint.finished_at)
-		const diffDays = date
-			.getDateDiff(sprintFinishedAt, sprintStartedAt, 'days')
-
-		const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
-		const perDayDecrement = totalSP / diffDays
-
-		const estimations = await this.$http
+		const guideline = await this.$http
 			.auth(true)
 			.expect(200)
 			.get(
-				`/core/sprint-estimations/?sprint=${sprint.id}`
+				`/core/sprint-guideline/${sprint.id}`
+			)
+
+		const remaining = await this.$http
+			.auth(true)
+			.expect(200)
+			.get(
+				`/core/sprint-actual-efforts-history/?sprint=${sprint.id}`
 			)
 
 		const daysLabels = []
-		const expectedTimeValues = []
-		const realTimeValues = []
+		const guidelineValues = []
+		const remainingValues = []
 
-		for (const datum of estimations.data) {
-			realTimeValues.push({
-				x: new Date(datum.point_at),
-				y: datum.estimated_value
+		for (const datum of guideline.data) {
+			guidelineValues.push({
+				x: datum.time,
+				y: datum.story_points
 			})
 		}
 
-		for (let i = diffDays; i >= 0; i--) {
-			const dayNumber = diffDays - i
-			const _date = date.addToDate(sprintStartedAt, { days: dayNumber })
-			const _value = Math.round(totalSP - perDayDecrement * dayNumber)
-			expectedTimeValues.push({
-				x: _date,
-				y: _value
+		for (const datum of remaining.data) {
+			remainingValues.push({
+				x: datum.point_at,
+				y: datum.estimated_value
 			})
 		}
 
@@ -112,20 +124,25 @@ export default defineComponent({
 			labels: daysLabels,
 			datasets: [
 				{
-					label: 'Estimated Effort',
+					label: 'Guideline',
 					fill: false,
-					pointRadius: 3,
-					borderColor: getCssVar('secondary'),
+					pointRadius: 4,
+					pointStyle: 'circle',
+					borderColor: getCssVar('primary'),
+					backgroundColor: getCssVar('dark'),
 					borderWidth: 3,
-					data: expectedTimeValues
+					spanGaps: true,
+					data: guidelineValues
 				},
 				{
-					label: 'Actual Effort',
+					label: 'Remaining Values',
 					fill: false,
-					pointRadius: 3,
+					pointRadius: 4,
+					pointStyle: 'circle',
 					borderColor: getCssVar('negative'),
+					backgroundColor: getCssVar('dark'),
 					borderWidth: 3,
-					data: realTimeValues
+					data: remainingValues
 				}
 			]
 		}
