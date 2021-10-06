@@ -10,7 +10,7 @@
 				:title="sprintTitle"
 				:info="`${this.startedAt} - ${this.finishedAt}`"
 				class="q-my-none q-py-none"/>
-      <BurnDownChart/>
+      <BurnDownChart ref="burnDown"/>
     </div>
     <NoStartedSprintNotification v-else />
   </q-page>
@@ -33,6 +33,9 @@ export default defineComponent({
 		BlockHeaderInfo,
 		BurnDownChart,
 		NoStartedSprintNotification
+	},
+	beforeRouteEnter () {
+		console.log('hi')
 	},
 	computed: {
 		isActiveSprint () {

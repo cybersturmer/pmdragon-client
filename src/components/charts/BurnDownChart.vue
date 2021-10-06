@@ -63,12 +63,14 @@ export default defineComponent({
 					x: {
 						display: true,
 						offset: true,
-						type: 'time',
+						type: 'timeseries',
 						time: {
 							unit: 'day'
 						},
 						ticks: {
-							autoSkip: false,
+							autoSkip: true,
+							minRotation: 90,
+							maxRotation: 90,
 							padding: 10,
 							color: getCssVar('accent')
 						},

@@ -13,6 +13,7 @@ import {
 	PointElement,
 	CategoryScale,
 	TimeScale,
+	TimeSeriesScale,
 	Tooltip,
 	Legend
 } from 'chart.js'
@@ -45,6 +46,7 @@ export default defineComponent({
 			LineElement,
 			PointElement,
 			TimeScale,
+			TimeSeriesScale,
 			Tooltip,
 			Legend
 		)
