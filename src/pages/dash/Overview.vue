@@ -34,9 +34,6 @@ export default defineComponent({
 		BurnDownChart,
 		NoStartedSprintNotification
 	},
-	beforeRouteEnter () {
-		console.log('hi')
-	},
 	computed: {
 		isActiveSprint () {
 			return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT']
