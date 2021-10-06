@@ -16,6 +16,8 @@ import { defineComponent } from 'vue'
 import LineChart from 'components/charts/LineChart'
 import { getCssVar } from 'quasar'
 
+const passivePoint = (ctx, decision) => ctx.p0.parsed.y === ctx.p1.parsed.y ? decision.yes : decision.no
+
 export default defineComponent({
 	name: 'BurnDownChart',
 	components: {
@@ -25,12 +27,14 @@ export default defineComponent({
 		return {
 			isLoaded: false,
 			chartdata: [],
+			guideline: [],
+			remaining: [],
 			options: {
 				responsive: true,
 				aspectRatio: 1.75,
 				interaction: {
-					intersect: false,
-					mode: 'point'
+					intersect: true,
+					mode: 'nearest'
 				},
 				plugins: {
 					legend: {
@@ -58,11 +62,13 @@ export default defineComponent({
 				scales: {
 					x: {
 						display: true,
+						offset: true,
 						type: 'time',
 						time: {
 							unit: 'day'
 						},
 						ticks: {
+							autoSkip: false,
 							padding: 10,
 							color: getCssVar('accent')
 						},
@@ -88,32 +94,37 @@ export default defineComponent({
 	async mounted () {
 		const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
 
-		const guideline = await this.$http
+		const responseGuideline = await this.$http
 			.auth(true)
 			.expect(200)
 			.get(
 				`/core/sprint-guideline/${sprint.id}`
 			)
 
-		const remaining = await this.$http
+		this.guideline = responseGuideline.data
+
+		const responseRemaining = await this.$http
 			.auth(true)
 			.expect(200)
 			.get(
-				`/core/sprint-actual-efforts-history/?sprint=${sprint.id}`
+				`/core/sprint-efforts-history/?sprint=${sprint.id}`
 			)
+
+		this.remaining = responseRemaining.data
 
 		const daysLabels = []
 		const guidelineValues = []
 		const remainingValues = []
 
-		for (const datum of guideline.data) {
+		for (const datum of this.guideline) {
 			guidelineValues.push({
 				x: datum.time,
-				y: datum.story_points
+				y: datum.story_points,
+				z: datum.is_working
 			})
 		}
 
-		for (const datum of remaining.data) {
+		for (const datum of this.remaining) {
 			remainingValues.push({
 				x: datum.point_at,
 				y: datum.estimated_value
@@ -131,7 +142,17 @@ export default defineComponent({
 					borderColor: getCssVar('primary'),
 					backgroundColor: getCssVar('dark'),
 					borderWidth: 3,
-					spanGaps: true,
+					borderDash: [6, 2],
+					segment: {
+						borderWidth: ctx => passivePoint(ctx, {
+							yes: 1,
+							no: 3
+						}),
+						borderColor: ctx => passivePoint(ctx, {
+							yes: getCssVar('secondary'),
+							no: getCssVar('primary')
+						})
+					},
 					data: guidelineValues
 				},
 				{
