@@ -394,7 +394,7 @@ export default defineComponent({
 				description: this.formData.issue.description
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.formData.issue.description = value
 		},
 		_scrollToEnd () {

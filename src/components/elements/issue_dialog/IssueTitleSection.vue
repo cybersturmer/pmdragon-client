@@ -49,7 +49,7 @@ export default defineComponent({
 				title: title
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.$emit('update_title', payload)
 		}
 	},

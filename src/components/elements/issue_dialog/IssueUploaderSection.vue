@@ -116,7 +116,7 @@ export default defineComponent({
 				attachments: attachments
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 		},
 		async showSelectAttachmentDialog () {
 			this.$q.dialog({
@@ -141,7 +141,7 @@ export default defineComponent({
 				attachments: patchedAttachments
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 		}
 	},
 	computed: {

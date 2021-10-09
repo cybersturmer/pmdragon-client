@@ -81,7 +81,7 @@ export default defineComponent({
 				state_category: state.id
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.$emit('update_state', payload)
 		},
 		async updateIssueType (state) {
@@ -92,7 +92,7 @@ export default defineComponent({
 				type_category: state.id
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.$emit('update_type', payload)
 		},
 		async updateIssueAssignee (assignee) {
@@ -103,7 +103,7 @@ export default defineComponent({
 				assignee: assignee.id
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.$emit('update_assignee', payload)
 		},
 		async updateIssueEstimation (estimation) {
@@ -112,7 +112,7 @@ export default defineComponent({
 				estimation_category: estimation.id
 			}
 
-			await this.patchIssue(payload)
+			await this.updateIssue(payload)
 			this.$emit('update_estimation', payload)
 		}
 	},

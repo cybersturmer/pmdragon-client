@@ -274,7 +274,7 @@ export default defineComponent({
 			})
 				.onOk((data) => {
 					this.showProgress()
-					this.editSprint(data)
+					this.updateSprint(data)
 						.catch((e) => this.showError(e))
 						.finally(() => this.hideProgress())
 				})

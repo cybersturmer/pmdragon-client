@@ -95,7 +95,7 @@ export default defineComponent({
 				description: this.issue.description
 			}
 
-			const issue = await this.patchIssue(payload)
+			const issue = await this.updateIssue(payload)
 			this.isDescriptionReadOnly = true
 
 			this.$emit('updateDescription', issue.data.description)
