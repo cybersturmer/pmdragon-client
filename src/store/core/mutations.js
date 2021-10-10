@@ -54,6 +54,16 @@ export function UPDATE_SPRINT_DURATIONS (state, payload) {
 	LocalStorage.set('core.sprint_durations', payload)
 }
 
+export function UPDATE_WORKING_DAYS (state, payload) {
+	state.working_days = payload
+	LocalStorage.set('core.working_days', payload)
+}
+
+export function UPDATE_WORKING_DAYS_SETTING (state, payload) {
+	updateElementById(state.working_days, payload)
+	LocalStorage.set('core.working_days', state.working_days)
+}
+
 /** ATTACHMENTS manage block **/
 function saveIssueAttachmentStateToLocalStorage (state) {
 	LocalStorage.set('core.issue_attachments', state.issue_attachments)

@@ -12,6 +12,10 @@ export function ISSUES (state) {
 	return state.issues
 }
 
+export function WORKING_DAYS (state) {
+	return state.working_days
+}
+
 /** Issues Block **/
 export function ISSUE_BY_ID (state) {
 	/** Getting issue from main list by id **/
@@ -157,7 +161,16 @@ export function PROJECT_SPRINTS (state, getters, rootState, rootGetters) {
 		return state.sprints
 			.filter((sprint) => sprint.project === rootGetters['current/PROJECT'])
 	} catch (e) {
-		return null
+		return []
+	}
+}
+
+export function WORKING_DAYS_BY_CURRENT_PROJECT (state, getters, rootState, rootGetters) {
+	try {
+		return state.working_days
+			.filter((workingDays) => workingDays.project === rootGetters['current/PROJECT'])[0]
+	} catch (e) {
+		return []
 	}
 }
 
@@ -348,6 +361,8 @@ export function ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT (state, getters, rootState,
 	return state.issue_estimations
 		.filter((issueEstimation) => issueEstimation.project === rootGetters['current/PROJECT'])
 }
+
+// export function WORKING_DAYS_BY_CURRENT_PROJECT (state, getters, root)
 
 export function ISSUE_ESTIMATION_BY_ID (state) {
 	return issueEstimationId => {

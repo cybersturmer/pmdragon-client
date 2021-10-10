@@ -39,7 +39,8 @@ export const loading = {
 						this.getAttachments(),
 						this.getSprints(),
 						this.getBacklogs(),
-						this.getInvited()
+						this.getInvited(),
+						this.getWorkingDays()
 					]))
 				.catch((e) => {
 					this.showError(e)

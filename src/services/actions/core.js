@@ -60,6 +60,12 @@ export const CoreActionsMixin = {
 				'core/UPDATE_ISSUE_ESTIMATIONS'
 			)
 		},
+		async getWorkingDays () {
+			return this.__getEntities(
+				'/core/working-days/',
+				'core/UPDATE_WORKING_DAYS'
+			)
+		},
 		async addAttachment (payload) {
 			const formData = new FormData()
 
@@ -118,7 +124,7 @@ export const CoreActionsMixin = {
 
 			return Promise.resolve('Successfully uploaded')
 		},
-		async patchAttachment (payload) {
+		async updateAttachment (payload) {
 			return this.__patchEntity(
 				`/core/issue-attachments/${payload.id}/`,
 				payload,
@@ -373,7 +379,15 @@ export const CoreActionsMixin = {
 				throw new ErrorHandler(e)
 			}
 		},
-		async patchIssue (payload) {
+		async updateWorkingDays (payload) {
+			/** Let's begin from this easy way **/
+			return this.__patchEntity(
+				`/core/working-days/${payload.id}/`,
+				payload,
+				'core/UPDATE_WORKING_DAYS_SETTING'
+			)
+		},
+		async updateIssue (payload) {
 			/** At least id and one more param must be provided
 			 * For example: {
 			 *   id: 1,
@@ -515,7 +529,7 @@ export const CoreActionsMixin = {
 				throw new ErrorHandler(e)
 			}
 		},
-		async editSprint (payload) {
+		async updateSprint (payload) {
 			const sendPayload = {
 				title: payload.title,
 				goal: payload.goal,
