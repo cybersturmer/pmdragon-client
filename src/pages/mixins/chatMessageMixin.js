@@ -22,7 +22,7 @@ export const ChatMessageMixin = {
 		},
 		avatar () {
 			try {
-				return `${this.server}${this.person.avatar}`
+				return this.person.avatar
 			} catch (e) {
 				return ''
 			}
