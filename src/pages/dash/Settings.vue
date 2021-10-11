@@ -1108,9 +1108,6 @@ export default defineComponent({
 			default:
 				throw new Error()
 			}
-			console.dir(value)
-			console.dir(reason)
-			console.dir(details)
 		},
 		async addNonWorkingDayHandler (date) {
 			const nonWorkingDayPayload = {
