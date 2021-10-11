@@ -51,6 +51,7 @@ export const Dialogs = {
 		},
 		showError (e) {
 			if (!e.messageUseful) {
+				console.log(e)
 				return false
 			}
 

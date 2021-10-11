@@ -66,6 +66,12 @@ export const CoreActionsMixin = {
 				'core/UPDATE_WORKING_DAYS'
 			)
 		},
+		async getNonWorkingDays () {
+			return this.__getEntities(
+				'/core/non-working-days/',
+				'core/UPDATE_NON_WORKING_DAYS'
+			)
+		},
 		async addAttachment (payload) {
 			const formData = new FormData()
 
@@ -385,6 +391,20 @@ export const CoreActionsMixin = {
 				`/core/working-days/${payload.id}/`,
 				payload,
 				'core/UPDATE_WORKING_DAYS_SETTING'
+			)
+		},
+		async addNonWorkingDay (payload) {
+			return this.__addEntity(
+				'/core/non-working-days/',
+				payload,
+				'core/ADD_NON_WORKING_DAY'
+			)
+		},
+		async deleteNonWorkingDay (payload) {
+			return this.__deleteEntity(
+				`/core/non-working-days/${payload.id}/`,
+				payload,
+				'core/REMOVE_NON_WORKING_DAY'
 			)
 		},
 		async updateIssue (payload) {

@@ -174,6 +174,17 @@ export function WORKING_DAYS_BY_CURRENT_PROJECT (state, getters, rootState, root
 	}
 }
 
+export function NON_WORKING_DAYS_BY_IDS (state) {
+	return nonWorkingDaysIds => {
+		try {
+			return state.non_working_days
+				.filter((nonWorkingDay) => nonWorkingDaysIds.indexOf(nonWorkingDay.id) >= 0)
+		} catch (e) {
+			return []
+		}
+	}
+}
+
 export function UNCOMPLETED_PROJECT_SPRINTS (state, getters) {
 	try {
 		return getters.PROJECT_SPRINTS.filter((sprint) => sprint.is_completed === false)

@@ -12,7 +12,8 @@ export const empty = () => {
 		issue_states: [],
 		issue_estimations: [],
 		sprint_durations: [],
-		working_days: []
+		working_days: [],
+		non_working_days: []
 	}
 }
 
@@ -28,6 +29,7 @@ export const restored = () => {
 		issue_states: LocalStorage.getItem('core.issue_states'),
 		issue_estimations: LocalStorage.getItem('core.issue_estimations'),
 		sprint_durations: LocalStorage.getItem('core.sprint_durations'),
-		working_days: LocalStorage.getItem('core.working_days')
+		working_days: LocalStorage.getItem('core.working_days'),
+		non_working_days: LocalStorage.getItem('core.non_working_days')
 	}
 }

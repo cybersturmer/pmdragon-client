@@ -64,6 +64,32 @@ export function UPDATE_WORKING_DAYS_SETTING (state, payload) {
 	LocalStorage.set('core.working_days', state.working_days)
 }
 
+export function UPDATE_NON_WORKING_DAYS (state, payload) {
+	state.non_working_days = payload
+	LocalStorage.set('core.non_working_days', state.non_working_days)
+}
+
+export function ADD_NON_WORKING_DAY (state, payload) {
+	state.non_working_days.push(payload)
+	LocalStorage.set('core.non_working_days', state.non_working_days)
+}
+
+export function REMOVE_NON_WORKING_DAY (state, payload) {
+	console.log('REMOVE_NON_WORKING_DAY payload')
+	console.log(payload)
+	const workingDays = state.working_days
+		.find(
+			workingDay => workingDay.workspace === payload.workspace &&
+										workingDay.project === payload.project
+		)
+
+	removeElement(workingDays.non_working_days, payload.id)
+	removeElementById(state.non_working_days, payload)
+
+	LocalStorage.set('core.working_days', state.working_days)
+	LocalStorage.set('core.non_working_days', state.non_working_days)
+}
+
 /** ATTACHMENTS manage block **/
 function saveIssueAttachmentStateToLocalStorage (state) {
 	LocalStorage.set('core.issue_attachments', state.issue_attachments)
@@ -386,7 +412,9 @@ export function RESET (state) {
 		'issue_states',
 		'issue_attachments',
 		'issue_estimations',
-		'sprint_durations'
+		'sprint_durations',
+		'working_days',
+		'non_working_days'
 	]
 
 	for (const element of localStorageResetList) {

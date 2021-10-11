@@ -40,7 +40,8 @@ export const loading = {
 						this.getSprints(),
 						this.getBacklogs(),
 						this.getInvited(),
-						this.getWorkingDays()
+						this.getWorkingDays(),
+						this.getNonWorkingDays()
 					]))
 				.catch((e) => {
 					this.showError(e)

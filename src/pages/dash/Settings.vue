@@ -12,6 +12,8 @@
           <q-tab name="issue_types_icons" icon="mdi-tooltip-image" label="Issue Types Icons" />
           <q-tab name="issue_states" icon="mdi-transit-connection-horizontal" label="Issue States" />
           <q-tab name="issue_estimations" icon="mdi-vote" label="Issue Estimations" />
+					<q-tab name="working_weekdays" icon="mdi-timetable" label="Working Weekdays" />
+					<q-tab name="non_working_days" icon="mdi-timetable" label="Non Working Days" />
         </q-tabs>
         <q-separator />
         <q-tab-panels
@@ -30,7 +32,7 @@
                   type="text"
                   label="Project name"
                   :modelValue="projectTitle"
-									@update:modelValue="updateProjectEvent($event, 'title')"
+									@update:modelValue="updateProjectHandler($event, 'title')"
 									:debounce="debounceDefault"
 								/>
                 <q-input
@@ -38,14 +40,14 @@
                   type="text"
                   label="Project key"
                   :modelValue="projectKey"
-									@update:modelValue="updateProjectEvent($event, 'key')"
+									@update:modelValue="updateProjectHandler($event, 'key')"
 									:debounce="debounceDefault"
                 />
                 <q-select
                   flat
                   label="Project owner"
                   :modelValue="projectOwnedBy"
-									@update:modelValue="updateProjectEvent($event, 'owned_by')"
+									@update:modelValue="updateProjectHandler($event, 'owned_by')"
 									:options="participants"
 									:option-label="(item) => `${item.first_name} ${item.last_name}`"
 									hint="Right after changing it you will not be able anymore to change the project."
@@ -57,7 +59,7 @@
                     color="negative"
                     label="Remove project"
                     icon="mdi-delete"
-                    @click="deleteProjectEvent"/>
+                    @click="deleteProjectHandler"/>
                 </q-btn-group>
                 <p class="text-secondary q-pt-sm">* By clicking it you will delete this project with all its issues,
                   issue types, issue states, issue estimations</p>
@@ -90,7 +92,7 @@
                         type="text"
                         color="secondary"
                         :modelValue="props.row.title"
-												@update:modelValue="updateIssueType(props.row.id, 'title', $event)"
+												@update:modelValue="updateIssueTypeHandler(props.row.id, 'title', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -100,7 +102,7 @@
                       <q-toggle
                         color="info"
                         :modelValue="props.row.is_default"
-                        @update:modelValue="updateIssueType(props.row.id, 'is_default', $event)"
+                        @update:modelValue="updateIssueTypeHandler(props.row.id, 'is_default', $event)"
                       />
                     </q-td>
                   </template>
@@ -113,7 +115,7 @@
                         :options="issueTypeIcons"
                         :option-label="(item) => item.prefix"
                         :modelValue="getIssueTypeIconById(props.row.icon)"
-                        @update:modelValue="updateIssueType(props.row.id, 'icon', $event)"
+                        @update:modelValue="updateIssueTypeHandler(props.row.id, 'icon', $event)"
                         class="float-right col-3 overflow-hidden"
                       >
                         <template #selected-item="scope">
@@ -151,7 +153,7 @@
                         icon="mdi-delete"
                         color="negative"
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
-                        @click="deleteIssueType(props.row.id)"/>
+                        @click="deleteIssueTypeHandler(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -163,7 +165,7 @@
                   label="New Issue Type"
                   color="secondary"
                   v-model="newIssueTypeFormData.title"
-                  @keyup.enter="createIssueType"
+                  @keyup.enter="createIssueTypeHandler"
                 >
                  <template #append>
                    <!-- @Make it disabled if empty -->
@@ -171,7 +173,7 @@
                           rounded
                           flat
                           icon="mdi-keyboard-return"
-                          @click="createIssueType"
+                          @click="createIssueTypeHandler"
                    />
                  </template>
                 </q-input>
@@ -224,7 +226,7 @@
 																				 class="q-pa-sm" />
 																<QIconPicker
 																	:modelValue="props.row.prefix"
-																	@update:modelValue="updateIssueTypeIcon(props.row.id, 'prefix', $event)"
+																	@update:modelValue="updateIssueTypeIconHandler(props.row.id, 'prefix', $event)"
 																	dense
 																	icon-set="mdi-v5"
 																	:filter="iconPickerFilter"
@@ -253,7 +255,7 @@
                         type="text"
                         color="secondary"
                         :modelValue="props.row.color"
-												@update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
+												@update:modelValue="updateIssueTypeIconHandler(props.row.id, 'color', $event)"
 												:debounce="debounceDefault"
 											>
 												<template #prepend>
@@ -261,7 +263,7 @@
 														<q-popup-proxy transition-show="scale" transition-hide="scale">
 															<q-color format-model="hex"
 																			 :modelValue="props.row.color"
-																			 @update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
+																			 @update:modelValue="updateIssueTypeIconHandler(props.row.id, 'color', $event)"
 																			 :debounce="debounceDefault"
 															/>
 														</q-popup-proxy>
@@ -275,7 +277,7 @@
 												<q-popup-proxy transition-show="scale" transition-hide="scale">
 													<q-color format-model="hex"
 																	 :modelValue="props.row.color"
-																	 @update:modelValue="updateIssueTypeIcon(props.row.id, 'color', $event)"
+																	 @update:modelValue="updateIssueTypeIconHandler(props.row.id, 'color', $event)"
 																	 :debounce="debounceDefault"
 													/>
 												</q-popup-proxy>
@@ -288,7 +290,7 @@
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
 												icon="mdi-delete"
 												color="negative"
-                        @click="deleteIssueTypeIcon(props.row.id)"/>
+                        @click="deleteIssueTypeIconHandler(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -300,7 +302,7 @@
                   label="New Issue Types' Icon"
                   color="secondary"
                   v-model="newIssueTypeIconFormData.prefix"
-                  @keyup.enter="createIssueTypeIcon"
+                  @keyup.enter="createIssueTypeIconHandler"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->
@@ -308,7 +310,7 @@
                            rounded
                            flat
                            icon="mdi-keyboard-return"
-                           @click="createIssueTypeIcon"
+                           @click="createIssueTypeIconHandler"
                     />
                   </template>
                 </q-input>
@@ -343,7 +345,7 @@
                         type="text"
                         color="secondary"
                         :modelValue="props.row.title"
-												@update:modelValue="updateIssueState(props.row.id, 'title', $event)"
+												@update:modelValue="updateIssueStateHandler(props.row.id, 'title', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -353,7 +355,7 @@
                       <q-toggle
                         color="info"
                         :modelValue="props.row.is_default"
-												@update:modelValue="updateIssueState(props.row.id, 'is_default', $event)"
+												@update:modelValue="updateIssueStateHandler(props.row.id, 'is_default', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -363,7 +365,7 @@
                       <q-toggle
                         color="info"
                         :modelValue="props.row.is_done"
-												@update:modelValue="updateIssueState(props.row.id, 'is_done', $event)"
+												@update:modelValue="updateIssueStateHandler(props.row.id, 'is_done', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -378,7 +380,7 @@
 												class="text-center"
 												input-style="width: 30px; text-align: center"
 												:modelValue="props.row.ordering"
-												@update:modelValue="updateIssueState(props.row.id, 'ordering', $event)"
+												@update:modelValue="updateIssueStateHandler(props.row.id, 'ordering', $event)"
 												:debounce="debounceDefault"
 											/>
 										</q-td>
@@ -389,7 +391,7 @@
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
                         color="negative"
-                        @click="deleteIssueState(props.row.id)"/>
+                        @click="deleteIssueStateHandler(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -402,7 +404,7 @@
                   color="secondary"
                   v-model="newIssueStateFormData.title"
                   :debounce="debounceDefault"
-                  @keyup.enter="createIssueState"
+                  @keyup.enter="createIssueStateHandler"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->
@@ -410,7 +412,7 @@
                            rounded
                            flat
                            icon="mdi-keyboard-return"
-                           @click="createIssueState"
+                           @click="createIssueStateHandler"
                     />
                   </template>
                 </q-input>
@@ -445,7 +447,7 @@
                         type="text"
                         color="secondary"
                         :modelValue="props.row.title"
-												@update:modelValue="updateIssueEstimation(props.row.id, 'title', $event)"
+												@update:modelValue="updateIssueEstimationHandler(props.row.id, 'title', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -459,7 +461,7 @@
                         color="secondary"
 												input-style="width: 60px; text-align: center"
                         :modelValue="props.row.value"
-												@update:modelValue="updateIssueEstimation(props.row.id, 'value', $event)"
+												@update:modelValue="updateIssueEstimationHandler(props.row.id, 'value', $event)"
 												:debounce="debounceDefault"
                       />
                     </q-td>
@@ -470,7 +472,7 @@
 												:label="$q.screen.gt.sm ? 'Remove' :  '' "
                         icon="mdi-delete"
                         color="negative"
-                        @click="deleteIssueEstimation(props.row.id)"/>
+                        @click="deleteIssueEstimationHandler(props.row.id)"/>
                     </q-td>
                   </template>
                 </q-table>
@@ -487,7 +489,7 @@
                   color="secondary"
                   v-model="newIssueEstimationFormData.title"
                   :debounce="debounceDefault"
-                  @keyup.enter="createIssueEstimation"
+                  @keyup.enter="createIssueEstimationHandler"
                 >
                   <template #append>
                     <!-- @Make it disabled if empty -->
@@ -495,7 +497,7 @@
                            rounded
                            flat
                            icon="mdi-keyboard-return"
-                           @click="createIssueEstimation"
+                           @click="createIssueEstimationHandler"
                     />
                   </template>
                 </q-input>
@@ -504,6 +506,64 @@
               </template>
             </SettingPanelCard>
           </q-tab-panel>
+					<q-tab-panel name="working_weekdays" class="no-scroll">
+						<SettingPanelCard
+							defaultPreText="* All changes will take effect right after click">
+							<template #section>
+								<div class="rounded-borders q-pa-md">
+									<div
+									v-for="weekday in weekdays"
+									:key="weekday"
+									class="row q-pa-xs">
+										<div class="col col-md-4">{{ weekday }}</div>
+										<div class="col col-auto">
+											<q-btn-toggle
+												color="info"
+												no-caps
+												:options="workingNonWorkingOptions"
+												:modelValue="workingDays[weekday.toLowerCase()]"
+												@update:modelValue="updateWorkingDaysHandler(workingDays.id, weekday.toLowerCase(), $event)"
+											/>
+										</div>
+									</div>
+								</div>
+							</template>
+						</SettingPanelCard>
+					</q-tab-panel>
+					<q-tab-panel name="non_working_days" class="no-scroll">
+						<SettingPanelCard
+							defaultPreText="* All changes will take effect right after click">
+							<template #section>
+								<div class="row">
+									<div class="col-md-6">
+										<q-date
+											flat
+											landscape
+											today-btn
+											minimal
+											multiple
+											mask="YYYY-MM-DD"
+											@update:modelValue="nonWorkingDayHandler"
+											:modelValue="newNonWorkingDay"
+											default-view="Calendar"
+											event-color="accent"
+											:events="nonWorkingDaysDates"/>
+									</div>
+									<div class="col-md-6">
+										<q-chip
+											v-for="nonWorkingDay in nonWorkingDays"
+											:key="nonWorkingDay.id"
+											removable
+											icon="mdi-calendar-today"
+											@remove="deleteNonWorkingDayHandler(nonWorkingDay)"
+										>
+											{{ nonWorkingDay.date }}
+										</q-chip>
+									</div>
+								</div>
+							</template>
+						</SettingPanelCard>
+					</q-tab-panel>
         </q-tab-panels>
     </div>
   </q-page>
@@ -539,6 +599,15 @@ export default defineComponent({
 			tab: 'general',
 			debounceDefault: 1000,
 			iconPickerFilter: '',
+			workingNonWorkingOptions: [{
+				label: 'Working',
+				value: true
+			},
+			{
+				label: 'Non-working',
+				value: false
+			}],
+			newNonWorkingDay: new Date().toISOString().substring(0, 10),
 			iconPickerPagination: {
 				itemsPerPage: 30,
 				page: 0
@@ -744,13 +813,25 @@ export default defineComponent({
 		issueEstimations () {
 			return this.$store.getters['core/ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT']
 		},
+		workingDays () {
+			return this.$store.getters['core/WORKING_DAYS_BY_CURRENT_PROJECT']
+		},
 		debounceInSeconds () {
 			return Math.trunc(this.debounceDefault / 1000)
+		},
+		weekdays () {
+			return this.$moment.weekdays()
+		},
+		nonWorkingDays () {
+			return this.$store.getters['core/NON_WORKING_DAYS_BY_IDS'](this.workingDays.non_working_days)
+		},
+		nonWorkingDaysDates () {
+			return this.nonWorkingDays.map(value => value.date.replaceAll('-', '/'))
 		}
 	},
 	created () {
 		// Let's debounce choosing color or icon
-		this.updateIssueTypeIcon = debounce(this.updateIssueTypeIcon, this.debounceDefault)
+		this.updateIssueTypeIconHandler = debounce(this.updateIssueTypeIconHandler, this.debounceDefault)
 	},
 	mounted () {
 		this.getSprintDurations()
@@ -762,7 +843,7 @@ export default defineComponent({
 		getIssueTypeIconById (iconId) {
 			return this.$store.getters['core/ISSUE_TYPE_ICON_BY_ID'](iconId)
 		},
-		async updateProjectEvent (event, attribute) {
+		async updateProjectHandler (event, attribute) {
 			this.showProgress()
 
 			const payload = {
@@ -778,7 +859,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async deleteProjectEvent () {
+		async deleteProjectHandler () {
 			this.showProgress()
 
 			const payload = {
@@ -805,7 +886,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async updateIssueType (id, attribute, value) {
+		async updateIssueTypeHandler (id, attribute, value) {
 			if (isEmptyString(value)) return false
 
 			this.showProgress()
@@ -824,7 +905,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async createIssueType () {
+		async createIssueTypeHandler () {
 			if (isEmptyString(this.newIssueTypeFormData.title)) return false
 
 			this.showProgress()
@@ -845,7 +926,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async deleteIssueType (id) {
+		async deleteIssueTypeHandler (id) {
 			this.showProgress()
 
 			const payload = {
@@ -860,7 +941,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async updateIssueTypeIcon (id, attribute, value) {
+		async updateIssueTypeIconHandler (id, attribute, value) {
 			if (isEmptyString(value)) return false
 
 			if (attribute === 'prefix') {
@@ -883,7 +964,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async createIssueTypeIcon () {
+		async createIssueTypeIconHandler () {
 			if (isEmptyString(this.newIssueTypeIconFormData.prefix)) return false
 
 			this.showProgress()
@@ -903,7 +984,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async deleteIssueTypeIcon (id) {
+		async deleteIssueTypeIconHandler (id) {
 			this.showProgress()
 			const payload = {
 				id: id
@@ -917,7 +998,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async updateIssueState (id, attribute, value) {
+		async updateIssueStateHandler (id, attribute, value) {
 			if (isEmptyString(value)) return false
 
 			this.showProgress()
@@ -935,7 +1016,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async createIssueState () {
+		async createIssueStateHandler () {
 			if (isEmptyString(this.newIssueStateFormData.title)) return false
 
 			const payload = {
@@ -953,7 +1034,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async deleteIssueState (id) {
+		async deleteIssueStateHandler (id) {
 			this.showProgress()
 			const payload = {
 				id: id
@@ -967,7 +1048,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async updateIssueEstimation (id, attribute, value) {
+		async updateIssueEstimationHandler (id, attribute, value) {
 			if (isEmptyString(value)) return false
 
 			this.showProgress()
@@ -985,7 +1066,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async createIssueEstimation () {
+		async createIssueEstimationHandler () {
 			if (isEmptyString(this.newIssueEstimationFormData.title)) return false
 
 			this.showProgress()
@@ -1005,7 +1086,7 @@ export default defineComponent({
 				this.hideProgress()
 			}
 		},
-		async deleteIssueEstimation (id) {
+		async deleteIssueEstimationHandler (id) {
 			this.showProgress()
 			const payload = {
 				id: id
@@ -1013,6 +1094,74 @@ export default defineComponent({
 
 			try {
 				await this.deleteIssueEstimationCategory(payload)
+			} catch (e) {
+				this.showError(e)
+			} finally {
+				this.hideProgress()
+			}
+		},
+		async nonWorkingDayHandler (value, reason, details) {
+			switch (reason) {
+			case 'add-day':
+				await this.addNonWorkingDayHandler(value[1])
+				break
+			default:
+				throw new Error()
+			}
+			console.dir(value)
+			console.dir(reason)
+			console.dir(details)
+		},
+		async addNonWorkingDayHandler (date) {
+			const nonWorkingDayPayload = {
+				workspace: this.$store.getters['auth/WORKSPACE_ID'],
+				project: this.$store.getters['current/PROJECT'],
+				date: date
+			}
+
+			this.showProgress()
+
+			try {
+				const nonWorkingDay = await this.addNonWorkingDay(nonWorkingDayPayload)
+
+				const workingDaysSetting = this.$store.getters['core/WORKING_DAYS_BY_CURRENT_PROJECT']
+
+				const workingDaysPayload = {
+					id: workingDaysSetting.id,
+					non_working_days: [...workingDaysSetting.non_working_days, nonWorkingDay.data.id]
+				}
+
+				await this.updateWorkingDays(workingDaysPayload)
+			} catch (e) {
+				this.showError(e)
+			} finally {
+				this.hideProgress()
+			}
+		},
+		async deleteNonWorkingDayHandler (payload) {
+			this.showProgress()
+
+			try {
+				await this.deleteNonWorkingDay(payload)
+			} catch (e) {
+				this.showError(e)
+			} finally {
+				this.hideProgress()
+			}
+		},
+		async updateWorkingDaysHandler (id, attribute, value) {
+			if (isEmptyString(value) || !id) return false
+
+			const payload = {
+				id: id
+			}
+
+			payload[attribute] = value
+
+			this.showProgress()
+
+			try {
+				await this.updateWorkingDays(payload)
 			} catch (e) {
 				this.showError(e)
 			} finally {
