@@ -13,7 +13,7 @@
           <q-tab name="issue_states" icon="mdi-transit-connection-horizontal" label="Issue States" />
           <q-tab name="issue_estimations" icon="mdi-vote" label="Issue Estimations" />
 					<q-tab name="working_weekdays" icon="mdi-timetable" label="Working Weekdays" />
-					<q-tab name="non_working_days" icon="mdi-timetable" label="Non Working Days" />
+					<q-tab name="non_working_days" icon="mdi-calendar-star" label="Non Working Days" />
         </q-tabs>
         <q-separator />
         <q-tab-panels
