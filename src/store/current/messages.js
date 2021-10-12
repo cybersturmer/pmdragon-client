@@ -14,7 +14,7 @@ export default class MessagesPacker {
 	}
 
 	packMessage (rawMessage) {
-		const packedMessage = {
+		return {
 			label: moment(new Date(rawMessage.updated_at)).format('MMMM D'),
 			key: rawMessage.id,
 			createdBy: unWatch(this.persons.find((person) => person.id === rawMessage.created_by)),
@@ -24,10 +24,6 @@ export default class MessagesPacker {
 				rawMessage
 			]
 		}
-
-		packedMessage.createdBy.avatar = new URL(packedMessage.createdBy.avatar).pathname
-
-		return packedMessage
 	}
 
 	addRawMessageToPack (message) {
