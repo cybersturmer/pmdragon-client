@@ -26,6 +26,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { setCaret } from 'src/services/content/content'
 import { isEmptyString } from 'src/services/util'
 import EditorMentionPopupMenu from 'components/elements/team/EditorMentionPopupMenu'
 import { htmlSnippets } from 'src/pages/mixins/htmlSnippets'
@@ -81,35 +82,8 @@ export default defineComponent({
 		runCmd (command, data) {
 			this.editor.runCmd(command, data, true)
 		},
-		setCaret ($node, offset = undefined) {
-			/** Set caret to offset position or **/
-
-			this.editor.focus()
-
-			const range = document.createRange()
-			const selection = window.getSelection()
-			const length = $node.length
-
-			if (offset >= length) return false
-
-			// The Range.setStart() method sets the start position of a Range.
-			// https://developer.mozilla.org/en-US/docs/Web/API/Range/setStart
-			range.setStart($node, offset)
-
-			// The Range.collapse() method collapses the Range to one of its boundary points.
-			// Look here https://developer.mozilla.org/en-US/docs/Web/API/Range/collapse
-			range.collapse(true)
-
-			// Experimental!  The Selection.removeAllRanges() method removes all ranges from the selection,
-			// leaving the anchorNode and focusNode properties equal to null and leaving nothing selected.
-			// https://developer.mozilla.org/en-US/docs/Web/API/Selection/removeAllRanges
-			selection.removeAllRanges()
-
-			// The Selection.addRange() method adds a Range to a Selection.
-			// https://developer.mozilla.org/en-US/docs/Web/API/Selection/addRange
-			selection.addRange(range)
-
-			range.detach() // Optimization
+		setCaretHandler ($node, offset = undefined) {
+			setCaret($node)
 		},
 
 		/** Emitting methods **/
@@ -190,7 +164,7 @@ export default defineComponent({
 			setTimeout(() => {
 				this.editor.focus()
 				const focusNode = this.editor.caret.selection.focusNode.parentNode.nextSibling
-				this.setCaret(focusNode)
+				this.setCaretHandler(focusNode)
 			}, 5)
 
 			this.isMentioningPopupVisible = false
@@ -211,8 +185,9 @@ export default defineComponent({
 
 			setTimeout(() => {
 				this.editor.focus()
-				const focusNode = this.editor.caret.selection.focusNode.lastChild
-				this.setCaret(focusNode)
+				const $contentEl = this.editor.getContentEl()
+
+				this.setCaretHandler($contentEl)
 			}, 10)
 		},
 
