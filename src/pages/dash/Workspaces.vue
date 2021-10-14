@@ -128,8 +128,6 @@ export default defineComponent({
 				})
 		},
 		createProjectDialog (workspaceId) {
-		  console.log(workspaceId)
-
 			const options = {
 				parent: this,
 				dark: this.$q.dark.isActive,
@@ -144,17 +142,9 @@ export default defineComponent({
 				})
 		},
 		selectSpace (prefixUrl, projectId) {
-			// @todo restore sockets
-			// this.unsubscribeIssuesInWorkspace()
-			// this.unsubscribeSettings()
-
 			/** Then select new Workspace and Project */
 			this.$store.dispatch('current/SELECT_WORKSPACE', prefixUrl)
 			this.$store.dispatch('current/SELECT_PROJECT', projectId)
-
-			// @todo restore sockets
-			// this.subscribeIssuesInWorkspace()
-			// this.subscribeSettings()
 
 			this.$router.push({ name: 'backlog' })
 		},
