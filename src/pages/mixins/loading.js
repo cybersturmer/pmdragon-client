@@ -1,4 +1,4 @@
-import { QSpinnerPuff } from 'quasar'
+import { QSpinnerTail } from 'quasar'
 import { Dialogs } from './dialogs'
 import { CoreActionsMixin } from 'src/services/actions/core'
 import { AuthActionsMixin } from 'src/services/actions/auth'
@@ -79,7 +79,7 @@ export const loading = {
 		showProgress () {
 			this.$q.loading.show({
 				message: this.loadingText,
-				spinner: QSpinnerPuff
+				spinner: QSpinnerTail
 			})
 		},
 		hideProgress () {
