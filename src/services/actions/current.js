@@ -1,4 +1,5 @@
 import { PresetsActionsMixin } from 'src/services/actions/presets'
+import { ErrorHandler } from 'src/services/util'
 
 export const CurrentActionsMixin = {
 	mixins: [
@@ -43,6 +44,38 @@ export const CurrentActionsMixin = {
 			return this.__deleteEntityWithoutMutation(
 				`/core/issue-messages/${payload.id}/`
 			)
+		},
+		async getSprintGuideline () {
+			const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+
+			try {
+				const responseGuideline = await this.$http
+					.auth(true)
+					.expect(200)
+					.get(
+						`/core/sprint-guideline/${sprint.id}/`
+					)
+
+				this.$store.commit('current/UPDATE_SPRINT_GUIDELINE', responseGuideline.data)
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
+		},
+		async getSprintRemaining () {
+			const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+
+			try {
+				const responseRemaining = await this.$http
+					.auth(true)
+					.expect(200)
+					.get(
+						`/core/sprint-efforts-history/?sprint=${sprint.id}`
+					)
+
+				this.$store.commit('current/UPDATE_SPRINT_REMAINING', responseRemaining.data)
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
 		}
 	}
 }
