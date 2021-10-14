@@ -70,6 +70,40 @@ export function ISSUE_HISTORY (state) {
 	return state.issue_history
 }
 
+export function SPRINT_GUIDELINE (state) {
+	return state.sprint_guideline
+}
+
+export function SPRINT_GUIDELINE_TIMESERIES (state) {
+	const guidelineValues = []
+
+	for (const datum of state.sprint_guideline) {
+		guidelineValues.push({
+			x: datum?.time,
+			y: datum?.story_points
+		})
+	}
+
+	return guidelineValues
+}
+
+export function SPRINT_REMAINING (state) {
+	return state.sprint_remaining
+}
+
+export function SPRINT_REMAINING_TIMESERIES (state) {
+	const remainingValues = []
+
+	for (const datum of state.sprint_remaining) {
+		remainingValues.push({
+			x: datum?.point_at,
+			y: datum?.estimated_value
+		})
+	}
+
+	return remainingValues
+}
+
 export function ISSUE_IN_WORKSPACE_SUBSCRIBED (state) {
 	return state.issue_in_workspace_subscribed
 }

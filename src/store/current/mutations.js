@@ -59,6 +59,16 @@ export function SET_ISSUE_HISTORY (state, payload) {
 	LocalStorage.set('current.issue_history', payload)
 }
 
+export function UPDATE_SPRINT_REMAINING (state, payload) {
+	state.sprint_remaining = payload
+	LocalStorage.set('current.sprint_remaining', payload)
+}
+
+export function UPDATE_SPRINT_GUIDELINE (state, payload) {
+	state.sprint_guideline = payload
+	LocalStorage.set('current.sprint_guideline', payload)
+}
+
 export function SET_ISSUE_IN_WORKSPACE_SUBSCRIBED (state, payload) {
 	state.issue_in_workspace_subscribed = payload
 }
@@ -70,7 +80,9 @@ export function RESET (state) {
 		'workspace',
 		'project',
 		'issue',
-		'issue_history'
+		'issue_history',
+		'sprint_guideline',
+		'sprint_remaining'
 	]
 
 	for (const element of localStorageResetList) {

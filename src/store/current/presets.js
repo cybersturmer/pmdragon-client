@@ -12,7 +12,9 @@ export const empty = () => {
 		issue_id: null,
 		issue_messages: [],
 		issue_history: [],
-		issue_in_workspace_subscribed: false
+		issue_in_workspace_subscribed: false,
+		sprint_guideline: [],
+		sprint_remaining: []
 	}
 }
 
@@ -28,6 +30,8 @@ export const restored = () => {
 		issue_id: LocalStorage.getItem('current.issue_id'),
 		issue_messages: empty().issue_messages,
 		issue_history: LocalStorage.getItem('current.issue_history'),
-		issue_in_workspace_subscribed: false // We need it to understand that we subscribed on issues in Workspace
+		issue_in_workspace_subscribed: false, // We need it to understand that we subscribed on issues in Workspace
+		sprint_guideline: LocalStorage.getItem('current.sprint_guideline'),
+		sprint_remaining: LocalStorage.getItem('current.sprint_remaining')
 	}
 }
