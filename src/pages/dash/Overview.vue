@@ -10,7 +10,17 @@
 				:title="sprintTitle"
 				:info="`${this.startedAt} - ${this.finishedAt}`"
 				class="q-my-none q-py-none"/>
-      <BurnDownChart ref="burnDown"/>
+			<transition
+				appear
+				enter-active-class="animated fadeIn"
+				leave-active-class="animated fadeOut">
+				<BurnDownChart
+					v-if="chartLoaded"
+					ref="burnDownChart"/>
+			</transition>
+			<q-inner-loading :showing="chartLoading">
+				<q-spinner-dots size="50px"/>
+			</q-inner-loading>
     </div>
     <NoStartedSprintNotification v-else />
   </q-page>
@@ -25,6 +35,8 @@ import NoStartedSprintNotification from 'src/components/elements/NoStartedSprint
 import { date } from 'quasar'
 import { DATE_MASK } from 'src/services/masks'
 import BlockHeader from 'src/components/elements/BlockHeader'
+import { getSprintRemainingPreset, getSprintGuidelinePreset } from 'src/services/presets/core'
+import { ErrorHandler } from 'src/services/util'
 
 export default defineComponent({
 	name: 'Overview',
@@ -34,40 +46,71 @@ export default defineComponent({
 		BurnDownChart,
 		NoStartedSprintNotification
 	},
+	data () {
+		return {
+			chartLoading: true
+		}
+	},
+	mounted () {
+		Promise.all([
+			this.getSprintRemaining(),
+			this.getSprintGuideline()
+		])
+			.then(() => {
+				this.chartLoading = false
+			})
+	},
+	methods: {
+		async getSprintRemaining () {
+			try {
+				const response = await this.$http
+					.runMutablePreset(
+						getSprintRemainingPreset,
+						this.sprint.id
+					)
+
+				this.$store.commit('current/UPDATE_SPRINT_REMAINING', response.data)
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
+		},
+		async getSprintGuideline () {
+			try {
+				const response = await this.$http
+					.runPreset({
+						preset: getSprintGuidelinePreset,
+						placeholder: this.sprint.id
+					})
+
+				this.$store.commit('current/UPDATE_SPRINT_GUIDELINE', response.data)
+			} catch (e) {
+				throw new ErrorHandler(e)
+			}
+		}
+	},
 	computed: {
+		chartLoaded () {
+			return !this.chartLoading
+		},
 		isActiveSprint () {
 			return !!this.$store.getters['core/SPRINT_STARTED_BUT_NOT_COMPLETED_BY_CURRENT_PROJECT']
 		},
-		sprintDonePercentage () {
-			try {
-				const totalSP = this.$store.getters['core/STORY_POINT_TOTAL_FOR_STARTED_SPRINT']
-				if (totalSP === 0) return 0
-
-				const currentSPDone = this.$store.getters['core/STORY_POINT_DONE_FOR_STARTED_SPRINT']
-				return Math.round(currentSPDone / totalSP * 100)
-			} catch (e) {
-				return 0
-			}
+		sprint () {
+			return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
 		},
 		sprintTitle () {
-			try {
-				return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT'].title
-			} catch (e) {
-				return ''
-			}
+			return this.sprint.title
 		},
 		startedAt () {
 			try {
-				const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-				return date.formatDate(sprint.started_at, DATE_MASK)
+				return date.formatDate(this.sprint.started_at, DATE_MASK)
 			} catch (e) {
 				return null
 			}
 		},
 		finishedAt () {
 			try {
-				const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-				return date.formatDate(sprint.finished_at, DATE_MASK)
+				return date.formatDate(this.sprint.finished_at, DATE_MASK)
 			} catch (e) {
 				return null
 			}

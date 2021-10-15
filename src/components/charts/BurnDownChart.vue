@@ -3,6 +3,7 @@
 		<q-card-section class="column">
 			<div class="small_chart col self-center">
 				<LineChart
+					ref="lineChart"
 					v-if="isLoaded"
 					:chartdata="chartdata"
 					:options="options"/>
@@ -27,8 +28,6 @@ export default defineComponent({
 		return {
 			isLoaded: false,
 			chartdata: [],
-			guideline: [],
-			remaining: [],
 			options: {
 				responsive: true,
 				aspectRatio: 1.75,
@@ -93,45 +92,19 @@ export default defineComponent({
 			}
 		}
 	},
+	computed: {
+		sprint () {
+			return this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
+		},
+		sprintRemainingTimeseries () {
+			return this.$store.getters['current/SPRINT_REMAINING_TIMESERIES']
+		},
+		sprintGuidelineTimeseries () {
+			return this.$store.getters['current/SPRINT_GUIDELINE_TIMESERIES']
+		}
+	},
 	async mounted () {
-		const sprint = this.$store.getters['core/SPRINT_STARTED_BY_CURRENT_PROJECT']
-
-		const responseGuideline = await this.$http
-			.auth(true)
-			.expect(200)
-			.get(
-				`/core/sprint-guideline/${sprint.id}`
-			)
-
-		this.guideline = responseGuideline.data
-
-		const responseRemaining = await this.$http
-			.auth(true)
-			.expect(200)
-			.get(
-				`/core/sprint-efforts-history/?sprint=${sprint.id}`
-			)
-
-		this.remaining = responseRemaining.data
-
 		const daysLabels = []
-		const guidelineValues = []
-		const remainingValues = []
-
-		for (const datum of this.guideline) {
-			guidelineValues.push({
-				x: datum.time,
-				y: datum.story_points,
-				z: datum.is_working
-			})
-		}
-
-		for (const datum of this.remaining) {
-			remainingValues.push({
-				x: datum.point_at,
-				y: datum.estimated_value
-			})
-		}
 
 		this.chartdata = {
 			labels: daysLabels,
@@ -155,7 +128,7 @@ export default defineComponent({
 							no: getCssVar('primary')
 						})
 					},
-					data: guidelineValues
+					data: this.sprintGuidelineTimeseries
 				},
 				{
 					label: 'Remaining Values',
@@ -165,7 +138,7 @@ export default defineComponent({
 					borderColor: getCssVar('negative'),
 					backgroundColor: getCssVar('dark'),
 					borderWidth: 3,
-					data: remainingValues
+					data: this.sprintRemainingTimeseries
 				}
 			]
 		}

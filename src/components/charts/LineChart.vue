@@ -32,6 +32,11 @@ export default defineComponent({
 			required: true
 		}
 	},
+	data: () => {
+		return {
+			chart: null
+		}
+	},
 	mounted () {
 		/** Let's skip Chart initialization if element was not found */
 		const $lineChartElement = document.getElementById('line_chart')
@@ -52,7 +57,7 @@ export default defineComponent({
 		)
 
 		// eslint-disable-next-line no-unused-vars
-		const myChart = new Chart(ctx, {
+		const chart = new Chart(ctx, {
 			type: 'line',
 			data: this.chartdata,
 			options: this.options
