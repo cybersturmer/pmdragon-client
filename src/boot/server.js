@@ -74,15 +74,45 @@ class Http {
 		return this
 	}
 
-	async chain (preset, payload) {
+	async runStaticPreset (preset, payload = null) {
 		const { auth, expect, method, endpoint } = preset
 
-		return this
-			.auth(auth)
-			.expect(expect)[method](
-				endpoint,
-				payload
-			)
+		/** I think we will need
+		 * payload for all methods
+		 * except of get **/
+		switch (method) {
+		case 'get':
+			return this
+				.auth(auth)
+				.expect(expect)[method](
+					endpoint
+				)
+		case 'post':
+		case 'put':
+		case 'patch':
+		case 'delete':
+			return this
+				.auth(auth)
+				.expect(expect)[method](
+					endpoint,
+					payload
+				)
+		}
+	}
+
+	async runMutablePreset (preset, placeholder, payload = null) {
+		preset.endpoint = preset.endpoint.replace(/<placeholder:[a-z.]+>/, placeholder)
+		return this.runStaticPreset(preset, payload)
+	}
+
+	async runPreset (presetData) {
+		const { preset, placeholder, payload } = presetData
+
+		if (placeholder) {
+			return this.runMutablePreset(preset, placeholder, payload)
+		} else {
+			return this.runStaticPreset(preset, payload)
+		}
 	}
 
 	validateStatus (status) {
