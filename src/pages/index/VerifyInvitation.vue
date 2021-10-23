@@ -97,7 +97,7 @@ export default defineComponent({
 				await this.$http
 					.auth(false)
 					.expect(200)
-					.put(
+					.patch(
 						`/core/person-invitation-requests/${this.key}/`,
 						payload
 					)
