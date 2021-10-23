@@ -70,7 +70,7 @@ export default defineComponent({
 			await this.$http
 				.auth(false)
 				.expect(200)
-				.get(`/auth/person-invitation-requests/${this.key}/`)
+				.get(`/core/person-invitation-requests/${this.key}/`)
 
 		this.infoData.prefix_url = response.data.workspace.prefix_url
 		this.infoData.email = response.data.email
@@ -86,7 +86,7 @@ export default defineComponent({
 					.auth(false)
 					.expect(201)
 					.post(
-						'/auth/persons/',
+						'/core/persons/',
 						this.formData
 					)
 
@@ -98,7 +98,7 @@ export default defineComponent({
 					.auth(false)
 					.expect(200)
 					.put(
-						`/auth/person-invitation-requests/${this.key}/`,
+						`/core/person-invitation-requests/${this.key}/`,
 						payload
 					)
 
