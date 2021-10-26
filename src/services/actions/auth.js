@@ -112,7 +112,7 @@ export const AuthActionsMixin = {
 				await this.$http
 					.auth(false)
 					.expect(200)
-					.put(`/auth/person-invitation-requests/${payload.key}/`,
+					.put(`/core/person-invitation-requests/${payload.key}/`,
 						{ is_accepted: true })
 			} catch (e) {
 				throw new ErrorHandler(e)
@@ -195,7 +195,7 @@ export const AuthActionsMixin = {
 		},
 		async getInvited () {
 			return this.__getEntities(
-				'/auth/person-invitation-requests/',
+				'/core/person-invitation-requests/',
 				'auth/UPDATE_INVITED'
 			)
 		}
