@@ -337,6 +337,11 @@
                   :columns="issueStatesTableData.columns"
                   :pagination="issueStatesTableData.pagination"
                 >
+									<template #header-cell-ordering="props">
+										<q-th :props="props">
+											<q-icon name="mdi-sort" size="xs"/>
+										</q-th>
+									</template>
                   <template #body-cell-title="props">
                     <q-td :props="props">
                       <q-input
