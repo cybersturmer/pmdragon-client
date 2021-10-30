@@ -64,10 +64,11 @@ export default defineComponent({
 						offset: true,
 						type: 'timeseries',
 						time: {
-							unit: 'day'
+							unit: 'day',
+							minUnit: 'hour',
+							round: 'day'
 						},
 						ticks: {
-							autoSkip: true,
 							minRotation: 90,
 							maxRotation: 90,
 							padding: 10,
