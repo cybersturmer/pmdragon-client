@@ -103,7 +103,7 @@ export default defineComponent({
 					.auth(false)
 					.expect(201)
 					.post(
-						'/auth/persons/',
+						'/core/persons/',
 						this.formData
 					)
 
