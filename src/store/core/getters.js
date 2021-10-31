@@ -396,7 +396,7 @@ export function WORKSPACE_SPRINT_DURATION (state, getters, rootState, rootGetter
 export function BACKLOG (state, getters, rootState, rootGetters) {
 	try {
 		return state.backlogs
-			.filter((backlog) => backlog.project_id === rootGetters['current/PROJECT'])[0]
+			.filter((backlog) => backlog.project === rootGetters['current/PROJECT'])[0]
 	} catch (e) {
 		return null
 	}

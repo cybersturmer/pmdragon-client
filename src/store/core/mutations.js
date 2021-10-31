@@ -5,7 +5,7 @@ import { empty } from './presets'
 function findBacklogByProjectId (state, projectId) {
 	return state.backlogs
 		.findIndex((el, index, array) => {
-			return el.project_id === projectId
+			return el.project === projectId
 		})
 }
 
@@ -126,7 +126,7 @@ export function ORDER_BACKLOG_ISSUES (state, payload) {
 
 export function ADD_ISSUE_TO_BACKLOG (state, payload) {
 	const backlog = state.backlogs
-		.find(backlog => backlog.project_id === payload.project)
+		.find(backlog => backlog.project === payload.project)
 
 	backlog.issues.push(payload.id)
 
