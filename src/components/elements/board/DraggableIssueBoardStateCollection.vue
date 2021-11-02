@@ -65,7 +65,10 @@ export default defineComponent({
 				}
 
 				const { $http } = vueInstance.appContext.config.globalProperties
-				await $http.chain(issueOrdering, updateOrderPayload)
+				await $http.runPreset({
+					preset: issueOrdering,
+					payload: updateOrderPayload
+				})
 
 				store.commit('core/UPDATE_ISSUES_ORDERING', updateOrderPayload)
 			}
