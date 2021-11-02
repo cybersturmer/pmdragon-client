@@ -34,9 +34,10 @@ export function setCaret ($node, offset = undefined) {
 	/** Set caret to offset position or **/
 	const range = document.createRange()
 	const selection = window.getSelection()
-	const length = $node.lastChild.length
 
 	const actualNode = $node?.lastChild ? $node.lastChild : $node
+
+	const length = $node?.lastChild?.length ? $node?.lastChild?.length : 0
 
 	if (offset === undefined) {
 		offset = length
@@ -44,7 +45,7 @@ export function setCaret ($node, offset = undefined) {
 
 	// The Range.setStart() method sets the start position of a Range.
 	// https://developer.mozilla.org/en-US/docs/Web/API/Range/setStart
-	range.setStart(actualNode, offset)
+	range.setStart(actualNode, offset + 1)
 
 	// The Range.collapse() method collapses the Range to one of its boundary points.
 	// Look here https://developer.mozilla.org/en-US/docs/Web/API/Range/collapse

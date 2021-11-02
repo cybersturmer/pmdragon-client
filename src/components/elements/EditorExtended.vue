@@ -1,26 +1,28 @@
 <template>
 	<div>
-		<!-- I think these modern features are terrible -->
-		<form
-			autocomplete="off"
-			autocorrect="off">
-			<q-editor
-				dense
-				paragraph-tag="p"
-				ref="editor"
-				toolbar-toggle-color="secondary"
-				class="q-ma-none"
-				v-bind="options"
-				:modelValue="modelValue"
-				@update:modelValue="handleInput"
-				@keyup.enter="handleEnter"
-				@keydown.tab.prevent="handleTab"
+			<!-- I think these modern features are terrible -->
+			<form
+				autocomplete="off"
+				autocorrect="off">
+				<q-editor
+					dense
+					paragraph-tag="p"
+					ref="editor"
+					toolbar-toggle-color="secondary"
+					class="q-ma-none"
+					v-bind="options"
+					:modelValue="modelValue"
+					@update:modelValue="handleInput"
+					@keyup.enter="handleEnter"
+					@keydown.tab.prevent="handleTab"
+				/>
+			</form>
+		<div class="fit">
+			<EditorMentionPopupMenu :visible="isMentioningPopupVisible"
+															:persons="persons"
+															@selected="select($event)"
 			/>
-		</form>
-		<EditorMentionPopupMenu :visible="isMentioningPopupVisible"
-														:persons="persons"
-														@selected="select($event)"
-		/>
+		</div>
 	</div>
 </template>
 
@@ -123,7 +125,7 @@ export default defineComponent({
 
 			if (isEmptyString(value)) return false
 
-			const isMentioningPattern = /@(?<meta>\\S+)/
+			const isMentioningPattern = /@(?<meta>\S+)/
 			const isMentioningResult = value.match(isMentioningPattern)
 
 			if (!isMentioningResult) {
