@@ -29,7 +29,7 @@
                 <div class="col-auto q-py-xs q-pl-xs">
                   <div class="h6 text-primary">
                     {{ sprint.title }}
-                    {{ $q.screen.gt.sm ? `- ${sprint.goal} [ ${sprint.issues.length } issues ]`: '' }}
+                    {{ sprintStatInfo(sprint) }}
                   </div>
                 </div>
                 <q-space/>
@@ -242,6 +242,12 @@ export default defineComponent({
 		}
 	},
 	methods: {
+		sprintByIdCapacity (sprintId) {
+			return this.$store.getters['core/SPRINT_BY_ID_CAPACITY'](sprintId)
+		},
+		sprintStatInfo (sprint) {
+			return this.$q.screen.gt.sm ? `- ${sprint.goal} [ ${sprint.issues.length} issues - ${this.sprintByIdCapacity(sprint.id)} SP ]` : ''
+		},
 		createIssue () {
 			/** Create Issue, assigned to Backlog by frontend **/
 			if (!this.formData.title) return false
