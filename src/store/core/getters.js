@@ -224,6 +224,19 @@ export function SPRINT_BY_ID_ISSUES (state, getters) {
 	}
 }
 
+export function SPRINT_BY_ID_CAPACITY (state, getters) {
+	return sprintId => {
+		const issues = getters.SPRINT_BY_ID_ISSUES(sprintId)
+		let capacity = 0
+
+		for (const issue of issues) {
+			capacity += getters.ISSUE_ESTIMATION_VALUE_BY_ID(issue.estimation_category)
+		}
+
+		return capacity
+	}
+}
+
 export function SPRINT_BY_ID_ISSUES_SORTED_BY_ORDERING (state, getters) {
 	return sprintId => {
 		return getters.SPRINT_BY_ID_ISSUES(sprintId)
@@ -373,8 +386,6 @@ export function ISSUE_ESTIMATIONS_BY_CURRENT_PROJECT (state, getters, rootState,
 		.filter((issueEstimation) => issueEstimation.project === rootGetters['current/PROJECT'])
 }
 
-// export function WORKING_DAYS_BY_CURRENT_PROJECT (state, getters, root)
-
 export function ISSUE_ESTIMATION_BY_ID (state) {
 	return issueEstimationId => {
 		if (issueEstimationId === null) return false
@@ -384,6 +395,16 @@ export function ISSUE_ESTIMATION_BY_ID (state) {
 				.find(issueEstimation => issueEstimation.id === issueEstimationId)
 		} catch (e) {
 			return null
+		}
+	}
+}
+
+export function ISSUE_ESTIMATION_VALUE_BY_ID (state, getters) {
+	return issueEstimationId => {
+		try {
+			return getters.ISSUE_ESTIMATION_BY_ID(issueEstimationId).value
+		} catch (e) {
+			return 0
 		}
 	}
 }
