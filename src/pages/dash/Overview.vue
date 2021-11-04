@@ -32,7 +32,7 @@ import BurnDownChart from 'src/components/charts/BurnDownChart'
 import BlockHeaderInfo from 'src/components/elements/BlockHeaderInfo'
 import NoStartedSprintNotification from 'src/components/elements/NoStartedSprintNotification'
 
-import { date } from 'quasar'
+import { date, debounce } from 'quasar'
 import { DATE_MASK } from 'src/services/masks'
 import BlockHeader from 'src/components/elements/BlockHeader'
 import { getSprintRemainingPreset, getSprintGuidelinePreset } from 'src/services/presets/core'
@@ -60,7 +60,29 @@ export default defineComponent({
 				this.chartLoading = false
 			})
 	},
+	async created () {
+		window.addEventListener(
+			'resize',
+			debounce(() => this.rebuild(), 300)
+		)
+	},
+	async unmounted () {
+		window.removeEventListener(
+			'resize',
+			debounce(() => this.rebuild(), 300)
+		)
+	},
 	methods: {
+		async rebuild () {
+			this.chartLoading = true
+
+			await this.getSprintRemaining()
+			await this.getSprintGuideline()
+
+			setTimeout(() => {
+				this.chartLoading = false
+			}, 1000)
+		},
 		async getSprintRemaining () {
 			try {
 				const response = await this.$http

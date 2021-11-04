@@ -30,7 +30,7 @@ export default defineComponent({
 			chartdata: [],
 			options: {
 				responsive: true,
-				aspectRatio: 1.75,
+				aspectRatio: 1,
 				interaction: {
 					intersect: true,
 					mode: 'nearest'
@@ -105,6 +105,10 @@ export default defineComponent({
 		}
 	},
 	async mounted () {
+		const width = this.$q.screen.width
+		const height = this.$q.screen.height
+		this.options.aspectRatio = (width / height).toFixed(2)
+
 		const daysLabels = []
 
 		this.chartdata = {
