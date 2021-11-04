@@ -60,7 +60,8 @@
                       <q-btn-group>
                         <q-btn
                           outline
-                          label="Update data"
+                          label="Update"
+													color="secondary"
                           @click="saveUserData"/>
                       </q-btn-group>
                     </q-card-actions>
@@ -118,7 +119,8 @@
                       <q-btn
                         :disable="!arePasswords"
                         outline
-                        label="Update password"
+                        label="Update"
+												color="secondary"
                         @click="savePassword"
                       />
                     </q-btn-group>
