@@ -30,6 +30,7 @@ export default defineComponent({
 			chartdata: [],
 			options: {
 				responsive: true,
+				maintainAspectRatio: true,
 				aspectRatio: 1,
 				interaction: {
 					intersect: true,
@@ -62,13 +63,14 @@ export default defineComponent({
 					x: {
 						display: true,
 						offset: true,
-						type: 'timeseries',
+						type: 'time',
 						time: {
 							unit: 'day',
 							minUnit: 'hour',
 							round: 'day'
 						},
 						ticks: {
+							autoSkip: true,
 							minRotation: 90,
 							maxRotation: 90,
 							padding: 10,
