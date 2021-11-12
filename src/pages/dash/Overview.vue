@@ -51,14 +51,11 @@ export default defineComponent({
 			chartLoading: true
 		}
 	},
-	mounted () {
-		Promise.all([
-			this.getSprintRemaining(),
-			this.getSprintGuideline()
-		])
-			.then(() => {
-				this.chartLoading = false
-			})
+	async mounted () {
+		await this.$nextTick(() => this.rebuild())
+	},
+	async updated () {
+		await this.$nextTick(() => this.rebuild())
 	},
 	async created () {
 		window.addEventListener(
@@ -81,7 +78,7 @@ export default defineComponent({
 
 			setTimeout(() => {
 				this.chartLoading = false
-			}, 1000)
+			}, 100)
 		},
 		async getSprintRemaining () {
 			try {
