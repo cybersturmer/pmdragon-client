@@ -25,7 +25,9 @@ module.exports = configure(function (ctx) {
 	return {
 		https: IS_HTTPS,
 		supportTS: true,
-
+		bin: {
+			linuxAndroidStudio: '/home/cs/programs/android-studio/bin/studio.sh'
+		},
 		// https://quasar.dev/quasar-cli/cli-documentation/boot-files
 		boot: [
 			'i18n',
