@@ -38,7 +38,7 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		startSprintEvent () {
+		async startSprintEvent () {
 			/** Start not empty sprint **/
 			if (!this.sprint.started_at || !this.sprint.finished_at) {
 				this.$q.dialog({
@@ -52,7 +52,13 @@ export default defineComponent({
 				})
 					.onOk(r => this.$emit('dialog'))
 			} else {
-				this.startSprint(this.sprint.id)
+				await this.startSprint(this.sprint.id)
+
+				/**
+				 * After we started Sprint - all issue should be moved to default state.
+				 * We do it on backend so easier to update issues from backend at this stage.
+				 * **/
+				await this.getIssues()
 			}
 		},
 		completeSprintEvent () {
