@@ -1,0 +1,7 @@
+{
+  "appId": "com.cybersturmer.pmdragon.pmdragonce",
+  "appName": "pmdragon-client",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}

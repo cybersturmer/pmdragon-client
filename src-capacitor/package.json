@@ -1,0 +1,12 @@
+{
+  "name": "pmdragon-client",
+  "version": "2.0.4",
+  "description": "PmDragon Community Edition",
+  "author": "Vladimir Shturmer <cybersturmer@ya.ru>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "3.3.1",
+    "@capacitor/cli": "^3.3.1",
+    "@capacitor/core": "^3.3.1"
+  }
+}
