@@ -1,7 +1,7 @@
 {
   "name": "com.cybersturmer.pmdragon.pmdragonce",
   "displayName": "PmDragon",
-  "version": "1.0.3",
+  "version": "2.0.5",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
