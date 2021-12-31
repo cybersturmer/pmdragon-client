@@ -183,12 +183,6 @@ module.exports = configure(function (ctx) {
 			}
 		},
 
-		// Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
-		cordova: {
-			// noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-			id: 'com.cybersturmer.pmdragon.pmdragonce'
-		},
-
 		// Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
 		capacitor: {
 			id: 'com.cybersturmer.pmdragon.pmdragonce',
