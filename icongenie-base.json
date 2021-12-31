@@ -2,12 +2,12 @@
   "params": {
     "skipTrim": true,
     "icon": "~/projects/pmdragon/tools/docs/images/logo_dark.png",
-    "quality": "10",
+    "quality": "12",
     "themeColor": "393939",
     "svgColor": "393939",
     "padding": [
-      10,
-      10
+      0,
+      0
     ],
     "include": [
       "spa",
