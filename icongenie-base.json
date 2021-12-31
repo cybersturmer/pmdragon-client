@@ -6,11 +6,13 @@
     "themeColor": "393939",
     "svgColor": "393939",
     "padding": [
-      0,
-      0
+      10,
+      10
     ],
     "include": [
-      "all"
+      "spa",
+			"capacitor",
+			"electron"
     ]
   },
   "assets": [

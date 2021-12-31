@@ -1,7 +1,10 @@
 {
 	"appId": "com.cybersturmer.pmdragon.pmdragonce",
-	"appName": "PmDragon",
+	"appName": "pmdragon-client",
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
-	"webDir": "www"
+	"webDir": "www",
+	"server": {
+		"url": "https://192.168.0.161:8080"
+	}
 }
