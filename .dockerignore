@@ -1,5 +1,8 @@
 .quasar
 dist
 node_modules
-*.zip
 assets
+icongenie-base.json
+README.md
+Install-Linux-tar.txt
+Procfile
