@@ -3,5 +3,8 @@
   "appName": "PmDragon",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "url": "https://192.168.0.161:8080"
+  }
 }
