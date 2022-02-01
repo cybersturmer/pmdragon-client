@@ -29,7 +29,6 @@
 			<q-card-actions vertical>
 				<q-btn
 					outline
-					color="secondary"
 					label="Okay"
 					@click="onOKClick"/>
 			</q-card-actions>
