@@ -5,8 +5,8 @@ Project management tool to track tasks, epics, bugs and manage it with agile boa
 Quasar (Vue.Js / JavaScript) based Cross-platform software.
 
 ## Useful links
-| Backlog | Video | API | Tools |
-| ------- | ----- | --- | ------ |
+| Backlog                                                                               | Video                                                                                          | API                                                         | Tools                                              |
+|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
 | [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
 ## Binaries (Linux / MacOs / Windows)
@@ -21,8 +21,8 @@ https://pmdragon-client.herokuapp.com/ (Sleeping Heroku dyno)
 
 
 | Username | Password |
-| ------- | ----- |
-| admin | admin |
+|----------|----------|
+| admin    | admin    |
 
 
 ## Deploy Web application by one click
