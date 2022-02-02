@@ -8,7 +8,7 @@
   "scripts": {
     "web:dev": "quasar dev",
     "electron:dev": "quasar dev -m electron",
-    "android:dev": "quasar dev -m android",
+    "android:dev": "quasar dev -m capacitor -T android",
     "build": "quasar build",
     "start": "node server.js",
     "heroku-postbuild": "yarn && yarn build",
