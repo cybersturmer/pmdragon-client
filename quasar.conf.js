@@ -36,7 +36,8 @@ module.exports = configure(function (ctx) {
 			'meta',
 			'moment',
 			'server',
-			'sockets'
+			'sockets',
+			ctx.mode.capacitor ? 'capacitor' : ''
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
