@@ -1,6 +1,6 @@
 {
-  "name": "pmdragon-client",
-  "version": "2.2.4",
+  "name": "PmDragon",
+  "version": "2.2.6",
   "description": "PmDragon Community Edition",
   "author": "Vladimir Shturmer <cybersturmer@ya.ru>",
   "private": true,
