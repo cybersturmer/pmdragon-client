@@ -48,6 +48,7 @@ function _getResponseErrorMessage (error) {
 export class ErrorHandler extends Error {
 	constructor (error, message) {
 		super()
+		this.origin = error
 		this.request = error.isAxiosError
 		this.data = error.response?.data
 		this.data = error.response?.data
