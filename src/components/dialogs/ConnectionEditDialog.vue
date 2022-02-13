@@ -90,7 +90,7 @@ export default defineComponent({
 				this.hide()
 			} catch (e) {
 				const protocolUpperCased = this.prefix.toUpperCase()
-				this.formErrors.api_host = `${protocolUpperCased} for the host is unreachable. ${e.origin.message}`
+				this.formErrors.api_host = `${e.origin.message}. ${protocolUpperCased} for the host is unreachable.`
 			} finally {
 				this.connectionChecking = false
 			}
