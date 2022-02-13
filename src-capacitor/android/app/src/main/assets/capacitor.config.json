@@ -4,5 +4,9 @@
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
 	"webDir": "www",
-	"server": {}
+	"server": {
+		"allowNavigation": [
+			"pmdragon.org"
+		]
+	}
 }

@@ -5,8 +5,8 @@
   "npmClient": "yarn",
   "webDir": "www",
   "server": {
-		"allowNavigation": [
-			"pmdragon.org"
-		]
-	}
+    "allowNavigation": [
+      "pmdragon.org"
+    ]
+  }
 }
