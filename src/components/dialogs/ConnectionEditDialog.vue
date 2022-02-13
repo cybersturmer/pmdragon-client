@@ -89,7 +89,8 @@ export default defineComponent({
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
-				this.formErrors.api_host = 'HTTPS for the host is unreachable'
+				const protocolUpperCased = this.$store.getters['connection/REST_PROTOCOL'].toUpperCase()
+				this.formErrors.api_host = `${protocolUpperCased} for the host is unreachable`
 			} finally {
 				this.connectionChecking = false
 			}
