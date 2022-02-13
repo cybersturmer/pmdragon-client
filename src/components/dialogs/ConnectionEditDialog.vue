@@ -89,7 +89,7 @@ export default defineComponent({
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
-				this.formErrors.api_host = 'Host is unreachable'
+				this.formErrors.api_host = 'HTTPS for the host is unreachable'
 			} finally {
 				this.connectionChecking = false
 			}
