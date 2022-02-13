@@ -6,8 +6,8 @@ android {
         applicationId "com.cybersturmer.pmdragon.pmdragonce"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 202050
-        versionName "2.2.5"
+        versionCode rootProject.ext.applicationVersionCode
+        versionName rootProject.ext.applicationVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
