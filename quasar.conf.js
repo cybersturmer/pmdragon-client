@@ -186,6 +186,8 @@ module.exports = configure(function (ctx) {
 		// Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
 		capacitor: {
 			id: 'com.cybersturmer.pmdragon.pmdragonce',
+			appName: 'PmDragon',
+			version: '2.2.5',
 			hideSplashscreen: true
 		},
 
