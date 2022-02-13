@@ -1,11 +1,10 @@
 import { boot } from 'quasar/wrappers'
-
 import * as Sentry from '@sentry/capacitor'
 
-export default boot(() => {
+export default boot(({ app }) => {
 	Sentry.init({
-		dsn: 'https://ebba8af7e8c94e90b12145c692617bf9@o514097.ingest.sentry.io/6202017',
-		release: 'pmdragon-mobile-application@' + process.env.npm_package_version,
+		dsn: 'https://8410b5d5deb2408597d0e08c2a5cbeb1@o514097.ingest.sentry.io/6202017',
+		release: 'pmdragon-mobile-application',
 		dist: '2'
 	})
 })
