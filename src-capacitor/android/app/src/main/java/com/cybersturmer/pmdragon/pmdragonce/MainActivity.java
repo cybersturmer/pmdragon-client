@@ -16,17 +16,5 @@ public class MainActivity extends BridgeActivity {
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       add(SentryCapacitor.class);
     }});
-
-    if (BuildConfig.DEBUG) {
-      EnableHttpsSelfSigned.enable(this.bridge);
-    }
-
-
-
-
-
-
-
-
   }
 }
