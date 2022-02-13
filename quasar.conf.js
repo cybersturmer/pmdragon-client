@@ -187,7 +187,6 @@ module.exports = configure(function (ctx) {
 		capacitor: {
 			id: 'com.cybersturmer.pmdragon.pmdragonce',
 			appName: 'PmDragon',
-			version: '2.2.5',
 			hideSplashscreen: true
 		},
 
