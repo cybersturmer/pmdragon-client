@@ -14,7 +14,7 @@ public class MainActivity extends BridgeActivity {
     super.onCreate(savedInstanceState);
 
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
-      add(SentryCapacitor.class)
+      add(SentryCapacitor.class);
     }});
 
     if (BuildConfig.DEBUG) {
