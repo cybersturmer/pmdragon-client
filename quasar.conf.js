@@ -9,21 +9,12 @@
 
 const fs = require('fs')
 
-// Custom process based constants
-const DEBUG = process.env.NODE_ENV === 'development'
-const HEROKU = process.env.HEROKU
-const IS_ANDROID = process.argv[3] === 'android'
-
-// Custom calculated constants
-const IS_HTTPS = !HEROKU && !IS_ANDROID
-const IS_SELF_SIGNED_HTTPS = DEBUG && !IS_ANDROID
-
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
 
 module.exports = configure(function (ctx) {
 	return {
-		https: IS_HTTPS,
+		https: ctx.dev && !ctx.mode.capacitor,
 		supportTS: true,
 		bin: {
 			linuxAndroidStudio: '/home/cs/programs/android-studio/bin/studio.sh'
@@ -37,7 +28,8 @@ module.exports = configure(function (ctx) {
 			'moment',
 			'server',
 			'sockets',
-			ctx.mode.capacitor ? 'capacitor' : ''
+			// eslint-disable-next-line no-constant-condition
+			ctx.mode.spa ? 'capacitor' : ''
 		],
 
 		// https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -77,7 +69,7 @@ module.exports = configure(function (ctx) {
 		// I created folder ssl with 2 certificates by this tool https://github.com/FiloSottile/mkcert
 		// Of course i didn't commit that :) So create it by yourself or set https: false
 		devServer: {
-			https: IS_SELF_SIGNED_HTTPS
+			https: ctx.dev && !ctx.mode.capacitor
 				? {
 					key: fs.readFileSync('ssl/localhost+2-key.pem'),
 					cert: fs.readFileSync('ssl/localhost+2.pem')
