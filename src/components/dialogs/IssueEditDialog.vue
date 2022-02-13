@@ -246,7 +246,7 @@ export default defineComponent({
 			return this.$refs.issueMessageSection
 		},
 		isMobileApplication () {
-			return this.$q.platform.is.cordova
+			return this.$q.platform.is.capacitor
 		},
 		issue () {
 			return this.$store.getters['current/ISSUE']
