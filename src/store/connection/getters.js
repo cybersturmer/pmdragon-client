@@ -1,11 +1,17 @@
-export function REST_ENDPOINT (state) {
-	const protocol = process.env.DEV ? 'http' : 'https'
-	return `${protocol}://${state.api_host}/api`
+export function REST_PROTOCOL () {
+	return process.env.DEV ? 'http' : 'https'
 }
 
-export function SOCKET_ENDPOINT (state) {
-	const protocol = process.env.DEV ? 'ws' : 'wss'
-	return `${protocol}://${state.api_host}/ws/`
+export function SOCKET_PROTOCOL () {
+	return process.env.DEV ? 'ws' : 'wss'
+}
+
+export function REST_ENDPOINT (state, getters) {
+	return `${getters.REST_PROTOCOL}://${state.api_host}/api`
+}
+
+export function SOCKET_ENDPOINT (state, getters) {
+	return `${getters.SOCKET_PROTOCOL}://${state.api_host}/ws/`
 }
 
 export function SOCKET_ENDPOINT_WITH_TOKEN (state, getters, rootState, rootGetters) {
@@ -16,9 +22,8 @@ export function API_HOST (state) {
 	return state.api_host
 }
 
-export function API_HOST_WITH_PROTOCOL (state) {
-	const protocol = process.env.DEV ? 'http' : 'https'
-	return `${protocol}://${state.api_host}`
+export function API_HOST_WITH_PROTOCOL (state, getters) {
+	return `${getters.REST_PROTOCOL}://${state.api_host}`
 }
 
 export function FRONTEND_HOST () {
