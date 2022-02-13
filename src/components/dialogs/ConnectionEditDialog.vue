@@ -9,7 +9,7 @@
           :rules="[isValidHost]"
           label="Host"
           label-color="secondary"
-          :prefix="prefix"
+          :prefix="`${prefix}://`"
           :error="isValid('formErrors', 'api_host')"
           :error-message="formErrors.api_host"
 					@keyup.enter="onOKClick"
@@ -89,7 +89,7 @@ export default defineComponent({
 				this.$emit('ok', this.formData)
 				this.hide()
 			} catch (e) {
-				const protocolUpperCased = this.$store.getters['connection/REST_PROTOCOL'].toUpperCase()
+				const protocolUpperCased = this.prefix.toUpperCase()
 				this.formErrors.api_host = `${protocolUpperCased} for the host is unreachable`
 			} finally {
 				this.connectionChecking = false
@@ -110,7 +110,7 @@ export default defineComponent({
 	},
 	computed: {
 		prefix () {
-			return !process.env.DEV ? 'https://' : 'http://'
+			return this.$store.getters['connection/REST_PROTOCOL']
 		}
 	}
 })
