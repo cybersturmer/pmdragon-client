@@ -1,12 +1,11 @@
 {
   "appId": "com.cybersturmer.pmdragon.pmdragonce",
   "appName": "PmDragon",
-  "bundledWebRuntime": false,
+  "bundledWebRuntime": true,
+  "android": {
+    "loggingBehaviour": "production",
+    "overrideUserAgent": "PmDragon Application"
+  },
   "npmClient": "yarn",
-  "webDir": "www",
-  "server": {
-    "allowNavigation": [
-      "pmdragon.org"
-    ]
-  }
+  "webDir": "www"
 }
