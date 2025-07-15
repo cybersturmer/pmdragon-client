@@ -7,9 +7,6 @@ Quasar (Vue.Js / JavaScript) based Cross-platform software.
 |---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
 | [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
-## Binaries (Linux / MacOs / Windows)
-[https://pmdragon.org/](https://pmdragon.org/)
-
 ## Deploy Web application by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
 
