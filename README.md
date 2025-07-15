@@ -2,8 +2,8 @@
 A project management tool for tracking tasks, epics, and bugs, with support for Agile boards and sprint management. Built with Quasar (Vue.js / JavaScript) as a cross-platform application.
 
 ## Useful links
-| Tools                                              |
-|------------------------------------------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
+| Video | Client | Tools |
+| ----- | --- | ------ |
 | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
 ## Deploy Web application by one click
