@@ -1,6 +1,5 @@
 # PmDragon Client
-Project management tool to track tasks, epics, bugs and manage it with agile boards and sprints.
-Quasar (Vue.Js / JavaScript) based Cross-platform software.
+A project management tool for tracking tasks, epics, and bugs, with support for Agile boards and sprint management. Built with Quasar (Vue.js / JavaScript) as a cross-platform application.
 
 ## Useful links
 | Backlog                                                                               | Video                                                                                          | API                                                         | Tools                                              |
