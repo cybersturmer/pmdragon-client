@@ -2,9 +2,9 @@
 A project management tool for tracking tasks, epics, and bugs, with support for Agile boards and sprint management. Built with Quasar (Vue.js / JavaScript) as a cross-platform application.
 
 ## Useful links
-| Backlog                                                                               | Video                                                                                          | API                                                         | Tools                                              |
-|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
-| [GitHub Project](https://github.com/cybersturmer/pmdragon/projects/1?fullscreen=true) | [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
+| Tools                                              |
+|------------------------------------------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
+| [YouTube](https://www.youtube.com/watch?v=WMnpMHidtAk&list=PLS5PU3BKdEGuFIM_HychaVfK8wwyLmTR0) | [GitHub](https://github.com/cybersturmer/pmdragon-core-api) | [GitHub](https://github.com/cybersturmer/pmdragon) |
 
 ## Deploy Web application by one click
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cybersturmer/pmdragon-client)
@@ -18,8 +18,8 @@ Special thanks to [JetBrains](https://www.jetbrains.com/?from=pmdragon) for prov
 
 ## License
 
-PmDragon is an MIT-licensed open source project.
+PmDragon is an open-source project licensed under the MIT License.
+© 2020–present Vladimir Shturmer. All rights reserved.
 
-Copyright ©2020-present Vladimir Shturmer
 
 [MIT License](https://en.wikipedia.org/wiki/MIT_License)
